@@ -5,7 +5,7 @@ var global_footer_mail = '<a href="mailto:hi@ipaperclip.icu">hi@ipaperclip.icu</
 var global_footer_paperclipFans = '<a href="https://t.me/paperclipfans">Telegram交流群</a>';
 var global_footer_github = '<a href="https://github.com/ipaperclip-icu/ipaperclip.icu">Github</a>'
 var global_footer_beian = '<a href="https://beian.miit.gov.cn">豫ICP备18018136号-9</a>';
-global_footer.innerHTML = 'V2.0.0 | ' + global_footer_statement + ' | ' + global_footer_videoFrom + ' | ' + global_footer_mail + ' | ' + global_footer_paperclipFans + ' | ' + global_footer_beian + '<hr>';
+global_footer.innerHTML = 'V2.0.1 | ' + global_footer_github + ' | '+ global_footer_statement + ' | ' + global_footer_videoFrom + ' | ' + global_footer_mail + ' | ' + global_footer_paperclipFans + ' | ' + global_footer_beian + '<hr>';
 
 var global_title = document.getElementById('global_title');
 global_title.onclick = function() {
