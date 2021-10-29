@@ -1,0 +1,86 @@
+site_name: ipaperclip.icu
+site_url: https://ipaperclip.hsyhx.top/
+site_description: ipaperclip.icu
+
+# Repository
+repo_url: https://github.com/ipaperclip-icu/ipaperclip.icu/
+repo_name: ipaperclip-icu/ipaperclip.icu
+edit_uri: ""
+
+# Configuration
+theme:
+  name: material
+  custom_dir: custom_theme/
+  # logo: https:/file.hsyhx.top/favicon.ico
+  language: zh
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: blue
+      toggle:
+        icon: material/weather-sunny
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: grey
+      accent: blue
+      toggle:
+        icon: material/weather-night
+  icon:
+    logo: fontawesome/solid/paperclip
+    repo: fontawesome/brands/github
+  features:
+    - navigation.instant
+    - navigation.top
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+nav:
+  - 首页: 'index.md'
+  - 评论区: '评论区.md'
+  - 回形针PaperClip:
+    - '回形针事务所': '/回形针PaperClip/回形针事务所/'
+    - '合作视频': '/回形针PaperClip/合作视频/'
+    - '回形针Live': '/回形针PaperClip/回形针Live/'
+    - 'Sp(特别节目)': '/回形针PaperClip/Sp/'
+    - Vol(常规节目):
+      - 'Vol.1-50': '/回形针PaperClip/Vol/1-50/'
+      - 'Vol.51-100': '/回形针PaperClip/Vol/51-100/'
+      - 'Vol.101-150': '/回形针PaperClip/Vol/101-150/'
+      - 'Vol.151-177': '/回形针PaperClip/Vol/151-177/'
+  - 基本操作: '基本操作.md'
+  - 干燥工厂: '干燥工厂.md'
+  - 灵光灯泡: '灵光灯泡.md'
+  - 原创专辑:
+    - 'FAILURES IN TIME 睿智时间': '/原创专辑/FAILURES IN TIME 睿智时间/'
+    - 'MULTIPLY 正片叠底': '/原创专辑/MULTIPLY 正片叠底/'
+    - 'Orbit Saturn 土星轨道': '/原创专辑/Orbit Saturn 土星轨道/'
+    - 'REAL GLOW 真实发光': '/原创专辑/REAL GLOW 真实发光/'
+    - 'Original Soundtrack 一个人工智能的诞生': '/原创专辑/Original Soundtrack 一个人工智能的诞生/'
+  - 演讲: '演讲.md'
+  - 其他: 
+    - '非视频': '/其他/非视频/'
+    - '第三方视频': '/其他/第三方视频/'
+    - '媒体报道': '/其他/媒体报道/'
+    - '其他原创视频': '/其他/其他原创视频/'
+  - 混乱博物馆:
+    - '混乱档案室': '/混乱博物馆/混乱档案室/'
+    - '其他': '/混乱博物馆/其他/'
+    - Vol(常规节目):
+      - 'Vol.1-50': '/混乱博物馆/Vol/1-50/'
+      - 'Vol.51-100': '/混乱博物馆/Vol/51-100/'
+      - 'Vol.101-150': '/混乱博物馆/Vol/101-150/'
+      - 'Vol.151-200': '/混乱博物馆/Vol/151-200/'
+      - 'Vol.201-250': '/混乱博物馆/Vol/201-250/'
+      - 'Vol.251-300': '/混乱博物馆/Vol/251-300/'
+      - 'Vol.301-323': '/混乱博物馆/Vol/301-323/'
+  - 黑水报告: '黑水报告.md'
