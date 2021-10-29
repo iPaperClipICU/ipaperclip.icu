@@ -1,15 +1,9 @@
 # ipaperclip.icu
 
-当前最新版本: V3.0.1
+网址: [ipaperclip.icu](ipaperclip.icu) | [ipaperclip.hsyhx.top](https://ipaperclip.hsyhx.top/)
 
-V3.0.0版本是幕后运营者花了7天时间从入门Vue开始写的, 很明显, 虽然比V2.X V1.X好点, 但是并没有好多少
+## TODO
 
-欢迎提交PR
+这里写了一些未来 **可能** 会上线的功能
 
-## 感谢
-
-[Vue](https://github.com/vuejs/vue)
-
-[NaiveUI](https://github.com/TuSimple/naive-ui)
-
-[资源来源](https://ipaperclip.vercel.app/) | [Ken418](https://github.com/Ken418)
+[ ] 从 [互联网档案馆](https://zh.wikipedia.org/wiki/互联网档案馆) 备份 [回形针手册](ipaperclip.net) ([页面存档备份](https://web.archive.org/web/20200423121847/https://ipaperclip.net/#/))
