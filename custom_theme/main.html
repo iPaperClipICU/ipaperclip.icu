@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block libs %}
+  <!-- 超级播放器 -->
+  <link href="{{ base_url }}/tcplayer/tcplayer.min.css" rel="stylesheet"/>
+  <script src="{{ base_url }}/tcplayer/hls.min.0.13.2m.js"></script>
+  <script src="{{ base_url }}/tcplayer/tcplayer.v4.2.2.min.js"></script>
+  <!-- Card -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="IpaperclipIcu">
+  <meta property="og:url" content="https://ipaperclip.hsyhx.top/">
+  <meta property="og:site_name" content="ipaperclip.hsyhx.top">
+  <meta property="og:description" content="回形针&混乱博物馆视频备份|回形针手册备份">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:image" content="/favicon.png">
+  <!-- 腾讯云前端性能监控 -->
+  <script src="https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js"></script>
+  <script>
+    const aegis = new Aegis({
+      id: '1kJp7rNkwbedNoX6em', // 上报 id
+      reportApiSpeed: true, // 接口测速
+      reportAssetSpeed: true, // 静态资源测速
+      spa: true // spa 应用页面跳转的时候开启 pv 计算
+    });
+  </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0KRKNCPZCF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-0KRKNCPZCF');
+  </script>
+{% endblock %}
+
+{% block content %}
+	{{ super() }}
+    <script src="{{ base_url }}/tcplayer/config{{ page.abs_url }}index.js"></script>
+{% endblock %}
