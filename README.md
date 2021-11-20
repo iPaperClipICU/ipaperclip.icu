@@ -12,7 +12,7 @@
 
 ![response-time](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/response-time.json) | ![response-time-day](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/response-time-day.json) ![response-time-week](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/response-time-week.json) ![response-time-month](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/response-time-month.json) ![response-time-year](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/response-time-year.json)
 
-数据来源 [state.ipaperclip.icu](state.ipaperclip.icu) | [Github ipaperclip-icu/state](https://github.com/ipaperclip-icu/state)
+数据来源 [state.ipaperclip.icu](https://state.ipaperclip.icu/) | [Github ipaperclip-icu/state](https://github.com/ipaperclip-icu/state)
 
 ## 感谢
 
