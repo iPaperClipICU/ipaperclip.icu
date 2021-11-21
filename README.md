@@ -24,7 +24,7 @@
 
 ## 联系我
 
-[Telegram Bot](https://t.me/ipaperclipIcu_Bot) | [Github Discussions](https://github.com/ipaperclip-icu/ipaperclip.icu/discussions)
+[Telegram Bot](https://t.me/ipaperclipIcu_Bot) | [Github Discussions](https://github.com/ipaperclip-icu/ipaperclip.icu/discussions) | Mail: hi@ipaperclip.icu
 
 ## 相关链接
 
