@@ -6,12 +6,6 @@
 
 网址: [ipaperclip.icu](ipaperclip.icu) | [ipaperclip.hsyhx.top](https://ipaperclip.hsyhx.top/)
 
-## 网站状态
-
-![status](https://api-img.ipaperclip.icu/status/) | ![uptime-7](https://api-img.ipaperclip.icu/uptime-7/) ![uptime-30](https://api-img.ipaperclip.icu/uptime-30/)
-
-数据来源 [status.ipaperclip.icu](https://status.ipaperclip.icu/) | [Github ipaperclip-icu/status](https://github.com/ipaperclip-icu/status)
-
 ## 联系我
 
 [Telegram Bot](https://t.me/ipaperclipIcu_Bot) | [Github Discussions](https://github.com/ipaperclip-icu/ipaperclip.icu/discussions) | Mail: <a href="mailto:hi@ipaperclip.icu">hi@ipaperclip.icu</a>
