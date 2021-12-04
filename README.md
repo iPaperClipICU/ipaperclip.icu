@@ -8,26 +8,20 @@
 
 ## 网站状态
 
-![uptime](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/uptime.json) | ![uptime-day](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/uptime-day.json) ![uptime-week](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/uptime-week.json) ![uptime-month](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/uptime-month.json) ![uptime-year](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/uptime-year.json)
+![status](https://api-img.ipaperclip.icu/status/) | ![uptime-7](https://api-img.ipaperclip.icu/uptime-7/) ![uptime-30](https://api-img.ipaperclip.icu/uptime-30/)
 
-![response-time](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/response-time.json) | ![response-time-day](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/response-time-day.json) ![response-time-week](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/response-time-week.json) ![response-time-month](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/response-time-month.json) ![response-time-year](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ipaperclip-icu/state/master/api/ipaperclip-icu/response-time-year.json)
-
-数据来源 [state.ipaperclip.icu](https://state.ipaperclip.icu/) | [Github ipaperclip-icu/state](https://github.com/ipaperclip-icu/state)
-
-## 感谢
-
-[mkdocs](https://github.com/mkdocs/mkdocs/) | [mkdocs-material](https://github.com/squidfunk/mkdocs-material)
-
-[失落回形针 | 回形针PaperClip&大象公会视频归档站](https://ipaperclip.vercel.app/) ([Ken418](https://github.com/Ken418/))
-
-[Wandering PaperClip 流浪回形针](http://wandering-paperclip.glitch.me/)
+数据来源 [status.ipaperclip.icu](https://status.ipaperclip.icu/) | [Github ipaperclip-icu/status](https://github.com/ipaperclip-icu/status)
 
 ## 联系我
 
-[Telegram Bot](https://t.me/ipaperclipIcu_Bot) | [Github Discussions](https://github.com/ipaperclip-icu/ipaperclip.icu/discussions) | Mail: hi@ipaperclip.icu
+[Telegram Bot](https://t.me/ipaperclipIcu_Bot) | [Github Discussions](https://github.com/ipaperclip-icu/ipaperclip.icu/discussions) | Mail: <a href="mailto:hi@ipaperclip.icu">hi@ipaperclip.icu</a>
 
 ## 相关链接
 
-[基本操作非官方频道](https://t.me/paperclipfans) | [基本操作非官方粉丝群](https://t.me/paperclipfans)
+[ClippyPoint | 回形针PaperClip、大象公会视频归档站](https://paperclip.tk/) ([Ken418](https://github.com/Ken418/))  
+[Wandering PaperClip 流浪回形针](https://wandering-paperclip.glitch.me/)  
+[paper-clips.purestream.eu.org](https://paper-clips.purestream.eu.org/)  
+[paperclip.wiki](https://paperclip.wiki/) | [一个更全的分支: just-prog.github.io/paperclipfans](https://just-prog.github.io/paperclipfans/)
 
+[基本操作非官方频道](https://t.me/paperclipfans) | [基本操作非官方粉丝群](https://t.me/paperclipfans)  
 [干燥工厂](https://shop362189133.taobao.com/) | [基本操作](https://jibencaozuo.com/)
