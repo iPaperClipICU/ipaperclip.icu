@@ -4,4 +4,4 @@
 
 **视频大小**: 142.0 MB
 
-<video id="V-c069f29a03cf169769efb159914c9e8e" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.126 如何让帆船逆风航行？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

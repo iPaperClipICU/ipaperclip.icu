@@ -4,4 +4,4 @@
 
 **视频大小**: 56.18 MB
 
-<video id="V-045deeb8903536607149f172c983594a" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.012 不存在的洛杉矶.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

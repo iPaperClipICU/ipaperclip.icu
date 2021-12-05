@@ -4,4 +4,4 @@
 
 **视频大小**: 47.72 MB
 
-<video id="V-b2a0c9d4775f011473c695f5850d5686" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.046 为什么中国人爱玉，印度人爱宝石.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

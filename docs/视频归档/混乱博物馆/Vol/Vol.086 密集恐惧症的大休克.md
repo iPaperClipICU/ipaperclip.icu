@@ -4,4 +4,4 @@
 
 **视频大小**: 69.39 MB
 
-<video id="V-4b7e341d8c6861f6f9b9d63c5898abcf" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.086 密集恐惧症的大休克.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

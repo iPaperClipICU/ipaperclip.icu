@@ -4,4 +4,4 @@
 
 **视频大小**: 79.17 MB
 
-<video id="V-ceded55e8277a8a83cf8e78b2333c153" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.035 龙的简史.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

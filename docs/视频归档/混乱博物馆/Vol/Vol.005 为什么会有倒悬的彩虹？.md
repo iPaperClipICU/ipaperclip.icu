@@ -4,4 +4,4 @@
 
 **视频大小**: 12.27 MB
 
-<video id="V-952feea23e91819ab572f02cb158a4f7" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.005 为什么会有倒悬的彩虹？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

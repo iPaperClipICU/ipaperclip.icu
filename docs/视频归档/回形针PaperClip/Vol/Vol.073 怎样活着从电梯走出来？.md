@@ -4,4 +4,4 @@
 
 **视频大小**: 49.27 MB
 
-<video id="V-1ba14a19ed950160a9afaf06416979c8" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.073 怎样活着从电梯走出来？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

@@ -4,4 +4,4 @@
 
 **视频大小**: 50.8 MB
 
-<video id="V-7864d10f7b2cddc92212ffb8453a6105" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.057 原子弹制造指南.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

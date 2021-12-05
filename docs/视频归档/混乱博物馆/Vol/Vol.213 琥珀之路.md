@@ -4,4 +4,4 @@
 
 **视频大小**: 74.3 MB
 
-<video id="V-22cdd96155399064fe73c2191c3c1e90" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.213 琥珀之路.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

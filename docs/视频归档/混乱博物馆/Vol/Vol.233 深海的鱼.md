@@ -4,4 +4,4 @@
 
 **视频大小**: 43.19 MB
 
-<video id="V-62cf39652ded26fdbc5b61ea10efdc17" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.233 深海的鱼.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

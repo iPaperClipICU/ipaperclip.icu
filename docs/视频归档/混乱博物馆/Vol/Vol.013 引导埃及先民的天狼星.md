@@ -4,4 +4,4 @@
 
 **视频大小**: 43.32 MB
 
-<video id="V-ce48207fdb6d0b86d0100fc43312ac95" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.013 引导埃及先民的天狼星.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

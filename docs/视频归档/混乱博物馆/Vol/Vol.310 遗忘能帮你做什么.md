@@ -4,4 +4,4 @@
 
 **视频大小**: 79.52 MB
 
-<video id="V-96a4eb180e123276af602c9cc0ec5632" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.310 遗忘能帮你做什么.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

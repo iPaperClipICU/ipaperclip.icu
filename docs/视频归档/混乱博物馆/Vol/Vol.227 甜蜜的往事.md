@@ -4,4 +4,4 @@
 
 **视频大小**: 80.25 MB
 
-<video id="V-842fb82a4b1a8065eb8ee84e41541c73" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.227 甜蜜的往事.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

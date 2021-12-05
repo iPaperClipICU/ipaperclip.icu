@@ -4,4 +4,4 @@
 
 **视频大小**: 92.46 MB
 
-<video id="V-34a199b5aa30a92aa51c471e36d800c4" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.230 旋涡.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

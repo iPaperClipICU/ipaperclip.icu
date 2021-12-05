@@ -4,4 +4,4 @@
 
 **视频大小**: 61.85 MB
 
-<video id="V-20e2b2b5d58a29a4f0fec1773fa44bd6" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.049 一种新的穿越方式.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

@@ -4,4 +4,4 @@
 
 **视频大小**: 38.93 MB
 
-<video id="V-0b1c315c19ec09ab2b191416987cf358" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.028 如何显示准确的颜色.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

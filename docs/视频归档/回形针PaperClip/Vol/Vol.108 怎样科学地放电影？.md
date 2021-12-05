@@ -4,4 +4,4 @@
 
 **视频大小**: 52.92 MB
 
-<video id="V-75c600de6e647c3f9748e6bf97341ea9" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.108 怎样科学地放电影？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

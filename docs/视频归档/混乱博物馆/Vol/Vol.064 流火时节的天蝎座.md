@@ -4,4 +4,4 @@
 
 **视频大小**: 63.42 MB
 
-<video id="V-48a131ed3153809eae10d3880f6386fe" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.064 流火时节的天蝎座.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

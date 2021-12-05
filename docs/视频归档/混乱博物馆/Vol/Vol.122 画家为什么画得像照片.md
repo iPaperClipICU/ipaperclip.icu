@@ -4,4 +4,4 @@
 
 **视频大小**: 77.29 MB
 
-<video id="V-8938e0887592a710db1b544edabaae05" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.122 画家为什么画得像照片.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

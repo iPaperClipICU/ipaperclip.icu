@@ -4,4 +4,4 @@
 
 **视频大小**: 57.81 MB
 
-<video id="V-e24849a1ae5c7eec2b2ee1ff4ace32cf" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.131 地心说错在哪？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

@@ -4,4 +4,4 @@
 
 **视频大小**: 44.05 MB
 
-<video id="V-79ab33f0ebe345022086b5b22370206b" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.065 巫婆为什么戴尖帽子.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

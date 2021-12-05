@@ -4,4 +4,4 @@
 
 **视频大小**: 165.45 MB
 
-<video id="V-b3511b6b5233049caa3cd5e8130d8ffc" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.317 幽灵军团：从戒灵到女巫.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>
