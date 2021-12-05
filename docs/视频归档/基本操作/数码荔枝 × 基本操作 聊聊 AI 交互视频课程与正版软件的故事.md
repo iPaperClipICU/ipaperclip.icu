@@ -4,4 +4,4 @@
 
 **视频大小**: 123.28 MB
 
-<video id="V-70294701c319e4cc914eca23493acebe" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/基本操作/数码荔枝 × 基本操作 聊聊 AI 交互视频课程与正版软件的故事.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

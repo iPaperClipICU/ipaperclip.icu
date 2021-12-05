@@ -4,4 +4,4 @@
 
 **视频大小**: 85.1 MB
 
-<video id="V-cf69d8eec7004bf268dbe7c1c63a48f4" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.270 怎么冻猪肉更好吃.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

@@ -4,4 +4,4 @@
 
 **视频大小**: 60.31 MB
 
-<video id="V-ef3300d3b09e109b277a39917c8c70a8" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.038 香蕉育成指南.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

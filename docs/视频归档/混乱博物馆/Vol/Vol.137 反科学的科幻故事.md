@@ -4,4 +4,4 @@
 
 **视频大小**: 43.63 MB
 
-<video id="V-c9b3355c1bfc982ca9f7dc37b70c4b70" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.137 反科学的科幻故事.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

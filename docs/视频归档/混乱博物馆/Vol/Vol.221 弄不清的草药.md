@@ -4,4 +4,4 @@
 
 **视频大小**: 98.24 MB
 
-<video id="V-ae3e1605056316b89b63ba220762abec" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.221 弄不清的草药.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

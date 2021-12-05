@@ -4,4 +4,4 @@
 
 **视频大小**: 57.41 MB
 
-<video id="V-59e1e54f54e538a08852fdad5871dec2" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/合作视频/PaperClip × OLAY 是什么决定了你的肤色？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

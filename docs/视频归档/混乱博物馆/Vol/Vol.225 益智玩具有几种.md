@@ -4,4 +4,4 @@
 
 **视频大小**: 68.22 MB
 
-<video id="V-b67841885b8301eb8efc800e7fcc9844" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.225 益智玩具有几种.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

@@ -4,4 +4,4 @@
 
 **视频大小**: 101.94 MB
 
-<video id="V-28d5797e3aa7c028aaed627237d00d99" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.293 爱神丘比特之迷.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

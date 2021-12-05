@@ -4,4 +4,4 @@
 
 **视频大小**: 100.3 MB
 
-<video id="V-f7cd5662b2adf09d3881b2296e33e39d" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.269 为什么我的世界是立体的.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

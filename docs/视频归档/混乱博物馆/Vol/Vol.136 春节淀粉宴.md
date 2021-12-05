@@ -4,4 +4,4 @@
 
 **视频大小**: 54.15 MB
 
-<video id="V-9ec61026a5e81f6f0732d32edfaefa8d" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.136 春节淀粉宴.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

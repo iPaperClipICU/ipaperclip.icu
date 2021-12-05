@@ -4,4 +4,4 @@
 
 **视频大小**: 43.55 MB
 
-<video id="V-c4d6164b6e2ef75638c8344b2264fcb4" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.074 图灵斑图：生命图案的奥秘.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

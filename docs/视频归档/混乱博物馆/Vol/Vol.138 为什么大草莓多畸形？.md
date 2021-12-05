@@ -4,4 +4,4 @@
 
 **视频大小**: 64.12 MB
 
-<video id="V-cd1e181c4c8b7e287df7ff745e0666fd" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.138 为什么大草莓多畸形？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

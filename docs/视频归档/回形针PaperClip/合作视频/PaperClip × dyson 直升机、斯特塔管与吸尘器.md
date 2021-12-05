@@ -4,4 +4,4 @@
 
 **视频大小**: 58.06 MB
 
-<video id="V-04d77b3008b93ff020925c6aa16f4bca" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/合作视频/PaperClip × dyson 直升机、斯特塔管与吸尘器.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

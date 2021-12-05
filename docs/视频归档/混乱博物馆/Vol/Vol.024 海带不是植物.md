@@ -4,4 +4,4 @@
 
 **视频大小**: 45.49 MB
 
-<video id="V-50488128963582120e306d0932b71bff" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.024 海带不是植物.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

@@ -4,4 +4,4 @@
 
 **视频大小**: 107.24 MB
 
-<video id="V-13963b4d666ac61c8499c303aded0dd8" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.308 人没有胆会怎样.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

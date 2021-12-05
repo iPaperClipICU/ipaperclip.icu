@@ -4,4 +4,4 @@
 
 **视频大小**: 46.82 MB
 
-<video id="V-1658035de0318dc78c03dd1b61c969da" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.150 狙击手如何一枪毙命？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

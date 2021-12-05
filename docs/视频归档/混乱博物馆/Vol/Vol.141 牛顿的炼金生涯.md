@@ -4,4 +4,4 @@
 
 **视频大小**: 85.54 MB
 
-<video id="V-c6c56519744337d580b81c3a6f5dfcc0" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.141 牛顿的炼金生涯.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

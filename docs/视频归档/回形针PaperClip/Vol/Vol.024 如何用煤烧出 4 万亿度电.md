@@ -4,4 +4,4 @@
 
 **视频大小**: 61.95 MB
 
-<video id="V-6e7512e710ed7671bd995569bd683c1e" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.024 如何用煤烧出 4 万亿度电.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

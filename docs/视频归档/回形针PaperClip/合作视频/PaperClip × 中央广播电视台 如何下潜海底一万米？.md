@@ -4,4 +4,4 @@
 
 **视频大小**: 62.55 MB
 
-<video id="V-cdb9678c3eba2265a3af782594acb633" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/合作视频/PaperClip × 中央广播电视台 如何下潜海底一万米？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

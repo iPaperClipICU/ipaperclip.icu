@@ -4,4 +4,4 @@
 
 **视频大小**: 90.18 MB
 
-<video id="V-a036dc078bc9fe46f845e4febfd5174b" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/灵光灯泡/03 K歌不用慌！这几招帮你称霸 KTV.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

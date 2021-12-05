@@ -4,4 +4,4 @@
 
 **视频大小**: 49.17 MB
 
-<video id="V-42ea0c8e6c75662c02733ea1eb375c95" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.105 一个黃色的故事.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

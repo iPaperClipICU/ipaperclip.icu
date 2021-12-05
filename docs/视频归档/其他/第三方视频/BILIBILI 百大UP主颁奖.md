@@ -4,4 +4,4 @@
 
 **视频大小**: 87.84 MB
 
-<video id="V-b8b02b245fbc441645a4701356450c92" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/其他/第三方视频/BILIBILI 百大UP主颁奖.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>
