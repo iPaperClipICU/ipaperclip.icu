@@ -4,4 +4,4 @@
 
 **视频大小**: 81.33 MB
 
-<video id="V-76241ac9a42ff7273fa0d44cdfc7ff38" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.121 怎样才能饭来张口.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

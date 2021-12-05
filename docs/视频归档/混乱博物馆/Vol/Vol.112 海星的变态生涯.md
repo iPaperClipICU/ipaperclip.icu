@@ -4,4 +4,4 @@
 
 **视频大小**: 44.98 MB
 
-<video id="V-7b2b9d794cf92e16ef7b6700ec85c351" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.112 海星的变态生涯.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

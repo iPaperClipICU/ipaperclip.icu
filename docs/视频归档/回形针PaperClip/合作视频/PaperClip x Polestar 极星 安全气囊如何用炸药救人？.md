@@ -4,4 +4,4 @@
 
 **视频大小**: 87.94 MB
 
-<video id="V-e49ddcc4e569b9af541aba65de9a8dcb" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/合作视频/PaperClip x Polestar 极星 安全气囊如何用炸药救人？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

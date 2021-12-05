@@ -4,4 +4,4 @@
 
 **视频大小**: 42.49 MB
 
-<video id="V-ae102ee24bf764043b17c1413ca2a317" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.057 那些年我们吃过的人.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

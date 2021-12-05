@@ -4,4 +4,4 @@
 
 **视频大小**: 113.3 MB
 
-<video id="V-4173679645584db12e607e18d992f2cf" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.082  如何成为一名动感 DJ？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

@@ -4,4 +4,4 @@
 
 **视频大小**: 105.14 MB
 
-<video id="V-6d34b4daee6f78401a18f39040633509" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/合作视频/PaperClip × WWF 如何快速消灭全世界的森林？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

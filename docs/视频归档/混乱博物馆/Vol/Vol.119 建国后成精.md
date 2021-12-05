@@ -4,4 +4,4 @@
 
 **视频大小**: 73.88 MB
 
-<video id="V-eeaabf505a2c596e63730460498080a5" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.119 建国后成精.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

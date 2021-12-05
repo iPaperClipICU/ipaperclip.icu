@@ -4,4 +4,4 @@
 
 **视频大小**: 25.5 MB
 
-<video id="V-385aab7dd5c2ecf21533898f3bd803d8" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.063 你为什么口腔溃疡.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

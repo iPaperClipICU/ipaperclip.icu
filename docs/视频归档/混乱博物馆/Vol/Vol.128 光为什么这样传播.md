@@ -4,4 +4,4 @@
 
 **视频大小**: 17.75 MB
 
-<video id="V-96491cf40a00bd74b01328624894e978" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.128 光为什么这样传播.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

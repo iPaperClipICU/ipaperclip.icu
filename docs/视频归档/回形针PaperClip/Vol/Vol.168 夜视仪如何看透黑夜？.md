@@ -4,4 +4,4 @@
 
 **视频大小**: 73.29 MB
 
-<video id="V-07e6a8e045c67a418397dec6674153f8" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.168 夜视仪如何看透黑夜？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

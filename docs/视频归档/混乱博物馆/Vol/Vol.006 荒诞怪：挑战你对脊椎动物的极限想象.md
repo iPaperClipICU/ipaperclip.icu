@@ -4,4 +4,4 @@
 
 **视频大小**: 18.0 MB
 
-<video id="V-ef587b89f814235880bfac1a0df3daa6" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.006 荒诞怪：挑战你对脊椎动物的极限想象.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

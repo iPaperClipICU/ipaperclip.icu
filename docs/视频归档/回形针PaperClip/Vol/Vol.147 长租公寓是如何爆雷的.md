@@ -4,4 +4,4 @@
 
 **视频大小**: 136.15 MB
 
-<video id="V-a2ea7489fbc0183173634c14c7616826" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.147 长租公寓是如何爆雷的.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

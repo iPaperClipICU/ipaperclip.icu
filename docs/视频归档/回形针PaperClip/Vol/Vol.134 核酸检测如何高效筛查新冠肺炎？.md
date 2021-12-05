@@ -4,4 +4,4 @@
 
 **视频大小**: 49.75 MB
 
-<video id="V-4aa77724af844df2755554579dbb3534" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.134 核酸检测如何高效筛查新冠肺炎？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

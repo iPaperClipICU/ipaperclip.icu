@@ -4,4 +4,4 @@
 
 **视频大小**: 39.73 MB
 
-<video id="V-c12c6fa27eb8583da8bccbae7a630195" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.039 人为什么有五根指头.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

@@ -4,4 +4,4 @@
 
 **视频大小**: 71.19 MB
 
-<video id="V-f09726efac145d1d833589b9cc26bb71" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.318 如何成为一条合格的金鱼.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

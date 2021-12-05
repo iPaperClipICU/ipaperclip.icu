@@ -4,4 +4,4 @@
 
 **视频大小**: 19.57 MB
 
-<video id="V-e0579810d614e092b46ac1030be5e457" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.089 哥德尔、埃舍尔、巴赫.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

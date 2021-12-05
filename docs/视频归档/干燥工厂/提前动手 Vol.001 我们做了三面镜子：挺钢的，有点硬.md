@@ -4,4 +4,4 @@
 
 **视频大小**: 39.38 MB
 
-<video id="V-f329baa08df7ef6ace661bd17caa2c50" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/干燥工厂/提前动手 Vol.001 我们做了三面镜子：挺钢的，有点硬.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

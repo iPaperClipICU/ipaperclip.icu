@@ -4,4 +4,4 @@
 
 **视频大小**: 28.24 MB
 
-<video id="V-903593a95d7c061674ef796025122854" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.072 咖啡对你做了什么？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

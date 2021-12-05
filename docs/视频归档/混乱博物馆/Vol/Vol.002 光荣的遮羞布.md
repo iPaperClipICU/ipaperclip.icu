@@ -4,4 +4,4 @@
 
 **视频大小**: 25.57 MB
 
-<video id="V-200b8c7dbb0ed085bad610d0df4fa66f" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.002 光荣的遮羞布.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

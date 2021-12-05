@@ -4,4 +4,4 @@
 
 **视频大小**: 86.11 MB
 
-<video id="V-d976c12b642ec1e8fac91ab678af39cb" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.164 免税店为什么能让你薅羊毛？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

@@ -1,3 +1,4 @@
+# mkdocs.yml
 site_name: 回形针重症监护室 | ipaperclip.icu
 site_url: https://ipaperclip.icu/
 site_description: ipaperclip.icu
@@ -10,7 +11,7 @@ copyright: <a href="https://beian.miit.gov.cn">豫ICP备18018136号-9</a>
 
 theme:
   name: material
-  custom_dir: custom_theme/
+  custom_dir: customTheme/
   favicon: favicon.ico
   language: zh
   palette:
@@ -26,7 +27,7 @@ theme:
       toggle:
         icon: material/weather-night
   icon:
-    logo: fontawesome/solid/paperclip
+    logo: fontawesome/solid/hospital-alt
     repo: fontawesome/brands/github
   features:
     - navigation.top
@@ -52,6 +53,7 @@ markdown_extensions:
   - pymdownx.tilde
   - attr_list
   - md_in_html
+  - meta
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.emoji:
@@ -62,9 +64,9 @@ nav:
   - 主页|导航:
     - 首页: 'index.md'
     - 视频归档 - 导航: '视频归档\导航.md'
-    - 评论区: '评论区.md'
+    - 诡辩术: '诡辩术.md'
   - 视频归档:
-    - 视频归档 - 首页: '视频归档\index.md'
+    - 首页: '视频归档\index.md'
     - 回形针PaperClip:
       - 回形针事务所:
         - '回形针事务所 001 运动鞋和非牛顿流体': '视频归档\回形针PaperClip\回形针事务所\回形针事务所 001 运动鞋和非牛顿流体.md'
@@ -122,12 +124,12 @@ nav:
         - 'Sp.005 关于新冠肺炎的一切': '视频归档\回形针PaperClip\Sp\Sp.005 关于新冠肺炎的一切.md'
         - 'Sp.006 幕后故事：回形针是怎么做视频的': '视频归档\回形针PaperClip\Sp\Sp.006 幕后故事：回形针是怎么做视频的.md'
         - 'Sp.007 工作汇报：最近半年我们都干了什么？': '视频归档\回形针PaperClip\Sp\Sp.007 工作汇报：最近半年我们都干了什么？.md'
-        - 'Sp.008 和 10 个批评者一块聊天': '视频归档\回形针PaperClip\Sp\Sp.008 和 10 个批评者一块聊天.md'
         - 'Sp.008 预告片：和 10 个批评者一块视频聊天 温馨版': '视频归档\回形针PaperClip\Sp\Sp.008 预告片：和 10 个批评者一块视频聊天 温馨版.md'
+        - 'Sp.008 和 10 个批评者一块聊天': '视频归档\回形针PaperClip\Sp\Sp.008 和 10 个批评者一块聊天.md'
         - 'Sp.008 预告片：和 10 个批评者一块视频聊天': '视频归档\回形针PaperClip\Sp\Sp.008 预告片：和 10 个批评者一块视频聊天.md'
         - 'Sp.009 2020 年回形针赚了多少钱？': '视频归档\回形针PaperClip\Sp\Sp.009 2020 年回形针赚了多少钱？.md'
-        - 'Sp.010 直面问题：我们为什么又上热搜了？ P2': '视频归档\回形针PaperClip\Sp\Sp.010 直面问题：我们为什么又上热搜了？ P2.md'
         - 'Sp.010 直面问题：我们为什么又上热搜了？': '视频归档\回形针PaperClip\Sp\Sp.010 直面问题：我们为什么又上热搜了？.md'
+        - 'Sp.010 直面问题：我们为什么又上热搜了？ P2': '视频归档\回形针PaperClip\Sp\Sp.010 直面问题：我们为什么又上热搜了？ P2.md'
       - Vol(常规节目):
         - 'Vol.001 摄像头如何监控十三亿人': '视频归档\回形针PaperClip\Vol\Vol.001 摄像头如何监控十三亿人.md'
         - 'Vol.002 如何制造爆款冥币': '视频归档\回形针PaperClip\Vol\Vol.002 如何制造爆款冥币.md'
@@ -450,8 +452,8 @@ nav:
         - '2021春节快乐': '视频归档\其他\非视频\2021春节快乐.md'
         - 'MULTIPLY 正片叠底': '视频归档\其他\非视频\MULTIPLY 正片叠底.md'
         - 'PlayGround 搭建你的神经网络 - 彭寒': '视频归档\其他\非视频\PlayGround 搭建你的神经网络 - 彭寒.md'
-        - 'Vol.100解谜(2)': '视频归档\其他\非视频\Vol.100解谜(2).md'
         - 'Vol.100解谜': '视频归档\其他\非视频\Vol.100解谜.md'
+        - 'Vol.100解谜(2)': '视频归档\其他\非视频\Vol.100解谜(2).md'
         - '《一个人工智能的诞生》BGM': '视频归档\其他\非视频\《一个人工智能的诞生》BGM.md'
         - '一个人工智能的诞生实体兑换卡': '视频归档\其他\非视频\一个人工智能的诞生实体兑换卡.md'
         - '你能给我磕个头吗？': '视频归档\其他\非视频\你能给我磕个头吗？.md'

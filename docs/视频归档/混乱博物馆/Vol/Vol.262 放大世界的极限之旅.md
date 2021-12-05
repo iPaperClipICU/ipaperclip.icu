@@ -4,4 +4,4 @@
 
 **视频大小**: 47.45 MB
 
-<video id="V-ff89d22c8b7b53901cd41c6cdb69dc2b" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.262 放大世界的极限之旅.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

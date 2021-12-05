@@ -4,4 +4,4 @@
 
 **视频大小**: 45.09 MB
 
-<video id="V-e39d9c41657b87483540fc68f2859ddd" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.129 臭味消除指南.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

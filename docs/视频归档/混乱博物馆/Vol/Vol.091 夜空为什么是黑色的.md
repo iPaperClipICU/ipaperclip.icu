@@ -4,4 +4,4 @@
 
 **视频大小**: 60.08 MB
 
-<video id="V-73d1243ff6c138ce0c6866e51cf8b15c" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.091 夜空为什么是黑色的.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

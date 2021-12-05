@@ -4,4 +4,4 @@
 
 **视频大小**: 44.3 MB
 
-<video id="V-99293eb00785e94e54fbe5c79acda6ee" width="512" height="288" preload="none" playsinline webkit-playsinline></video>
+<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.054 光年不止是长度.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>
