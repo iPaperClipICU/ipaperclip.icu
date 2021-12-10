@@ -5,7 +5,9 @@ title: 主页 - 首页
 # 首页
 
 !!! info "公告"
-	域名更改为 **ipaperclip.icu**, 访问 **ipaperclip.hsyhx.top** 将会302跳转到 **ipaperclip.icu**
+	域名更改为 **ipaperclip.icu**, 访问 **ipaperclip.hsyhx.top** 将会302跳转到 **ipaperclip.icu**  
+	新增 **文字稿**  
+	恭喜构建时间超过80s
 
 He, 这里是 ipaperclip.icu
 
