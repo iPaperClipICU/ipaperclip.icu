@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Sp.002 我们做了一个真正的当代生活说明书
-
-> 回形针PaperClip / Sp / Sp.002 我们做了一个真正的当代生活说明书
-
-**视频大小**: 11.81 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Sp/Sp.002 我们做了一个真正的当代生活说明书.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

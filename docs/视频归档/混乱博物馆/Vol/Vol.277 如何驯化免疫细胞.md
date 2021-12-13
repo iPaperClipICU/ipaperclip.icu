@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.277 如何驯化免疫细胞
-
-> 混乱博物馆 / Vol / Vol.277 如何驯化免疫细胞
-
-**视频大小**: 104.38 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.277 如何驯化免疫细胞.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

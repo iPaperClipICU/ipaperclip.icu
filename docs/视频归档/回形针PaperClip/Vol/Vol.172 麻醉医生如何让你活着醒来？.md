@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.172 麻醉医生如何让你活着醒来？
-
-> 回形针PaperClip / Vol / Vol.172 麻醉医生如何让你活着醒来？
-
-**视频大小**: 89.02 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.172 麻醉医生如何让你活着醒来？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

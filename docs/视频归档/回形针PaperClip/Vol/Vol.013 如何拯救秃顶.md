@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.013 如何拯救秃顶
-
-> 回形针PaperClip / Vol / Vol.013 如何拯救秃顶
-
-**视频大小**: 47.98 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.013 如何拯救秃顶.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

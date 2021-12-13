@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.095 螺壳里的万籁
-
-> 混乱博物馆 / Vol / Vol.095 螺壳里的万籁
-
-**视频大小**: 28.61 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.095 螺壳里的万籁.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

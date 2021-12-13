@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.089 如何打造一款强劲的马达？
-
-> 回形针PaperClip / Vol / Vol.089 如何打造一款强劲的马达？
-
-**视频大小**: 55.74 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.089 如何打造一款强劲的马达？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

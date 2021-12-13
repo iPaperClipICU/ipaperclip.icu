@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.093 为什么你炒股总是亏钱？
-
-> 回形针PaperClip / Vol / Vol.093 为什么你炒股总是亏钱？
-
-**视频大小**: 41.6 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.093 为什么你炒股总是亏钱？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

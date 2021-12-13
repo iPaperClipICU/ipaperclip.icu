@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.008 莫奈的紫外世界
-
-> 混乱博物馆 / Vol / Vol.008 莫奈的紫外世界
-
-**视频大小**: 43.08 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.008 莫奈的紫外世界.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

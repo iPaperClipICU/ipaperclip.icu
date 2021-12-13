@@ -23,7 +23,7 @@ He, 这里是 ipaperclip.icu
 
 ## 相关链接
 
-[:material-web: ClippyPoint | 回形针PaperClip、大象公会视频归档站](https://paperclip.tk/) ([Ken418](https://github.com/Ken418/))  
+[:material-web: 回形针PaperClip和大象公会视频归档站](https://paperclip.tk/) ([Ken418](https://github.com/Ken418/))  
 [:material-web: Wandering PaperClip 流浪回形针](https://wandering-paperclip.glitch.me/)  
 [:material-web: paper-clips.purestream.eu.org](https://paper-clips.purestream.eu.org/)  
 [:material-web: paperclip.wiki](https://paperclip.wiki/) | [:material-web: 一个更全的分支: just-prog.github.io/paperclipfans](https://just-prog.github.io/paperclipfans/)
