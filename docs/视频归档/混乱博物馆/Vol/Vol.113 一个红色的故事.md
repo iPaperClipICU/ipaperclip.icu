@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.113 一个红色的故事
-
-> 混乱博物馆 / Vol / Vol.113 一个红色的故事
-
-**视频大小**: 66.55 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.113 一个红色的故事.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

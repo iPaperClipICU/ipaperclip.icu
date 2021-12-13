@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.021 如何科学地给机票定价
-
-> 回形针PaperClip / Vol / Vol.021 如何科学地给机票定价
-
-**视频大小**: 35.03 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.021 如何科学地给机票定价.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.039 如何用机器人打销售电话？
-
-> 回形针PaperClip / Vol / Vol.039 如何用机器人打销售电话？
-
-**视频大小**: 32.81 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.039 如何用机器人打销售电话？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

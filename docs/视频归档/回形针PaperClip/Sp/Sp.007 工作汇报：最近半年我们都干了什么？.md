@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Sp.007 工作汇报：最近半年我们都干了什么？
-
-> 回形针PaperClip / Sp / Sp.007 工作汇报：最近半年我们都干了什么？
-
-**视频大小**: 39.44 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Sp/Sp.007 工作汇报：最近半年我们都干了什么？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

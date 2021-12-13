@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.147 长租公寓是如何爆雷的
-
-> 回形针PaperClip / Vol / Vol.147 长租公寓是如何爆雷的
-
-**视频大小**: 136.15 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.147 长租公寓是如何爆雷的.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.037 生命有戏：另一种计算机
-
-> 混乱博物馆 / Vol / Vol.037 生命有戏：另一种计算机
-
-**视频大小**: 55.08 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.037 生命有戏：另一种计算机.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>
