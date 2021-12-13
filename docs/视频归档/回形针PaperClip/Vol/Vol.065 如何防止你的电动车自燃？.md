@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.065 如何防止你的电动车自燃？
-
-> 回形针PaperClip / Vol / Vol.065 如何防止你的电动车自燃？
-
-**视频大小**: 48.51 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.065 如何防止你的电动车自燃？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.041 暖气是如何送到你家的？
-
-> 回形针PaperClip / Vol / Vol.041 暖气是如何送到你家的？
-
-**视频大小**: 36.32 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.041 暖气是如何送到你家的？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.304 怎么还有人觉得登月是假的？
-
-> 混乱博物馆 / Vol / Vol.304 怎么还有人觉得登月是假的？
-
-**视频大小**: 103.72 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.304 怎么还有人觉得登月是假的？.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

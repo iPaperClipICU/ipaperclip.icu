@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: 提前动手 Vol.002 我们做了个公开成本的 T 恤套装
-
-> 干燥工厂 / 提前动手 Vol.002 我们做了个公开成本的 T 恤套装
-
-**视频大小**: 40.98 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/干燥工厂/提前动手 Vol.002 我们做了个公开成本的 T 恤套装.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

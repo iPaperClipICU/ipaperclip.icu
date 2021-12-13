@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.077 重返自然的新艺术运动
-
-> 混乱博物馆 / Vol / Vol.077 重返自然的新艺术运动
-
-**视频大小**: 89.99 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/混乱博物馆/Vol/Vol.077 重返自然的新艺术运动.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

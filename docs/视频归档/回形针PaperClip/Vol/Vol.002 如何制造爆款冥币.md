@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.002 如何制造爆款冥币
-
-> 回形针PaperClip / Vol / Vol.002 如何制造爆款冥币
-
-**视频大小**: 48.74 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.002 如何制造爆款冥币.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>

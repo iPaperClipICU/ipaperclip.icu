@@ -1,7 +1,0 @@
-# :fontawesome-solid-file-video: Vol.036 如何设计一个逼真的三维模型
-
-> 回形针PaperClip / Vol / Vol.036 如何设计一个逼真的三维模型
-
-**视频大小**: 35.56 MB
-
-<div class="video"><video src="https://file.hsyhx.top/archive/回形针PaperClip/Vol/Vol.036 如何设计一个逼真的三维模型.mp4" controls preload>🤔 您的浏览器不支持 video 标签</video></div>
