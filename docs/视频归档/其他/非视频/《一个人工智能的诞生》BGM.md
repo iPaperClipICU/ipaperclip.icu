@@ -1,4 +1,4 @@
-# :fontawesome-solid-file-audio: 《一个人工智能的诞生》BGM
+# 《一个人工智能的诞生》BGM
 
 > 其他 / 非视频 / 《一个人工智能的诞生》BGM.mp3
 

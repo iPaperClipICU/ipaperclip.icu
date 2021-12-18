@@ -1,4 +1,4 @@
-# :fontawesome-solid-file-video: Python编程课对孩子有用吗
+# Python编程课对孩子有用吗
 
 > 黑水报告 / Python编程课对孩子有用吗
 

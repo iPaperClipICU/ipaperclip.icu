@@ -1,4 +1,4 @@
-# :fontawesome-solid-file-audio: PlayGround 搭建你的神经网络 - 彭寒
+# PlayGround 搭建你的神经网络 - 彭寒
 
 > 其他 / 非视频 / PlayGround 搭建你的神经网络 - 彭寒.mp3
 

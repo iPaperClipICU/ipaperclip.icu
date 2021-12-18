@@ -1,4 +1,4 @@
-# :fontawesome-solid-file-image: Vol.100解谜(2)
+# Vol.100解谜(2)
 
 > 其他 / 非视频 / Vol.100解谜(2).jpg
 
