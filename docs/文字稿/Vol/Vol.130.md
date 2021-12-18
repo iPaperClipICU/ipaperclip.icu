@@ -140,14 +140,11 @@ GPS、格洛纳斯、伽利略的卫星基本都处在高度约 20000 千米的�
 
 ![Vol/Vol.130 北斗卫星为你做了什么/23.gif](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.130%20北斗卫星为你做了什么/23.gif)
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	*	AUG 30, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
+- AUG 30, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+add Vol.130
 
-			add Vol.130
-
-	*	SEP 19, 2021.
-		By [Just-Prog](https://github.com/Just-Prog)
-
-			图片链修复
+- SEP 19, 2021. By [Just-Prog](https://github.com/Just-Prog)  
+图片链修复
+:::

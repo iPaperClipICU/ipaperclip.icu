@@ -1,7 +1,6 @@
+# Vol.019 如何实现一次华丽的漂移
 
 ![Vol/Vol.019 如何实现一次华丽的漂移/1.gif](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.019%20如何实现一次华丽的漂移/1.gif)
-
-# Vol.019 如何实现一次华丽的漂移
 
 每个看过《头文字D》的男孩都希望自己能像主角藤原拓海一样开车在弯道漂移。
 

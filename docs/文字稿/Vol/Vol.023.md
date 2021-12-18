@@ -1,7 +1,6 @@
+# Vol.023 如何准确定位你的手机
 
 ![Vol/Vol.023 如何准确定位你的手机/1.gif](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.023%20如何准确定位你的手机/1.gif)
-
-# Vol.023 如何准确定位你的手机
 
 只需 200 块，你就可以在淘宝上买到一枚硬币大小的 GPS 跟踪器，插入附赠的 SIM 卡，你就可以轻松监控它的实时位置。如果有需要，还可以录音。
 

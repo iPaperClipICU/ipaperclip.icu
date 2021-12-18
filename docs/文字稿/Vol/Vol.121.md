@@ -84,14 +84,11 @@
 
 对于大部分人来说，合格的 C 级锁其实已经够用。且反锁之后，普通猫眼工具也无法开门。如果你还是特别担心，在门口加装一个摄像头也足以让想要入室盗窃的不法分子败兴而归。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	MAY 24, 2020.
-		By [FlyingSky-CN](https://github.com/FlyingSky-CN)
+- MAY 24, 2020. By [FlyingSky-CN](https://github.com/FlyingSky-CN)  
+📦 Update Vol.120-Vol.122
 
-			📦 Update Vol.120-Vol.122
-
-	*	SEP 19, 2021.
-		By [Just-Prog](https://github.com/Just-Prog)
-
-			图片链修复
+- SEP 19, 2021. By [Just-Prog](https://github.com/Just-Prog)  
+图片链修复
+:::

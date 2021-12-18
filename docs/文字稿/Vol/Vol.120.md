@@ -218,14 +218,11 @@ g(x) 就等于这 4 个因子相乘。
 
 1960 年，工程师 Irving S. Reed 和 Gustave Solomon 可能也不会想到，他们发布的这篇不到的 5 页论文会在 60 年后成为当代生活不可或缺的一部分，和无数精彩绝伦的论文一样，成为这个世界底层看不见的一块砖。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	MAY 24, 2020.
-		By [FlyingSky-CN](https://github.com/FlyingSky-CN)
+- MAY 24, 2020. By [FlyingSky-CN](https://github.com/FlyingSky-CN)  
+📦 Update Vol.120-Vol.122
 
-			📦 Update Vol.120-Vol.122
-
-	*	SEP 19, 2021.
-		By [Just-Prog](https://github.com/Just-Prog)
-
-			图片链修复
+- SEP 19, 2021. By [Just-Prog](https://github.com/Just-Prog)  
+图片链修复
+:::

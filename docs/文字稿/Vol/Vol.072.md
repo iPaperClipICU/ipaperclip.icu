@@ -1,12 +1,10 @@
 # Vol.072 你的硬盘是如何储存数据的
 
-!!! abstract ""
-
-	哔哩哔哩视频：[【回形针PaperClip】你的硬盘是如何储存数据的？](https://www.bilibili.com/video/BV1n4411G7s5)
-	
-	Youtube：[Vol.072 你的硬盘是如何储存数据的？](https://www.youtube.com/watch?v=svhIPM2VT8U)
-	
-	`host` 存档：[Vol.072 你的硬盘是如何储存数据的？ | 回形针](https://paperclip.host/%E5%B8%B8%E8%A7%84Vol/Vol.072%20%E4%BD%A0%E7%9A%84%E7%A1%AC%E7%9B%98%E6%98%AF%E5%A6%82%E4%BD%95%E5%82%A8%E5%AD%98%E6%95%B0%E6%8D%AE%E7%9A%84%EF%BC%9F%EF%BD%9C%E5%9B%9E%E5%BD%A2%E9%92%88.mp4)
+::: tip
+哔哩哔哩视频：[【回形针PaperClip】你的硬盘是如何储存数据的？](https://www.bilibili.com/video/BV1n4411G7s5)  
+Youtube：[Vol.072 你的硬盘是如何储存数据的？](https://www.youtube.com/watch?v=svhIPM2VT8U)  
+`host` 存档：[Vol.072 你的硬盘是如何储存数据的？ | 回形针](https://paperclip.host/%E5%B8%B8%E8%A7%84Vol/Vol.072%20%E4%BD%A0%E7%9A%84%E7%A1%AC%E7%9B%98%E6%98%AF%E5%A6%82%E4%BD%95%E5%82%A8%E5%AD%98%E6%95%B0%E6%8D%AE%E7%9A%84%EF%BC%9F%EF%BD%9C%E5%9B%9E%E5%BD%A2%E9%92%88.mp4)
+:::
 
 这是你的个人电脑，里面的硬盘则是你的命根子，藏着你多年以来积累的文档、照片、视频和游戏。
 
@@ -100,9 +98,8 @@
 
 ![img](https://paperclip.host/static/U6yRaDu1NaYiagkASYlkHYBQrM4TT5TTsOU8Xe4wJqM2pbcicFMqhRic9ib6xyuibDfwLjAEibwEBhn8OKLhicBv9SYqA.png)
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

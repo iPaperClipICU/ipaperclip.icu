@@ -108,9 +108,8 @@ FLOW 福禄的烟油就使用了更中性的尼古丁盐，通过加入苯甲酸
 
 最后，我们要再次强调，吸烟有害健康，直接戒烟是你最好的选择。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

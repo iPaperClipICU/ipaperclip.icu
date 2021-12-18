@@ -108,9 +108,8 @@ ICL 其实就是在眼球里植入隐形眼镜。在角膜上开一个 2mm 的�
 
 如果你不想冒这个险的话，还是乖乖戴眼镜吧。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

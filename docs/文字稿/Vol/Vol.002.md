@@ -1,13 +1,11 @@
+# Vol.002 如何制造爆款冥币
 
 ![Vol/Vol.002 如何制造爆款冥币/1.gif](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.002%20如何制造爆款冥币/1.gif)
 
-# Vol.002 如何制造爆款冥币
-
-!!! abstract ""
-
-    YouTube: [Vol.002 如何制造爆款冥币｜回形针](https://www.youtube.com/watch?v=Hw1PsrzjW2Q)
-
-    `流浪回形针` 存档: [Vol.002 如何制造爆款冥币｜回形针](https://ipaperclip.justprogsan.workers.dev/%E5%9B%9E%E5%BD%A2%E9%92%88PaperClip/%E5%B8%B8%E8%A7%84Vol/Vol.002%20%E5%A6%82%E4%BD%95%E5%88%B6%E9%80%A0%E7%88%86%E6%AC%BE%E5%86%A5%E5%B8%81%EF%BD%9C%E5%9B%9E%E5%BD%A2%E9%92%88.mp4?preview)
+::: tip
+YouTube: [Vol.002 如何制造爆款冥币｜回形针](https://www.youtube.com/watch?v=Hw1PsrzjW2Q)  
+`流浪回形针` 存档: [Vol.002 如何制造爆款冥币｜回形针](https://ipaperclip.justprogsan.workers.dev/%E5%9B%9E%E5%BD%A2%E9%92%88PaperClip/%E5%B8%B8%E8%A7%84Vol/Vol.002%20%E5%A6%82%E4%BD%95%E5%88%B6%E9%80%A0%E7%88%86%E6%AC%BE%E5%86%A5%E5%B8%81%EF%BD%9C%E5%9B%9E%E5%BD%A2%E9%92%88.mp4?preview)
+:::
 
 在消费升级的浪潮下，冥币也得与时俱进。
 
@@ -79,19 +77,14 @@
 
 开始数钱吧。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-    *   JAN 1, 2020.
-        By [ipaperclip](https://github.com/ipaperclip)
+- JAN 1, 2020. By [ipaperclip](https://github.com/ipaperclip)  
+文件创建
 
-            文件创建
+- MAR 27, 2020. By [FlyingSky-CN](https://github.com/FlyingSky-CN)  
+目录修改
 
-    *   MAR 27, 2020.
-        By [FlyingSky-CN](https://github.com/FlyingSky-CN)
-
-            目录修改
-
-    *	SEP 19, 2021.
-		By [Just-Prog](https://github.com/Just-Prog)
-
-			视频存档链接修复
+SEP 19, 2021. By [Just-Prog](https://github.com/Just-Prog)  
+视频存档链接修复
+:::

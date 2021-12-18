@@ -144,9 +144,8 @@ AV PEKSHA/13APR/2100/D
 
 \*在我们的实际测试中，不同机型的价格排序并不相同，部分手机型号会把搭售保险的付款选项排在第一位。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

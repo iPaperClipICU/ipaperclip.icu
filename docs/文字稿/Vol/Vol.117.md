@@ -50,9 +50,8 @@
 
 也就是说，2020 年，中国将同时成为人类历史上最大的口罩生产国、消费国、进口国和出口国，只不过，这或许并不是什么值得骄傲的事情。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

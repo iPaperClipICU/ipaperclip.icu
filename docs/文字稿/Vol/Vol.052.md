@@ -60,9 +60,8 @@ OPPO 还与4 家全球领先的运营商达成合作，有望在 2019 年成为�
 
 5G 手机将成为万物互联的中枢，也许在不久以后，你也可以拿着下一代的 OPPO 手机，像 Sheldon 一样
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

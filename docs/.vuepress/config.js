@@ -10,11 +10,21 @@ module.exports = {
     ['meta', { property: 'og:description', content: 'He, 这里归档了 回形针PaperClip&混乱博物馆 的视频和 回形针PaperClip 的文字稿' }],
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     ['meta', { property: 'og:image', content: 'https://cdn.jsdelivr.net/gh/ipaperclip-icu/static@main/favicon/favicon.png' }],
-    // 自定义CSS
-    ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/assets/stylesheets/video.min.css' }]
+    // PWA
+    ['link', { rel: 'manifest', href: '/manifest.webmanifest' }],
+    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
+    // icons
+    ['link', { rel:'apple-touch-icon', sizes:'120x120', href:'/icons/apple-touch-icon.png' }],
+    ['link', { rel:'icon', type:'image/png', sizes:'32x32', href:'/icons/favicon-32x32.png' }],
+    ['link', { rel:'icon', type:'image/png', sizes:'16x16', href:'/icons/favicon-16x16.png' }],
+    ['link', { rel:'mask-icon', href:'/icons/safari-pinned-tab.svg', color:'#5bbad5'}],
+    ['link', { rel:'shortcut icon', href:'/icons/favicon.ico'}],
+    ['meta', { name:'msapplication-TileColor', content:'#2b5797' }],
+    ['meta', { name:'msapplication-config', content:'/icons/browserconfig.xml' }],
   ],
   plugins: [
-    ['@vuepress/plugin-search', {maxSuggestions: 6}],
+    ['@vuepress/plugin-search', { maxSuggestions: 6 }],
+    ['@vuepress/pwa', { skipWaiting: true }],
   ],
 
   themeConfig: {
@@ -22,7 +32,7 @@ module.exports = {
     repo: 'ipaperclip-icu/ipaperclip.icu',
     editLink: false,
     lastUpdated: false,
-    tip: 'asd',
+    contributors: false,
     // 顶部导航
     navbar: [
       '/诡辩术.md',

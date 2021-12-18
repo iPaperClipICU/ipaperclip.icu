@@ -78,9 +78,8 @@ MOTI 和 MOJO 可以帮你逐渐减少对尼古丁的依赖，尽快摆脱传统
 
 研究表明，长期吸二手烟的宠物猫，罹患淋巴癌的风险是其他猫的三倍，也就是说，吸烟还是吸猫，你只能选一个。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

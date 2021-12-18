@@ -118,9 +118,8 @@ Reno 的传感器还使用了像素聚合技术，通过改变滤色片的排列
 
 ![img](https://paperclip.host/static/U6yRaDu1NaYEhv6srreTIlj4PgsYHY0v34faLEQDR9pn9ibib0rmQM7BvibtdNhuoCYywt0Km6fBOpMicQyUiadlLFQ.gif)
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

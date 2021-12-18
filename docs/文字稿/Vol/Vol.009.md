@@ -1,7 +1,6 @@
+# Vol.009 跑车凭什么这么贵
 
 ![Vol/Vol.009 跑车凭什么这么贵/1.gif](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.009%20跑车凭什么这么贵/1.gif)
-
-# Vol.009 跑车凭什么这么贵
 
 想买一辆顶级跑车，一千万是起步价。
 

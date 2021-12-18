@@ -120,9 +120,8 @@
 
 ![img](https://paperclip.host/static/U6yRaDu1NaZyziaHRnURfum9mCvc26TFWEq1KNEk5jmkx1NibfLgMkSW0rRtEoTaNqZrLgc3Nt6Rdibe5Aib3ib9fbg.gif)
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

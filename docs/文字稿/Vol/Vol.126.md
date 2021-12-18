@@ -80,12 +80,11 @@
 
 掌握这些技巧多加练习，你就能让船逆风前行。但也要小心，千万别让你的帆船翻船。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	*	JUL 22, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-
-			创建文件 & Markdown 格式化
+- JUL 22, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::
 
 	*	SEP 19, 2021.
 		By [Just-Prog](https://github.com/Just-Prog)
