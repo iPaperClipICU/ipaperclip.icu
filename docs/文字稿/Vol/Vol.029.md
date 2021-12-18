@@ -68,9 +68,8 @@
 
 总体来说，护肤品价格越高，功效可能越好。但由于个体间皮肤状况的差异，同一种产品对不同消费者的美白效果很可能大相径庭。要想找到适合自己的护肤品，消费者还是得把自己当小白鼠多试几次。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

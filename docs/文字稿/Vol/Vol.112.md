@@ -92,9 +92,8 @@
 
 比如 2013 年一位叫 Adam 的男士就在电视直播里收到了相当于今天 1500 元的比特币。开心的向镜头展示私钥后，这笔钱就被当场偷走了。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

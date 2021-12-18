@@ -1,7 +1,6 @@
+# Vol.015 如何经营一家鬼屋
 
 ![Vol/Vol.015 如何经营一家鬼屋/1.gif](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.015%20如何经营一家鬼屋/1.gif)
-
-# Vol.015 如何经营一家鬼屋
 
 你愿意付一笔钱，然后体验一把屁滚尿流的恐怖之旅吗？
 

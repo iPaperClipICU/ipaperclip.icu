@@ -48,14 +48,11 @@
 
 有了这样的系统和流程，电影局就能清楚地知道电影院每天都在放些什么。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Jan 17, 2020.
-		By [FlyingSky-CN](https://github.com/FlyingSky-CN)
+- Jan 17, 2020. By [FlyingSky-CN](https://github.com/FlyingSky-CN)  
+创建文件
 
-			创建文件
-
-	* 	Mar 25, 2020.
-		By [FlyingSky-CN](https://github.com/FlyingSky-CN)
-
-			Markdown 格式化
+- Mar 25, 2020. By [FlyingSky-CN](https://github.com/FlyingSky-CN)  
+Markdown 格式化
+:::

@@ -124,9 +124,8 @@ X 光和 CT 虽然可以快速看穿你的颈椎、腰椎病，但也伴随着�
 
 ![img](https://paperclip.host/static/U6yRaDu1NabicGXIU8CMem4R6O2NsXQk1gLXmic7KKxytpn4lPqJX7Yfj1KdGicjcp5f6P9HDqObDJwhjBnD6RXEg.png)
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

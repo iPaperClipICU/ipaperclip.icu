@@ -3,23 +3,21 @@ home: true
 heroImage: https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/favicon/favicon.png
 heroText: 回形针重症监护室 | ipaperclip.icu
 tagline: null
-footer: MIT Licensed | Copyright © 2018-present qiaoshouzi | V4.4.X
+footer: MIT Licensed | Copyright © 2018-present qiaoshouzi | V4.4.1
 ---
 
 ::: tip 公告
-域名更改为 **ipaperclip.icu**, 访问 **ipaperclip.hsyhx.top** 将会302跳转到 **ipaperclip.icu**  
-新增 **文字稿**  
 V4.4.X 已经发布, 更换使用 [VuePress 2](https://v2.vuepress.vuejs.org/) :tada:  
 同时, 构建时间已经超过500s :no_mouth:
 :::
 
 He, 这里是 ipaperclip.icu
 
-## 网站状态
+## 域名
 
-![status](https://api-img.ipaperclip.icu/status/) | ![uptime-7](https://api-img.ipaperclip.icu/uptime-7/) ![uptime-30](https://api-img.ipaperclip.icu/uptime-30/)
+视频、文字稿归档: [ipaperclip.icu](https://ipaperclip.icu/) | [vercel.ipaperclip.icu](https://vercel.ipaperclip.icu/)(Vercel备用)
 
-数据来源 [state.ipaperclip.icu](https://status.ipaperclip.icu/) | [Github](https://github.com/ipaperclip-icu/status)
+站点状态: [status.ipaperclip.icu](https://status.ipaperclip.icu/)
 
 ## 联系我
 
@@ -27,7 +25,7 @@ He, 这里是 ipaperclip.icu
 
 ## 相关链接
 
-[回形针PaperClip和大象公会视频归档站](https://paperclip.tk/)
+[回形针PaperClip和大象公会视频归档站](https://paperclip.tk/)  
 [Wandering PaperClip 流浪回形针](https://wandering-paperclip.glitch.me/)  
 [paper-clips.purestream.eu.org](https://paper-clips.purestream.eu.org/)  
 [paperclip.wiki](https://paperclip.wiki/) | [一个更全的分支: just-prog.github.io/paperclipfans](https://just-prog.github.io/paperclipfans/)

@@ -82,9 +82,8 @@
 
 ![Vol/Vol.123 如何吃上肥美的大鱿鱼/15.jpg](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.123%20如何吃上肥美的大鱿鱼/15.jpg)
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	JUL 22, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-
-			创建文件 & Markdown 格式化
+- JUL 22, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::
