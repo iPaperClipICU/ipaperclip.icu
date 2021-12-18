@@ -96,14 +96,11 @@
 
 那些留在你记忆中的音乐、电影、游戏，会永远停在某个角落等你。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	*	JUL 22, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- JUL 22, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
 
-	*	SEP 19, 2021.
-		By [Just-Prog](https://github.com/Just-Prog)
-
-			图片链修复
+- SEP 19, 2021. By [Just-Prog](https://github.com/Just-Prog)  
+图片链修复
+:::

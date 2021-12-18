@@ -1,7 +1,6 @@
+# Vol.016 自来水都从哪来
 
 ![Vol/Vol.016 自来水都从哪来/1.gif](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.016%20自来水都从哪来/1.gif)
-
-# Vol.016 自来水都从哪来
 
 这是 2016 年全国水利发展统计公报。
 

@@ -54,14 +54,11 @@
 
 而且在动物园里，人，可能比动物更难管理。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Jan 17, 2020.
-		By [FlyingSky-CN](https://github.com/FlyingSky-CN)
+- Jan 17, 2020. By [FlyingSky-CN](https://github.com/FlyingSky-CN)  
+创建文件
 
-			创建文件
-
-	* 	Mar 25, 2020.
-		By [FlyingSky-CN](https://github.com/FlyingSky-CN)
-
-			Markdown 格式化
+- Mar 25, 2020. By [FlyingSky-CN](https://github.com/FlyingSky-CN)  
+Markdown 格式化
+:::

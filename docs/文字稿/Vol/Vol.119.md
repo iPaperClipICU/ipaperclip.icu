@@ -54,9 +54,8 @@
 
 可以说，这种分钟级的降雨预报对普通人的出行、生活更有实用意义，而且相比电视上一天一次的天气预报，你也不用担心会有阿猫阿狗突然出现干扰预测结果。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

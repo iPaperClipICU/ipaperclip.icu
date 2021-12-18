@@ -1,7 +1,6 @@
+# Vol.012 坦克驾驶指南
 
 ![Vol/Vol.012 坦克驾驶指南/1.gif](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.012%20坦克驾驶指南/1.gif)
-
-# Vol.012 坦克驾驶指南
 
 哪个男孩不想开坦克呢？
 

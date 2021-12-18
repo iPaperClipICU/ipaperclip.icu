@@ -1,7 +1,6 @@
+# Vol.008 如何给猪盖章
 
 ![Vol/Vol.008 如何给猪盖章/1.gif](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.008%20如何给猪盖章/1.gif)
-
-# Vol.008 如何给猪盖章
 
 中国可能是全世界最需要猪的国家，每年，中国人都要吃掉全世界一半的猪。
 
@@ -76,4 +75,3 @@
 当然，刚刚说的都是理想情况。在真实世界，这些章是怎么盖上的，我们就不得而知了。
 
 ![Vol/Vol.008 如何给猪盖章/15.gif](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.008%20如何给猪盖章/15.gif)
- 

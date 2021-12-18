@@ -122,14 +122,11 @@
 
 ![Vol/Vol.129 为什么你的脚这么臭/21.jpeg](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.129%20为什么你的脚这么臭/21.jpeg)
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	*	JUL 22, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
+- JUL 22, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
 
-			创建文件 & Markdown 格式化
-
-	*	SEP 19, 2021.
-		By [Just-Prog](https://github.com/Just-Prog)
-
-			图片链修复
+- SEP 19, 2021. By [Just-Prog](https://github.com/Just-Prog)  
+图片链修复
+:::

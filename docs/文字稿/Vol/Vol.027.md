@@ -74,9 +74,8 @@
 
 而经过十年的严格整顿，国产奶粉终于进入了史上最安全的时期，但要想赢回消费者的信任，这才刚刚到了起点而已。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

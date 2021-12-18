@@ -176,9 +176,8 @@ P 代表点的位置，包含 X，Y，Z 轴的坐标信息，P1 是这条直线�
 
 ![img](https://paperclip.host/static/U6yRaDu1NabeonUNQUgBITiafiauVVFe2TnQXoIibjchcVRiaypnQxhrdldjGt4c9iaKRPY0qjYCzhMXRKSqXtEibjRQ.gif)
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

@@ -1,4 +1,5 @@
 # Vol.032 双眼皮手术指南
+
 如果你是单眼皮，除了日复一日地粘双眼皮贴，涂双眼皮胶，或者徒劳地戴双眼皮锻炼器之外，是否有方法可以让你更持久地拥有一对灵动的双眼皮？
 
 ![img](https://paperclip.host/static/U6yRaDu1NaYBmOEQjrwcXWiczFkick36JPnWgmK4pHpYapyKx1xMNiaTjs4OFm05xITax8wEfCXxzOKXyr8cluzbg.gif)
@@ -81,9 +82,8 @@
 
 ![img](https://paperclip.host/static/U6yRaDu1NaYBmOEQjrwcXWiczFkick36JP36HVmALbw47uwH42SSfNAs6TsYd5Bew0REJXroN9GwSoSATyqlCXfQ.gif)
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

@@ -1,7 +1,6 @@
+# Vol.010 混音师如何拯救歌手
 
 ![Vol/Vol.010 混音师如何拯救歌手/1.gif](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.010%20混音师如何拯救歌手/1.gif)
-
-# Vol.010 混音师如何拯救歌手
 
 在中文互联网，「百万年薪调音师」是一个流传多年的传说。
 

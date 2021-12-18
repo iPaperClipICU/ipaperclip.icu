@@ -1,15 +1,12 @@
+# Vol.005 如何实现逼真的砍头
 
 ![Vol/Vol.005 如何实现逼真的砍头/1.gif](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.005%20如何实现逼真的砍头/1.gif)
 
-# Vol.005 如何实现逼真的砍头
-
-!!! abstract ""
-
-	Youtube：[Vol.005 如何实现逼真的砍头 | 回形针](https://www.youtube.com/watch?v=rVu3R9N8GJU)
-
-	`流浪回形针` 存档：[Vol.005 如何实现逼真的砍头 | 回形针](https://ipaperclip.justprogsan.workers.dev/%E5%9B%9E%E5%BD%A2%E9%92%88PaperClip/%E5%B8%B8%E8%A7%84Vol/Vol.005%20%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E9%80%BC%E7%9C%9F%E7%9A%84%E7%A0%8D%E5%A4%B4%EF%BD%9C%E5%9B%9E%E5%BD%A2%E9%92%88.mp4?preview)
-
+::: tip
+Youtube：[Vol.005 如何实现逼真的砍头 | 回形针](https://www.youtube.com/watch?v=rVu3R9N8GJU)  
+`流浪回形针` 存档：[Vol.005 如何实现逼真的砍头 | 回形针](https://ipaperclip.justprogsan.workers.dev/%E5%9B%9E%E5%BD%A2%E9%92%88PaperClip/%E5%B8%B8%E8%A7%84Vol/Vol.005%20%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E9%80%BC%E7%9C%9F%E7%9A%84%E7%A0%8D%E5%A4%B4%EF%BD%9C%E5%9B%9E%E5%BD%A2%E9%92%88.mp4?preview)  
 ![Vol/Vol.005 如何实现逼真的砍头/2.jpeg](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.005%20如何实现逼真的砍头/2.jpeg)
+:::
 
 电影史上的第一次砍头出现在 1895 年。
 
@@ -33,9 +30,10 @@
 
 这颗头还要进一步化妆，并植入牙齿、眼球和毛发，脖子的切面处也要再精细处理。
 
-??? warning "内容较血腥，展开查看"
-
-	![Vol/Vol.005 如何实现逼真的砍头/7.gif](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.005%20如何实现逼真的砍头/7.gif)
+::: danger 警告
+::: details 内容较血腥，展开查看
+![Vol/Vol.005 如何实现逼真的砍头/7.gif](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.005%20如何实现逼真的砍头/7.gif)
+:::
 
 然而这样一颗人头要耗费数月的制作，造价也不菲，相比之下，喷血特效就简单便宜得多。
 
@@ -79,19 +77,14 @@
 
 ![Vol/Vol.005 如何实现逼真的砍头/15.jpeg](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.005%20如何实现逼真的砍头/15.jpeg)
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	*	JAN 1, 2020.
-		By [ipaperclip](https://github.com/ipaperclip)
+- JAN 1, 2020. By [ipaperclip](https://github.com/ipaperclip)  
+创建文件
 
-			创建文件
-	
-	*   MAR 27, 2020.
-	    By [FlyingSky-CN](https://github.com/FlyingSky-CN)
-	
-	        目录修改
-	
-	*	SEP 19, 2021.
-		By [Just-Prog](https://github.com/Just-Prog)
+- MAR 27, 2020. By [FlyingSky-CN](https://github.com/FlyingSky-CN)  
+目录修改
 
-			视频存档链接修复
+- SEP 19, 2021. By [Just-Prog](https://github.com/Just-Prog)  
+视频存档链接修复
+:::

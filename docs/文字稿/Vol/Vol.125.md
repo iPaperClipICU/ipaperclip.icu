@@ -118,14 +118,11 @@ RNA 再与细胞质中的核糖体结合，按照遗传密码合成出相应的�
 
 未来，不论是 HER2 阳性乳腺癌，还是其他癌症患者，或许都能尽量避免陷入买不起药、买不到药的窘境了。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	JUL 22, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
+- JUL 22, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
 
-			创建文件 & Markdown 格式化
-	
-	*	SEP 19, 2021.
-		By [Just-Prog](https://github.com/Just-Prog)
-
-			图片链修复
+- SEP 19, 2021. By [Just-Prog](https://github.com/Just-Prog)  
+图片链修复
+:::

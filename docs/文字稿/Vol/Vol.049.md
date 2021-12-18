@@ -66,9 +66,8 @@
 
 2015 年，中国几十个城市开始陆续试点集成充电、监控、报警等功能的智能路灯。你在看路灯的时候，路灯其实也在盯着你。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	Mar 29, 2020.
-		By [Zhao-Robert](https://github.com/Zhao-Robert)
-	
-			创建文件 & Markdown 格式化
+- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+创建文件 & Markdown 格式化
+:::

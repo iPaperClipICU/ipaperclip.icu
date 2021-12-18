@@ -94,7 +94,7 @@ V-V 转流会将血液从股静脉引出，经过氧合器输入氧气，排除�
 
 ![Vol/Vol.122 ICU 病房里究竟发生了什么/19.jpeg](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/文字稿/Vol/Vol.122%20ICU%20病房里究竟发生了什么/19.jpeg)
 
-比如以这份第二代急性生理与慢性健康评分系统（APACHE II）为例，根据病人的各项生理指标评分，可用于预测死亡率。一般来说，评分 15-35 分，即死亡率高于 15% 并低于 85% 的患者，最适合进入 ICU 中接受积极的生命支持治疗。 
+比如以这份第二代急性生理与慢性健康评分系统（APACHE II）为例，根据病人的各项生理指标评分，可用于预测死亡率。一般来说，评分 15-35 分，即死亡率高于 15% 并低于 85% 的患者，最适合进入 ICU 中接受积极的生命支持治疗。
 
 当然，在现实情况中，是否选择进 ICU 还是远比这些评分要复杂得多。
 
@@ -106,14 +106,11 @@ V-V 转流会将血液从股静脉引出，经过氧合器输入氧气，排除�
 
 毕竟，游走于生死之间的 ICU 里，真正在救人的不是机器，而是人。
 
-!!! note "该文件编辑日志"
+::: tip 该文件编辑日志
 
-	* 	MAY 24, 2020.
-		By [FlyingSky-CN](https://github.com/FlyingSky-CN)
+- MAY 24, 2020. By [FlyingSky-CN](https://github.com/FlyingSky-CN)  
+📦 Update Vol.120-Vol.122
 
-			📦 Update Vol.120-Vol.122
-
-	*	SEP 19, 2021.
-		By [Just-Prog](https://github.com/Just-Prog)
-
-			图片链修复
+- SEP 19, 2021. By [Just-Prog](https://github.com/Just-Prog)  
+图片链修复
+:::
