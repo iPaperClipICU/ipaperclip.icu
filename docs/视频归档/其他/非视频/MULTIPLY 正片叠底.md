@@ -1,4 +1,4 @@
-# :fontawesome-solid-file-image: MULTIPLY 正片叠底
+# MULTIPLY 正片叠底
 
 > 其他 / 非视频 / MULTIPLY 正片叠底.jpg
 
