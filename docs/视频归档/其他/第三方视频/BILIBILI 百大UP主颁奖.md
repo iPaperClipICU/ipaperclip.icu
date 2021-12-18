@@ -1,4 +1,4 @@
-# :fontawesome-solid-file-video: BILIBILI 百大UP主颁奖
+# BILIBILI 百大UP主颁奖
 
 > 其他 / 第三方视频 / BILIBILI 百大UP主颁奖
 

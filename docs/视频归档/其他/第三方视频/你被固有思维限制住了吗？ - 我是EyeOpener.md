@@ -1,4 +1,4 @@
-# :fontawesome-solid-file-video: 你被固有思维限制住了吗？ - 我是EyeOpener
+# 你被固有思维限制住了吗？ - 我是EyeOpener
 
 > 其他 / 第三方视频 / 你被固有思维限制住了吗？ - 我是EyeOpener
 
