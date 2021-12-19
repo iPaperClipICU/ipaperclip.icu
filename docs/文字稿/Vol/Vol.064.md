@@ -56,7 +56,7 @@ f 值越小，就能给图像传感器投射越多的光，提高成像质量，
 
 于是，OPPO 在 Reno 10 倍变焦版里加入了棱镜光学防抖，利用两个以上的压电传感器获取抖动的加速度信息，然后通过长焦镜头内一枚棱镜的移动来补偿抖动产生的影像错位。
 
-![img](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==)
+<!-- 此处图片 -->
 
 当然，影响成像质量最核心的还是图像传感器。
 
