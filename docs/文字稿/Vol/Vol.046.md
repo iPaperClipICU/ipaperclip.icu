@@ -6,7 +6,7 @@
 
 这是眼球的侧面解剖图，从外到内有十几层组织。
 
-![img](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==)
+<!-- 此处图片 -->
 
 当我们看近处时，物体反射的光线呈放射状，此时，睫状肌可以让晶状体变厚，折射光线，并拉长眼轴，即眼球前后直径，使光线聚焦在视网膜上，形成清晰的物象。
 
