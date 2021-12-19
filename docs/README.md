@@ -1,9 +1,10 @@
 ---
 home: true
-heroImage: https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/favicon/favicon.png
-heroText: 回形针重症监护室 | ipaperclip.icu
-tagline: null
-footer: MIT Licensed | Copyright © 2018-present qiaoshouzi | V4.4.1
+title: 主页
+icon: home
+heroText: 回形针重症监护室
+tagline: ipaperclip.icu
+heroImage: /paperclip.png
 ---
 
 ::: tip 公告
