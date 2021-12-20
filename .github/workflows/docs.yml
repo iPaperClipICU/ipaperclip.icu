@@ -22,6 +22,7 @@ jobs:
         with:
           # 选择要使用的 node 版本
           node-version: '14'
+          node_options: '--max_old_space_size=10240'
 
       # 缓存 node_modules
       - name: Cache dependencies

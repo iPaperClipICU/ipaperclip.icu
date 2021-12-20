@@ -87,7 +87,7 @@ module.exports = config({
 
     footer: { // 默认页脚
       display: true,
-      content: "MIT Licensed | Copyright © 2021-present qiaoshouzi | V4.4.1",
+      content: "MIT Licensed | Copyright © 2021-present qiaoshouzi | V4.4.2",
     },
 
     comment: false, // 关闭评论区

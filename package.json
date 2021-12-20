@@ -5,7 +5,7 @@
   "repository": "https://github.com/ipaperclip-icu/ipaperclip.icu",
   "scripts": {
     "docs:build": "vuepress build docs",
-    "docs:clean-dev": "vuepress dev docs --no-cache",
+    "docs:clean-dev": "vuepress dev docs",
     "docs:dev": "vuepress dev docs",
     "docs:eject-theme": "vuepress eject-hope docs"
   },
