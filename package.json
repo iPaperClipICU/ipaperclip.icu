@@ -1,13 +1,14 @@
 {
   "name": "ipaperclip.icu",
-  "version": "4.4.2",
+  "version": "4.4.7",
   "license": "MIT",
-  "repository": "https://github.com/ipaperclip-icu/ipaperclip.icu",
+  "repository": "https://github.com/iPaperClipICU/ipaperclip.icu",
   "scripts": {
     "docs:build": "vuepress build docs",
     "docs:clean-dev": "vuepress dev docs",
     "docs:dev": "vuepress dev docs",
-    "docs:eject-theme": "vuepress eject-hope docs"
+    "docs:eject-theme": "vuepress eject-hope docs",
+    "autoBuild": "vuepress build buildTmp"
   },
   "devDependencies": {
     "vuepress": "^1.8.2",
