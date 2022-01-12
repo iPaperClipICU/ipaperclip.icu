@@ -18,7 +18,7 @@
 
 R.I.P: [ipaperclip.rip](https://ipaperclip.rip/)
 
-站点状态: [uptime.ipaperclip.icu](https://uptime.ipaperclip.icu/)] | [serve.ipaperclip.icu](https://serve.ipaperclip.icu/)
+站点状态: [uptime.ipaperclip.icu](https://uptime.ipaperclip.icu/) | [serve.ipaperclip.icu](https://serve.ipaperclip.icu/)
 
 ## 联系我
 
