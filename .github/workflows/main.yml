@@ -12,11 +12,6 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.actor }} created commit:
-            Commit message: ${{ github.event.commits[0].message }}
+            Github: [iPaperClipICU/ipaperclip.icu](https://github.com/${{ github.repository }}/) has new commit:
             
-            Repository: ${{ github.repository }}
-            
-            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
-            
-            GITHUB_REF: ${{ github.ref }}
+            [${{github.sha}}](https://github.com/${{ github.repository }}/commit/${{github.sha}}): ${{ github.event.commits[0].message }} by ${{ github.actor }}
