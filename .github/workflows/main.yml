@@ -13,6 +13,6 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           disable_notification: true
           message: |
-            Github: [iPaperClipICU/ipaperclip.icu](https://github.com/iPaperClipICU/ipaperclip.icu/) has new commit:
+            Github: <a href="https://github.com/iPaperClipICU/ipaperclip.icu/">iPaperClipICU/ipaperclip.icu</a> has new commit:
             
             [ ${{github.sha}} ](https://github.com/${{ github.repository }}/commit/${{github.sha}}/): ${{ github.event.commits[0].message }} by ${{ github.actor }}
