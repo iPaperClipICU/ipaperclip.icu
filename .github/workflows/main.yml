@@ -3,7 +3,7 @@ on: [push]
 jobs:
 
   build:
-    name: Build
+    name: Go
     runs-on: ubuntu-latest
     steps:
       - name: send telegram message on push
