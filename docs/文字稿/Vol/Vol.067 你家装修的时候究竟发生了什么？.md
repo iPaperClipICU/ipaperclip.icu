@@ -92,8 +92,7 @@
 
 如果不找专业公司合作，中小开发商们自己装修的结果，很可能是没完没了的 1818 黄金眼记者电话。
 
-::: tip 该文件编辑日志
-
-- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
-创建文件 & Markdown 格式化
-:::
+> [!TIP|style:callout|label:该文件编辑日志]
+>
+> - Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+> `创建文件 & Markdown 格式化`

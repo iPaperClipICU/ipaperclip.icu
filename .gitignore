@@ -1,5 +1,4 @@
 node_modules
-.temp
-.cache
 .DS_Store
 .vscode
+/assets
