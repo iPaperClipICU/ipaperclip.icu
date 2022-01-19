@@ -1,10 +1,9 @@
 # Vol.073 怎样活着从电梯走出来
 
-::: tip
+> [!TIP|style:callout|label:|iconVisibility:hidden]
 哔哩哔哩视频：[【回形针PaperClip】怎样活着从电梯走出来？](https://www.bilibili.com/video/BV1yx411R75x)  
 Youtube：[Vol.073 怎样活着从电梯走出来？](https://www.youtube.com/watch?v=kkHohsnL8G0)  
 `host` 存档：[Vol.073 怎样活着从电梯走出来？ | 回形针](https://paperclip.host/%E5%B8%B8%E8%A7%84Vol/Vol.073%20%E6%80%8E%E6%A0%B7%E6%B4%BB%E7%9D%80%E4%BB%8E%E7%94%B5%E6%A2%AF%E8%B5%B0%E5%87%BA%E6%9D%A5%EF%BC%9F%EF%BD%9C%E5%9B%9E%E5%BD%A2%E9%92%88.mp4)
-:::
 
 原创 孟心一/张每羊
 
@@ -64,8 +63,7 @@ Youtube：[Vol.073 怎样活着从电梯走出来？](https://www.youtube.com/wa
 
 没钱又没人管，这就让你真遇上电梯故障时，通常只能找物业扯皮。
 
-::: tip 该文件编辑日志
-
-- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
-创建文件 & Markdown 格式化
-:::
+> [!TIP|style:callout|label:该文件编辑日志]
+>
+> - Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+> 创建文件 & Markdown 格式化

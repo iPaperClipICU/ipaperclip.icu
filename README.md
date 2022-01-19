@@ -1,7 +1,7 @@
 # ipaperclip.icu
 
 <div align="center">
-  <img src="./docs/.vuepress/public/paperclip.png" alt="ipaperclip.icu" />
+  <img src="./docs/assets/paperclip.png" alt="ipaperclip.icu" />
   <p><em>He, 这里是 ipaperclip.icu</em></p>
   <img src="https://img.shields.io/github/license/ipaperclip-icu/ipaperclip.icu?style=flat-square" alt="license" />
   <img src="https://img.shields.io/github/issues/ipaperclip-icu/ipaperclip.icu?style=flat-square" alt="issues open" />
@@ -18,7 +18,7 @@
 
 R.I.P: [ipaperclip.rip](https://ipaperclip.rip/)
 
-站点状态: [uptime.ipaperclip.icu](https://uptime.ipaperclip.icu/) | [serve.ipaperclip.icu](https://serve.ipaperclip.icu/)
+站点状态: [uptime.ipaperclip.icu](https://uptime.ipaperclip.icu/)] | [serve.ipaperclip.icu](https://serve.ipaperclip.icu/)
 
 ## 联系我
 
@@ -42,7 +42,7 @@ R.I.P: [ipaperclip.rip](https://ipaperclip.rip/)
 
 ## R.I.P
 
-![R.I.P: 大的没了](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/RIP/rip1.png)
+![R.I.P: 大的没了](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/RIP/rip1.png?imageMogr2/format/avif)
 
-![R.I.P: 喜讯](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/RIP/rip2.jpg)
+![R.I.P: 喜讯](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/RIP/rip2.jpg?imageMogr2/format/avif)
 

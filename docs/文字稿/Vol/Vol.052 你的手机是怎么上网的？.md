@@ -2,7 +2,7 @@
 
 ![img](https://mmbiz.qpic.cn/mmbiz_png/U6yRaDu1)
 
-![img](https://paperclip.host/static/U6yRaDu1NaZzNKDx1EbkWKI51UIYJAr8dSEQKJRaJAKKWmzWcy3qxrL1TXhjWS4gJJ5Y0ibShsVCHFoVO4Hur5Q.gif)
+![img](https://paperclip.host/static/U6yRaDu1NaZzNKDx1EbkWKI51UIYJAr8dSEQKJRaJAKKWmzWcy3qxrL1TXhjWS4gJJ5Y0ibShsVCHFoVO4Hur5Q.gif?imageMogr2/format/avif)
 
 ![img](https://mmbiz.qpic.cn/mmbiz_gif)
 
@@ -40,7 +40,7 @@ GSM 的带宽只有 200 kHz，而 3G 通信标准 WCDMA则达到了 5 MHz，相�
 
 干涉指的是两列以上的波在空间上产生叠加形成新波的现象。
 
-![img](https://paperclip.host/static/U6yRaDu1NaZzNKDx1EbkWKI51UIYJAr8icj3wTyuSQsIbM7Jf1mibOxRzdwQdA4pep0vZxtOiaX1tde7nMiatgiclXA.gif)
+![img](https://paperclip.host/static/U6yRaDu1NaZzNKDx1EbkWKI51UIYJAr8icj3wTyuSQsIbM7Jf1mibOxRzdwQdA4pep0vZxtOiaX1tde7nMiatgiclXA.gif?imageMogr2/format/avif)
 
 ![img](https://mmbiz.qpic.cn/mmbiz_gif/U6yRaDu1NaZzNKDx1EbkWKI51UIYJAr8xNbx99WjdFm9Jd5B)
 
@@ -60,8 +60,7 @@ OPPO 还与4 家全球领先的运营商达成合作，有望在 2019 年成为�
 
 5G 手机将成为万物互联的中枢，也许在不久以后，你也可以拿着下一代的 OPPO 手机，像 Sheldon 一样
 
-::: tip 该文件编辑日志
-
-- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
-`创建文件 & Markdown 格式化`
-:::
+> [!TIP|style:callout|label:该文件编辑日志]
+>
+> - Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+> `创建文件 & Markdown 格式化`
