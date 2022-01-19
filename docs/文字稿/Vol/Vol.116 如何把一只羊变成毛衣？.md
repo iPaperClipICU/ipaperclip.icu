@@ -54,8 +54,7 @@
 
 而如果你呆在家里实在没事干，还可以尝试备战芬兰的重金属织毛衣大赛，不仅打发时间，还能锻炼身体。
 
-::: tip 该文件编辑日志
-
-- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
-创建文件 & Markdown 格式化
-:::
+> [!TIP|style:callout|label:该文件编辑日志]
+>
+> - Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+> `创建文件 & Markdown 格式化`

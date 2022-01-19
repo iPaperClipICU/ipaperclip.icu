@@ -68,8 +68,7 @@
 
 在中国，验光主要是服务性质，而不是医疗性质，而国务院于 2012 年又取消了验光师的职业资格认定，这样一来，去小型眼镜店验光就真的跟买彩票差不多，验的准不准都看你的运气。
 
-::: tip 该文件编辑日志
-
-- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
-创建文件 & Markdown 格式化
-:::
+> [!TIP|style:callout|label:该文件编辑日志]
+>
+> - Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+> `创建文件 & Markdown 格式化`

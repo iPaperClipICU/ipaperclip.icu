@@ -27,7 +27,7 @@
 
 停留时间越长，时间权重也越高。最后，短期行为也无法代表长期兴趣，单次阅读行为的权重会随着时间流逝不断衰减。
 
-![img](https://paperclip.host/static/U6yRaDu1NaaaU49HA2sB5gZVYaK1ZMuz3zVjgQKFG1HCQdNonaC4U1zxVicSIs1OoCONr0ge2VGPRGDlgElu9qg.gif)
+![img](https://paperclip.host/static/U6yRaDu1NaaaU49HA2sB5gZVYaK1ZMuz3zVjgQKFG1HCQdNonaC4U1zxVicSIs1OoCONr0ge2VGPRGDlgElu9qg.gif?imageMogr2/format/avif)
 
 于是，你每次打开美女类内容都会生成一个兴趣权重，把一段时间内你所有的美女类兴趣权重进行累加，再用 S 形函数标准化，就能得到一个「0—10」区间的兴趣标签值。
 
@@ -39,7 +39,7 @@
 
 我们可以把特征向量理解成多维空间上的一个坐标，通过把每一个用户的向量坐标带入余弦公式或距离公式中，就能计算出和你相似的人，进而把用户分类。
 
-![img](https://paperclip.host/static/U6yRaDu1NaaaU49HA2sB5gZVYaK1ZMuz84a9UicPr3P3QmiaH5vtJfzZrfn37k1vc6wCPElbE0HWBTBOgfcbicnhA.png)
+![img](https://paperclip.host/static/U6yRaDu1NaaaU49HA2sB5gZVYaK1ZMuz84a9UicPr3P3QmiaH5vtJfzZrfn37k1vc6wCPElbE0HWBTBOgfcbicnhA.png?imageMogr2/format/avif)
 
 但行为数据只能计算偏好，无法判断你的性别、学历等个人属性。
 
@@ -69,10 +69,9 @@
 
 如果你是 iPhone 用户，还可以通过在设置中关闭  IDFA 码限制 App 们对你的数据采集。
 
-![img](https://paperclip.host/static/U6yRaDu1NaaaU49HA2sB5gZVYaK1ZMuzpjvd3xwgTMQQZXrJibbOt38Nd6OzAVys7mYd94L1TJTTtk2qK3Sj8xg.gif)
+![img](https://paperclip.host/static/U6yRaDu1NaaaU49HA2sB5gZVYaK1ZMuzpjvd3xwgTMQQZXrJibbOt38Nd6OzAVys7mYd94L1TJTTtk2qK3Sj8xg.gif?imageMogr2/format/avif)
 
-::: tip 该文件编辑日志
-
-- Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
-`创建文件 & Markdown 格式化`
-:::
+> [!TIP|style:callout|label:该文件编辑日志]
+>
+> - Mar 29, 2020. By [Zhao-Robert](https://github.com/Zhao-Robert)  
+> `创建文件 & Markdown 格式化`
