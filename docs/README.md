@@ -30,7 +30,7 @@ R.I.P: [ipaperclip.rip](https://ipaperclip.rip/)
 [回形针视频归档站](https://www.paperclip.tk/)  
 [Wandering PaperClip 流浪回形针](https://wandering-paperclip.glitch.me/)  
 [paper-clips.purestream.eu.org](https://paper-clips.purestream.eu.org/)  
-文字稿: [paperclip.wiki](https://paperclip.wiki/) | [paperclip.justprog.tk](https://paperclip.justprog.tk/)
+文字稿: [paperclip.wiki](https://paperclip.wiki/) | [paperclipfans.justprog.tk](https://paperclipfans.justprog.tk/)
 
 [基本操作非官方频道](https://t.me/paperclipfans) | [基本操作非官方粉丝群](https://t.me/paperclipfans)  
 [干燥工厂](https://shop362189133.taobao.com/) | [基本操作](https://jibencaozuo.com/)
