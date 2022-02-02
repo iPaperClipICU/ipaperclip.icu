@@ -14,11 +14,8 @@
 
 ## 网站
 
-视频、文字稿归档: [ipaperclip.icu](https://ipaperclip.icu/) | [vercel.ipaperclip.icu](https://vercel.ipaperclip.icu/)(Vercel备用)
-
-R.I.P: [ipaperclip.rip](https://ipaperclip.rip/)
-
-站点状态: [uptime.ipaperclip.icu](https://uptime.ipaperclip.icu/)] | [serve.ipaperclip.icu](https://serve.ipaperclip.icu/)
+视频、文字稿归档: [ipaperclip.icu](https://ipaperclip.icu/) | [vercel.ipaperclip.icu](https://vercel.ipaperclip.icu/)(Vercel备用)  
+R.I.P(归档站导航): [ipaperclip.rip](https://ipaperclip.rip/)
 
 ## 联系我
 
@@ -35,14 +32,13 @@ R.I.P: [ipaperclip.rip](https://ipaperclip.rip/)
 [回形针视频归档站](https://www.paperclip.tk/)  
 [Wandering PaperClip 流浪回形针](https://wandering-paperclip.glitch.me/)  
 [paper-clips.purestream.eu.org](https://paper-clips.purestream.eu.org/)  
-[paperclip.wiki](https://paperclip.wiki/) | [一个更全的分支: just-prog.github.io/paperclipfans](https://just-prog.github.io/paperclipfans/)
+[paperclip.wiki](https://paperclip.wiki/) | [paperclipfans.justprog.tk](https://paperclipfans.justprog.tk/)
 
 [基本操作非官方频道](https://t.me/paperclipfans) | [基本操作非官方粉丝群](https://t.me/paperclipfans)  
 [干燥工厂](https://shop362189133.taobao.com/) | [基本操作](https://jibencaozuo.com/)
 
 ## R.I.P
 
-![R.I.P: 大的没了](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/RIP/rip1.png?imageMogr2/format/avif)
+![R.I.P: 大的没了](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/RIP/rip1.png)
 
-![R.I.P: 喜讯](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/RIP/rip2.jpg?imageMogr2/format/avif)
-
+![R.I.P: 喜讯](https://cdn.jsdelivr.net/gh/ipaperclip-icu/static/image/RIP/rip2.jpg)
