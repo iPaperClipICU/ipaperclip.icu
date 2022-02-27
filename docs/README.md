@@ -2,10 +2,7 @@
 
 He, 这里是 ipaperclip.icu
 
-> [!TIP|style:callout|label:公告]
-V4.5.0 更换[docsify](https://docsify.js.org/)  
-新域名上线: [ipaperclip.rip](https://ipaperclip.rip/)  
-更换 CDN DNS，详细请看 [t.me/iPaperClipICU/28](https://t.me/iPaperClipICU/28) 和 [t.me/iPaperClipICU/29](https://t.me/iPaperClipICU/29)
+<!-- > [!TIP|style:callout|label:公告] -->
 
 ## 网站<!-- {docsify-ignore} -->
 
@@ -26,7 +23,7 @@ R.I.P(归档站导航): [ipaperclip.rip](https://ipaperclip.rip/)
 
 [回形针视频归档站](https://www.paperclip.tk/)  
 [Wandering PaperClip 流浪回形针](https://wandering-paperclip.glitch.me/)  
-[paper-clips.purestream.eu.org](https://paper-clips.purestream.eu.org/)  
+[paper-clips.purestream.eu.org](https://paperclip.justprog.tk/)  
 文字稿: [paperclip.wiki](https://paperclip.wiki/) | [paperclipfans.justprog.tk](https://paperclipfans.justprog.tk/)
 
 [基本操作非官方频道](https://t.me/paperclipfans) | [基本操作非官方粉丝群](https://t.me/paperclipfans)  
@@ -34,6 +31,10 @@ R.I.P(归档站导航): [ipaperclip.rip](https://ipaperclip.rip/)
 
 ## R.I.P<!-- {docsify-ignore} -->
 
-![R.I.P: 大的没了](https://file.hsyhx.top/iPaperClipICU/web/assets/image/RIP/rip1.png)
+![R.I.P: 喜讯](https://file.hsyhx.top/web/assets/image/RIP/rip2.jpg)
 
-![R.I.P: 喜讯](https://file.hsyhx.top/iPaperClipICU/web/assets/image/RIP/rip2.jpg)
+![R.I.P: 大的没了](https://file.hsyhx.top/web/assets/image/RIP/rip1.png)
+
+> [!TIP|style:callout|label:一些话]
+本站点建立之初单纯就是为了站长本人能有个观看回形针PaperClip视频的地方，不管用不用魔法都可以流畅的观看，目前看来已经实现了  
+至于回形针PaperClip能不能重生，我认为唯一有能力去考虑这个问题的只有吴老师一人，其余人的帮忙均可能变为帮倒忙
