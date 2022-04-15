@@ -1,7 +1,7 @@
 # ipaperclip.icu
 
 <div align="center">
-  <img src="./docs/assets/paperclip.png" alt="ipaperclip.icu" />
+  <img src="https://cdn.jsdelivr.net/gh/iPaperClipICU/static/favicon/favicon.png" alt="ipaperclip.icu" />
   <p><em>He, 这里是 ipaperclip.icu</em></p>
   <img src="https://img.shields.io/github/license/ipaperclip-icu/ipaperclip.icu?style=flat-square" alt="license" />
   <img src="https://img.shields.io/github/issues/ipaperclip-icu/ipaperclip.icu?style=flat-square" alt="issues open" />
