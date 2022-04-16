@@ -1,10 +1,14 @@
 const changeHTML = (data) => {
+    var code = data['code'];
+    var msg = data['msg'];
+    data = data['data'];
+
     // url
     var urlList = document.getElementById('urlList');
-    for (i in data['data']['url']) {
-        var name = data['data']['url'][i]['name'];
-        var url = data['data']['url'][i]['url'];
-        var last = data['data']['url'][i]['last'];
+    for (i in data['url']) {
+        var name = data['url'][i]['name'].replace(/\.[^.]+$/, '');
+        var url = data['url'][i]['url'];
+        var last = data['url'][i]['last'];
         if (last) {
             urlList.appendChild(((name) => {
                 var node = document.createElement('li');
@@ -27,7 +31,7 @@ const changeHTML = (data) => {
 
     // file
     var file = document.getElementById('file');
-    var fileUrl = data['data']['fileUrl'];
+    var fileUrl = data['fileUrl'];
     var fileName = ((fileUrl) => {
         var tmp = fileUrl.split('/');
         return tmp[tmp.length - 1];
@@ -39,13 +43,13 @@ const changeHTML = (data) => {
     } else if (fileUrl.endsWith('.mp3') || fileUrl.endsWith('.flac')) {
         file.innerHTML = '<audio preload="none" controls><source src="' + fileUrl + '" type="audio/mpeg">🤔 您的浏览器不支持此音频格式</audio>';
     } else {
-        file.innerHTML = '文件读取错误';
+        file.innerHTML = '<p>未知错误，请联系管理员解决</p><p>API Code: ' + code + '</p><p>API Message: ' + msg + '</p>';
     };
 };
 
-var id = getQuery(window.location.search)['id'];
+var name = window.location.pathname.split('/')[2];
 
-var xhr = getXHR('GET', window.location.origin + '/api/file?id=' + id);
+var xhr = getXHR('GET', window.location.origin + '/api/file?name=' + name);
 xhr.onreadystatechange = function() {
     if (this.readyState == 4) {
         if (this.status === 200 || this.status === 304) {
