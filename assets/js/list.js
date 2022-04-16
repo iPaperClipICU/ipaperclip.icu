@@ -1,10 +1,14 @@
-const changeHTML = (data, id, type) => {
+const changeHTML = (data, tag1) => {
+    var code = data['code'];
+    var msg = data['msg'];
+    data = data['data'];
+
     // breadcrumb 面包屑
     var breadcrumb = document.getElementById('breadcrumb');
-    for (i in data['data']['url']) {
-        var name = data['data']['url'][i]['name'];
-        var url = data['data']['url'][i]['url'];
-        var last = data['data']['url'][i]['last'];
+    for (i in data['url']) {
+        var name = data['url'][i]['name'];
+        var url = data['url'][i]['url'];
+        var last = data['url'][i]['last'];
         if (last) {
             breadcrumb.appendChild(((name) => {
                 var node = document.createElement('li');
@@ -26,22 +30,23 @@ const changeHTML = (data, id, type) => {
     };
 
     // nav 二级分类
-    var type = data['data']['pages']['type'];
-    if (type != 'None') {
+    var tag2 = data['pages']['tag2'];
+    var tag2List = data['tag2List'];
+    if (tag2 != 'None') {
         var nav = document.getElementById('nav');
-        for (i in data['data']['type']) {
-            var name = data['data']['type'][i];
-            if (name == type) {
+        for (i in tag2List) {
+            var name = tag2List[i];
+            if (name == tag2) {
                 nav.appendChild((() => {
                     var node = document.createElement('li');
-                    node.innerHTML = '<a class="nav-link active" href="' + changeQuery(window, 'type', name) + '">' + name + '</a>';
+                    node.innerHTML = '<a class="nav-link active" href="/list/' + tag1 + '/' + name + '">' + name + '</a>';
                     node.setAttribute('class', 'nav-item');
                     return node;
                 })());
             } else {
                 nav.appendChild((() => {
                     var node = document.createElement('li');
-                    node.innerHTML = '<a class="nav-link" href="' + changeQuery(window, 'type', name) + '">' + name + '</a>';
+                    node.innerHTML = '<a class="nav-link" href="/list/' + tag1 + '/' + name + '">' + name + '</a>';
                     node.setAttribute('class', 'nav-item');
                     return node;
                 })());
@@ -51,8 +56,8 @@ const changeHTML = (data, id, type) => {
 
     // list 列表
     var list = document.getElementById('list');
-    for (i in data['data']['pages']['list']) {
-        var name = data['data']['pages']['list'][i]['name'];
+    for (i in data['pages']['data']) {
+        var name = data['pages']['data'][i];
 
         var icon;
         if (name.endsWith('.flv') || name.endsWith('.mp4')) {
@@ -64,11 +69,10 @@ const changeHTML = (data, id, type) => {
         } else {
             icon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16"><path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/></svg>';
         };
-        name = name.replace(/\.[^.]+$/, '');
         list.appendChild((() => {
             var node = document.createElement('a');
-            node.innerHTML = icon + ' ' + name;
-            node.href = '/file?id=' + data['data']['pages']['list'][i]['id'];
+            node.innerHTML = icon + ' ' + name.replace(/\.[^.]+$/, '');
+            node.href = '/file/' + name;
             node.setAttribute('class', 'list-group-item list-group-item-action');
             return node;
         })());
@@ -78,7 +82,7 @@ const changeHTML = (data, id, type) => {
     const addNode = (type, pagination, at) => {
         var node = document.createElement('li');
         if (type == 'a') {
-            node.innerHTML = '<a class="page-link" href="' + changeQuery(window, 'at', at) + '">' + at + '</a>';
+            node.innerHTML = '<a class="page-link" href="?at=' + at + '">' + at + '</a>';
             node.setAttribute('class', 'page-item');
         } else if (type == 'span') {
             node.innerHTML = '<span class="page-link">' + at + '</span>';
@@ -90,16 +94,16 @@ const changeHTML = (data, id, type) => {
         pagination.appendChild(node);
     };
     // pagination 分页
-    if (data['data']['pages']['more']) {
+    if (data['pages']['more']) {
         var maxButton = Math.floor(document.getElementById('list').clientWidth / 44.77);
         var pagination = document.getElementById('pagination');
-        var at = parseInt(data['data']['pages']['at']);
-        var pageNum = parseInt(data['data']['pages']['pagesNum']);
+        var at = parseInt(data['pages']['at']);
+        var pageNum = parseInt(data['pages']['pagesNum']);
         // 上一页
         if (at != 1) {
             pagination.appendChild((() => {
                 var node = document.createElement('li');
-                node.innerHTML = '<a class="page-link" href="' + changeQuery(window, 'at', (at - 1)) + '" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>';
+                node.innerHTML = '<a class="page-link" href="?at=' + (at - 1) + '" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>';
                 node.setAttribute('class', 'page-item');
                 return node;
             })());
@@ -164,7 +168,7 @@ const changeHTML = (data, id, type) => {
         if (at != pageNum) {
             pagination.appendChild((() => {
                 var node = document.createElement('li');
-                node.innerHTML = '<a class="page-link" href="' + changeQuery(window, 'at', (at + 1)) + '" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>';
+                node.innerHTML = '<a class="page-link" href="?at=' + (at + 1) + '" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>';
                 node.setAttribute('class', 'page-item');
                 return node;
             })());
@@ -179,21 +183,26 @@ const changeHTML = (data, id, type) => {
     };
 };
 
-var id = window.location.pathname.split('/')[2];
+var tmp = window.location.pathname.split('/');
+var tag1 = tmp[2];
+var tag2 = tmp[3];
+if (tag2 == undefined || tag2 == '') {
+    tag2 = '';
+} else {
+    tag2 = '&tag2=' + tag2;
+};
+
 var query = getQuery(window.location.search);
 var at = query['at'];
-if (at == undefined) at = 1;
-var type = query['type'];
-if (type == undefined) type = 'None';
-type = decodeURI(type);
+if (at == undefined || at == '') at = 1;
 
-var xhr = getXHR('GET', window.location.origin + '/api/list?id=' + id + '&at=' + at + '&type=' + type);
+var xhr = getXHR('GET', window.location.origin + '/api/list?at=' + at + '&tag1=' + tag1 + tag2);
 
 xhr.onreadystatechange = function() {
     if (this.readyState == 4) {
         if (this.status === 200 || this.status === 304) {
             var resJson = JSON.parse(this.responseText);
-            changeHTML(resJson, id);
+            changeHTML(resJson, tag1);
             removeLoading();
         };
     };

@@ -1,8 +1,12 @@
 const changeHTML = (data, s, at) => {
+    var code = data['code'];
+    var msg = data['msg'];
+    data = data['data'];
+
     // list 列表
     var list = document.getElementById('list');
-    for (i in data['data'][at - 1]) {
-        var name = data['data'][at - 1][i]['name'];
+    for (i in data[at - 1]) {
+        var name = data[at - 1][i];
 
         var icon;
         if (name.endsWith('.flv') || name.endsWith('.mp4')) {
@@ -15,13 +19,10 @@ const changeHTML = (data, s, at) => {
             icon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16"><path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/></svg>';
         };
 
-        name = name.replace(/\.[^.]+$/, '');
-
         list.appendChild((() => {
             var node = document.createElement('a');
-            var id = data['data'][at - 1][i]['id'].substring(0, 2);
-            node.innerHTML = icon + ' ' + name;
-            node.href = '/file?id=' + data['data'][at - 1][i]['id'];
+            node.innerHTML = icon + ' ' + name.replace(/\.[^.]+$/, '');
+            node.href = '/file/' + name;
             node.setAttribute('class', 'list-group-item list-group-item-action');
             return node;
         })());
@@ -43,7 +44,7 @@ const changeHTML = (data, s, at) => {
         pagination.appendChild(node);
     };
     // pagination 分页
-    if (data['data'].length != 1) {
+    if (data.length != 1) {
         var maxButton = Math.floor(document.getElementById('list').clientWidth / 44.77);
         var pagination = document.getElementById('pagination');
         // 上一页
@@ -63,9 +64,9 @@ const changeHTML = (data, s, at) => {
             })());
         };
         // 指定页面
-        if (data['data'].length < maxButton) {
+        if (data.length < maxButton) {
             // 正常显示
-            for (var i = 1; i <= data['data'].length; i++) {
+            for (var i = 1; i <= data.length; i++) {
                 if (i != at) {
                     addNode('a', pagination, s, i);
                 } else {
@@ -75,25 +76,25 @@ const changeHTML = (data, s, at) => {
         } else {
             // 异常显示
             // 1 2 3 4 5 6 7 8 9 10 (最多5)
-            if (at == data['data'].length - maxButton + 1 || at == data['data'].length - maxButton + 2) {
+            if (at == data.length - maxButton + 1 || at == data.length - maxButton + 2) {
                 // 6 7 8 9 10
                 console.log('11 12');
-                for (var i = data['data'].length - maxButton + 1; i <= data['data'].length; i++) {
+                for (var i = data.length - maxButton + 1; i <= data.length; i++) {
                     if (i != at) {
                         addNode('a', pagination, s, i);
                     } else {
                         addNode('span', pagination, s, i);
                     };
                 };
-            } else if (at >= data['data'].length - maxButton + 3) {
+            } else if (at >= data.length - maxButton + 3) {
                 // 1 ... 8 9 10
-                console.log(maxButton - (data['data'].length - at));
+                console.log(maxButton - (data.length - at));
 
-                for (var i = 1; i <= (maxButton - (data['data'].length - at) - 2); i++) {
+                for (var i = 1; i <= (maxButton - (data.length - at) - 2); i++) {
                     addNode('a', pagination, s, i);
                 };
                 addNode('.', pagination)
-                for (var i = at; i <= data['data'].length; i++) {
+                for (var i = at; i <= data.length; i++) {
                     if (i != at) {
                         addNode('a', pagination, s, i);
                     } else {
@@ -107,7 +108,7 @@ const changeHTML = (data, s, at) => {
                     if (i == at + maxButton - 2) {
                         addNode('.', pagination);
                     } else if (i == at + maxButton - 1) {
-                        addNode('a', pagination, s, data['data'].length);
+                        addNode('a', pagination, s, data.length);
                     } else {
                         addNode('a', pagination, s, i);
                     };
@@ -115,7 +116,7 @@ const changeHTML = (data, s, at) => {
             };
         };
         // 下一页
-        if (at != data['data'].length) {
+        if (at != data.length) {
             pagination.appendChild((() => {
                 var node = document.createElement('li');
                 node.innerHTML = '<a class="page-link" href="?s=' + s + '&at=' + (at + 1) + '" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>';
@@ -135,7 +136,10 @@ const changeHTML = (data, s, at) => {
 
 var s = getQuery(window.location.search)['s'];
 var at = getQuery(window.location.search)['at'];
-if (at == undefined) {
+if (s == undefined) {
+    s = '';
+};
+if (at == undefined || at == '') {
     at = 1;
 } else {
     at = parseInt(at);

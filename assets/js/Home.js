@@ -3,8 +3,8 @@ const changeHTML = (data) => {
     for (i in data['data']) {
         list.appendChild((() => {
             var node = document.createElement('a');
-            node.innerText = data['data'][i]['name'];
-            node.href = data['data'][i]['url'];
+            node.innerText = data['data'][i];
+            node.href = '/list/' + data['data'][i];
             node.setAttribute('class', 'list-group-item list-group-item-action');
             return node;
         })());
