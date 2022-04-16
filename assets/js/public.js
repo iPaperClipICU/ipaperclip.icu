@@ -54,14 +54,3 @@ const getQuery = (data) => {
 
     return query;
 };
-
-const changeQuery = (window, key, value) => {
-    var query = getQuery(window.location.search);
-    query[key] = value;
-    var tmp = '';
-    for (i in query) {
-        tmp += i + '=' + query[i] + '&';
-    };
-    tmp = '?' + tmp.substring(0, tmp.length - 1);
-    return tmp;
-};
