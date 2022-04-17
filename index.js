@@ -11,6 +11,7 @@ app.use(cors());
 
 // WEB
 const outFile = (res, err, file) => {
+    res.setHeader("Content-Type", "text/html;charset=utf-8");
     if (err) {
         res.writeHead(404, "not found");
         res.end("<h1>404 NOT FOUND</h1>");
@@ -28,6 +29,7 @@ app.get('/file/*', (req, res) => getHTML('./assets/html/file.html', res));
 app.get('/search', (req, res) => getHTML('./assets/html/search.html', res));
 
 app.get('/assets/js/*', getAssets);
+app.get('/sitemap.txt', (req, res) => getHTML('./assets/siteMap.txt', res));
 
 // API
 const dataJson = jsonplus.parse(fs.readFileSync('./data/data.json', 'utf8'));
