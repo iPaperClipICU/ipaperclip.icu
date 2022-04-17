@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const fs = require("fs");
+const request = require('request');
 const jsonplus = require('jsonplus');
 const app = express();
 
@@ -23,11 +24,91 @@ const outFile = (res, err, file) => {
 const getHTML = (path, res) => fs.readFile(path, "binary", (err, file) => outFile(res, err, file));
 const getAssets = (req, res) => fs.readFile('.' + req.originalUrl, "binary", (err, file) => outFile(res, err, file));
 
-app.get('/', (req, res) => getHTML('./assets/html/Home.html', res));
-app.get('/list/*', (req, res) => getHTML('./assets/html/list.html', res));
-app.get('/file/*', (req, res) => getHTML('./assets/html/file.html', res));
-app.get('/search', (req, res) => getHTML('./assets/html/search.html', res));
+var reqList = {};
+const checkReq = (req, res) => {
+    // var ip = req.headers['x-forwarded-for'].split(', ')[0];
+    var ip = '127.0.0.1';
+    /*
+    {
+        "ip": {
+            "reCaptcha": false,
+            "firstReqTime": 123,
+            "reqNum": 1,
+            "whiteStartTime": 123
+        }
+    }
+    */
+    res.setHeader("Content-Type", "text/html;charset=utf-8");
+    if (reqList[ip] == undefined) {
+        // 首次请求
+        reqList[ip] = {
+            "reCaptcha": false,
+            "firstReqTime": process.uptime(),
+            "reqNum": 1
+        };
+    } else if (reqList[ip]['whiteStartTime'] != undefined) {
+        // 白名单
+        // 白名单限时30min
+        if (process.uptime() - reqList[ip]['whiteStartTime'] > (30 * 60)) {
+            reqList[ip] = {
+                "reCaptcha": false,
+                "firstReqTime": process.uptime(),
+                "reqNum": 1
+            };
+            return;
+        };
+        // 白名单限制 15req/min
+        if (process.uptime() - reqList[ip]['firstReqTime'] > 60) {
+            reqList[ip]['firstReqTime'] = process.uptime();
+            reqList[ip]['reqNum'] = 1;
+        } else {
+            reqList[ip]['reqNum']++;
+            if (reqList[ip]['reqNum'] > 15) {
+                reqList[ip]['reCaptcha'] = true;
+            };
+        };
+    } else if ((process.uptime() - reqList[ip]['firstReqTime']) > 60 && reqList[ip]['reqCaptcha'] == false) {
+        // 距离首次请求超过60s，刷新数据
+        reqList[ip] = {
+            "reCaptcha": false,
+            "firstReqTime": process.uptime(),
+            "reqNum": 1
+        };
+    } else {
+        // 非首次请求
+        reqList[ip]['reqNum']++;
+        // 限制 5req/min
+        if (reqList[ip]['reqNum'] > 5) {
+            reqList[ip]['reCaptcha'] = true;
+        };
+    };
+    if (reqList[ip]['reCaptcha'] == true) {
+        // 需要验证码
+        fs.readFile('./assets/html/reCaptcha.html', 'binary', (err, file) => {
+            if (err) {
+                res.writeHead(404, 'not found');
+                res.end('<h1>404 NOT FOUND</h1>');
+            } else {
+                res.write(file, "binary");
+                res.end();
+            };
+        });
+    };
+    return reqList[ip]['reCaptcha'];
+};
 
+app.get('/', (req, res) => {
+    if (checkReq(req, res) == false) getHTML('./assets/html/Home.html', res);
+});
+app.get('/list/*', (req, res) => {
+    if (checkReq(req, res) == false) getHTML('./assets/html/list.html', res);
+});
+app.get('/file/*', (req, res) => {
+    if (checkReq(req, res) == false) getHTML('./assets/html/file.html', res);
+});
+app.get('/search', (req, res) => {
+    if (checkReq(req, res) == false) getHTML('./assets/html/search.html', res);
+});
 app.get('/assets/js/*', getAssets);
 app.get('/sitemap.txt', (req, res) => getHTML('./assets/siteMap.txt', res));
 
@@ -35,6 +116,55 @@ app.get('/sitemap.txt', (req, res) => getHTML('./assets/siteMap.txt', res));
 const dataJson = jsonplus.parse(fs.readFileSync('./data/data.json', 'utf8'));
 const dataMapJson = jsonplus.parse(fs.readFileSync('./data/dataMap.json', 'utf8'))['data'];
 const searchMapJson = jsonplus.parse(fs.readFileSync('./data/searchMap.json', 'utf8'))['data'];
+const reCaptchaKey = jsonplus.parse(fs.readFileSync('./config.json', 'utf8'))['reCaptchaKey'];
+app.post('/api/recaptcha', (req, res) => {
+    // var ip = req.headers['x-forwarded-for'].split(', ')[0];
+    var ip = '127.0.0.1';
+    var key = req.body['key'];
+    if (key == undefined) {
+        res.send({
+            'code': -200,
+            'msg': 'key is undefined',
+            'data': ''
+        });
+    };
+
+    const recaptcha = (data) => {
+        var outJson = {};
+        if (data['success'] == true) {
+            outJson = {
+                "success": true,
+            };
+            reqList[ip] = {
+                "reCaptcha": false,
+                "firstReqTime": process.uptime(),
+                "reqNum": 0,
+                "whiteStartTime": process.uptime()
+            };
+        } else {
+            outJson = {
+                "success": false,
+                "error-codes": data['error-codes']
+            };
+        };
+        res.end(JSON.stringify({
+            'code': 200,
+            'msg': 'msg',
+            'data': outJson
+        }));
+    };
+    request.post({
+        url: 'https://www.google.com/recaptcha/api/siteverify',
+        form: {
+            secret: reCaptchaKey,
+            response: key,
+            remoteip: ip
+        }
+    }, (error, response, body) => {
+        if (!error && response.statusCode == 200) recaptcha(JSON.parse(body));
+    });
+});
+
 app.get('/api/Home', (req, res) => {
     var data = [];
     for (i in dataMapJson) {
