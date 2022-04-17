@@ -132,6 +132,32 @@ def changeHTML(dev: bool):
                 w.write(tmp)
             w.close()
 
+def getSiteMap():
+    '''
+    获取SiteMap
+    '''
+    with open('./data/data.json', 'r', encoding='UTF-8') as r:
+        data = json.load(r)
+    r.close()
+    tmp = []
+    tmp.append('/')
+    tmp.append('/search')
+    for tag1 in data:
+        tmp.append('/list/'+tag1)
+        for tag2 in data[tag1]:
+            tmp.append('/list/'+tag1+'/'+tag2)
+            for i in data[tag1][tag2]:
+                for ii in i:
+                    tmp.append('/file/'+ii['name'])
+    
+    siteMap = ''
+    url = 'https://ipaperclip.icu'
+    for i in tmp:
+        siteMap += url+i+'\n'
+    with open('./assets/siteMap.txt', 'w', encoding='UTF-8') as w:
+        w.write(siteMap)
+    w.close()
+
 def saveJson(data: json, path: str):
     '''
     保存json
@@ -145,10 +171,6 @@ def main():
     dev = False
     refreshData = False
     ####################
-    print('------------------------------------------------------')
-    print('修改HTML, dev: ', dev)
-    changeHTML(dev)
-    print('------------------------------------------------------')
     if refreshData:
         print('------------------------------------------------------')
         print('refreshData True')
@@ -171,6 +193,12 @@ def main():
         print('save: searchMap')
         saveJson(searchMap, './data/searchMap.json')
         print('------------------------------------------------------')
+    print('------------------------------------------------------')
+    print('修改HTML, dev: ', dev)
+    changeHTML(dev)
+    print('生成SiteMap')
+    getSiteMap()
+    print('------------------------------------------------------')
 
 if __name__ == '__main__':
     main()
