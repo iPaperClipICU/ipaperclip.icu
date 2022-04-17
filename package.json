@@ -20,6 +20,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.3",
-    "jsonplus": "^1.2.1"
+    "jsonplus": "^1.2.1",
+    "request": "^2.88.2"
   }
 }
