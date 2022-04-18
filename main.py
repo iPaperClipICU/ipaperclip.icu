@@ -143,9 +143,9 @@ def getSiteMap():
     tmp.append('/')
     tmp.append('/search')
     for tag1 in data:
-        tmp.append('/list/'+tag1)
+        tmp.append('/'+tag1)
         for tag2 in data[tag1]:
-            tmp.append('/list/'+tag1+'/'+tag2)
+            tmp.append('/'+tag1+'/'+tag2)
             for i in data[tag1][tag2]:
                 for ii in i:
                     tmp.append('/file/'+ii['name'])
@@ -154,7 +154,7 @@ def getSiteMap():
     url = 'https://ipaperclip.icu'
     for i in tmp:
         siteMap += url+i+'\n'
-    with open('./assets/siteMap.txt', 'w', encoding='UTF-8') as w:
+    with open('./assets/sitemap.txt', 'w', encoding='UTF-8') as w:
         w.write(siteMap)
     w.close()
 
