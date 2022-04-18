@@ -25,7 +25,6 @@ const checkReq = (req, res) => {
         }
     }
     */
-    res.setHeader("Content-Type", "text/html;charset=utf-8");
     if (reqList[ip] == undefined) {
         // 首次请求
         reqList[ip] = {
@@ -99,10 +98,30 @@ const getHTML = (path, res) => fs.readFile(path, "binary", (err, file) => outFil
 const getAssets = (req, res) => fs.readFile('.' + req.originalUrl, "binary", (err, file) => outFile(res, err, file));
 
 app.get(/^\/(?!file|api|sitemap|assets).*/g, (req, res) => {
-    getHTML('./assets/html/index.html', res);
+    res.setHeader("Content-Type", "text/html;charset=utf-8");
+    checkReq(req, res);
+    fs.readFile('./assets/html/index.html', "binary", (err, file) => {
+        if (err) {
+            res.writeHead(404, "not found");
+            res.end("<h1>404 NOT FOUND</h1>");
+        } else {
+            res.write(file, "binary");
+            res.end();
+        };
+    });
 });
 app.get('/file/*', (req, res) => {
-    getHTML('./assets/html/file.html', res);
+    res.setHeader("Content-Type", "text/html;charset=utf-8");
+    checkReq(req, res);
+    fs.readFile('./assets/html/file.html', "binary", (err, file) => {
+        if (err) {
+            res.writeHead(404, "not found");
+            res.end("<h1>404 NOT FOUND</h1>");
+        } else {
+            res.write(file, "binary");
+            res.end();
+        };
+    });
 });
 app.get('/assets/js/*', getAssets);
 app.get('/sitemap.txt', (req, res) => getHTML('./assets/siteMap.txt', res));
