@@ -1,12 +1,14 @@
 const removeLoading = () => {
     var loading = document.getElementById('loading');
-    var main = document.getElementById('main');
+    var search = document.getElementById('search');
+    var tag1 = document.getElementById('tag1');
 
     document.body.removeChild(loading);
-    main.style.display = 'block';
+    search.style.display = '';
+    tag1.style.display = '';
 };
 
-const getXHR = (mode, url) => {
+const getXHR = (url) => {
     var xhr = (() => {
         var hr;
         if (window.XMLHttpRequest) {
@@ -29,27 +31,40 @@ const getXHR = (mode, url) => {
         };
         return hr;
     })();
-    xhr.open(mode, url);
+    xhr.open('GET', url);
     xhr.send();
 
     return xhr;
 };
+
+const addQuery = (key, value) => {
+    var query = getQuery(window.location.search);
+    query[key] = value;
+    var tmp = [];
+    for (i in query) {
+        if (query[i] != undefined) {
+            tmp.push(i + '=' + query[i]);
+        };
+    };
+    return '?' + tmp.join('&');
+}
 
 const getQuery = (data) => {
     data = data.split('?')[1];
     if (data != undefined) {
         data = data.split('&');
     } else {
-        data = [];
+        return {};
     };
 
     query = {};
     for (i in data) {
         tmp = data[i].split('=');
-        query[tmp[0]] = tmp[1];
-    };
-    if (query == {}) {
-        query = undefined;
+        if (tmp[1] != '') {
+            query[tmp[0]] = tmp[1];
+        } else {
+            query[tmp[0]] = undefined;
+        };
     };
 
     return query;

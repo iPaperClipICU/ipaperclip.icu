@@ -10,20 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-// WEB
-const outFile = (res, err, file) => {
-    res.setHeader("Content-Type", "text/html;charset=utf-8");
-    if (err) {
-        res.writeHead(404, "not found");
-        res.end("<h1>404 NOT FOUND</h1>");
-    } else {
-        res.write(file, "binary");
-        res.end();
-    };
-};
-const getHTML = (path, res) => fs.readFile(path, "binary", (err, file) => outFile(res, err, file));
-const getAssets = (req, res) => fs.readFile('.' + req.originalUrl, "binary", (err, file) => outFile(res, err, file));
-
+// captcha
 var reqList = {};
 const checkReq = (req, res) => {
     // var ip = req.headers['x-forwarded-for'].split(', ')[0];
@@ -97,17 +84,25 @@ const checkReq = (req, res) => {
     return reqList[ip]['reCaptcha'];
 };
 
-app.get('/', (req, res) => {
-    if (checkReq(req, res) == false) getHTML('./assets/html/Home.html', res);
-});
-app.get('/list/*', (req, res) => {
-    if (checkReq(req, res) == false) getHTML('./assets/html/list.html', res);
+// WEB
+const outFile = (res, err, file) => {
+    res.setHeader("Content-Type", "text/html;charset=utf-8");
+    if (err) {
+        res.writeHead(404, "not found");
+        res.end("<h1>404 NOT FOUND</h1>");
+    } else {
+        res.write(file, "binary");
+        res.end();
+    };
+};
+const getHTML = (path, res) => fs.readFile(path, "binary", (err, file) => outFile(res, err, file));
+const getAssets = (req, res) => fs.readFile('.' + req.originalUrl, "binary", (err, file) => outFile(res, err, file));
+
+app.get(/^\/(?!file|api|sitemap|assets).*/g, (req, res) => {
+    getHTML('./assets/html/index.html', res);
 });
 app.get('/file/*', (req, res) => {
-    if (checkReq(req, res) == false) getHTML('./assets/html/file.html', res);
-});
-app.get('/search', (req, res) => {
-    if (checkReq(req, res) == false) getHTML('./assets/html/search.html', res);
+    getHTML('./assets/html/file.html', res);
 });
 app.get('/assets/js/*', getAssets);
 app.get('/sitemap.txt', (req, res) => getHTML('./assets/siteMap.txt', res));
@@ -219,25 +214,21 @@ app.get('/api/list', (req, res) => {
             list.push(data[at - 1][i]['name']);
         };
 
+
+        if (tag2List[0] == 'None') {
+            tag2List = 'None';
+        };
         var outJSON = JSON.stringify({
             'code': 200,
             'msg': '',
             'data': {
-                'url': [{
-                    'name': 'Home',
-                    'url': '/'
-                }, {
-                    'name': tag1,
-                    'last': true
-                }],
-                'tag2List': tag2List,
-                'pages': {
-                    'more': more,
-                    'tag2': tag2,
-                    'at': at,
-                    'pagesNum': pagesNum,
-                    'data': list
-                }
+                "tag1": tag1,
+                "tag2List": tag2List,
+                "tag2": tag2,
+                "more": more,
+                "pageNum": pagesNum,
+                "at": at,
+                "list": list
             }
         });
     }
@@ -252,7 +243,7 @@ app.get('/api/file', (req, res) => {
         var outJSON = JSON.stringify({
             'code': -200,
             'msg': 'name is undefined'
-        })
+        });
     } else {
         var data = undefined;
         for (tag1 in dataJson) {
@@ -277,20 +268,12 @@ app.get('/api/file', (req, res) => {
             'code': 200,
             'msg': '',
             'data': {
-                'url': [{
-                    'name': 'Home',
-                    'url': '/'
-                }, {
-                    'name': data['tag1'],
-                    'url': '/list/' + data['tag1']
-                }, {
-                    'name': data['name'],
-                    'last': true
-                }],
-                'fileUrl': data['url']
+                'tag1': data.tag1,
+                'fileName': data.name,
+                'fileUrl': data.url
             }
         });
-    }
+    };
     res.setHeader("Content-Type", "application/json;charset=utf-8");
     res.end(outJSON);
 });
@@ -298,8 +281,9 @@ app.get('/api/file', (req, res) => {
 app.get('/api/search', (req, res) => {
     // ?s=123
     var pageSize = 20;
-    var keyword = req.query['s'];
-    keyword = keyword.replace('+', ' ');
+    var at = req.query['at'];
+    var keyword = req.query['s'].replace('+', ' ');
+    if (at == undefined) at = 1;
 
     // 搜索
     searchResList = [];
@@ -327,7 +311,12 @@ app.get('/api/search', (req, res) => {
     var outJSON = JSON.stringify({
         'code': 200,
         'msg': '',
-        'data': searchResList
+        'data': {
+            'more': searchResList.length != 1,
+            'pageNum': searchResList.length,
+            'at': at,
+            'list': searchResList[at - 1]
+        }
     });
     res.setHeader("Content-Type", "application/json;charset=utf-8");
     res.end(outJSON);
