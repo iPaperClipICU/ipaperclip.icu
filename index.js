@@ -10,11 +10,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-// captcha
+const getIP = (req) => {
+    return req.headers['x-forwarded-for'].split(', ')[0];
+    // return '127.0.0.1';
+};
+
+// checkReq
 var reqList = {};
 const checkReq = (req, res) => {
-    // var ip = req.headers['x-forwarded-for'].split(', ')[0];
-    var ip = '127.0.0.1';
+    var ip = getIP(req);
     /*
     {
         "ip": {
@@ -132,8 +136,7 @@ const dataMapJson = jsonplus.parse(fs.readFileSync('./data/dataMap.json', 'utf8'
 const searchMapJson = jsonplus.parse(fs.readFileSync('./data/searchMap.json', 'utf8'))['data'];
 const reCaptchaKey = jsonplus.parse(fs.readFileSync('./config.json', 'utf8'))['reCaptchaKey'];
 app.post('/api/recaptcha', (req, res) => {
-    // var ip = req.headers['x-forwarded-for'].split(', ')[0];
-    var ip = '127.0.0.1';
+    var ip = getIP(req);
     var key = req.body['key'];
     if (key == undefined) {
         res.send({
@@ -204,6 +207,22 @@ app.get('/api/list', (req, res) => {
     } else {
         at = parseInt(at);
     };
+    // 如果tag1不在dataMap中，返回错误
+    if ((() => {
+            var tmp = true;
+            for (i in dataMapJson) {
+                if (tag1 == dataMapJson[i][0]) {
+                    tmp = false;
+                };
+            };
+            return tmp;
+        })()) {
+        res.end(JSON.stringify({
+            'code': -200,
+            'msg': 'tag1 not found'
+        }));
+    };
+
 
     if (tag1 == undefined) {
         var outJSON = JSON.stringify({
@@ -283,15 +302,22 @@ app.get('/api/file', (req, res) => {
             };
             if (data != undefined) break;
         };
-        var outJSON = JSON.stringify({
-            'code': 200,
-            'msg': '',
-            'data': {
-                'tag1': data.tag1,
-                'fileName': data.name,
-                'fileUrl': data.url
-            }
-        });
+        if (data == undefined) {
+            var outJSON = JSON.stringify({
+                'code': -200,
+                'msg': 'name not found'
+            });
+        } else {
+            var outJSON = JSON.stringify({
+                'code': 200,
+                'msg': '',
+                'data': {
+                    'tag1': data.tag1,
+                    'fileName': data.name,
+                    'fileUrl': data.url
+                }
+            });
+        }
     };
     res.setHeader("Content-Type", "application/json;charset=utf-8");
     res.end(outJSON);
