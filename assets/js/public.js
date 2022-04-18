@@ -69,3 +69,16 @@ const getQuery = (data) => {
 
     return query;
 };
+
+/**
+ * 当API返回错误信息时，显示错误信息
+ * @param {string} msg message
+ */
+const APIError = (msg) => {
+    var apiError = document.getElementById('api-error');
+    var node = document.createElement('div');
+    node.innerText = 'API Error: ' + msg;
+    apiError.appendChild(node);
+    apiError.style = '';
+    document.body.removeChild(document.getElementById('loading'));
+};

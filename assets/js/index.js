@@ -390,48 +390,53 @@ if (query['s'] != undefined) {
     xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
             if (this.status === 200 || this.status === 304) {
-                ((data) => {
-                    data = data['data'];
+                var resJson = JSON.parse(this.responseText);
+                if (resJson['code'] != 200) {
+                    APIError(resJson['msg']);
+                } else {
+                    ((data) => {
+                        data = data['data'];
 
-                    // Tag1
-                    setTag1({
-                        'at': data.tag1,
-                        'data': [{
-                            'name': 'Home',
-                            'url': '/'
-                        }, {
-                            'name': data.tag1
-                        }]
-                    });
-
-                    // Tag2
-                    if (data.tag2List != 'None') {
-                        setTag2({
-                            'tag1': data.tag1,
-                            'at': data.tag2,
-                            'data': data.tag2List
+                        // Tag1
+                        setTag1({
+                            'at': data.tag1,
+                            'data': [{
+                                'name': 'Home',
+                                'url': '/'
+                            }, {
+                                'name': data.tag1
+                            }]
                         });
-                    };
 
-                    // List
-                    setList((() => {
-                        var tmp = [];
-                        for (i in data.list) {
-                            tmp.push({
-                                'name': data.list[i],
-                                'url': '/file/' + data.list[i]
+                        // Tag2
+                        if (data.tag2List != 'None') {
+                            setTag2({
+                                'tag1': data.tag1,
+                                'at': data.tag2,
+                                'data': data.tag2List
                             });
                         };
-                        return tmp;
-                    })());
 
-                    // Pagination
-                    if (data.more) {
-                        var maxButton = Math.floor(document.getElementById('list').clientWidth / 44.77);
-                        setPagination([maxButton, data.pageNum, data.at]);
-                    };
-                })(JSON.parse(this.responseText));
-                removeLoading();
+                        // List
+                        setList((() => {
+                            var tmp = [];
+                            for (i in data.list) {
+                                tmp.push({
+                                    'name': data.list[i],
+                                    'url': '/file/' + data.list[i]
+                                });
+                            };
+                            return tmp;
+                        })());
+
+                        // Pagination
+                        if (data.more) {
+                            var maxButton = Math.floor(document.getElementById('list').clientWidth / 44.77);
+                            setPagination([maxButton, data.pageNum, data.at]);
+                        };
+                    })(resJson);
+                    removeLoading();
+                };
             };
         };
     };
