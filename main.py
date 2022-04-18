@@ -168,7 +168,7 @@ def saveJson(data: json, path: str):
 
 def main():
     ###### Config ######
-    dev = False
+    dev = True
     refreshData = False
     ####################
     if refreshData:

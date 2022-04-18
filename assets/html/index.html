@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 
 <head>
-    <title>iPaperClipICU</title>
+    <title>回形针重症监护室 | ipaperclip.icu</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="Description">
@@ -48,35 +48,49 @@
             </div>
         </div>
     </div>
-    <div id="main" style="display: none;">
+    <div id="main">
         <div class="container">
-            <figure class="text-center" style="padding-top: 10px;">
+            <figure class="text-center" style="margin: 10px 0;">
                 <h1><a href="/" class="text-black">回形针重症监护室 | ipaperclip.icu</a></h1>
             </figure>
             <div class="row">
                 <div class="col"></div>
                 <div class="col-10">
-                    <!-- 面包屑 -->
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item active" aria-current="page">Home</li>
-                        </ol>
-                    </nav>
                     <!-- 搜索 -->
-                    <form class="row" action="/search" method="get">
+                    <form class="row" action="/" method="get" id="search" style="display: none;">
                         <div class="col-auto">
-                            <input type="text" class="form-control" name="s" id="inputSearch" placeholder="搜索">
+                            <input type="text" class="form-control" style="width: 150px;" name="s" placeholder="搜索" required>
                         </div>
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3" id="searchButton">搜索</button>
+                            <button type="submit" class="btn btn-primary mb-3">搜索</button>
                         </div>
                     </form>
-                    <!-- list -->
-                    <div id="list" class="list-group"></div>
-                    <!-- info -->
-                    <div style="padding-top: 10px;">
+                    <!-- Tag1 -->
+                    <nav>
+                        <ol id="tag1" class="breadcrumb" style="margin-bottom: 10px; display: none;">
+                            <li class="breadcrumb-item active">Home</li>
+                        </ol>
+                    </nav>
+                    <!-- Tag2 -->
+                    <ul id="tag2" class="nav nav-tabs" style="margin-bottom: 10px; display: none;">
+                        <li class="nav-item"><a class="nav-link active" href="/list/%E5%9B%9E%E5%BD%A2%E9%92%88PaperClip/Vol">Vol</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/list/%E5%9B%9E%E5%BD%A2%E9%92%88PaperClip/Sp">Sp</a></li>
+                    </ul>
+                    <!-- List -->
+                    <div id="list" class="list-group">
+                        <!-- <a href="/list/回形针PaperClip" class="list-group-item list-group-item-action">回形针PaperClip</a> -->
+                    </div>
+                    <!-- 分页 -->
+                    <nav>
+                        <ul class="pagination" id="pagination" style="margin-top: 10px; display: none;">
+                            <li class="page-item disabled"><span class="page-link"><span>«</span></span>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- Info -->
+                    <div id="info" style="margin-top: 10px; display: none;">
                         <div class="card">
-                            <div class="card-body" id="info">
+                            <div class="card-body">
                                 <p>He, 这里是 ipaperclip.icu</p>
                                 <h2>网站</h2>
                                 <p>视频、文字稿归档: <a href="https://ipaperclip.icu/">ipaperclip.icu</a> | <a href="https://vercel.ipaperclip.icu/">vercel.ipaperclip.icu</a>(Vercel备用)</p>
@@ -110,8 +124,8 @@
     </div>
 
     <script src="//file.hsyhx.top/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="//file.hsyhx.top/assets/js/public.js"></script>
-    <script src="//file.hsyhx.top/assets/js/Home.js"></script>
+    <script src="/assets/js/public.js"></script>
+    <script src="/assets/js/index.js"></script>
 </body>
 
 </html>
