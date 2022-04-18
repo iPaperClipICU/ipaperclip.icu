@@ -128,7 +128,7 @@ app.get('/file/*', (req, res) => {
     });
 });
 app.get('/assets/js/*', getAssets);
-app.get('/sitemap.txt', (req, res) => getHTML('./assets/siteMap.txt', res));
+app.get('/sitemap.txt', (req, res) => getHTML('./assets/sitemap.txt', res));
 
 // API
 const dataJson = jsonplus.parse(fs.readFileSync('./data/data.json', 'utf8'));
