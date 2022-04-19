@@ -5,11 +5,15 @@ const request = require('request');
 const jsonplus = require('jsonplus');
 const app = express();
 
-const port = 7799;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
+const port = 7799;
+const dataJson = jsonplus.parse(fs.readFileSync('./data/data.json', 'utf8'));
+const dataMapJson = jsonplus.parse(fs.readFileSync('./data/dataMap.json', 'utf8'))['data'];
+const searchMapJson = jsonplus.parse(fs.readFileSync('./data/searchMap.json', 'utf8'))['data'];
+const reCaptchaKey = jsonplus.parse(fs.readFileSync('./config.json', 'utf8'))['reCaptchaKey'];
 const getIP = (req) => {
     return req.headers['x-forwarded-for'].split(', ')[0];
     // return '127.0.0.1';
@@ -88,20 +92,20 @@ const checkReq = (req, res) => {
 };
 
 // WEB
-const outFile = (res, err, file) => {
+app.get(/\/(回形针PaperClip|基本操作|干燥工厂|原创专辑|混乱博物馆|灵光灯泡|黑水报告|演讲|其他|%E5%9B%9E%E5%BD%A2%E9%92%88PaperClip|%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C|%E5%B9%B2%E7%87%A5%E5%B7%A5%E5%8E%82|%E5%8E%9F%E5%88%9B%E4%B8%93%E8%BE%91|%E6%B7%B7%E4%B9%B1%E5%8D%9A%E7%89%A9%E9%A6%86|%E7%81%B5%E5%85%89%E7%81%AF%E6%B3%A1|%E9%BB%91%E6%B0%B4%E6%8A%A5%E5%91%8A|%E6%BC%94%E8%AE%B2|%E5%85%B6%E4%BB%96)\/?.*/g, (req, res) => {
     res.setHeader("Content-Type", "text/html;charset=utf-8");
-    if (err) {
-        res.writeHead(404, "not found");
-        res.end("<h1>404 NOT FOUND</h1>");
-    } else {
-        res.write(file, "binary");
-        res.end();
-    };
-};
-const getHTML = (path, res) => fs.readFile(path, "binary", (err, file) => outFile(res, err, file));
-const getAssets = (req, res) => fs.readFile('.' + req.originalUrl, "binary", (err, file) => outFile(res, err, file));
-
-app.get(/^\/(?!file|api|sitemap|assets).*/g, (req, res) => {
+    checkReq(req, res);
+    fs.readFile('./assets/html/index.html', "binary", (err, file) => {
+        if (err) {
+            res.writeHead(404, "not found");
+            res.end("<h1>404 NOT FOUND</h1>");
+        } else {
+            res.write(file, "binary");
+            res.end();
+        };
+    });
+});
+app.get('/', (req, res) => {
     res.setHeader("Content-Type", "text/html;charset=utf-8");
     checkReq(req, res);
     fs.readFile('./assets/html/index.html', "binary", (err, file) => {
@@ -127,14 +131,32 @@ app.get('/file/*', (req, res) => {
         };
     });
 });
-app.get('/assets/js/*', getAssets);
-app.get('/sitemap.txt', (req, res) => getHTML('./assets/sitemap.txt', res));
+app.get('/assets/js/*', (req, res) => {
+    res.setHeader("Content-Type", "text/html;charset=utf-8");
+    fs.readFile('.' + req.originalUrl, "binary", (err, file) => {
+        if (err) {
+            res.writeHead(404, "not found");
+            res.end("<h1>404 NOT FOUND</h1>");
+        } else {
+            res.write(file, "binary");
+            res.end();
+        };
+    });
+});
+app.get('/sitemap.txt', (req, res) => {
+    res.setHeader("Content-Type", "text/html;charset=utf-8");
+    fs.readFile('./assets/sitemap.txt', "binary", (err, file) => {
+        if (err) {
+            res.writeHead(404, "not found");
+            res.end("<h1>404 NOT FOUND</h1>");
+        } else {
+            res.write(file, "binary");
+            res.end();
+        };
+    });
+});
 
 // API
-const dataJson = jsonplus.parse(fs.readFileSync('./data/data.json', 'utf8'));
-const dataMapJson = jsonplus.parse(fs.readFileSync('./data/dataMap.json', 'utf8'))['data'];
-const searchMapJson = jsonplus.parse(fs.readFileSync('./data/searchMap.json', 'utf8'))['data'];
-const reCaptchaKey = jsonplus.parse(fs.readFileSync('./config.json', 'utf8'))['reCaptchaKey'];
 app.post('/api/recaptcha', (req, res) => {
     var ip = getIP(req);
     var key = req.body['key'];
@@ -221,6 +243,7 @@ app.get('/api/list', (req, res) => {
             'code': -200,
             'msg': 'tag1 not found'
         }));
+        return;
     };
 
 
@@ -365,6 +388,20 @@ app.get('/api/search', (req, res) => {
     });
     res.setHeader("Content-Type", "application/json;charset=utf-8");
     res.end(outJSON);
+});
+
+// 404
+app.get('*', (req, res) => {
+    res.setHeader("Content-Type", "text/html;charset=utf-8");
+    fs.readFile('./assets/html/404.html', "binary", (err, file) => {
+        if (err) {
+            res.writeHead(404, "not found");
+            res.end("<h1>404 NOT FOUND</h1>");
+        } else {
+            res.write(file, "binary");
+            res.end();
+        };
+    });
 });
 
 app.listen(port, () => {
