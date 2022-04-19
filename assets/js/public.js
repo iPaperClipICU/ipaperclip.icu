@@ -1,3 +1,6 @@
+/**
+ * 删除Loading
+ */
 const removeLoading = () => {
     var loading = document.getElementById('loading');
     var search = document.getElementById('search');
@@ -8,6 +11,11 @@ const removeLoading = () => {
     tag1.style.display = '';
 };
 
+/**
+ * 获取XHR对象
+ * @param {string} url url
+ * @returns XHR
+ */
 const getXHR = (url) => {
     var xhr = (() => {
         var hr;
@@ -37,6 +45,12 @@ const getXHR = (url) => {
     return xhr;
 };
 
+/**
+ * 新增query
+ * @param {string} key key
+ * @param {string} value value
+ * @returns 新的query
+ */
 const addQuery = (key, value) => {
     var query = getQuery(window.location.search);
     query[key] = value;
@@ -49,6 +63,11 @@ const addQuery = (key, value) => {
     return '?' + tmp.join('&');
 }
 
+/**
+ * 获取query
+ * @param {string} data 数据
+ * @returns query
+ */
 const getQuery = (data) => {
     data = data.split('?')[1];
     if (data != undefined) {
@@ -81,4 +100,23 @@ const APIError = (msg) => {
     apiError.appendChild(node);
     apiError.style = '';
     document.body.removeChild(document.getElementById('loading'));
+};
+
+const dark = (() => {
+    var tmp = document.cookie.split('; ');
+    var cookie = {};
+    for (i in tmp) cookie[tmp[i].split('=')[0]] = tmp[i].split('=')[1];
+    if (cookie.dark == undefined || cookie.dark == '' || cookie.dark == 'false' || cookie.dark == false) {
+        return false;
+    } else {
+        return true;
+    };
+})();
+
+document.getElementById("dark").onclick = () => {
+    var d = new Date();
+    d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000)); //30天
+    if (dark) document.cookie = 'dark=false; expires=' + d.toGMTString() + '; path=/'
+    else document.cookie = 'dark=true; expires=' + d.toGMTString() + '; path=/';
+    location.reload();
 };
