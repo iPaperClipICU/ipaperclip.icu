@@ -95,14 +95,18 @@ const checkReq = (req, res) => {
 app.get(/\/(回形针PaperClip|基本操作|干燥工厂|原创专辑|混乱博物馆|灵光灯泡|黑水报告|演讲|其他|%E5%9B%9E%E5%BD%A2%E9%92%88PaperClip|%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C|%E5%B9%B2%E7%87%A5%E5%B7%A5%E5%8E%82|%E5%8E%9F%E5%88%9B%E4%B8%93%E8%BE%91|%E6%B7%B7%E4%B9%B1%E5%8D%9A%E7%89%A9%E9%A6%86|%E7%81%B5%E5%85%89%E7%81%AF%E6%B3%A1|%E9%BB%91%E6%B0%B4%E6%8A%A5%E5%91%8A|%E6%BC%94%E8%AE%B2|%E5%85%B6%E4%BB%96)\/?.*/g, (req, res) => {
     var dark = ((cookie) => {
         var tmp = {};
-        cookie = cookie.split('; ');
-        for (i in cookie) {
-            tmp[cookie[i].split('=')[0]] = cookie[i].split('=')[1];
-        };
-        if (tmp['dark'] == undefined || tmp['dark'] == '' || tmp['dark'] == 'false' || tmp['dark'] == false) {
+        try {
+            cookie = cookie.split('; ');
+            for (i in cookie) {
+                tmp[cookie[i].split('=')[0]] = cookie[i].split('=')[1];
+            };
+            if (tmp['dark'] == undefined || tmp['dark'] == '' || tmp['dark'] == 'false' || tmp['dark'] == false) {
+                return false;
+            } else {
+                return true;
+            };
+        } catch (e) {
             return false;
-        } else {
-            return true;
         };
     })(req.headers.cookie)
     if (dark) {
@@ -125,14 +129,18 @@ app.get(/\/(回形针PaperClip|基本操作|干燥工厂|原创专辑|混乱博�
 app.get('/', (req, res) => {
     var dark = ((cookie) => {
         var tmp = {};
-        cookie = cookie.split('; ');
-        for (i in cookie) {
-            tmp[cookie[i].split('=')[0]] = cookie[i].split('=')[1];
-        };
-        if (tmp['dark'] == undefined || tmp['dark'] == '' || tmp['dark'] == 'false' || tmp['dark'] == false) {
+        try {
+            cookie = cookie.split('; ');
+            for (i in cookie) {
+                tmp[cookie[i].split('=')[0]] = cookie[i].split('=')[1];
+            };
+            if (tmp['dark'] == undefined || tmp['dark'] == '' || tmp['dark'] == 'false' || tmp['dark'] == false) {
+                return false;
+            } else {
+                return true;
+            };
+        } catch (e) {
             return false;
-        } else {
-            return true;
         };
     })(req.headers.cookie)
     if (dark) {
