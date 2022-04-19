@@ -30,6 +30,7 @@ xhr.onreadystatechange = function() {
                         var tmp = document.createElement('li');
                         tmp.setAttribute('class', 'breadcrumb-item active');
                         tmp.innerText = fileName;
+                        if (dark) tmp.style.color = '#a4b2be';
                         return tmp;
                     })())
 

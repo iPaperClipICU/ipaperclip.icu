@@ -60,9 +60,11 @@ const setTag1 = (data) => {
         var url = data.data[i].url;
         if (data.data[i].name == at) {
             node.setAttribute('class', 'breadcrumb-item active');
+            if (dark) node.style.color = '#a4b2be';
             node.innerHTML = name;
         } else {
-            node.setAttribute('class', 'breadcrumb-item');
+            if (dark) node.setAttribute('class', 'text-light breadcrumb-item active')
+            else node.setAttribute('class', 'breadcrumb-item');
             node.innerHTML = `<a href="${url}">${name}</a>`;
         };
         tag1.appendChild(node);
@@ -90,9 +92,11 @@ const setTag2 = (data) => {
         var node = document.createElement('li');
         node.setAttribute('class', 'nav-item');
         if (name == data.at) {
-            node.innerHTML = `<a class="nav-link active" href="/${tag1}/${name}">${name}</a>`;
+            if (dark) node.innerHTML = `<a class="bg-dark text-light nav-link active" href="/${tag1}/${name}">${name}</a>`
+            else node.innerHTML = `<a class="nav-link active" href="/${tag1}/${name}">${name}</a>`;
         } else {
-            node.innerHTML = `<a class="nav-link" href="/${tag1}/${name}">${name}</a>`;
+            if (dark) node.innerHTML = `<a class="nav-link" style="color: #7db2ff;" href="/${tag1}/${name}">${name}</a>`
+            else node.innerHTML = `<a class="nav-link" href="/${tag1}/${name}">${name}</a>`;
         };
         tag2.appendChild(node);
     };
@@ -127,7 +131,8 @@ const setList = (data) => {
             icon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16"><path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/></svg>';
         };
         node.href = url;
-        node.setAttribute('class', 'list-group-item list-group-item-action');
+        if (dark) node.setAttribute('class', 'bg-dark text-light border-light list-group-item list-group-item-action');
+        else node.setAttribute('class', 'list-group-item list-group-item-action');
         node.innerHTML = icon + ' ' + name.replace(/\.[^.]+$/, '');
         list.appendChild(node);
     };
@@ -148,10 +153,12 @@ const setPagination = (data) => {
     pagination.appendChild((() => {
         var node = document.createElement('li');
         if (at != 1) {
-            node.innerHTML = `<a class="page-link" href="${addQuery('at', at - 1)}"><span>&laquo;</span></a>`;
+            if (dark) node.innerHTML = `<a class="bg-dark border-light page-link" style="color: #7db2ff;" href="${addQuery('at', at - 1)}"><span>&laquo;</span></a>`
+            else node.innerHTML = `<a class="page-link" href="${addQuery('at', at - 1)}"><span>&laquo;</span></a>`;
             node.setAttribute('class', 'page-item');
         } else {
-            node.innerHTML = '<span class="page-link"><span>&laquo;</span></span>';
+            if (dark) node.innerHTML = '<span class="bg-dark text-light border-light page-link"><span>&laquo;</span></span>'
+            else node.innerHTML = '<span class="page-link"><span>&laquo;</span></span>';
             node.setAttribute('class', 'page-item disabled');
         };
         return node;
@@ -163,10 +170,12 @@ const setPagination = (data) => {
             pagination.appendChild((() => {
                 var node = document.createElement('li');
                 if (i != at) {
-                    node.innerHTML = `<a class="page-link" href="${addQuery('at', i)}">${i}</a>`;
+                    if (dark) node.innerHTML = `<a class="bg-dark border-light page-link" style="color: #7db2ff;" href="${addQuery('at', i)}">${i}</a>`
+                    else node.innerHTML = `<a class="page-link" href="${addQuery('at', i)}">${i}</a>`;
                     node.setAttribute('class', 'page-item');
                 } else {
-                    node.innerHTML = `<span class="page-link">${i}</span>`;
+                    if (dark) node.innerHTML = `<span class="border-light page-link" style="background-color: #7db2ff;">${i}</span>`
+                    else node.innerHTML = `<span class="page-link">${i}</span>`;
                     node.setAttribute('class', 'page-item active');
                 };
                 return node;
@@ -181,10 +190,12 @@ const setPagination = (data) => {
                 pagination.appendChild((() => {
                     var node = document.createElement('li');
                     if (i != at) {
-                        node.innerHTML = `<a class="page-link" href="${addQuery('at', i)}">${i}</a>`;
+                        if (dark) node.innerHTML = `<a class="bg-dark border-light page-link" style="color: #7db2ff;" href="${addQuery('at', i)}">${i}</a>`
+                        else node.innerHTML = `<a class="page-link" href="${addQuery('at', i)}">${i}</a>`;
                         node.setAttribute('class', 'page-item');
                     } else {
-                        node.innerHTML = `<span class="page-link">${i}</span>`;
+                        if (dark) node.innerHTML = `<span class="border-light page-link" style="background-color: #7db2ff;">${i}</span>`
+                        else node.innerHTML = `<span class="page-link">${i}</span>`;
                         node.setAttribute('class', 'page-item active');
                     };
                     return node;
@@ -195,14 +206,16 @@ const setPagination = (data) => {
             for (var i = 1; i <= (maxButton - (pageNum - at) - 2); i++) {
                 pagination.appendChild((() => {
                     var node = document.createElement('li');
-                    node.innerHTML = `<a class="page-link" href="${addQuery('at', i)}">${i}</a>`;
+                    if (dark) node.innerHTML = `<a class="bg-dark border-light page-link" style="color: #7db2ff;" href="${addQuery('at', i)}">${i}</a>`
+                    else node.innerHTML = `<a class="page-link" href="${addQuery('at', i)}">${i}</a>`;
                     node.setAttribute('class', 'page-item');
                     return node;
                 })());
             };
             pagination.appendChild((() => {
                 var node = document.createElement('li');
-                node.innerHTML = '<span class="page-link">...</span>';
+                if (dark) node.innerHTML = '<span class="bg-dark text-light border-light page-link">...</span>'
+                else node.innerHTML = '<span class="page-link">...</span>';
                 node.setAttribute('class', 'page-item disabled');
                 return node;
             })());
@@ -210,10 +223,12 @@ const setPagination = (data) => {
                 pagination.appendChild((() => {
                     var node = document.createElement('li');
                     if (i != at) {
-                        node.innerHTML = `<a class="page-link" href="${addQuery('at', i)}">${i}</a>`;
+                        if (dark) node.innerHTML = `<a class="bg-dark border-light page-link" style="color: #7db2ff;" href="${addQuery('at', i)}">${i}</a>`
+                        else node.innerHTML = `<a class="page-link" href="${addQuery('at', i)}">${i}</a>`;
                         node.setAttribute('class', 'page-item');
                     } else {
-                        node.innerHTML = `<span class="page-link">${i}</span>`;
+                        if (dark) node.innerHTML = `<span class="bg-dark text-light border-light page-link">${i}</span>`
+                        else node.innerHTML = `<span class="page-link">${i}</span>`;
                         node.setAttribute('class', 'page-item active');
                     };
                     return node;
@@ -223,7 +238,8 @@ const setPagination = (data) => {
             // 1 2 3 ... 10
             pagination.appendChild((() => {
                 var node = document.createElement('li');
-                node.innerHTML = `<span class="page-link">${at}</span>`;
+                if (dark) node.innerHTML = `<span class="border-light page-link" style="background-color: #7db2ff;">${at}</span>`
+                else node.innerHTML = `<span class="page-link">${at}</span>`;
                 node.setAttribute('class', 'page-item active');
                 return node;
             })());
@@ -231,21 +247,24 @@ const setPagination = (data) => {
                 if (i == at + maxButton - 2) {
                     pagination.appendChild((() => {
                         var node = document.createElement('li');
-                        node.innerHTML = '<span class="page-link">...</span>';
+                        if (dark) node.innerHTML = '<span class="bg-dark text-light border-light page-link">...</span>'
+                        else node.innerHTML = '<span class="page-link">...</span>';
                         node.setAttribute('class', 'page-item disabled');
                         return node;
                     })());
                 } else if (i == at + maxButton - 1) {
                     pagination.appendChild((() => {
                         var node = document.createElement('li');
-                        node.innerHTML = `<a class="page-link" href="${addQuery('at', pageNum)}">${pageNum}</a>`;
+                        if (dark) node.innerHTML = `<a class="bg-dark border-light page-link" style="color: #7db2ff;" href="${addQuery('at', pageNum)}">${pageNum}</a>`
+                        else node.innerHTML = `<a class="page-link" href="${addQuery('at', pageNum)}">${pageNum}</a>`;
                         node.setAttribute('class', 'page-item');
                         return node;
                     })());
                 } else {
                     pagination.appendChild((() => {
                         var node = document.createElement('li');
-                        node.innerHTML = `<a class="page-link" href="${addQuery('at', i)}">${i}</a>`;
+                        if (dark) node.innerHTML = `<a class="bg-dark border-light page-link" style="color: #7db2ff;" href="${addQuery('at', i)}">${i}</a>`
+                        else node.innerHTML = `<a class="page-link" href="${addQuery('at', i)}">${i}</a>`;
                         node.setAttribute('class', 'page-item');
                         return node;
                     })());
@@ -257,10 +276,10 @@ const setPagination = (data) => {
     pagination.appendChild((() => {
         var node = document.createElement('li');
         if (at != pageNum) {
-            node.innerHTML = `<a class="page-link" href="${addQuery('at', at + 1)}"><span>&raquo;</span></a>`;
+            node.innerHTML = `<a class="bg-dark border-light page-link" style="color: #7db2ff;" href="${addQuery('at', at + 1)}"><span>&raquo;</span></a>`;
             node.setAttribute('class', 'page-item');
         } else {
-            node.innerHTML = '<span class="page-link"><span>&raquo;</span></span>';
+            node.innerHTML = '<span class="bg-dark text-light border-light page-link"><span>&raquo;</span></span>';
             node.setAttribute('class', 'page-item disabled');
         };
         return node;
