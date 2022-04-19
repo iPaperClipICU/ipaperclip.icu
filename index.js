@@ -392,10 +392,9 @@ app.get('/api/search', (req, res) => {
 
 // 404
 app.get('*', (req, res) => {
-    res.setHeader("Content-Type", "text/html;charset=utf-8");
+    res.writeHead(404, "not found");
     fs.readFile('./assets/html/404.html', "binary", (err, file) => {
         if (err) {
-            res.writeHead(404, "not found");
             res.end("<h1>404 NOT FOUND</h1>");
         } else {
             res.write(file, "binary");
