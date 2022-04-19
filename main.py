@@ -141,7 +141,6 @@ def getSiteMap():
     r.close()
     tmp = []
     tmp.append('/')
-    tmp.append('/search')
     for tag1 in data:
         tmp.append('/'+tag1)
         for tag2 in data[tag1]:
@@ -168,7 +167,7 @@ def saveJson(data: json, path: str):
 
 def main():
     ###### Config ######
-    dev = True
+    dev = False
     refreshData = False
     ####################
     if refreshData:
