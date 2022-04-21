@@ -125,9 +125,13 @@ def changeHTML(dev: bool):
                 tmp = r.read()
             r.close()
             if dev:
-                tmp = tmp.replace('src="//file.hsyhx.top/assets/', 'src="/assets/')
+                tmp = tmp.replace('//file.hsyhx.top/assets/js/public.js', '/assets/js/public.js')
+                tmp = tmp.replace('//file.hsyhx.top/assets/js/index.js', '/assets/js/index.js')
+                tmp = tmp.replace('//file.hsyhx.top/assets/js/file.js', '/assets/js/file.js')
             else:
-                tmp = tmp.replace('src="/assets/', 'src="//file.hsyhx.top/assets/')
+                tmp = tmp.replace('/assets/js/public.js', '//file.hsyhx.top/assets/js/public.js')
+                tmp = tmp.replace('/assets/js/index.js', '//file.hsyhx.top/assets/js/index.js')
+                tmp = tmp.replace('/assets/js/file.js', '//file.hsyhx.top/assets/js/file.js')
             with open(root+i, 'w', encoding='UTF-8') as w:
                 w.write(tmp)
             w.close()

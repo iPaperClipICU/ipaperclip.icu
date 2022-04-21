@@ -1,4 +1,4 @@
-var xhr = getXHR(`${window.location.origin}/api/file?name=${window.location.pathname.split('/')[2]}`);
+var xhr = getXHR(window.location.origin + '/api/file?name=' + window.location.pathname.split('/')[2]);
 /**
  * {
  *   "tag1": "回形针PaperClip",

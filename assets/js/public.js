@@ -56,9 +56,7 @@ const addQuery = (key, value) => {
     query[key] = value;
     var tmp = [];
     for (i in query) {
-        if (query[i] != undefined) {
-            tmp.push(i + '=' + query[i]);
-        };
+        if (query[i] != undefined) tmp.push(i + '=' + query[i]);
     };
     return '?' + tmp.join('&');
 }
@@ -79,11 +77,7 @@ const getQuery = (data) => {
     query = {};
     for (i in data) {
         tmp = data[i].split('=');
-        if (tmp[1] != '') {
-            query[tmp[0]] = tmp[1];
-        } else {
-            query[tmp[0]] = undefined;
-        };
+        query[tmp[0]] = tmp[1] != '' ? tmp[1] : undefined;
     };
 
     return query;
@@ -116,7 +110,6 @@ const dark = (() => {
 document.getElementById("dark").onclick = () => {
     var d = new Date();
     d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000)); //30天
-    if (dark) document.cookie = 'dark=false; expires=' + d.toGMTString() + '; path=/'
-    else document.cookie = 'dark=true; expires=' + d.toGMTString() + '; path=/';
+    document.cookie = `dark=${dark ? 'false' : 'true'}; expires=${d.toGMTString()}; path=/`;
     location.reload();
 };
