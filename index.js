@@ -51,13 +51,13 @@ const checkReq = (req, res) => {
             };
             return;
         };
-        // 白名单限制 15req/min
+        // 白名单限制 20req/min
         if (process.uptime() - reqList[ip]['firstReqTime'] > 60) {
             reqList[ip]['firstReqTime'] = process.uptime();
             reqList[ip]['reqNum'] = 1;
         } else {
             reqList[ip]['reqNum']++;
-            if (reqList[ip]['reqNum'] > 15) {
+            if (reqList[ip]['reqNum'] > 20) {
                 reqList[ip]['reCaptcha'] = true;
             };
         };
@@ -71,8 +71,8 @@ const checkReq = (req, res) => {
     } else {
         // 非首次请求
         reqList[ip]['reqNum']++;
-        // 限制 5req/min
-        if (reqList[ip]['reqNum'] > 5) {
+        // 限制 10req/min
+        if (reqList[ip]['reqNum'] > 10) {
             reqList[ip]['reCaptcha'] = true;
         };
     };
