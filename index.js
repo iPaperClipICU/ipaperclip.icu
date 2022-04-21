@@ -92,77 +92,9 @@ const checkReq = (req, res) => {
 };
 
 // WEB
-app.get(/\/(回形针PaperClip|基本操作|干燥工厂|原创专辑|混乱博物馆|灵光灯泡|黑水报告|演讲|其他|%E5%9B%9E%E5%BD%A2%E9%92%88PaperClip|%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C|%E5%B9%B2%E7%87%A5%E5%B7%A5%E5%8E%82|%E5%8E%9F%E5%88%9B%E4%B8%93%E8%BE%91|%E6%B7%B7%E4%B9%B1%E5%8D%9A%E7%89%A9%E9%A6%86|%E7%81%B5%E5%85%89%E7%81%AF%E6%B3%A1|%E9%BB%91%E6%B0%B4%E6%8A%A5%E5%91%8A|%E6%BC%94%E8%AE%B2|%E5%85%B6%E4%BB%96)\/?.*/g, (req, res) => {
-    var dark = ((cookie) => {
-        var tmp = {};
-        try {
-            cookie = cookie.split('; ');
-            for (i in cookie) {
-                tmp[cookie[i].split('=')[0]] = cookie[i].split('=')[1];
-            };
-            if (tmp['dark'] == undefined || tmp['dark'] == '' || tmp['dark'] == 'false' || tmp['dark'] == false) {
-                return false;
-            } else {
-                return true;
-            };
-        } catch (e) {
-            return false;
-        };
-    })(req.headers.cookie)
-    if (dark) {
-        var htmlPath = './assets/html/index-dark.html';
-    } else {
-        var htmlPath = './assets/html/index.html';
-    }
-    res.setHeader("Content-Type", "text/html;charset=utf-8");
-    checkReq(req, res);
-    fs.readFile(htmlPath, "binary", (err, file) => {
-        if (err) {
-            res.writeHead(404, "not found");
-            res.end("<h1>404 NOT FOUND</h1>");
-        } else {
-            res.write(file, "binary");
-            res.end();
-        };
-    });
-});
-app.get('/', (req, res) => {
-    var dark = ((cookie) => {
-        var tmp = {};
-        try {
-            cookie = cookie.split('; ');
-            for (i in cookie) {
-                tmp[cookie[i].split('=')[0]] = cookie[i].split('=')[1];
-            };
-            if (tmp['dark'] == undefined || tmp['dark'] == '' || tmp['dark'] == 'false' || tmp['dark'] == false) {
-                return false;
-            } else {
-                return true;
-            };
-        } catch (e) {
-            return false;
-        };
-    })(req.headers.cookie)
-    if (dark) {
-        var htmlPath = './assets/html/index-dark.html';
-    } else {
-        var htmlPath = './assets/html/index.html';
-    }
-    res.setHeader("Content-Type", "text/html;charset=utf-8");
-    checkReq(req, res);
-    fs.readFile(htmlPath, "binary", (err, file) => {
-        if (err) {
-            res.writeHead(404, "not found");
-            res.end("<h1>404 NOT FOUND</h1>");
-        } else {
-            res.write(file, "binary");
-            res.end();
-        };
-    });
-});
-app.get('/file/*', (req, res) => {
-    var dark = ((cookie) => {
-        var tmp = {};
+const getDark = (cookie) => {
+    var tmp = {};
+    try {
         cookie = cookie.split('; ');
         for (i in cookie) {
             tmp[cookie[i].split('=')[0]] = cookie[i].split('=')[1];
@@ -172,12 +104,28 @@ app.get('/file/*', (req, res) => {
         } else {
             return true;
         };
-    })(req.headers.cookie)
-    if (dark) {
-        var htmlPath = './assets/html/file-dark.html';
-    } else {
-        var htmlPath = './assets/html/file.html';
-    }
+    } catch (e) {
+        return false;
+    };
+};
+const getIndexHTML = (req, res) => {
+    var htmlPath = getDark(req.headers.cookie) ? './assets/html/index-dark.html' : './assets/html/index.html';
+    res.setHeader("Content-Type", "text/html;charset=utf-8");
+    checkReq(req, res);
+    fs.readFile(htmlPath, "binary", (err, file) => {
+        if (err) {
+            res.writeHead(404, "not found");
+            res.end("<h1>404 NOT FOUND</h1>");
+        } else {
+            res.write(file, "binary");
+            res.end();
+        };
+    });
+}
+app.get(/\/(回形针PaperClip|基本操作|干燥工厂|原创专辑|混乱博物馆|灵光灯泡|黑水报告|演讲|其他|%E5%9B%9E%E5%BD%A2%E9%92%88PaperClip|%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C|%E5%B9%B2%E7%87%A5%E5%B7%A5%E5%8E%82|%E5%8E%9F%E5%88%9B%E4%B8%93%E8%BE%91|%E6%B7%B7%E4%B9%B1%E5%8D%9A%E7%89%A9%E9%A6%86|%E7%81%B5%E5%85%89%E7%81%AF%E6%B3%A1|%E9%BB%91%E6%B0%B4%E6%8A%A5%E5%91%8A|%E6%BC%94%E8%AE%B2|%E5%85%B6%E4%BB%96)\/?.*/g, getIndexHTML);
+app.get('/', getIndexHTML);
+app.get('/file/*', (req, res) => {
+    var htmlPath = getDark(req.headers.cookie) ? './assets/html/file-dark.html' : './assets/html/file.html';
     res.setHeader("Content-Type", "text/html;charset=utf-8");
     checkReq(req, res);
     fs.readFile(htmlPath, "binary", (err, file) => {
@@ -281,13 +229,8 @@ app.get('/api/list', (req, res) => {
     // ?tag1=1&tag2=2&at=1
     var tag1 = req.query['tag1'];
     var tag2 = req.query['tag2'];
-    var at = req.query['at'];
     //如果没有at，默认为1
-    if (at == undefined) {
-        at = 1;
-    } else {
-        at = parseInt(at);
-    };
+    var at = req.query['at'] == undefined ? 1 : parseInt(req.query['at']);
     // 如果tag1不在dataMap中，返回错误
     if ((() => {
             var tmp = true;
