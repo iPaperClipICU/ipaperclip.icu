@@ -33,6 +33,13 @@ const checkReq = (req, res) => {
         }
     }
     */
+    if (reqList != {}) {
+        for (i in reqList) {
+            if ((process.uptime() - reqList[i]['firstReqTime']) > 10 && reqList[i]['reCaptcha'] == false) {
+                delete reqList[i];
+            };
+        };
+    };
     if (reqList[ip] == undefined) {
         // 首次请求
         reqList[ip] = {
@@ -61,7 +68,7 @@ const checkReq = (req, res) => {
                 reqList[ip]['reCaptcha'] = true;
             };
         };
-    } else if ((process.uptime() - reqList[ip]['firstReqTime']) > 60 && reqList[ip]['reqCaptcha'] == false) {
+    } else if ((process.uptime() - reqList[ip]['firstReqTime']) > 60 && reqList[ip]['reCaptcha'] == false) {
         // 距离首次请求超过60s，刷新数据
         reqList[ip] = {
             "reCaptcha": false,
