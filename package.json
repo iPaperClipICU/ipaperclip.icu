@@ -1,6 +1,6 @@
 {
     "name": "ipaperclip.icu",
-    "version": "4.6.2",
+    "version": "4.6.3",
     "description": "<div align=\"center\">\r   <img src=\"./docs/assets/paperclip.png\" alt=\"ipaperclip.icu\" />\r   <p><em>He, 这里是 ipaperclip.icu</em></p>\r   <img src=\"https://img.shields.io/github/license/ipaperclip-icu/ipaperclip.icu?style=flat-square\" alt=\"license\" />\r   <img src=\"https://img.shields.io/github/issues/ipaperclip-icu/ipaperclip.icu?style=flat-square\" alt=\"issues open\" />\r   <img src=\"https://img.shields.io/github/issues-pr/ipaperclip-icu/ipaperclip.icu?style=flat-square\" alt=\"pull requests open\" />\r   <br>\r   <img src=\"https://img.shields.io/github/forks/ipaperclip-icu/ipaperclip.icu?style=social\" alt=\"fork\" />\r   <img src=\"https://img.shields.io/github/stars/ipaperclip-icu/ipaperclip.icu?style=social\" alt=\"stars\" />\r   <img src=\"https://img.shields.io/github/watchers/ipaperclip-icu/ipaperclip.icu?style=social\" alt=\"watchers\" />\r </div>",
     "main": "index.js",
     "scripts": {
