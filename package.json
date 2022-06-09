@@ -32,7 +32,7 @@
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "aplayer": "^1.10.1",
-    "eslint": "^7.32.0",
+    "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.0.3",
