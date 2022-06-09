@@ -1,26 +1,63 @@
 {
-    "name": "ipaperclip.icu",
-    "version": "4.6.3",
-    "description": "<div align=\"center\">\r   <img src=\"./docs/assets/paperclip.png\" alt=\"ipaperclip.icu\" />\r   <p><em>He, 这里是 ipaperclip.icu</em></p>\r   <img src=\"https://img.shields.io/github/license/ipaperclip-icu/ipaperclip.icu?style=flat-square\" alt=\"license\" />\r   <img src=\"https://img.shields.io/github/issues/ipaperclip-icu/ipaperclip.icu?style=flat-square\" alt=\"issues open\" />\r   <img src=\"https://img.shields.io/github/issues-pr/ipaperclip-icu/ipaperclip.icu?style=flat-square\" alt=\"pull requests open\" />\r   <br>\r   <img src=\"https://img.shields.io/github/forks/ipaperclip-icu/ipaperclip.icu?style=social\" alt=\"fork\" />\r   <img src=\"https://img.shields.io/github/stars/ipaperclip-icu/ipaperclip.icu?style=social\" alt=\"stars\" />\r   <img src=\"https://img.shields.io/github/watchers/ipaperclip-icu/ipaperclip.icu?style=social\" alt=\"watchers\" />\r </div>",
-    "main": "index.js",
-    "scripts": {
-        "start": "node index.js"
+  "name": "ipaperclip.icu",
+  "version": "5.0.0",
+  "description": "<div align=\"center\">\r   <img src=\"./docs/assets/paperclip.png\" alt=\"ipaperclip.icu\" />\r   <p><em>He, 这里是 ipaperclip.icu</em></p>\r   <img src=\"https://img.shields.io/github/license/ipaperclip-icu/ipaperclip.icu?style=flat-square\" alt=\"license\" />\r   <img src=\"https://img.shields.io/github/issues/ipaperclip-icu/ipaperclip.icu?style=flat-square\" alt=\"issues open\" />\r   <img src=\"https://img.shields.io/github/issues-pr/ipaperclip-icu/ipaperclip.icu?style=flat-square\" alt=\"pull requests open\" />\r   <br>\r   <img src=\"https://img.shields.io/github/forks/ipaperclip-icu/ipaperclip.icu?style=social\" alt=\"fork\" />\r   <img src=\"https://img.shields.io/github/stars/ipaperclip-icu/ipaperclip.icu?style=social\" alt=\"stars\" />\r   <img src=\"https://img.shields.io/github/watchers/ipaperclip-icu/ipaperclip.icu?style=social\" alt=\"watchers\" />\r </div>",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iPaperClipICU/ipaperclip.icu.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iPaperClipICU/ipaperclip.icu/issues"
+  },
+  "homepage": "https://github.com/iPaperClipICU/ipaperclip.icu#readme",
+  "dependencies": {
+    "core-js": "^3.8.3",
+    "vue": "^3.2.13",
+    "vue-router": "^4.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vicons/fa": "^0.12.0",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "aplayer": "^1.10.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "naive-ui": "^2.28.2",
+    "prettier": "^2.4.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/iPaperClipICU/ipaperclip.icu.git"
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended",
+      "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
     },
-    "keywords": [],
-    "author": "",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/iPaperClipICU/ipaperclip.icu/issues"
-    },
-    "homepage": "https://github.com/iPaperClipICU/ipaperclip.icu#readme",
-    "dependencies": {
-        "cors": "^2.8.5",
-        "express": "^4.17.3",
-        "jsonplus": "^1.2.1",
-        "request": "^2.88.2"
-    }
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
 }
