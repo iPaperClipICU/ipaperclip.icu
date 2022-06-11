@@ -5,6 +5,7 @@
     </video>
   </div>
   <div v-if="fineData.type == 'image'">
+    <!-- TODO: Use NaiveUI Image -->
     <img :src="fineData.url" :alt="fineData.name" />
   </div>
   <div v-if="fineData.type == 'audio'">
