@@ -14,7 +14,8 @@
 
 ## 网站
 
-视频、文字稿归档: [ipaperclip.icu](https://ipaperclip.icu/) | [vercel.ipaperclip.icu](https://vercel.ipaperclip.icu/)(Vercel备用)  
+视频、文字稿归档: [ipaperclip.icu](https://ipaperclip.icu/)  
+视频源备份站: [onedrive.ipaperclip.icu](https://onedrive.ipaperclip.icu/)  
 R.I.P(归档站导航): [ipaperclip.rip](https://ipaperclip.rip/)
 
 ## 联系我
@@ -23,10 +24,10 @@ R.I.P(归档站导航): [ipaperclip.rip](https://ipaperclip.rip/)
 
 ## 相关链接
 
-[回形针视频归档站](https://www.paperclip.tk/)  
+[回形针视频归档站](https://paperclip.eu.org/)  
 [Wandering PaperClip 流浪回形针](https://wandering-paperclip.glitch.me/)  
 [paper-clips.purestream.eu.org](https://paper-clips.purestream.eu.org/)  
-[paperclip.wiki](https://paperclip.wiki/) | [paperclipfans.justprog.tk](https://paperclipfans.justprog.tk/)
+[paperclip.wiki](https://paperclip.wiki/)
 
 [基本操作非官方频道](https://t.me/paperclipfans) | [基本操作非官方粉丝群](https://t.me/paperclipfans)  
 [干燥工厂](https://shop362189133.taobao.com/) | [基本操作](https://jibencaozuo.com/)
