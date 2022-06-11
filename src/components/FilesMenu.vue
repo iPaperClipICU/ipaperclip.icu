@@ -11,20 +11,10 @@ import {
   FileImageRegular as FileImageIcon,
 } from "@vicons/fa";
 import { NIcon, NMenu } from "naive-ui";
+import { getFileInfo } from "@/assets/box.js";
 
 const renderIcon = (icon) => {
   return () => h(NIcon, null, { default: () => h(icon) });
-};
-
-const getFileName = (fileName) => {
-  return fileName
-    .replace(".mp4", "")
-    .replace(".flv", "")
-    .replace(".jpg", "")
-    .replace(".png", "")
-    .replace(".gif", "")
-    .replace(".mp3", "")
-    .replace(".flac", "");
 };
 
 // {
@@ -44,18 +34,29 @@ const getMenuOptions = (data) => {
   var menuOptions = [];
 
   for (const i in data) {
-    const fileData = data[i];
-    const name = fileData.name;
-    var type = fileData.type;
+    var fileInfo;
+    if (data[0].name == undefined) {
+      // 文件列表
+      fileInfo = getFileInfo(data[i]);
+    } else {
+      // 首页
+      fileInfo = getFileInfo(data[i].name);
+    }
 
-    if (type == "video") {
-      type = renderIcon(FileVideoIcon);
-    } else if (type == "audio") {
-      type = renderIcon(FileAudioIcon);
-    } else if (type == "image") {
-      type = renderIcon(FileImageIcon);
-    } else if (type == "files") {
-      type = renderIcon(FileIcon);
+    const name = fileInfo.name;
+    var type;
+    switch (fileInfo.type) {
+      case "video":
+        type = renderIcon(FileVideoIcon);
+        break;
+      case "audio":
+        type = renderIcon(FileAudioIcon);
+        break;
+      case "image":
+        type = renderIcon(FileImageIcon);
+        break;
+      default:
+        type = renderIcon(FileIcon);
     }
 
     menuOptions.push({
@@ -65,7 +66,7 @@ const getMenuOptions = (data) => {
           {
             href: `${hrefHead}/${name}`,
           },
-          { default: () => getFileName(name) }
+          { default: () => name }
         ),
       icon: type,
       key: name,
@@ -80,6 +81,7 @@ const getMenuOptions = (data) => {
       },
     });
   }
+
   menuOptions.pop();
   return menuOptions;
 };

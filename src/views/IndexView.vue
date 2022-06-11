@@ -32,12 +32,13 @@
 
 <script>
 import { ref, defineComponent } from "vue";
-import { NCard, NTabs, NTab, NEmpty, NButton } from "naive-ui";
 import router from "@/router";
-import UrlBreadcrumb from "@/components/UrlBreadcrumb";
-import FilesMenu from "@/components/FilesMenu";
+import { NTab, NCard, NTabs, NEmpty, NButton } from "naive-ui";
 import ShowFile from "@/components/ShowFile";
+import FilesMenu from "@/components/FilesMenu";
+import UrlBreadcrumb from "@/components/UrlBreadcrumb";
 import data from "@/assets/data.json";
+import { getFileInfo } from "@/assets/box.js";
 
 /**
  * 获取data
@@ -48,22 +49,12 @@ const getData = (data, name) => {
       return data[i];
     }
   }
+  // 没有找到
   showTabs.value = false;
   showFilesMenu.value = false;
   showEmpty.value = true;
   showShowFile.value = false;
   return null;
-};
-
-const getFileName = (fileName) => {
-  return fileName
-    .replace(".mp4", "")
-    .replace(".flv", "")
-    .replace(".jpg", "")
-    .replace(".png", "")
-    .replace(".gif", "")
-    .replace(".mp3", "")
-    .replace(".flac", "");
 };
 
 /**
@@ -100,7 +91,7 @@ const init = () => {
     const filesData = getData(data, filesName);
     if (filesData == null) return;
 
-    if (filesData.data[0].type == "tag") {
+    if (filesData.tag) {
       var tagName = decodeURIComponent(path.split("/")[2]);
       if (tagName == "undefined") {
         tagName = filesData.data[0].name;
@@ -111,7 +102,7 @@ const init = () => {
       if (tagData == null) return;
       const fileName = decodeURIComponent(path.split("/")[3]);
 
-      if (fileName == "undefined") {
+      if (fileName == "undefined" || fileName == "") {
         // Path: /files/tag
         UrlBreadcrumb_data.value = [
           {
@@ -140,8 +131,19 @@ const init = () => {
         showFilesMenu.value = true;
       } else {
         // Path: /files/tag/file
-        const fileData = getData(tagData.data, fileName);
-        if (fileData == null) return;
+        var fileNameW = undefined;
+        for (const i in tagData.data) {
+          if (fileName == tagData.data[i].substr(0, fileName.length)) {
+            fileNameW = tagData.data[i];
+          }
+        }
+        if (fileNameW == undefined) {
+          showTabs.value = false;
+          showFilesMenu.value = false;
+          showEmpty.value = true;
+          showShowFile.value = false;
+          return;
+        }
 
         UrlBreadcrumb_data.value = [
           {
@@ -157,21 +159,21 @@ const init = () => {
             href: `/${filesName}/${tagName}`,
           },
           {
-            name: getFileName(fileName),
+            name: fileName,
             href: `/${filesName}/${tagName}/${fileName}`,
           },
         ];
         ShowFile_data.value = {
-          type: fileData.type,
-          name: getFileName(fileName),
-          url: `https://file.hsyhx.top/video/${filesName}/${tagName}/${fileName}`,
+          type: getFileInfo(fileNameW).type,
+          name: fileName,
+          url: `https://file.hsyhx.top/video/${filesName}/${tagName}/${fileNameW}`,
         };
         showShowFile.value = true;
       }
     } else {
       const fileName = decodeURIComponent(path.split("/")[2]);
 
-      if (fileName == "undefined") {
+      if (fileName == "undefined" || fileName == "") {
         // Path: /files
         UrlBreadcrumb_data.value = [
           {
@@ -190,8 +192,19 @@ const init = () => {
         showFilesMenu.value = true;
       } else {
         // Path: /files/file
-        const fileData = getData(filesData.data, fileName);
-        if (fileData == null) return;
+        var fileNameM = undefined;
+        for (const i in filesData.data) {
+          if (fileName == filesData.data[i].substr(0, fileName.length)) {
+            fileNameM = filesData.data[i];
+          }
+        }
+        if (fileNameM == undefined) {
+          showTabs.value = false;
+          showFilesMenu.value = false;
+          showEmpty.value = true;
+          showShowFile.value = false;
+          return;
+        }
 
         UrlBreadcrumb_data.value = [
           {
@@ -203,14 +216,14 @@ const init = () => {
             href: `/${filesName}`,
           },
           {
-            name: getFileName(fileName),
+            name: fileName,
             href: `/${filesName}/${fileName}`,
           },
         ];
         ShowFile_data.value = {
-          type: fileData.type,
-          name: getFileName(fileName),
-          url: `https://file.hsyhx.top/video/${filesName}/${fileName}`,
+          type: getFileInfo(fileNameM).type,
+          name: fileName,
+          url: `https://file.hsyhx.top/video/${filesName}/${fileNameM}`,
         };
         showShowFile.value = true;
       }
@@ -248,12 +261,12 @@ const ShowFile_data = ref({
 });
 export default defineComponent({
   components: {
-    UrlBreadcrumb,
-    FilesMenu,
     ShowFile,
+    FilesMenu,
+    UrlBreadcrumb,
+    NTab,
     NCard,
     NTabs,
-    NTab,
     NEmpty,
     NButton,
   },
