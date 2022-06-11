@@ -20,7 +20,7 @@ R.I.P(归档站导航): [ipaperclip.rip](https://ipaperclip.rip/)
 
 ## 联系我
 
-[Telegram 通知频道](https://t.me/iPaperClipICU) | [Telegram Bot](https://t.me/ipaperclipIcu_Bot) | [Github Discussions](https://github.com/ipaperclip-icu/ipaperclip.icu/discussions) | <a href="mailto:hi@ipaperclip.icu">:envelope: Mail: hi@ipaperclip.icu</a>
+[Telegram 通知频道](https://t.me/iPaperClipICU) | [Telegram Bot](https://t.me/ipaperclipIcu_Bot) | [Github Discussions](https://github.com/ipaperclip-icu/ipaperclip.icu/discussions) | Mail: <a href="mailto:hi@ipaperclip.icu">hi@ipaperclip.icu</a>
 
 ## 相关链接
 
