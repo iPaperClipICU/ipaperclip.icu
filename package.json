@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/iPaperClipICU/ipaperclip.icu#readme",
   "dependencies": {
-    "core-js": "^3.8.3",
+    "core-js": "^3.23.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.16"
   },
