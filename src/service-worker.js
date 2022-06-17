@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-import * as googleAnalytics from "workbox-google-analytics";
 
 if (workbox) {
   console.log(`Yay! Workbox is loaded!`);
@@ -21,9 +20,6 @@ workbox.core.clientsClaim(); // Service Worker 被激活后使其立即获得页
 // vue-cli3.0 supports pwa with the help of workbox-webpack-plugin, we need to get the precacheing list through this sentence.
 workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 
-// Google Analytics
-googleAnalytics.initialize();
-
 // Other
 workbox.routing.registerRoute(
   new RegExp(".*.(?:png|jpg|jpeg|svg|gif|webp)"),
@@ -44,7 +40,5 @@ workbox.routing.registerRoute(
 
 // 其他
 workbox.routing.setDefaultHandler(
-  new workbox.strategies.StaleWhileRevalidate({
-    networkTimeoutSeconds: 3,
-  })
+  new workbox.strategies.StaleWhileRevalidate()
 );
