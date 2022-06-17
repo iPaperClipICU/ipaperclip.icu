@@ -44,7 +44,7 @@ workbox.routing.registerRoute(
 
 // 其他
 workbox.routing.setDefaultHandler(
-  new workbox.strategies.NetworkFirst({
+  new workbox.strategies.StaleWhileRevalidate({
     networkTimeoutSeconds: 3,
   })
 );
