@@ -1,4 +1,6 @@
 /* eslint-disable no-undef */
+import { RangeRequestsPlugin } from "workbox-range-requests";
+import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
 if (workbox) {
   console.log(`Yay! Workbox is loaded!`);
@@ -27,11 +29,27 @@ workbox.routing.registerRoute(
 );
 workbox.routing.registerRoute(
   new RegExp(".*.(?:mp4|flv)"),
-  new workbox.strategies.StaleWhileRevalidate()
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: "video" + cacheSuffixVersion,
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200, 206],
+      }),
+      new RangeRequestsPlugin(),
+    ],
+  })
 );
 workbox.routing.registerRoute(
   new RegExp(".*.(?:mp3|flac)"),
-  new workbox.strategies.StaleWhileRevalidate()
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: "audio" + cacheSuffixVersion,
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200, 206],
+      }),
+      new RangeRequestsPlugin(),
+    ],
+  })
 );
 workbox.routing.registerRoute(
   new RegExp(".*.(css|js)"),
