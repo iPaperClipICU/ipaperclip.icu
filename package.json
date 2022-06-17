@@ -7,17 +7,9 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/iPaperClipICU/ipaperclip.icu.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/iPaperClipICU/ipaperclip.icu/issues"
-  },
-  "homepage": "https://github.com/iPaperClipICU/ipaperclip.icu#readme",
   "dependencies": {
     "core-js": "^3.23.1",
+    "register-service-worker": "^1.7.2",
     "vue": "^3.2.13",
     "vue-router": "^4.0.16"
   },
@@ -27,6 +19,7 @@
     "@vicons/fa": "^0.12.0",
     "@vue/cli-plugin-babel": "~5.0.6",
     "@vue/cli-plugin-eslint": "~5.0.6",
+    "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.6",
     "@vue/cli-service": "~5.0.6",
     "aplayer": "^1.10.1",
@@ -57,5 +50,14 @@
     "last 2 versions",
     "not dead",
     "not ie 11"
-  ]
+  ],
+  "bugs": {
+    "url": "https://github.com/iPaperClipICU/ipaperclip.icu/issues"
+  },
+  "homepage": "https://github.com/iPaperClipICU/ipaperclip.icu#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iPaperClipICU/ipaperclip.icu.git"
+  }
 }
