@@ -21,6 +21,7 @@ workbox.core.clientsClaim(); // Service Worker 被激活后使其立即获得页
 
 // vue-cli3.0 supports pwa with the help of workbox-webpack-plugin, we need to get the precacheing list through this sentence.
 workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
+workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
 
 // Other
 workbox.routing.registerRoute(
