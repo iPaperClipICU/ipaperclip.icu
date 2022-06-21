@@ -57,6 +57,4 @@ workbox.routing.registerRoute(
 );
 
 // 其他
-workbox.routing.setDefaultHandler(
-  new workbox.strategies.StaleWhileRevalidate()
-);
+workbox.routing.setDefaultHandler(new workbox.strategies.NetworkFirst());
