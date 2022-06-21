@@ -1,8 +1,5 @@
 /* eslint-disable no-undef */
 importScripts("https://workbox.hsyhx.top/workbox-v6.5.3/workbox-sw.js");
-workbox.setConfig({
-  modulePathPrefix: "https://workbox.hsyhx.top/workbox-v6.5.3/",
-});
 
 if (workbox) {
   console.log(`Yay! Workbox is loaded!`);
