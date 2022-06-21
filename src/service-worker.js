@@ -3,8 +3,6 @@ importScripts("/workbox-v6.5.3/workbox-sw.js");
 workbox.setConfig({
   modulePathPrefix: "/workbox-v6.5.3/",
 });
-// import { RangeRequestsPlugin } from "workbox-range-requests";
-// import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
 if (workbox) {
   console.log(`Yay! Workbox is loaded!`);
