@@ -32,25 +32,14 @@ workbox.routing.registerRoute(
   new RegExp(".*.(?:png|jpg|jpeg|svg|gif|webp)"),
   new workbox.strategies.StaleWhileRevalidate()
 );
-// workbox.routing.registerRoute(
-//   new RegExp(".*.(?:mp4|flv)"),
-//   new workbox.strategies.StaleWhileRevalidate({
-//     cacheName: "video" + cacheSuffixVersion,
-//     plugins: [new RangeRequestsPlugin()],
-//   })
-// );
-// workbox.routing.registerRoute(
-//   new RegExp(".*.(?:mp3|flac)"),
-//   new workbox.strategies.StaleWhileRevalidate({
-//     cacheName: "audio" + cacheSuffixVersion,
-//     plugins: [
-//       new CacheableResponsePlugin({
-//         statuses: [0, 200, 206],
-//       }),
-//       new RangeRequestsPlugin(),
-//     ],
-//   })
-// );
+workbox.routing.registerRoute(
+  new RegExp(".*.(?:mp4|flv)"),
+  new workbox.strategies.NetworkOnly()
+);
+workbox.routing.registerRoute(
+  new RegExp(".*.(?:mp3|flac)"),
+  new workbox.strategies.NetworkOnly()
+);
 workbox.routing.registerRoute(
   new RegExp(".*.(css|js)"),
   new workbox.strategies.StaleWhileRevalidate()
