@@ -8,7 +8,7 @@ if (workbox) {
   console.log(`Boo! Workbox didn't load!`);
 }
 
-let cacheSuffixVersion = "-20220618"; // 缓存版本号
+let cacheSuffixVersion = "-20220621"; // 缓存版本号
 
 workbox.core.setCacheNameDetails({
   prefix: "ipaperclip-icu",
@@ -19,9 +19,9 @@ workbox.core.setCacheNameDetails({
 workbox.core.skipWaiting(); // 强制等待中的 Service Worker 被激活
 workbox.core.clientsClaim(); // Service Worker 被激活后使其立即获得页面控制权
 
-workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
 // vue-cli3.0 supports pwa with the help of workbox-webpack-plugin, we need to get the precacheing list through this sentence.
 workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
+workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
 
 // Other
 workbox.routing.registerRoute(
@@ -32,12 +32,7 @@ workbox.routing.registerRoute(
   new RegExp(".*.(?:mp4|flv)"),
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: "video" + cacheSuffixVersion,
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200, 206],
-      }),
-      new RangeRequestsPlugin(),
-    ],
+    plugins: [new RangeRequestsPlugin()],
   })
 );
 workbox.routing.registerRoute(
