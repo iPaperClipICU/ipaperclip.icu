@@ -3,8 +3,8 @@ importScripts("/workbox-v6.5.3/workbox-sw.js");
 workbox.setConfig({
   modulePathPrefix: "/workbox-v6.5.3/",
 });
-import { RangeRequestsPlugin } from "workbox-range-requests";
-import { CacheableResponsePlugin } from "workbox-cacheable-response";
+// import { RangeRequestsPlugin } from "workbox-range-requests";
+// import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
 if (workbox) {
   console.log(`Yay! Workbox is loaded!`);
@@ -32,25 +32,25 @@ workbox.routing.registerRoute(
   new RegExp(".*.(?:png|jpg|jpeg|svg|gif|webp)"),
   new workbox.strategies.StaleWhileRevalidate()
 );
-workbox.routing.registerRoute(
-  new RegExp(".*.(?:mp4|flv)"),
-  new workbox.strategies.StaleWhileRevalidate({
-    cacheName: "video" + cacheSuffixVersion,
-    plugins: [new RangeRequestsPlugin()],
-  })
-);
-workbox.routing.registerRoute(
-  new RegExp(".*.(?:mp3|flac)"),
-  new workbox.strategies.StaleWhileRevalidate({
-    cacheName: "audio" + cacheSuffixVersion,
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200, 206],
-      }),
-      new RangeRequestsPlugin(),
-    ],
-  })
-);
+// workbox.routing.registerRoute(
+//   new RegExp(".*.(?:mp4|flv)"),
+//   new workbox.strategies.StaleWhileRevalidate({
+//     cacheName: "video" + cacheSuffixVersion,
+//     plugins: [new RangeRequestsPlugin()],
+//   })
+// );
+// workbox.routing.registerRoute(
+//   new RegExp(".*.(?:mp3|flac)"),
+//   new workbox.strategies.StaleWhileRevalidate({
+//     cacheName: "audio" + cacheSuffixVersion,
+//     plugins: [
+//       new CacheableResponsePlugin({
+//         statuses: [0, 200, 206],
+//       }),
+//       new RangeRequestsPlugin(),
+//     ],
+//   })
+// );
 workbox.routing.registerRoute(
   new RegExp(".*.(css|js)"),
   new workbox.strategies.StaleWhileRevalidate()
