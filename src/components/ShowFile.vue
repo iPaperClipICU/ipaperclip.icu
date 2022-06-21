@@ -1,6 +1,6 @@
 <template>
   <div v-if="fineData.type == 'video'" class="video">
-    <video :src="fineData.url" crossorigin="anonymous" controls preload>
+    <video :src="fineData.url" controls preload>
       <n-result status="info" title="您的浏览器不支持 video 标签" />
     </video>
   </div>
