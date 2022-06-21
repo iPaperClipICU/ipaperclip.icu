@@ -14,7 +14,9 @@ module.exports = defineConfig({
     // configure the workbox plugin (GenerateSW or InjectManifest)
     workboxPluginMode: "InjectManifest",
     workboxOptions: {
-      swSrc: "./src/service-worker.js",
+      swSrc: "src/service-worker.js",
+      importWorkboxFrom: "disabled",
+      importScripts: "/workbox-v6.5.3/workbox-sw.js",
     },
   },
 });
