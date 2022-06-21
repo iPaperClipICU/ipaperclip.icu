@@ -1,5 +1,8 @@
 /* eslint-disable no-undef */
 importScripts("https://workbox.hsyhx.top/workbox-v6.5.3/workbox-sw.js");
+workbox.setConfig({
+  modulePathPrefix: "https://workbox.hsyhx.top/workbox-v6.5.3/",
+});
 
 if (workbox) {
   console.log(`Yay! Workbox is loaded!`);
@@ -7,7 +10,7 @@ if (workbox) {
   console.log(`Boo! Workbox didn't load!`);
 }
 
-let cacheSuffixVersion = "-20220621"; // 缓存版本号
+let cacheSuffixVersion = "-20220622"; // 缓存版本号
 
 workbox.core.setCacheNameDetails({
   prefix: "ipaperclip-icu",
