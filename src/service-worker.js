@@ -34,10 +34,7 @@ workbox.routing.registerRoute(
 );
 workbox.routing.registerRoute(
   new RegExp(".*.(?:mp4|flv)"),
-  new workbox.strategies.StaleWhileRevalidate({
-    cacheName: "video" + cacheSuffixVersion,
-    plugins: [new RangeRequestsPlugin()],
-  })
+  new workbox.strategies.StaleWhileRevalidate()
 );
 workbox.routing.registerRoute(
   new RegExp(".*.(?:mp3|flac)"),
