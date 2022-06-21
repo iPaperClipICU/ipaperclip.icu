@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-importScripts("/workbox-v6.5.3/workbox-sw.js");
+importScripts("https://workbox.hsyhx.top/workbox-v6.5.3/workbox-sw.js");
 workbox.setConfig({
-  modulePathPrefix: "/workbox-v6.5.3/",
+  modulePathPrefix: "https://workbox.hsyhx.top/workbox-v6.5.3/",
 });
 
 if (workbox) {
