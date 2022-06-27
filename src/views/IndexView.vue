@@ -1,6 +1,7 @@
 <template>
   <n-card>
-    <TestView />
+    <!-- 菜单 -->
+    <CMenu />
     <n-divider />
     <!-- 文件夹 -->
     <div v-if="showFilesMenu == true">
@@ -16,10 +17,9 @@
 </template>
 
 <script>
-import { ref, defineComponent } from "vue";
+import { h, ref, defineComponent } from "vue";
 import router from "@/router";
-import { NCard, NEmpty, NDivider } from "naive-ui";
-import TestView from "@/views/TestView";
+import { NCard, NEmpty, NDivider, NButton, NDropdown, NSpace } from "naive-ui";
 import ShowFile from "@/components/ShowFile";
 import FilesMenu from "@/components/FilesMenu";
 import data from "@/assets/data.json";
@@ -35,7 +35,6 @@ const getData = (data, name) => {
     }
   }
   // 没有找到
-  showTabs.value = false;
   showFilesMenu.value = false;
   showEmpty.value = true;
   showShowFile.value = false;
@@ -53,7 +52,6 @@ const getData = (data, name) => {
 const init = () => {
   const path = location.pathname;
 
-  showTabs.value = false;
   showFilesMenu.value = false;
   showEmpty.value = false;
   showShowFile.value = false;
@@ -83,7 +81,6 @@ const init = () => {
           hrefHead: `/${filesName}/${tagName}`,
           data: tagData.data,
         };
-        showTabs.value = true;
         showFilesMenu.value = true;
       } else {
         // Path: /files/tag/file
@@ -94,7 +91,6 @@ const init = () => {
           }
         }
         if (fileNameW == undefined) {
-          showTabs.value = false;
           showFilesMenu.value = false;
           showEmpty.value = true;
           showShowFile.value = false;
@@ -127,7 +123,6 @@ const init = () => {
           }
         }
         if (fileNameM == undefined) {
-          showTabs.value = false;
           showFilesMenu.value = false;
           showEmpty.value = true;
           showShowFile.value = false;
@@ -145,17 +140,89 @@ const init = () => {
   }
 };
 
+const getCMenu = () => {
+  const filesName = decodeURIComponent(location.pathname.split("/")[1]);
+  const getButton = (name, at, click) => {
+    let type = "";
+    if (at) type = "primary";
+    else type = "default";
+
+    return h(
+      NButton,
+      {
+        text: true,
+        size: "large",
+        type,
+        "on-click": () => {
+          if (click) location.href = `/${name}`;
+        },
+      },
+      {
+        default: () => name,
+      }
+    );
+  };
+
+  let MenuList = [];
+  for (const i in data) {
+    let at;
+    if (filesName == data[i].name) at = true;
+    else at = false;
+
+    if (data[i].tag) {
+      // 有Tag
+      let options = [];
+      for (const ii in data[i].data) {
+        options.push({
+          label: data[i].data[ii].name,
+          key: `/${data[i].name}/${data[i].data[ii].name}`,
+        });
+      }
+
+      MenuList.push(
+        h(
+          NDropdown,
+          {
+            trigger: "hover",
+            options: options,
+            "on-select": (key) => {
+              location.href = key;
+            },
+          },
+          {
+            default: () => getButton(data[i].name, at, false),
+          }
+        )
+      );
+    } else {
+      // 没有Tag
+      MenuList.push(getButton(data[i].name, at, true));
+    }
+  }
+
+  return h(
+    NSpace,
+    {
+      justify: "center",
+      size: 30,
+    },
+    {
+      default: () => MenuList,
+    }
+  );
+};
+
+const CMenu = getCMenu();
 // Show
-const showTabs = ref(false);
-const showFilesMenu = ref(false);
 const showEmpty = ref(false);
 const showShowFile = ref(false);
+const showFilesMenu = ref(false);
 // Data
 const FilesMenu_data = ref({
   hrefHead: "/test",
   data: [
     {
-      name: "123",
+      name: "test",
       type: "files",
     },
   ],
@@ -163,11 +230,11 @@ const FilesMenu_data = ref({
 const ShowFile_data = ref({
   type: "audio",
   name: "test audio",
-  url: "https://file.hsyhx.top/video/%E5%85%B6%E4%BB%96/%E9%9D%9E%E8%A7%86%E9%A2%91/PlayGround%20%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%20-%20%E5%BD%AD%E5%AF%92.mp3",
+  url: "https://file.hsyhx.top/video/test.mp3",
 });
 export default defineComponent({
   components: {
-    TestView,
+    CMenu,
     ShowFile,
     FilesMenu,
     NCard,
@@ -178,28 +245,12 @@ export default defineComponent({
     init();
     return {
       // Show
-      showTabs,
-      showFilesMenu,
       showEmpty,
       showShowFile,
+      showFilesMenu,
       // Data
-      FilesMenu_data,
       ShowFile_data,
-      TabsUpdate_function(value) {
-        // Path: /files/tag
-        const path = location.pathname;
-        const filesName = decodeURIComponent(path.split("/")[1]);
-        const filesData = getData(data, filesName);
-        if (filesData == null) return;
-        const tagData = getData(filesData.data, value);
-        if (tagData == null) return;
-
-        router.push(`/${filesName}/${value}`);
-        FilesMenu_data.value = {
-          hrefHead: `/${filesName}/${value}`,
-          data: tagData.data,
-        };
-      },
+      FilesMenu_data,
     };
   },
 });
