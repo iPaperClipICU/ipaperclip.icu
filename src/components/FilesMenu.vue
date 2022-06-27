@@ -11,6 +11,7 @@ import {
   FileImageRegular as FileImageIcon,
 } from "@vicons/fa";
 import { NIcon, NMenu } from "naive-ui";
+import CMenu from "@/components/CMenu";
 import { getFileInfo } from "@/assets/box.js";
 
 const renderIcon = (icon) => {
@@ -61,13 +62,16 @@ const getMenuOptions = (data) => {
 
     menuOptions.push({
       label: () =>
-        h(
-          "a",
-          {
-            href: `${hrefHead}/${name}`,
-          },
-          { default: () => name }
-        ),
+        h(CMenu, null, {
+          default: () =>
+            h(
+              "a",
+              {
+                href: `${hrefHead}/${name}`,
+              },
+              { default: () => name }
+            ),
+        }),
       icon: type,
       key: name,
     });
@@ -89,16 +93,11 @@ const getMenuOptions = (data) => {
 // const menuOptions = [
 //   {
 //     label: () =>
-//       h(
-//         RouterLink,
-//         {
-//           to: {
-//             path: "/test",
-//           },
-//         },
-//         { default: () => "test" }
-//       ),
-//     key: "test",
+//       h(CMenu, null, {
+//         default: () =>
+//           "我们在田野上面找猪 想象中已找到了三只 小鸟在白云上面追逐AAAAAAAAAAAAAAAAAAAAAAAAAA",
+//       }),
+//     key: "1",
 //   },
 // ];
 

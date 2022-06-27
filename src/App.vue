@@ -9,14 +9,9 @@
             </a>
           </n-h1>
         </div>
-        <n-grid
-          :x-gap="12"
-          :cols="12"
-          item-responsive
-          style="padding-top: 20px"
-        >
+        <n-grid :cols="36" item-responsive style="padding-top: 20px">
           <n-gi span="1 1330:3" />
-          <n-gi span="10 1330:6">
+          <n-gi span="34 1330:30">
             <router-view />
             <div style="padding-top: 15px">
               <READMECard />

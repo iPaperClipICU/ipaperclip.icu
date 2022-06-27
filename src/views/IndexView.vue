@@ -1,28 +1,13 @@
 <template>
   <n-card>
-    <!-- 面包屑 -->
-    <UrlBreadcrumb :data="UrlBreadcrumb_data" />
-    <!-- Tabs -->
-    <n-tabs
-      v-if="showTabs"
-      type="line"
-      :default-value="TabsDefault_value"
-      @update:value="TabsUpdate_function"
-    >
-      <n-tab v-for="(item, index) in TabsData_value" :key="index" :name="item">
-        {{ item }}
-      </n-tab>
-    </n-tabs>
+    <TestView />
+    <n-divider />
     <!-- 文件夹 -->
     <div v-if="showFilesMenu == true">
       <FilesMenu :data="FilesMenu_data" />
     </div>
     <!-- Null -->
-    <n-empty v-if="showEmpty" description="无数据">
-      <template #extra>
-        <n-button @click="BackToHome_function">返回首页</n-button>
-      </template>
-    </n-empty>
+    <n-empty v-if="showEmpty" description="请在「菜单」中选择" />
     <!-- 文件 -->
     <div v-if="showShowFile" style="margin-top: 15px">
       <ShowFile :data="ShowFile_data" />
@@ -33,10 +18,10 @@
 <script>
 import { ref, defineComponent } from "vue";
 import router from "@/router";
-import { NTab, NCard, NTabs, NEmpty, NButton } from "naive-ui";
+import { NCard, NEmpty, NDivider } from "naive-ui";
+import TestView from "@/views/TestView";
 import ShowFile from "@/components/ShowFile";
 import FilesMenu from "@/components/FilesMenu";
-import UrlBreadcrumb from "@/components/UrlBreadcrumb";
 import data from "@/assets/data.json";
 import { getFileInfo } from "@/assets/box.js";
 
@@ -75,17 +60,7 @@ const init = () => {
 
   if (path == "/") {
     // Path: /
-    UrlBreadcrumb_data.value = [
-      {
-        name: "首页",
-        href: "/",
-      },
-    ];
-    FilesMenu_data.value = {
-      hrefHead: "",
-      data: data,
-    };
-    showFilesMenu.value = true;
+    showEmpty.value = true;
   } else {
     const filesName = decodeURIComponent(path.split("/")[1]);
     const filesData = getData(data, filesName);
@@ -104,25 +79,6 @@ const init = () => {
 
       if (fileName == "undefined" || fileName == "") {
         // Path: /files/tag
-        UrlBreadcrumb_data.value = [
-          {
-            name: "首页",
-            href: "/",
-          },
-          {
-            name: filesName,
-            href: `/${filesName}`,
-          },
-          {
-            name: tagName,
-            href: `/${filesName}/${tagName}`,
-          },
-        ];
-        TabsDefault_value.value = tagName;
-        TabsData_value.value = [];
-        for (const i in filesData.data) {
-          TabsData_value.value.push(filesData.data[i].name);
-        }
         FilesMenu_data.value = {
           hrefHead: `/${filesName}/${tagName}`,
           data: tagData.data,
@@ -145,24 +101,6 @@ const init = () => {
           return;
         }
 
-        UrlBreadcrumb_data.value = [
-          {
-            name: "首页",
-            href: "/",
-          },
-          {
-            name: filesName,
-            href: `/${filesName}`,
-          },
-          {
-            name: tagName,
-            href: `/${filesName}/${tagName}`,
-          },
-          {
-            name: fileName,
-            href: `/${filesName}/${tagName}/${fileName}`,
-          },
-        ];
         ShowFile_data.value = {
           type: getFileInfo(fileNameW).type,
           name: fileName,
@@ -175,16 +113,6 @@ const init = () => {
 
       if (fileName == "undefined" || fileName == "") {
         // Path: /files
-        UrlBreadcrumb_data.value = [
-          {
-            name: "首页",
-            href: "/",
-          },
-          {
-            name: filesName,
-            href: `/${filesName}`,
-          },
-        ];
         FilesMenu_data.value = {
           hrefHead: `/${filesName}`,
           data: filesData.data,
@@ -206,20 +134,6 @@ const init = () => {
           return;
         }
 
-        UrlBreadcrumb_data.value = [
-          {
-            name: "首页",
-            href: "/",
-          },
-          {
-            name: filesName,
-            href: `/${filesName}`,
-          },
-          {
-            name: fileName,
-            href: `/${filesName}/${fileName}`,
-          },
-        ];
         ShowFile_data.value = {
           type: getFileInfo(fileNameM).type,
           name: fileName,
@@ -237,14 +151,6 @@ const showFilesMenu = ref(false);
 const showEmpty = ref(false);
 const showShowFile = ref(false);
 // Data
-const UrlBreadcrumb_data = ref([
-  {
-    name: "首页",
-    href: "/",
-  },
-]);
-const TabsDefault_value = ref("t1");
-const TabsData_value = ref(["t1", "t2"]);
 const FilesMenu_data = ref({
   hrefHead: "/test",
   data: [
@@ -261,14 +167,12 @@ const ShowFile_data = ref({
 });
 export default defineComponent({
   components: {
+    TestView,
     ShowFile,
     FilesMenu,
-    UrlBreadcrumb,
-    NTab,
     NCard,
-    NTabs,
     NEmpty,
-    NButton,
+    NDivider,
   },
   setup() {
     init();
@@ -279,11 +183,8 @@ export default defineComponent({
       showEmpty,
       showShowFile,
       // Data
-      UrlBreadcrumb_data,
       FilesMenu_data,
       ShowFile_data,
-      TabsDefault_value,
-      TabsData_value,
       TabsUpdate_function(value) {
         // Path: /files/tag
         const path = location.pathname;
@@ -294,28 +195,10 @@ export default defineComponent({
         if (tagData == null) return;
 
         router.push(`/${filesName}/${value}`);
-        UrlBreadcrumb_data.value = [
-          {
-            name: "首页",
-            href: "/",
-          },
-          {
-            name: filesName,
-            href: `/${filesName}`,
-          },
-          {
-            name: value,
-            href: `/${filesName}/${value}`,
-          },
-        ];
         FilesMenu_data.value = {
           hrefHead: `/${filesName}/${value}`,
           data: tagData.data,
         };
-      },
-      BackToHome_function(e) {
-        e.preventDefault();
-        window.location.href = "/";
       },
     };
   },
