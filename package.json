@@ -27,7 +27,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^9.1.1",
-    "naive-ui": "^2.30.4",
+    "naive-ui": "^2.30.6",
     "prettier": "^2.7.1"
   },
   "eslintConfig": {
