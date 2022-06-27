@@ -16,6 +16,13 @@
     <meta property="og:locale" content="zh_CN">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>回形针重症监护室 | ipaperclip.icu</title>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.ready.then((registration) => {
+          registration.unregister();
+        });
+      }
+    </script>
   </head>
   <body>
     <noscript>
