@@ -319,9 +319,14 @@ export default defineComponent({
               const tagData = filesData.data[ii];
 
               for (const iii in tagData.data) {
-                const fileName = tagData.data[iii];
+                const fileName = String(tagData.data[iii]);
 
-                if (fileName.indexOf(searchValue.value) != -1) {
+                if (
+                  fileName
+                    .toLocaleLowerCase()
+                    .indexOf(String(searchValue.value).toLocaleLowerCase()) !=
+                  -1
+                ) {
                   searchData.data.push({
                     name: fileName,
                     hrefHead: `/${filesData.name}/${tagData.name}`,
