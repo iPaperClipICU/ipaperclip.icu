@@ -1,25 +1,50 @@
 <template>
-  <n-card>
-    <!-- 菜单 -->
-    <CMenu />
-    <n-divider />
-    <!-- 文件夹 -->
-    <div v-if="showFilesMenu == true">
-      <FilesMenu :data="FilesMenu_data" />
-    </div>
-    <!-- Null -->
-    <n-empty v-if="showEmpty" description="请在「菜单」中选择" />
-    <!-- 文件 -->
-    <div v-if="showShowFile" style="margin-top: 15px">
-      <ShowFile :data="ShowFile_data" />
-    </div>
+  <n-card hoverable>
+    <n-grid :cols="4" item-responsive>
+      <n-gi span="4 425:2 705:1">
+        <n-input-group>
+          <n-input v-model:value="searchValue" placeholder="搜索" clearable />
+          <n-button type="primary" ghost @click="searchButton">搜索</n-button>
+        </n-input-group>
+      </n-gi>
+      <n-gi span="0 425:2 705:3" />
+    </n-grid>
   </n-card>
+  <div style="padding-top: 15px">
+    <n-card hoverable>
+      <!-- 菜单 -->
+      <CMenu />
+      <n-divider />
+      <!-- 文件夹 -->
+      <div v-if="showFilesMenu == true">
+        <FilesMenu :data="FilesMenu_data" />
+      </div>
+      <!-- Null -->
+      <n-empty v-if="showEmpty" description="请在「菜单」中选择" />
+      <n-empty v-if="showNullEmpty" description="找不到和查询相匹配的结果" />
+      <!-- 文件 -->
+      <div v-if="showShowFile" style="margin-top: 15px">
+        <ShowFile :data="ShowFile_data" />
+      </div>
+    </n-card>
+  </div>
 </template>
 
 <script>
 import { h, ref, defineComponent } from "vue";
 import router from "@/router";
-import { NCard, NEmpty, NDivider, NButton, NDropdown, NSpace } from "naive-ui";
+import {
+  NGi,
+  NGrid,
+  NCard,
+  NEmpty,
+  NInput,
+  NSpace,
+  NButton,
+  NDivider,
+  NDropdown,
+  NInputGroup,
+} from "naive-ui";
 import ShowFile from "@/components/ShowFile";
 import FilesMenu from "@/components/FilesMenu";
 import data from "@/assets/data.json";
@@ -212,21 +237,33 @@ const getCMenu = () => {
   );
 };
 
+const searchValue = ref("");
 const CMenu = getCMenu();
 // Show
 const showEmpty = ref(false);
+const showNullEmpty = ref(false);
 const showShowFile = ref(false);
 const showFilesMenu = ref(false);
 // Data
 const FilesMenu_data = ref({
   hrefHead: "/test",
+  search: false,
   data: [
     {
       name: "test",
-      type: "files",
     },
   ],
 });
+// const FilesMenu_data = ref({
+//   search: true,
+//   data: [
+//     {
+//       name: "test",
+//       hrefHead: "/test",
+//       tag: "[XXX]",
+//     },
+//   ],
+// });
 const ShowFile_data = ref({
   type: "audio",
   name: "test audio",
@@ -237,9 +274,14 @@ export default defineComponent({
     CMenu,
     ShowFile,
     FilesMenu,
+    NGi,
+    NGrid,
     NCard,
     NEmpty,
+    NInput,
+    NButton,
     NDivider,
+    NInputGroup,
   },
   setup() {
     init();
@@ -247,10 +289,70 @@ export default defineComponent({
       // Show
       showEmpty,
       showShowFile,
+      showNullEmpty,
       showFilesMenu,
       // Data
       ShowFile_data,
       FilesMenu_data,
+      // 搜索
+      searchValue,
+      searchButton: (e) => {
+        e.preventDefault();
+
+        if (searchValue.value == "") return;
+
+        showEmpty.value = false;
+        showShowFile.value = false;
+        showNullEmpty.value = false;
+        showFilesMenu.value = false;
+
+        let searchData = {
+          search: true,
+          data: [],
+        };
+        for (const i in data) {
+          const filesData = data[i];
+
+          if (filesData.tag) {
+            // 有Tag
+            for (const ii in filesData.data) {
+              const tagData = filesData.data[ii];
+
+              for (const iii in tagData.data) {
+                const fileName = tagData.data[iii];
+
+                if (fileName.indexOf(searchValue.value) != -1) {
+                  searchData.data.push({
+                    name: fileName,
+                    hrefHead: `/${filesData.name}/${tagData.name}`,
+                    tag: `[${filesData.name}][${tagData.name}]`,
+                  });
+                }
+              }
+            }
+          } else {
+            // 没有Tag
+            for (const ii in filesData.data) {
+              const fileName = filesData.data[ii];
+
+              if (fileName.indexOf(searchValue.value) != -1) {
+                searchData.data.push({
+                  name: fileName,
+                  hrefHead: `/${filesData.name}`,
+                  tag: `[${filesData.name}]`,
+                });
+              }
+            }
+          }
+        }
+
+        if (searchData.data.length == 0) {
+          showNullEmpty.value = true;
+        } else {
+          FilesMenu_data.value = searchData;
+          showFilesMenu.value = true;
+        }
+      },
     };
   },
 });
