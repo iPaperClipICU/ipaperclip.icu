@@ -23,13 +23,15 @@ const renderIcon = (icon) => {
 //   data: [
 //     {
 //       name: "",
-//       type: "",
 //     },
 //   ],
 // };
 const getMenuOptions = (data) => {
   if (data == undefined) return;
   const hrefHead = data.hrefHead;
+  if (data.search) {
+    return getMenuOptions_search(data.data);
+  }
   data = data.data;
 
   var menuOptions = [];
@@ -70,6 +72,68 @@ const getMenuOptions = (data) => {
                 href: `${hrefHead}/${name}`,
               },
               { default: () => name }
+            ),
+        }),
+      icon: type,
+      key: name,
+    });
+    menuOptions.push({
+      key: "divider-" + name,
+      type: "divider",
+      props: {
+        style: {
+          marginLeft: "32px",
+        },
+      },
+    });
+  }
+
+  menuOptions.pop();
+  return menuOptions;
+};
+
+// {
+//   search: true,
+//   data: [
+//     {
+//       name: "test",
+//       hrefHead: "/test",
+//       tag: "[XXX]",
+//     },
+//   ],
+// };
+const getMenuOptions_search = (data) => {
+  var menuOptions = [];
+
+  for (const i in data) {
+    var fileInfo = getFileInfo(data[i].name);
+
+    const name = fileInfo.name;
+    var type;
+    switch (fileInfo.type) {
+      case "video":
+        type = renderIcon(FileVideoIcon);
+        break;
+      case "audio":
+        type = renderIcon(FileAudioIcon);
+        break;
+      case "image":
+        type = renderIcon(FileImageIcon);
+        break;
+      default:
+        type = renderIcon(FileIcon);
+    }
+
+    menuOptions.push({
+      label: () =>
+        h(CMenu, null, {
+          default: () =>
+            h(
+              "a",
+              {
+                href: `${data[i].hrefHead}/${name}`,
+              },
+              { default: () => `${data[i].tag} ${name}` }
             ),
         }),
       icon: type,

@@ -1,5 +1,5 @@
 <template>
-  <n-card v-if="show">
+  <n-card v-if="show" hoverable>
     <n-p>He, 这里是 ipaperclip.icu</n-p>
     <n-h2>网站</n-h2>
     <n-p>
