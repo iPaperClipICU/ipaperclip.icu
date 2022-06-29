@@ -1,21 +1,29 @@
-[
-    {
-        "name": "无Tag",
-        "tag": false,
-        "data": [
-            "FileName"
-        ]
-    },
-    {
-        "name": "有Tag",
-        "tag": true,
-        "data": [
-            {
-                "name": "TagName",
-                "data": [
-                    "FileName"
-                ]
-            }
-        ]
-    }
-]
+{
+    "version": "1",
+    "dig": "xxx",
+    "menuData": [
+        ["回形针PaperClip", ["Vol", "Sp"]],
+        ["基本操作"]
+    ],
+    "data": [
+        {
+            "name": "无Tag",
+            "tag": false,
+            "data": [
+                "FileName"
+            ]
+        },
+        {
+            "name": "有Tag",
+            "tag": true,
+            "data": [
+                {
+                    "name": "TagName",
+                    "data": [
+                        "FileName"
+                    ]
+                }
+            ]
+        }
+    ]
+}
