@@ -50,6 +50,10 @@ import FilesMenu from "@/components/FilesMenu";
 import data from "@/assets/data.json";
 import { getFileInfo } from "@/assets/box.js";
 
+import * as IndexedDB from "@/assets/IndexedDB";
+
+const FData = data["data"];
+
 /**
  * 获取data
  */
@@ -86,7 +90,7 @@ const init = () => {
     showEmpty.value = true;
   } else {
     const filesName = decodeURIComponent(path.split("/")[1]);
-    const filesData = getData(data, filesName);
+    const filesData = getData(FData, filesName);
     if (filesData == null) return;
 
     if (filesData.tag) {
@@ -189,18 +193,18 @@ const getCMenu = () => {
   };
 
   let MenuList = [];
-  for (const i in data) {
+  for (const i in FData) {
     let at;
-    if (filesName == data[i].name) at = true;
+    if (filesName == FData[i].name) at = true;
     else at = false;
 
-    if (data[i].tag) {
+    if (FData[i].tag) {
       // 有Tag
       let options = [];
-      for (const ii in data[i].data) {
+      for (const ii in FData[i].data) {
         options.push({
-          label: data[i].data[ii].name,
-          key: `/${data[i].name}/${data[i].data[ii].name}`,
+          label: FData[i].data[ii].name,
+          key: `/${FData[i].name}/${FData[i].data[ii].name}`,
         });
       }
 
@@ -215,13 +219,13 @@ const getCMenu = () => {
             },
           },
           {
-            default: () => getButton(data[i].name, at, false),
+            default: () => getButton(FData[i].name, at, false),
           }
         )
       );
     } else {
       // 没有Tag
-      MenuList.push(getButton(data[i].name, at, true));
+      MenuList.push(getButton(FData[i].name, at, true));
     }
   }
 
@@ -296,7 +300,7 @@ export default defineComponent({
       FilesMenu_data,
       // 搜索
       searchValue,
-      searchButton: (e) => {
+      searchButton: async (e) => {
         e.preventDefault();
 
         if (searchValue.value == "") return;
@@ -310,44 +314,63 @@ export default defineComponent({
           search: true,
           data: [],
         };
-        for (const i in data) {
-          const filesData = data[i];
 
-          if (filesData.tag) {
-            // 有Tag
-            for (const ii in filesData.data) {
-              const tagData = filesData.data[ii];
+        /**
+         * 通过游标读取数据
+         * @param {IDBDatabase} db 数据库实例
+         * @param {String} storeName 仓库名称
+         * @param {String} keyWorld 查询关键字
+         */
+        const cursorSearchData = (db, storeName, keyWorld) => {
+          // eslint-disable-next-line no-unused-vars
+          return new Promise((resolve, reject) => {
+            const KW = String(keyWorld.toLocaleLowerCase());
+            let list = [];
+            const request = db
+              .transaction(storeName, "readwrite") //事务
+              .objectStore(storeName) //仓库对象
+              .openCursor(); //指针对象
 
-              for (const iii in tagData.data) {
-                const fileName = String(tagData.data[iii]);
-
-                if (
-                  fileName
-                    .toLocaleLowerCase()
-                    .indexOf(String(searchValue.value).toLocaleLowerCase()) !=
-                  -1
-                ) {
-                  searchData.data.push({
-                    name: fileName,
-                    hrefHead: `/${filesData.name}/${tagData.name}`,
-                    tag: `[${filesData.name}][${tagData.name}]`,
-                  });
-                }
+            // 游标开启成功，逐行读数据
+            request.onsuccess = (e) => {
+              const cursor = e.target.result;
+              if (cursor) {
+                // 必须要检查
+                if (cursor.value.fileName.toLocaleLowerCase().indexOf(KW) != -1)
+                  list.push(cursor.value);
+                cursor.continue(); //遍历了存储对象中的所有内容
+              } else {
+                // console.log("游标读取的数据：", list);
+                resolve(list);
               }
-            }
+            };
+          });
+        };
+
+        const db = await IndexedDB.InitDB();
+        const cursorSearchData_data = await cursorSearchData(
+          db,
+          "searchData",
+          searchValue.value
+        );
+        IndexedDB.closeDB(db);
+
+        for (const i in cursorSearchData_data) {
+          const fileData = cursorSearchData_data[i];
+          if (fileData.data.tag) {
+            // 有Tag
+            searchData.data.push({
+              name: fileData.fileName,
+              hrefHead: `/${fileData.data.filesName}/${fileData.data.tagName}`,
+              tag: `[${fileData.data.filesName}/${fileData.data.tagName}]`,
+            });
           } else {
             // 没有Tag
-            for (const ii in filesData.data) {
-              const fileName = filesData.data[ii];
-
-              if (fileName.indexOf(searchValue.value) != -1) {
-                searchData.data.push({
-                  name: fileName,
-                  hrefHead: `/${filesData.name}`,
-                  tag: `[${filesData.name}]`,
-                });
-              }
-            }
+            searchData.data.push({
+              name: fileData.fileName,
+              hrefHead: `/${fileData.data.filesName}`,
+              tag: `[${fileData.data.filesName}]`,
+            });
           }
         }
 

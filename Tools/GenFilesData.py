@@ -1,4 +1,6 @@
-import os, json
+import os, json, hashlib
+
+VERSION = "1"
 
 def main():
     with open('./FilesData_data.json', 'r', encoding='UTF-8') as r:
@@ -30,6 +32,13 @@ def main():
             'tag': tag,
             'data': tmp
         })
+    
+    FilesData = {
+        'version': VERSION,
+        'dig': hashlib.sha3_512(str(FilesData).encode()).hexdigest(),
+        'menuData': FilesData_data,
+        'data': FilesData
+    }
 
     with open('./FilesData.json', 'w', encoding='UTF-8') as w:
         json.dump(FilesData, w)
