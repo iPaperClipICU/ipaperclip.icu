@@ -1,18 +1,39 @@
 <template>
   <n-menu :options="getMenuOptions(props.data)" />
+  <div v-if="showPage">
+    <n-pagination
+      @update:page="updatePage"
+      v-model:page="getPage"
+      :page-count="maxPage"
+    />
+  </div>
 </template>
 
 <script>
-import { defineComponent, h } from "vue";
+import { h, ref, defineComponent } from "vue";
 import {
   FileRegular as FileIcon,
   FileVideoRegular as FileVideoIcon,
   FileAudioRegular as FileAudioIcon,
   FileImageRegular as FileImageIcon,
 } from "@vicons/fa";
-import { NIcon, NMenu } from "naive-ui";
+import { NIcon, NMenu, NPagination } from "naive-ui";
 import CMenu from "@/components/CMenu";
 import { getFileInfo } from "@/assets/box.js";
+
+const getPage = () => {
+  const search = location.search;
+  if (search == "") {
+    return 1;
+  } else {
+    const searchList = search.replace("?", "").split("&");
+    for (const i in searchList) {
+      if (searchList[i].split("=")[0] == "p") {
+        return Number(searchList[i].split("=")[1]);
+      }
+    }
+  }
+};
 
 const renderIcon = (icon) => {
   return () => h(NIcon, null, { default: () => h(icon) });
@@ -20,11 +41,10 @@ const renderIcon = (icon) => {
 
 // {
 //   hrefHead: "",
-//   data: [
-//     {
-//       name: "",
-//     },
-//   ],
+//   data: {
+//     pages: false,
+//     data: []
+//   }
 // };
 const getMenuOptions = (data) => {
   if (data == undefined) return;
@@ -32,19 +52,19 @@ const getMenuOptions = (data) => {
   if (data.search) {
     return getMenuOptions_search(data.data);
   }
-  data = data.data;
+  const pages = data.data.pages;
+  data = data.data.data;
 
   var menuOptions = [];
 
+  if (pages) {
+    showPage.value = true;
+    maxPage.value = data.length;
+    data = data[getPage() - 1];
+  }
   for (const i in data) {
     var fileInfo;
-    if (data[0].name == undefined) {
-      // 文件列表
-      fileInfo = getFileInfo(data[i]);
-    } else {
-      // 首页
-      fileInfo = getFileInfo(data[i].name);
-    }
+    fileInfo = getFileInfo(data[i]);
 
     const name = fileInfo.name;
     var type;
@@ -165,13 +185,21 @@ const getMenuOptions_search = (data) => {
 //   },
 // ];
 
+const showPage = ref(false);
+const maxPage = ref(100);
 export default defineComponent({
-  components: { NMenu },
+  components: { NMenu, NPagination },
   props: ["data"],
   setup(props) {
     return {
+      showPage,
+      maxPage,
       props,
       getMenuOptions,
+      getPage: getPage(),
+      updatePage(page) {
+        location.href = `${location.pathname}?p=${page}`;
+      },
     };
   },
 });

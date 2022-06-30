@@ -50,24 +50,19 @@ import FilesMenu from "@/components/FilesMenu";
 import data from "@/assets/data.json";
 import { getFileInfo } from "@/assets/box.js";
 
-import * as IndexedDB from "@/assets/IndexedDB";
-
-const FData = data["data"];
-
 /**
  * 获取data
  */
 const getData = (data, name) => {
-  for (const i in data) {
-    if (data[i].name == name) {
-      return data[i];
-    }
+  if (data[name] != void 0) {
+    return data[name];
+  } else {
+    // 没有找到
+    showFilesMenu.value = false;
+    showEmpty.value = true;
+    showShowFile.value = false;
+    return null;
   }
-  // 没有找到
-  showFilesMenu.value = false;
-  showEmpty.value = true;
-  showShowFile.value = false;
-  return null;
 };
 
 /**
@@ -90,17 +85,23 @@ const init = () => {
     showEmpty.value = true;
   } else {
     const filesName = decodeURIComponent(path.split("/")[1]);
-    const filesData = getData(FData, filesName);
+    const filesData = getData(data.data, filesName);
     if (filesData == null) return;
 
-    if (filesData.tag) {
+    if (filesData.pages == void 0) {
+      // 有Tag
       var tagName = decodeURIComponent(path.split("/")[2]);
       if (tagName == "undefined") {
-        tagName = filesData.data[0].name;
+        for (const i in data.menuData) {
+          if (filesName == data.menuData[i][0]) {
+            tagName = data.menuData[i][1][0];
+            break;
+          }
+        }
         router.push(`/${filesName}/${tagName}`);
       }
 
-      const tagData = getData(filesData.data, tagName);
+      const tagData = getData(filesData, tagName);
       if (tagData == null) return;
       const fileName = decodeURIComponent(path.split("/")[3]);
 
@@ -108,15 +109,25 @@ const init = () => {
         // Path: /files/tag
         FilesMenu_data.value = {
           hrefHead: `/${filesName}/${tagName}`,
-          data: tagData.data,
+          data: tagData,
         };
         showFilesMenu.value = true;
       } else {
         // Path: /files/tag/file
         var fileNameW = undefined;
-        for (const i in tagData.data) {
-          if (fileName == tagData.data[i].substr(0, fileName.length)) {
-            fileNameW = tagData.data[i];
+        if (tagData.pages) {
+          for (const i in tagData.data) {
+            for (const ii in tagData.data[i]) {
+              if (fileName == tagData.data[i][ii].substr(0, fileName.length)) {
+                fileNameW = tagData.data[i][ii];
+              }
+            }
+          }
+        } else {
+          for (const i in tagData.data) {
+            if (fileName == tagData.data[i].substr(0, fileName.length)) {
+              fileNameW = tagData.data[i];
+            }
           }
         }
         if (fileNameW == undefined) {
@@ -140,15 +151,27 @@ const init = () => {
         // Path: /files
         FilesMenu_data.value = {
           hrefHead: `/${filesName}`,
-          data: filesData.data,
+          data: filesData,
         };
         showFilesMenu.value = true;
       } else {
         // Path: /files/file
         var fileNameM = undefined;
-        for (const i in filesData.data) {
-          if (fileName == filesData.data[i].substr(0, fileName.length)) {
-            fileNameM = filesData.data[i];
+        if (filesData.pages) {
+          for (const i in filesData.data) {
+            for (const ii in filesData.data[i]) {
+              if (
+                fileName == filesData.data[i][ii].substr(0, fileName.length)
+              ) {
+                fileNameM = filesData.data[i][ii];
+              }
+            }
+          }
+        } else {
+          for (const i in filesData.data) {
+            if (fileName == filesData.data[i].substr(0, fileName.length)) {
+              fileNameM = filesData.data[i];
+            }
           }
         }
         if (fileNameM == undefined) {
@@ -193,18 +216,19 @@ const getCMenu = () => {
   };
 
   let MenuList = [];
-  for (const i in FData) {
+  for (const i in data.menuData) {
+    const MenuData = data.menuData[i];
     let at;
-    if (filesName == FData[i].name) at = true;
+    if (filesName == MenuData[0]) at = true;
     else at = false;
 
-    if (FData[i].tag) {
+    if (MenuData.length == 2) {
       // 有Tag
       let options = [];
-      for (const ii in FData[i].data) {
+      for (const ii in MenuData[1]) {
         options.push({
-          label: FData[i].data[ii].name,
-          key: `/${FData[i].name}/${FData[i].data[ii].name}`,
+          label: MenuData[1][ii],
+          key: `/${MenuData[0]}/${MenuData[1][ii]}`,
         });
       }
 
@@ -219,13 +243,13 @@ const getCMenu = () => {
             },
           },
           {
-            default: () => getButton(FData[i].name, at, false),
+            default: () => getButton(MenuData[0], at, false),
           }
         )
       );
     } else {
       // 没有Tag
-      MenuList.push(getButton(FData[i].name, at, true));
+      MenuList.push(getButton(MenuData[0], at, true));
     }
   }
 
@@ -315,62 +339,24 @@ export default defineComponent({
           data: [],
         };
 
-        /**
-         * 通过游标读取数据
-         * @param {IDBDatabase} db 数据库实例
-         * @param {String} storeName 仓库名称
-         * @param {String} keyWorld 查询关键字
-         */
-        const cursorSearchData = (db, storeName, keyWorld) => {
-          // eslint-disable-next-line no-unused-vars
-          return new Promise((resolve, reject) => {
-            const KW = String(keyWorld.toLocaleLowerCase());
-            let list = [];
-            const request = db
-              .transaction(storeName, "readwrite") //事务
-              .objectStore(storeName) //仓库对象
-              .openCursor(); //指针对象
-
-            // 游标开启成功，逐行读数据
-            request.onsuccess = (e) => {
-              const cursor = e.target.result;
-              if (cursor) {
-                // 必须要检查
-                if (cursor.value.fileName.toLocaleLowerCase().indexOf(KW) != -1)
-                  list.push(cursor.value);
-                cursor.continue(); //遍历了存储对象中的所有内容
-              } else {
-                // console.log("游标读取的数据：", list);
-                resolve(list);
-              }
-            };
-          });
-        };
-
-        const db = await IndexedDB.InitDB();
-        const cursorSearchData_data = await cursorSearchData(
-          db,
-          "searchData",
-          searchValue.value
-        );
-        IndexedDB.closeDB(db);
-
-        for (const i in cursorSearchData_data) {
-          const fileData = cursorSearchData_data[i];
-          if (fileData.data.tag) {
-            // 有Tag
-            searchData.data.push({
-              name: fileData.fileName,
-              hrefHead: `/${fileData.data.filesName}/${fileData.data.tagName}`,
-              tag: `[${fileData.data.filesName}/${fileData.data.tagName}]`,
-            });
-          } else {
-            // 没有Tag
-            searchData.data.push({
-              name: fileData.fileName,
-              hrefHead: `/${fileData.data.filesName}`,
-              tag: `[${fileData.data.filesName}]`,
-            });
+        const KeyWord = String(searchValue.value).toLocaleLowerCase();
+        for (const i in data.searchData) {
+          if (i.toLocaleLowerCase().indexOf(KeyWord) != -1) {
+            if (data.searchData[i].length == 2) {
+              // 有Tag
+              searchData.data.push({
+                name: i,
+                hrefHead: `/${data.searchData[i][0]}/${data.searchData[i][1]}`,
+                tag: `[${data.searchData[i][0]}/${data.searchData[i][1]}]`,
+              });
+            } else {
+              // 没有Tag
+              searchData.data.push({
+                name: i,
+                hrefHead: `/${data.searchData[i][0]}`,
+                tag: `[${data.searchData[i][0]}]`,
+              });
+            }
           }
         }
 

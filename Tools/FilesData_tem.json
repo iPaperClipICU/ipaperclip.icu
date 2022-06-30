@@ -1,29 +1,26 @@
 {
-    "version": "1",
-    "dig": "xxx",
     "menuData": [
         ["回形针PaperClip", ["Vol", "Sp"]],
         ["基本操作"]
     ],
-    "data": [
-        {
-            "name": "无Tag",
-            "tag": false,
+    "searchData": {
+        "FileName": ["FilesName", "TagName"]
+    },
+    "data": {
+        "有Tag/分页": {
+            "TagName": {
+                "pages": true,
+                "data": [
+                    ["FileName"],
+                    ["FileName"]
+                ]
+            }
+        },
+        "无Tag/分页": {
+            "pages": false,
             "data": [
                 "FileName"
             ]
-        },
-        {
-            "name": "有Tag",
-            "tag": true,
-            "data": [
-                {
-                    "name": "TagName",
-                    "data": [
-                        "FileName"
-                    ]
-                }
-            ]
         }
-    ]
+    }
 }
