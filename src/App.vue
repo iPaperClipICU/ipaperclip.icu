@@ -30,13 +30,6 @@ import { NH1, NGi, NGrid } from "naive-ui";
 import { NGlobalStyle, NConfigProvider, NLoadingBarProvider } from "naive-ui";
 import { darkTheme, zhCN } from "naive-ui";
 
-import * as IndexedDB from "@/assets/IndexedDB";
-
-const Init = async () => {
-  const db = await IndexedDB.InitDB();
-  IndexedDB.closeDB(db);
-};
-
 const mailLoginShow = ref(true);
 export default defineComponent({
   components: {
@@ -49,7 +42,6 @@ export default defineComponent({
     NLoadingBarProvider,
   },
   setup() {
-    Init();
     return {
       zhCN,
       darkTheme,
