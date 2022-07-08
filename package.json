@@ -1,7 +1,7 @@
 {
   "name": "ipaperclip.icu",
   "version": "5.0.0",
-  "description": "<div align=\"center\">\r   <img src=\"https://cdn.jsdelivr.net/gh/iPaperClipICU/static/favicon/favicon.png\" alt=\"ipaperclip.icu\" />\r   <p><em>He, 这里是 ipaperclip.icu</em></p>\r   <img src=\"https://img.shields.io/github/license/ipaperclip-icu/ipaperclip.icu?style=flat-square\" alt=\"license\" />\r   <img src=\"https://img.shields.io/github/issues/ipaperclip-icu/ipaperclip.icu?style=flat-square\" alt=\"issues open\" />\r   <img src=\"https://img.shields.io/github/issues-pr/ipaperclip-icu/ipaperclip.icu?style=flat-square\" alt=\"pull requests open\" />\r   <br>\r   <img src=\"https://img.shields.io/github/forks/ipaperclip-icu/ipaperclip.icu?style=social\" alt=\"fork\" />\r   <img src=\"https://img.shields.io/github/stars/ipaperclip-icu/ipaperclip.icu?style=social\" alt=\"stars\" />\r   <img src=\"https://img.shields.io/github/watchers/ipaperclip-icu/ipaperclip.icu?style=social\" alt=\"watchers\" />\r </div>",
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -49,14 +49,5 @@
     "last 2 versions",
     "not dead",
     "not ie 11"
-  ],
-  "bugs": {
-    "url": "https://github.com/iPaperClipICU/ipaperclip.icu/issues"
-  },
-  "homepage": "https://github.com/iPaperClipICU/ipaperclip.icu#readme",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/iPaperClipICU/ipaperclip.icu.git"
-  }
+  ]
 }
