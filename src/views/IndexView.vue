@@ -118,14 +118,19 @@ const init = () => {
         if (tagData.pages) {
           for (const i in tagData.data) {
             for (const ii in tagData.data[i]) {
-              if (fileName == tagData.data[i][ii].substr(0, fileName.length)) {
+              if (
+                `${fileName}.` ==
+                `${tagData.data[i][ii].substr(0, fileName.length)}.`
+              ) {
                 fileNameW = tagData.data[i][ii];
               }
             }
           }
         } else {
           for (const i in tagData.data) {
-            if (fileName == tagData.data[i].substr(0, fileName.length)) {
+            if (
+              `${fileName}.` == `${tagData.data[i].substr(0, fileName.length)}.`
+            ) {
               fileNameW = tagData.data[i];
             }
           }
@@ -161,7 +166,8 @@ const init = () => {
           for (const i in filesData.data) {
             for (const ii in filesData.data[i]) {
               if (
-                fileName == filesData.data[i][ii].substr(0, fileName.length)
+                `${fileName}.` ==
+                `${filesData.data[i][ii].substr(0, fileName.length)}.`
               ) {
                 fileNameM = filesData.data[i][ii];
               }
@@ -169,7 +175,10 @@ const init = () => {
           }
         } else {
           for (const i in filesData.data) {
-            if (fileName == filesData.data[i].substr(0, fileName.length)) {
+            if (
+              `${fileName}.` ==
+              `${filesData.data[i].substr(0, fileName.length)}.`
+            ) {
               fileNameM = filesData.data[i];
             }
           }
