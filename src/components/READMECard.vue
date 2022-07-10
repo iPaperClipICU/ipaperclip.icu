@@ -48,24 +48,24 @@
       ><n-a href="https://shop362189133.taobao.com/">干燥工厂</n-a> |
       <n-a href="https://jibencaozuo.com/">基本操作</n-a></n-p
     >
-    <!-- TODO: 恢复 R.I.P -->
-    <!-- <n-h2>R.I.P</n-h2>
-    <n-image-group show-toolbar-tooltip>
-      <n-space>
-        <n-image
-          width="300"
-          height="168.56"
-          src="//file.hsyhx.top/image/RIP/rip2.webp"
-          alt="R.I.P: 喜讯"
-        />
-        <n-image
-          width="300"
-          height="168.75"
+    <n-h2>R.I.P</n-h2>
+    <n-grid :cols="201" item-responsive>
+      <n-gi span="100">
+        <img
           src="//file.hsyhx.top/image/RIP/rip1.webp"
-          alt="R.I.P: 大的没了"
+          alt="rip1"
+          style="width: 100%"
         />
-      </n-space>
-    </n-image-group> -->
+      </n-gi>
+      <n-gi span="1" />
+      <n-gi span="100">
+        <img
+          src="//file.hsyhx.top/image/RIP/rip2.webp"
+          alt="rip2"
+          style="width: 100%"
+        />
+      </n-gi>
+    </n-grid>
     <n-alert type="info" :show-icon="false">
       <n-p
         >本站点建立之初单纯就是为了站长本人能有个观看回形针PaperClip视频的地方，不管用不用魔法都可以流畅的观看，目前看来已经实现了</n-p
@@ -79,17 +79,7 @@
 
 <script>
 import { ref, defineComponent } from "vue";
-import {
-  NA,
-  NP,
-  NH2,
-  NCard,
-  NAlert,
-  // NImage,
-  // NSpace,
-  NDivider,
-  // NImageGroup,
-} from "naive-ui";
+import { NA, NP, NGi, NH2, NCard, NGrid, NAlert, NDivider } from "naive-ui";
 
 const init = () => {
   if (location.pathname == "/") {
@@ -102,13 +92,12 @@ export default defineComponent({
   components: {
     NA,
     NP,
+    NGi,
     NH2,
     NCard,
+    NGrid,
     NAlert,
-    // NImage,
-    // NSpace,
     NDivider,
-    // NImageGroup,
   },
   setup() {
     init();
