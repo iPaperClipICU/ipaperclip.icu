@@ -11,15 +11,9 @@ def paging(data):
         returnData = []
         for i in range(0, len(data), PAGE):
             returnData.append(data[i:i+PAGE])
-        return {
-            'pages': True,
-            'data': returnData
-        }
+        return returnData
     else:
-        return {
-            'pages': False,
-            'data': data
-        }
+        return [data]
 
 def main():
     with open('./FilesData_data.json', 'r', encoding='UTF-8') as r:

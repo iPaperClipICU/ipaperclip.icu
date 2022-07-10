@@ -7,20 +7,14 @@
         "FileName": ["FilesName", "TagName"]
     },
     "data": {
-        "有Tag/分页": {
-            "TagName": {
-                "pages": true,
-                "data": [
-                    ["FileName"],
-                    ["FileName"]
-                ]
-            }
-        },
-        "无Tag/分页": {
-            "pages": false,
-            "data": [
-                "FileName"
+        "有Tag": {
+            "TagName": [
+                ["FileName"],
+                ["FileName"]
             ]
-        }
+        },
+        "无Tag": [
+            ["FileName"]
+        ]
     }
 }
