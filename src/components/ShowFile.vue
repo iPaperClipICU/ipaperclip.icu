@@ -23,6 +23,7 @@ import { onMounted, defineComponent } from "vue";
 import { NResult } from "naive-ui";
 import "aplayer/dist/APlayer.min.css";
 import APlayer from "aplayer";
+import { getFileInfo } from "@/assets/box.js";
 
 export default defineComponent({
   components: {
@@ -36,7 +37,7 @@ export default defineComponent({
           container: document.getElementById("audioPlayer"),
           audio: [
             {
-              name: props.data.name,
+              name: getFileInfo(props.data.name).name,
               url: props.data.url,
             },
           ],
