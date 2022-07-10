@@ -1,5 +1,5 @@
 const getFileInfo = (FileName) => {
-  var FileType = "";
+  let FileType = "";
 
   if (FileName.endsWith(".mp4") || FileName.endsWith(".flv")) {
     FileType = "video";
