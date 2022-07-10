@@ -4,47 +4,74 @@
     <n-h2>网站</n-h2>
     <n-p>
       视频、文字稿归档:
-      <n-a href="https://ipaperclip.icu/">ipaperclip.icu</n-a>
+      <n-a href="https://ipaperclip.icu/" target="_blank">ipaperclip.icu</n-a>
     </n-p>
     <n-p>
       R.I.P(归档站导航):
-      <n-a href="https://ipaperclip.rip/">ipaperclip.rip</n-a>
+      <n-a href="https://ipaperclip.rip/" target="_blank">ipaperclip.rip</n-a>
     </n-p>
     <n-p>
       视频源备份站:
-      <n-a href="https://onedrive.ipaperclip.icu/">onedrive.ipaperclip.icu</n-a>
+      <n-a href="https://onedrive.ipaperclip.icu/" target="_blank"
+        >onedrive.ipaperclip.icu</n-a
+      >
     </n-p>
     <n-h2>联系我</n-h2>
     <n-p>
-      <n-a href="https://t.me/iPaperClipICU">Telegram 通知频道</n-a>
+      <n-a href="https://t.me/iPaperClipICU" target="_blank"
+        >Telegram 通知频道</n-a
+      >
       |
-      <n-a href="https://t.me/iPaperClipICUChatBot">Telegram Bot</n-a>
+      <n-a href="https://t.me/iPaperClipICUChatBot" target="_blank"
+        >Telegram Bot</n-a
+      >
       |
-      <n-a href="https://github.com/iPaperClipICU/ipaperclip.icu/">Github</n-a>
-      | <n-a href="mailto:hi@ipaperclip.icu">hi@ipaperclip.icu</n-a>
+      <n-a
+        href="https://github.com/iPaperClipICU/ipaperclip.icu/"
+        target="_blank"
+        >Github</n-a
+      >
+      |
+      <n-a href="mailto:hi@ipaperclip.icu" target="_blank"
+        >hi@ipaperclip.icu</n-a
+      >
     </n-p>
     <n-h2>相关链接</n-h2>
-    <n-p><n-a href="https://paperclip.eu.org/">回形针视频归档站</n-a></n-p>
     <n-p
-      ><n-a href="https://wandering-paperclip.glitch.me/"
+      ><n-a href="https://paperclip.eu.org/" target="_blank"
+        >回形针视频归档站</n-a
+      ></n-p
+    >
+    <n-p
+      ><n-a href="https://wandering-paperclip.glitch.me/" target="_blank"
         >Wandering PaperClip 流浪回形针</n-a
       ></n-p
     >
     <n-p
-      ><n-a href="https://paper-clips.purestream.eu.org/"
+      ><n-a href="https://paper-clips.purestream.eu.org/" target="_blank"
         >paper-clips.purestream.eu.org</n-a
       ></n-p
     >
-    <n-p><n-a href="https://paperclip.wiki/">paperclip.wiki</n-a></n-p>
+    <n-p
+      ><n-a href="https://paperclip.wiki/" target="_blank"
+        >paperclip.wiki</n-a
+      ></n-p
+    >
     <n-divider />
     <n-p
-      ><n-a href="https://t.me/paperclipfans">基本操作非官方频道</n-a>
+      ><n-a href="https://t.me/papercliphub" target="_blank"
+        >基本操作非官方频道</n-a
+      >
       |
-      <n-a href="https://t.me/paperclipfans">基本操作非官方粉丝群</n-a></n-p
+      <n-a href="https://t.me/paperclipfans" target="_blank"
+        >基本操作非官方粉丝群</n-a
+      ></n-p
     >
     <n-p
-      ><n-a href="https://shop362189133.taobao.com/">干燥工厂</n-a> |
-      <n-a href="https://jibencaozuo.com/">基本操作</n-a></n-p
+      ><n-a href="https://shop362189133.taobao.com/" target="_blank"
+        >干燥工厂</n-a
+      >
+      | <n-a href="https://jibencaozuo.com/" target="_blank">基本操作</n-a></n-p
     >
     <n-h2>R.I.P</n-h2>
     <n-grid :cols="201" item-responsive>
