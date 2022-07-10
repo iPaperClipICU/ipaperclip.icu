@@ -41,10 +41,7 @@ const renderIcon = (icon) => {
 
 // {
 //   hrefHead: "",
-//   data: {
-//     pages: false,
-//     data: []
-//   }
+//   data: [["FileName"], ["FileName"]],
 // };
 const getMenuOptions = (data) => {
   if (data == undefined) return;
@@ -52,8 +49,8 @@ const getMenuOptions = (data) => {
   if (data.search) {
     return getMenuOptions_search(data.data);
   }
-  const pages = data.data.pages;
-  data = data.data.data;
+  const pages = data.data.length != 1;
+  data = data.data;
 
   var menuOptions = [];
 
@@ -61,10 +58,13 @@ const getMenuOptions = (data) => {
     showPage.value = true;
     maxPage.value = data.length;
     data = data[getPage() - 1];
+  } else {
+    data = data[0];
   }
   for (const i in data) {
+    const fileName = data[i];
     var fileInfo;
-    fileInfo = getFileInfo(data[i]);
+    fileInfo = getFileInfo(fileName);
 
     const name = fileInfo.name;
     var type;

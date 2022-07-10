@@ -88,7 +88,7 @@ const init = () => {
     const filesData = getData(data.data, filesName);
     if (filesData == null) return;
 
-    if (filesData.pages == void 0) {
+    if (filesData.length == void 0) {
       // 有Tag
       var tagName = decodeURIComponent(path.split("/")[2]);
       if (tagName == "undefined") {
@@ -114,28 +114,12 @@ const init = () => {
         showFilesMenu.value = true;
       } else {
         // Path: /files/tag/file
-        var fileNameW = undefined;
-        if (tagData.pages) {
-          for (const i in tagData.data) {
-            for (const ii in tagData.data[i]) {
-              if (
-                `${fileName}.` ==
-                `${tagData.data[i][ii].substr(0, fileName.length)}.`
-              ) {
-                fileNameW = tagData.data[i][ii];
-              }
-            }
-          }
-        } else {
-          for (const i in tagData.data) {
-            if (
-              `${fileName}.` == `${tagData.data[i].substr(0, fileName.length)}.`
-            ) {
-              fileNameW = tagData.data[i];
-            }
-          }
-        }
-        if (fileNameW == undefined) {
+        const fileNameW = data.searchData[fileName];
+        if (
+          fileNameW == undefined ||
+          fileNameW[0] != filesName ||
+          fileNameW[1] != tagName
+        ) {
           showFilesMenu.value = false;
           showEmpty.value = true;
           showShowFile.value = false;
@@ -143,9 +127,9 @@ const init = () => {
         }
 
         ShowFile_data.value = {
-          type: getFileInfo(fileNameW).type,
+          type: getFileInfo(fileName).type,
           name: fileName,
-          url: `https://file.hsyhx.top/video/${filesName}/${tagName}/${fileNameW}`,
+          url: `https://file.hsyhx.top/video/${filesName}/${tagName}/${fileName}`,
         };
         showShowFile.value = true;
       }
@@ -161,29 +145,8 @@ const init = () => {
         showFilesMenu.value = true;
       } else {
         // Path: /files/file
-        var fileNameM = undefined;
-        if (filesData.pages) {
-          for (const i in filesData.data) {
-            for (const ii in filesData.data[i]) {
-              if (
-                `${fileName}.` ==
-                `${filesData.data[i][ii].substr(0, fileName.length)}.`
-              ) {
-                fileNameM = filesData.data[i][ii];
-              }
-            }
-          }
-        } else {
-          for (const i in filesData.data) {
-            if (
-              `${fileName}.` ==
-              `${filesData.data[i].substr(0, fileName.length)}.`
-            ) {
-              fileNameM = filesData.data[i];
-            }
-          }
-        }
-        if (fileNameM == undefined) {
+        const fileNameW = data.searchData[fileName];
+        if (fileNameW == undefined || fileNameW[0] != filesName) {
           showFilesMenu.value = false;
           showEmpty.value = true;
           showShowFile.value = false;
@@ -191,9 +154,9 @@ const init = () => {
         }
 
         ShowFile_data.value = {
-          type: getFileInfo(fileNameM).type,
+          type: getFileInfo(fileName).type,
           name: fileName,
-          url: `https://file.hsyhx.top/video/${filesName}/${fileNameM}`,
+          url: `https://file.hsyhx.top/video/${filesName}/${fileName}`,
         };
         showShowFile.value = true;
       }
