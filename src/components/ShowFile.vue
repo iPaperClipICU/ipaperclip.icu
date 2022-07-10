@@ -7,7 +7,13 @@
   </div>
   <div v-if="fineData.type == 'image'">
     <!-- TODO: Use NaiveUI Image -->
-    <img :src="fineData.url" :alt="fineData.name" />
+    <n-grid :cols="36" item-responsive>
+      <n-gi span="1 768:5" />
+      <n-gi span="34 768:26">
+        <img :src="fineData.url" :alt="fineData.name" style="width: 100%" />
+      </n-gi>
+      <n-gi span="1 768:5" />
+    </n-grid>
   </div>
   <div v-if="fineData.type == 'audio'">
     <!-- <audio preload="none" controls>
@@ -20,13 +26,15 @@
 
 <script>
 import { onMounted, defineComponent } from "vue";
-import { NResult } from "naive-ui";
+import { NGi, NGrid, NResult } from "naive-ui";
 import "aplayer/dist/APlayer.min.css";
 import APlayer from "aplayer";
 import { getFileInfo } from "@/assets/box.js";
 
 export default defineComponent({
   components: {
+    NGi,
+    NGrid,
     NResult,
   },
   props: ["data"],
