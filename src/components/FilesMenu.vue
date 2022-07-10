@@ -82,6 +82,7 @@ const getMenuOptions = (data) => {
         type = renderIcon(FileIcon);
     }
 
+    // TODO: 解决name显示不全的问题
     menuOptions.push({
       label: () =>
         h(CMenu, null, {

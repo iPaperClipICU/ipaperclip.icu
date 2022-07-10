@@ -48,6 +48,7 @@
       ><n-a href="https://shop362189133.taobao.com/">干燥工厂</n-a> |
       <n-a href="https://jibencaozuo.com/">基本操作</n-a></n-p
     >
+    <!-- TODO: 恢复 R.I.P -->
     <!-- <n-h2>R.I.P</n-h2>
     <n-image-group show-toolbar-tooltip>
       <n-space>
