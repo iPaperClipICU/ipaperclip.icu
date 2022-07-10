@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: 写个视频/音频播放器 -->
   <div v-if="fineData.type == 'video'" class="video">
     <video :src="fineData.url" controls preload>
       <n-result status="info" title="您的浏览器不支持 video 标签" />
