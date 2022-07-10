@@ -52,7 +52,7 @@ const getMenuOptions = (data) => {
   const pages = data.data.length != 1;
   data = data.data;
 
-  var menuOptions = [];
+  let menuOptions = [];
 
   if (pages) {
     showPage.value = true;
@@ -63,11 +63,11 @@ const getMenuOptions = (data) => {
   }
   for (const i in data) {
     const fileName = data[i];
-    var fileInfo;
+    let fileInfo;
     fileInfo = getFileInfo(fileName);
 
     const name = fileInfo.name;
-    var type;
+    let type;
     switch (fileInfo.type) {
       case "video":
         type = renderIcon(FileVideoIcon);
@@ -123,13 +123,13 @@ const getMenuOptions = (data) => {
 //   ],
 // };
 const getMenuOptions_search = (data) => {
-  var menuOptions = [];
+  let menuOptions = [];
 
   for (const i in data) {
-    var fileInfo = getFileInfo(data[i].name);
+    let fileInfo = getFileInfo(data[i].name);
 
     const name = fileInfo.name;
-    var type;
+    let type;
     switch (fileInfo.type) {
       case "video":
         type = renderIcon(FileVideoIcon);
