@@ -18,15 +18,13 @@
     <n-p>
       <n-a href="https://t.me/iPaperClipICU">Telegram 通知频道</n-a>
       |
-      <n-a href="https://t.me/ipaperclipIcu_Bot">Telegram Bot</n-a>
+      <n-a href="https://t.me/iPaperClipICUChatBot">Telegram Bot</n-a>
       |
-      <n-a href="https://github.com/iPaperClipICU/ipaperclip.icu/discussions"
-        >Github Discussions</n-a
-      >
+      <n-a href="https://github.com/iPaperClipICU/ipaperclip.icu/">Github</n-a>
       | <n-a href="mailto:hi@ipaperclip.icu">hi@ipaperclip.icu</n-a>
     </n-p>
     <n-h2>相关链接</n-h2>
-    <n-p><n-a href="https://www.paperclip.tk/">回形针视频归档站</n-a></n-p>
+    <n-p><n-a href="https://paperclip.eu.org/">回形针视频归档站</n-a></n-p>
     <n-p
       ><n-a href="https://wandering-paperclip.glitch.me/"
         >Wandering PaperClip 流浪回形针</n-a
