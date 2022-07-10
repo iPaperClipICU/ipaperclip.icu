@@ -90,7 +90,7 @@ const init = () => {
 
     if (filesData.length == void 0) {
       // 有Tag
-      var tagName = decodeURIComponent(path.split("/")[2]);
+      let tagName = decodeURIComponent(path.split("/")[2]);
       if (tagName == "undefined") {
         for (const i in data.menuData) {
           if (filesName == data.menuData[i][0]) {
