@@ -44,6 +44,7 @@ const renderIcon = (icon) => {
 //   data: [["FileName"], ["FileName"]],
 // };
 const getMenuOptions = (data) => {
+  console.log(data);
   if (data == void 0) return;
   const hrefHead = data.hrefHead;
   if (data.search) {
@@ -90,7 +91,7 @@ const getMenuOptions = (data) => {
             h(
               "a",
               {
-                href: `${hrefHead}/${name}`,
+                href: `${hrefHead}/${fileName}`,
               },
               { default: () => name }
             ),
