@@ -44,7 +44,7 @@ const renderIcon = (icon) => {
 //   data: [["FileName"], ["FileName"]],
 // };
 const getMenuOptions = (data) => {
-  if (data == undefined) return;
+  if (data == void 0) return;
   const hrefHead = data.hrefHead;
   if (data.search) {
     return getMenuOptions_search(data.data);

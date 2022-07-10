@@ -116,7 +116,7 @@ const init = () => {
         // Path: /files/tag/file
         const fileNameW = data.searchData[fileName];
         if (
-          fileNameW == undefined ||
+          fileNameW == void 0 ||
           fileNameW[0] != filesName ||
           fileNameW[1] != tagName
         ) {
@@ -146,7 +146,7 @@ const init = () => {
       } else {
         // Path: /files/file
         const fileNameW = data.searchData[fileName];
-        if (fileNameW == undefined || fileNameW[0] != filesName) {
+        if (fileNameW == void 0 || fileNameW[0] != filesName) {
           showFilesMenu.value = false;
           showEmpty.value = true;
           showShowFile.value = false;

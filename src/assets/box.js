@@ -12,7 +12,7 @@ const getFileInfo = (FileName) => {
   } else if (FileName.endsWith(".mp3") || FileName.endsWith(".flac")) {
     FileType = "audio";
   } else {
-    FileType = undefined;
+    FileType = void 0;
   }
 
   return {
