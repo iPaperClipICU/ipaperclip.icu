@@ -1,7 +1,5 @@
 <template>
   <n-card hoverable>
-    <!-- TODO: 显示搜索结果数 -->
-    <!-- TODO: 搜索结果分页 -->
     <n-grid :cols="4" item-responsive>
       <n-gi span="4 425:2 705:1">
         <n-input-group>
@@ -298,48 +296,9 @@ export default defineComponent({
       FilesMenu_data,
       // 搜索
       searchValue,
-      searchButton: async (e) => {
+      searchButton: (e) => {
         e.preventDefault();
-
-        if (searchValue.value == "") return;
-
-        showEmpty.value = false;
-        showShowFile.value = false;
-        showNullEmpty.value = false;
-        showFilesMenu.value = false;
-
-        let searchData = {
-          search: true,
-          data: [],
-        };
-
-        const KeyWord = String(searchValue.value).toLocaleLowerCase();
-        for (const i in data.searchData) {
-          if (i.toLocaleLowerCase().indexOf(KeyWord) != -1) {
-            if (data.searchData[i].length == 2) {
-              // 有Tag
-              searchData.data.push({
-                name: i,
-                hrefHead: `/${data.searchData[i][0]}/${data.searchData[i][1]}`,
-                tag: `[${data.searchData[i][0]}/${data.searchData[i][1]}]`,
-              });
-            } else {
-              // 没有Tag
-              searchData.data.push({
-                name: i,
-                hrefHead: `/${data.searchData[i][0]}`,
-                tag: `[${data.searchData[i][0]}]`,
-              });
-            }
-          }
-        }
-
-        if (searchData.data.length == 0) {
-          showNullEmpty.value = true;
-        } else {
-          FilesMenu_data.value = searchData;
-          showFilesMenu.value = true;
-        }
+        location.href = `/search?s=${searchValue.value}`;
       },
     };
   },
