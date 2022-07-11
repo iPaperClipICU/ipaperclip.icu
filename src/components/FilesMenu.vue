@@ -2,6 +2,7 @@
   <n-list>
     <n-list-item v-for="(item, index) in listData" :key="index">
       <n-button
+        size="large"
         tag="a"
         :href="item.href"
         quaternary
