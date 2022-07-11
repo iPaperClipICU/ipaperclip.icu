@@ -1,5 +1,24 @@
 <template>
-  <n-menu :options="getMenuOptions(props.data)" />
+  <n-list>
+    <n-list-item v-for="(item, index) in listData" :key="index">
+      <n-button
+        tag="a"
+        :href="item.href"
+        quaternary
+        style="white-space: normal"
+      >
+        <template #icon>
+          <n-icon>
+            <FileIcon v-if="item.type == void 0" />
+            <FileVideoIcon v-if="item.type == 'video'" />
+            <FileAudioIcon v-if="item.type == 'audio'" />
+            <FileImageIcon v-if="item.type == 'image'" />
+          </n-icon>
+        </template>
+        {{ item.name }}
+      </n-button>
+    </n-list-item>
+  </n-list>
   <div v-if="showPage">
     <n-pagination
       @update:page="updatePage"
@@ -10,15 +29,14 @@
 </template>
 
 <script>
-import { h, ref, defineComponent } from "vue";
+import { ref, defineComponent } from "vue";
 import {
   FileRegular as FileIcon,
   FileVideoRegular as FileVideoIcon,
   FileAudioRegular as FileAudioIcon,
   FileImageRegular as FileImageIcon,
 } from "@vicons/fa";
-import { NIcon, NMenu, NPagination } from "naive-ui";
-import CMenu from "@/components/CMenu";
+import { NIcon, NList, NButton, NListItem, NPagination } from "naive-ui";
 import { getFileInfo } from "@/assets/box.js";
 
 const getPage = () => {
@@ -35,25 +53,18 @@ const getPage = () => {
   }
 };
 
-const renderIcon = (icon) => {
-  return () => h(NIcon, null, { default: () => h(icon) });
-};
-
 // {
 //   hrefHead: "",
 //   data: [["FileName"], ["FileName"]],
 // };
-const getMenuOptions = (data) => {
-  console.log(data);
+const getListData = (data) => {
   if (data == void 0) return;
   const hrefHead = data.hrefHead;
   if (data.search) {
-    return getMenuOptions_search(data.data);
+    return getListData_search(data.data);
   }
   const pages = data.data.length != 1;
   data = data.data;
-
-  let menuOptions = [];
 
   if (pages) {
     showPage.value = true;
@@ -62,56 +73,20 @@ const getMenuOptions = (data) => {
   } else {
     data = data[0];
   }
+
+  const ListData = [];
   for (const i in data) {
     const fileName = data[i];
-    let fileInfo;
-    fileInfo = getFileInfo(fileName);
+    const fileInfo = getFileInfo(fileName);
 
-    const name = fileInfo.name;
-    let type;
-    switch (fileInfo.type) {
-      case "video":
-        type = renderIcon(FileVideoIcon);
-        break;
-      case "audio":
-        type = renderIcon(FileAudioIcon);
-        break;
-      case "image":
-        type = renderIcon(FileImageIcon);
-        break;
-      default:
-        type = renderIcon(FileIcon);
-    }
-
-    // TODO: 解决name显示不全的问题
-    menuOptions.push({
-      label: () =>
-        h(CMenu, null, {
-          default: () =>
-            h(
-              "a",
-              {
-                href: `${hrefHead}/${fileName}`,
-              },
-              { default: () => name }
-            ),
-        }),
-      icon: type,
-      key: name,
-    });
-    menuOptions.push({
-      key: "divider-" + name,
-      type: "divider",
-      props: {
-        style: {
-          marginLeft: "32px",
-        },
-      },
+    ListData.push({
+      name: fileInfo.name,
+      type: fileInfo.type,
+      href: `${hrefHead}/${fileName}`,
     });
   }
 
-  menuOptions.pop();
-  return menuOptions;
+  return ListData;
 };
 
 // {
@@ -124,80 +99,43 @@ const getMenuOptions = (data) => {
 //     },
 //   ],
 // };
-const getMenuOptions_search = (data) => {
-  let menuOptions = [];
-
+const getListData_search = (data) => {
+  const ListData = [];
   for (const i in data) {
-    let fileInfo = getFileInfo(data[i].name);
+    const fileInfo = getFileInfo(data[i].name);
 
-    const name = fileInfo.name;
-    let type;
-    switch (fileInfo.type) {
-      case "video":
-        type = renderIcon(FileVideoIcon);
-        break;
-      case "audio":
-        type = renderIcon(FileAudioIcon);
-        break;
-      case "image":
-        type = renderIcon(FileImageIcon);
-        break;
-      default:
-        type = renderIcon(FileIcon);
-    }
-
-    menuOptions.push({
-      label: () =>
-        h(CMenu, null, {
-          default: () =>
-            h(
-              "a",
-              {
-                href: `${data[i].hrefHead}/${name}`,
-              },
-              { default: () => `${data[i].tag} ${name}` }
-            ),
-        }),
-      icon: type,
-      key: name,
-    });
-    menuOptions.push({
-      key: "divider-" + name,
-      type: "divider",
-      props: {
-        style: {
-          marginLeft: "32px",
-        },
-      },
+    ListData.push({
+      name: fileInfo.name,
+      type: fileInfo.type,
+      href: `${data[i].hrefHead}/${data[i].name}`,
     });
   }
 
-  menuOptions.pop();
-  return menuOptions;
+  return ListData;
 };
-
-// const menuOptions = [
-//   {
-//     label: () =>
-//       h(CMenu, null, {
-//         default: () =>
-//           "我们在田野上面找猪 想象中已找到了三只 小鸟在白云上面追逐AAAAAAAAAAAAAAAAAAAAAAAAAA",
-//       }),
-//     key: "1",
-//   },
-// ];
 
 const showPage = ref(false);
 const maxPage = ref(100);
 export default defineComponent({
-  components: { NMenu, NPagination },
+  components: {
+    NIcon,
+    NList,
+    NButton,
+    NListItem,
+    NPagination,
+    // Icon
+    FileIcon,
+    FileVideoIcon,
+    FileAudioIcon,
+    FileImageIcon,
+  },
   props: ["data"],
   setup(props) {
     return {
       showPage,
       maxPage,
       props,
-      getMenuOptions,
+      listData: getListData(props.data),
       getPage: getPage(),
       updatePage(page) {
         location.href = `${location.pathname}?p=${page}`;
