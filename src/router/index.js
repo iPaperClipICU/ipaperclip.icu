@@ -1,7 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 import IndexView from "@/views/IndexView.vue";
+import SearchView from "@/views/SearchView.vue";
 
 const routes = [
+  {
+    path: "/search",
+    name: "Search",
+    component: SearchView,
+  },
   {
     path: "/:pathMatch(.*)*",
     name: "Index",
