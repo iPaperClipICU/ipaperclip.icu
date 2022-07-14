@@ -16,16 +16,16 @@
       <CMenu />
       <n-divider />
       <!-- 文件夹 -->
-      <div v-if="showFilesMenu == true">
+      <div v-if="showFilesMenu">
         <FilesMenu :data="FilesMenu_data" />
       </div>
-      <!-- Null -->
-      <n-empty v-if="showEmpty" description="请在「菜单」中选择" />
-      <n-empty v-if="showNullEmpty" description="找不到和查询相匹配的结果" />
       <!-- 文件 -->
       <div v-if="showShowFile" style="margin-top: 15px">
         <ShowFile :data="ShowFile_data" />
       </div>
+      <!-- Null -->
+      <n-empty v-if="showEmpty" description="请在「菜单」中选择" />
+      <n-empty v-if="showNullEmpty" description="找不到和查询相匹配的结果" />
     </n-card>
   </div>
 </template>
