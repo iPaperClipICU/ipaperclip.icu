@@ -1,6 +1,6 @@
 <template>
   <n-list>
-    <n-list-item v-for="(item, index) in listData" :key="index">
+    <n-list-item v-for="(item, index) in getListData(props.data)" :key="index">
       <n-button
         size="large"
         tag="a"
@@ -38,19 +38,18 @@ import {
   FileImageRegular as FileImageIcon,
 } from "@vicons/fa";
 import { NIcon, NList, NButton, NListItem, NPagination } from "naive-ui";
-import { getFileInfo } from "@/assets/box.js";
+import { getFileInfo, getSearch } from "@/assets/box.js";
 
+/**
+ * 获取当前页数
+ * @returns {Number} 页数
+ */
 const getPage = () => {
-  const search = location.search;
-  if (search == "") {
+  const search = getSearch(location.search, "s");
+  if (search == void 0) {
     return 1;
   } else {
-    const searchList = search.replace("?", "").split("&");
-    for (const i in searchList) {
-      if (searchList[i].split("=")[0] == "p") {
-        return Number(searchList[i].split("=")[1]);
-      }
-    }
+    return Number(search);
   }
 };
 
@@ -133,10 +132,10 @@ export default defineComponent({
   props: ["data"],
   setup(props) {
     return {
+      getListData,
       showPage,
       maxPage,
       props,
-      listData: getListData(props.data),
       getPage: getPage(),
       updatePage(page) {
         location.href = `${location.pathname}?p=${page}`;
