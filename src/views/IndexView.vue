@@ -64,7 +64,6 @@ const setNullState = () => {
  */
 
 const init = () => {
-  console.log("init");
   const path = decodeURIComponent(location.pathname);
   const pathList = path.split("/");
   const filesName = pathList[1];
