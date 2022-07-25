@@ -4,7 +4,7 @@
       <n-gi span="4 425:2 705:1">
         <n-input-group>
           <n-input v-model:value="searchValue" placeholder="搜索" clearable />
-          <n-button type="primary" ghost @click="searchButton">搜索</n-button>
+          <n-button type="primary" @click="searchButton" ghost>搜索</n-button>
         </n-input-group>
       </n-gi>
       <n-gi span="0 425:2 705:3" />
@@ -25,7 +25,6 @@
       </div>
       <!-- Null -->
       <n-empty v-if="showEmpty" description="请在「菜单」中选择" />
-      <n-empty v-if="showNullEmpty" description="找不到和查询相匹配的结果" />
     </n-card>
   </div>
 </template>
@@ -35,8 +34,8 @@ import { h, ref, defineComponent } from "vue";
 import router from "@/router";
 import {
   NGi,
-  NGrid,
   NCard,
+  NGrid,
   NEmpty,
   NInput,
   NSpace,
@@ -50,20 +49,11 @@ import FilesMenu from "@/components/FilesMenu";
 import data from "@/assets/data.json";
 import { getFileInfo } from "@/assets/box.js";
 
-/**
- * 获取data
- */
-const getData = (data, name) => {
-  if (data[name] != void 0) {
-    return data[name];
-  } else {
-    // 没有找到
-    showFilesMenu.value = false;
-    showEmpty.value = true;
-    showShowFile.value = false;
-    return null;
-  }
-};
+const setNullState = () => {
+  showFilesMenu.value = false;
+  showShowFile.value = false;
+  showEmpty.value = true;
+}
 
 /**
  * /
@@ -74,98 +64,97 @@ const getData = (data, name) => {
  */
 
 const init = () => {
-  const path = location.pathname;
+  console.log("init");
+  const path = decodeURIComponent(location.pathname);
+  const pathList = path.split("/");
+  const filesName = pathList[1];
 
   showFilesMenu.value = false;
   showEmpty.value = false;
   showShowFile.value = false;
 
-  if (path == "/") {
-    // Path: /
-    showEmpty.value = true;
-  } else {
-    const filesName = decodeURIComponent(path.split("/")[1]);
-    const filesData = getData(data.data, filesName);
-    if (filesData == null) return;
+  const filesData = data.data[filesName];
+  if (path == "/" || filesData == void 0) {
+    // Path: / || FilesName错误
+    setNullState();
+    return;
+  }
 
-    if (filesData.length == void 0) {
-      // 有Tag
-      let tagName = decodeURIComponent(path.split("/")[2]);
-      if (tagName == "undefined") {
-        for (const i in data.menuData) {
-          if (filesName == data.menuData[i][0]) {
-            tagName = data.menuData[i][1][0];
-            break;
-          }
+  if (filesData[0] == void 0) {
+    // 有Tag
+
+    // 获取TagName
+    let tagName = pathList[2];
+    if (tagName == void 0 || tagName == "") {
+      // 缺少TagName
+      for (const i in data.menuData) {
+        if (data.menuData[i][0] == filesName) {
+          tagName = data.menuData[i][1][0];
+          router.push(`/${filesName}/${tagName}`);
         }
-        router.push(`/${filesName}/${tagName}`);
-      }
-
-      const tagData = getData(filesData, tagName);
-      if (tagData == null) return;
-      const fileName = decodeURIComponent(path.split("/")[3]);
-
-      if (fileName == "undefined" || fileName == "") {
-        // Path: /files/tag
-        FilesMenu_data.value = {
-          hrefHead: `/${filesName}/${tagName}`,
-          data: tagData,
-        };
-        showFilesMenu.value = true;
-      } else {
-        // Path: /files/tag/file
-        const fileNameW = data.searchData[fileName];
-        if (
-          fileNameW == void 0 ||
-          fileNameW[0] != filesName ||
-          fileNameW[1] != tagName
-        ) {
-          showFilesMenu.value = false;
-          showEmpty.value = true;
-          showShowFile.value = false;
-          return;
-        }
-
-        ShowFile_data.value = {
-          type: getFileInfo(fileName).type,
-          name: fileName,
-          url: `https://file.hsyhx.top/video/${filesName}/${tagName}/${fileName}`,
-        };
-        showShowFile.value = true;
-      }
-    } else {
-      const fileName = decodeURIComponent(path.split("/")[2]);
-
-      if (fileName == "undefined" || fileName == "") {
-        // Path: /files
-        FilesMenu_data.value = {
-          hrefHead: `/${filesName}`,
-          data: filesData,
-        };
-        showFilesMenu.value = true;
-      } else {
-        // Path: /files/file
-        const fileNameW = data.searchData[fileName];
-        if (fileNameW == void 0 || fileNameW[0] != filesName) {
-          showFilesMenu.value = false;
-          showEmpty.value = true;
-          showShowFile.value = false;
-          return;
-        }
-
-        ShowFile_data.value = {
-          type: getFileInfo(fileName).type,
-          name: fileName,
-          url: `https://file.hsyhx.top/video/${filesName}/${fileName}`,
-        };
-        showShowFile.value = true;
       }
     }
+    const tagData = filesData[tagName];
+
+    if (tagData == void 0) {
+      setNullState();
+      return;
+    }
+
+    const fileName = pathList[3];
+    if (fileName == void 0) {
+      // /files/tag
+      FilesMenu_data.value = {
+        hrefHead: `/${filesName}/${tagName}`,
+        data: tagData,
+      };
+      showFilesMenu.value = true;
+    } else {
+      // /files/tag/file
+      const fileNameC = data.searchData[fileName];
+      if (fileNameC == void 0 || fileNameC[0] != filesName || fileNameC[1] != tagName) {
+        setNullState();
+        return;
+      }
+
+      ShowFile_data.value = {
+        type: getFileInfo(fileName).type,
+        name: fileName,
+        url: `https://file.hsyhx.top/video/${filesName}/${tagName}/${fileName}`,
+      };
+      showShowFile.value = true;
+    }
+  } else {
+    // 无Tag
+
+    const fileName = pathList[2];
+    if (fileName == void 0) {
+      // /files
+      FilesMenu_data.value = {
+        hrefHead: `/${filesName}`,
+        data: filesData,
+      };
+      showFilesMenu.value = true;
+    } else {
+      // /files/file
+      const fileNameC = data.searchData[fileName];
+      if (fileNameC == void 0 || fileNameC[0] != filesName) {
+        setNullState();
+        return;
+      }
+
+      ShowFile_data.value = {
+        type: getFileInfo(fileName).type,
+        name: fileName,
+        url: `https://file.hsyhx.top/video/${filesName}/${fileName}`,
+      };
+      showShowFile.value = true;
+    }
   }
-};
+}
 
 const getCMenu = () => {
-  const filesName = decodeURIComponent(location.pathname.split("/")[1]);
+  const filesName = decodeURIComponent(location.pathname).split("/")[1];
   const getButton = (name, at, click) => {
     let type = "";
     if (at) type = "primary";
@@ -177,8 +166,11 @@ const getCMenu = () => {
         text: true,
         size: "large",
         type,
-        "on-click": () => {
-          if (click) location.href = `/${name}`;
+        "on-click": async () => {
+          if (click) {
+            await router.push(`/${name}`);
+            init();
+          }
         },
       },
       {
@@ -210,8 +202,9 @@ const getCMenu = () => {
           {
             trigger: "hover",
             options: options,
-            "on-select": (key) => {
-              location.href = key;
+            "on-select": async (key) => {
+              await router.push(key);
+              init();
             },
           },
           {
@@ -241,7 +234,6 @@ const searchValue = ref("");
 const CMenu = getCMenu();
 // Show
 const showEmpty = ref(false);
-const showNullEmpty = ref(false);
 const showShowFile = ref(false);
 const showFilesMenu = ref(false);
 // Data
@@ -275,8 +267,8 @@ export default defineComponent({
     ShowFile,
     FilesMenu,
     NGi,
-    NGrid,
     NCard,
+    NGrid,
     NEmpty,
     NInput,
     NButton,
@@ -289,7 +281,6 @@ export default defineComponent({
       // Show
       showEmpty,
       showShowFile,
-      showNullEmpty,
       showFilesMenu,
       // Data
       ShowFile_data,

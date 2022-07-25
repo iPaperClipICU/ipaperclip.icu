@@ -1,6 +1,6 @@
 <template>
   <n-list>
-    <n-list-item v-for="(item, index) in getListData(props.data)" :key="index">
+    <n-list-item v-for="(item, index) in getListData(data)" :key="index">
       <n-button
         size="large"
         tag="a"
@@ -58,6 +58,8 @@ const getPage = () => {
 //   data: [["FileName"], ["FileName"]],
 // };
 const getListData = (data) => {
+  showPage.value = false;
+
   if (data == void 0) return;
   const hrefHead = data.hrefHead;
   if (data.search) {
@@ -130,12 +132,11 @@ export default defineComponent({
     FileImageIcon,
   },
   props: ["data"],
-  setup(props) {
+  setup() {
     return {
       getListData,
       showPage,
       maxPage,
-      props,
       getPage: getPage(),
       updatePage(page) {
         location.href = `${location.pathname}?p=${page}`;
