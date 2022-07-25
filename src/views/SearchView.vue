@@ -89,7 +89,6 @@ const search = (keyword) => {
     showNullEmpty.value = true;
   } else {
     FilesMenu_data.value = searchData;
-    console.log(FilesMenu_data.value);
     searchNum.value = searchData.data.length;
   }
 };

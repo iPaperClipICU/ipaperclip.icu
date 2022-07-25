@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
-import READMECard from "@/components/READMECard";
+import { defineComponent } from "vue";
+import { darkTheme, zhCN } from "naive-ui";
 import { NH1, NGi, NGrid, NBackTop } from "naive-ui";
 import { NGlobalStyle, NConfigProvider, NLoadingBarProvider } from "naive-ui";
-import { darkTheme, zhCN } from "naive-ui";
 
-const mailLoginShow = ref(true);
+import READMECard from "@/components/READMECard";
+
 export default defineComponent({
   components: {
     READMECard,
@@ -47,7 +47,6 @@ export default defineComponent({
     return {
       zhCN,
       darkTheme,
-      mailLoginShow,
     };
   },
 });
