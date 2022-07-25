@@ -45,7 +45,7 @@ import { getFileInfo, getSearch } from "@/assets/box.js";
  * @returns {Number} 页数
  */
 const getPage = () => {
-  const search = getSearch(location.search, "s");
+  const search = getSearch(location.search, "p");
   if (search == void 0) {
     return 1;
   } else {
