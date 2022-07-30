@@ -17,7 +17,7 @@
       <n-divider />
       <!-- 文件夹 -->
       <div v-if="showFilesMenu">
-        <FilesMenu :data="FilesMenu_data" />
+        <FilesMenu :data="FilesMenu_data" @refresh="FilesMenuRefresh" />
       </div>
       <!-- 文件 -->
       <div v-if="showShowFile" style="margin-top: 15px">
@@ -300,6 +300,9 @@ export default defineComponent({
         e.preventDefault();
         location.href = `/search?s=${searchValue.value}`;
       },
+      FilesMenuRefresh: () => {
+        init();
+      }
     };
   },
 });
