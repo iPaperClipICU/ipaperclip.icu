@@ -61,8 +61,6 @@ const getListData = (data) => {
   const pages = data.data.length != 1;
   data = data.data;
 
-  console.log("test", getPage());
-
   if (pages) {
     showPage.value = true;
     maxPage.value = data.length;
