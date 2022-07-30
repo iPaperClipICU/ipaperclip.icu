@@ -79,6 +79,7 @@
         <img
           src="//file.hsyhx.top/image/RIP/rip1.webp"
           alt="rip1"
+          loading="lazy"
           style="width: 100%"
         />
       </n-gi>
@@ -87,6 +88,7 @@
         <img
           src="//file.hsyhx.top/image/RIP/rip2.webp"
           alt="rip2"
+          loading="lazy"
           style="width: 100%"
         />
       </n-gi>
