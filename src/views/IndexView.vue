@@ -27,6 +27,9 @@
       <n-empty v-if="showEmpty" description="请在「菜单」中选择" />
     </n-card>
   </div>
+  <div v-if="showREADME" style="padding-top: 15px">
+    <READMECard />
+  </div>
 </template>
 
 <script>
@@ -46,6 +49,7 @@ import {
 } from "naive-ui";
 import ShowFile from "@/components/ShowFile";
 import FilesMenu from "@/components/FilesMenu";
+import READMECard from "@/components/READMECard";
 import data from "@/assets/data.json";
 import { getFileInfo } from "@/assets/box.js";
 
@@ -69,8 +73,11 @@ const init = () => {
   const filesName = pathList[1];
 
   showFilesMenu.value = false;
-  showEmpty.value = false;
   showShowFile.value = false;
+  showEmpty.value = false;
+  showREADME.value = false;
+
+  if (path == "/") showREADME.value = true;
 
   const filesData = data.data[filesName];
   if (path == "/" || filesData == void 0) {
@@ -235,6 +242,7 @@ const CMenu = getCMenu();
 const showEmpty = ref(false);
 const showShowFile = ref(false);
 const showFilesMenu = ref(false);
+const showREADME = ref(false);
 // Data
 const FilesMenu_data = ref({
   hrefHead: "/test",
@@ -265,6 +273,7 @@ export default defineComponent({
     CMenu,
     ShowFile,
     FilesMenu,
+    READMECard,
     NGi,
     NCard,
     NGrid,
@@ -281,6 +290,7 @@ export default defineComponent({
       showEmpty,
       showShowFile,
       showFilesMenu,
+      showREADME,
       // Data
       ShowFile_data,
       FilesMenu_data,
