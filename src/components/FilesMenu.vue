@@ -4,9 +4,9 @@
       <n-button
         size="large"
         tag="a"
-        :href="item.href"
         quaternary
         style="white-space: normal"
+        @click="clickButton(item)"
       >
         <template #icon>
           <n-icon>
@@ -122,7 +122,8 @@ export default defineComponent({
     NPagination,
   },
   props: ["data"],
-  setup() {
+  emits: ['refresh'],
+  setup(props, { emit }) {
     return {
       getListData,
       showPage,
@@ -133,6 +134,10 @@ export default defineComponent({
         await router.push(`${location.pathname}?p=${page}`);
         listKey.value = page;
       },
+      async clickButton(data) {
+        await router.push(data.href);
+        emit('refresh');
+      }
     };
   },
 });
