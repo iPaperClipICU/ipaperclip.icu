@@ -1,6 +1,5 @@
 <template>
   <n-card hoverable>
-    <!-- TODO: 显示搜索结果数 -->
     <n-grid :cols="4" item-responsive>
       <n-gi span="4 425:2 705:1">
         <n-input-group>
