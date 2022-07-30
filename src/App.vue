@@ -12,9 +12,6 @@
       <n-gi span="1 1330:3" />
       <n-gi span="34 1330:30">
         <router-view />
-        <div style="padding-top: 15px">
-          <READMECard />
-        </div>
       </n-gi>
       <n-gi span="1 1330:3" />
     </n-grid>
@@ -28,11 +25,8 @@ import { darkTheme, zhCN } from "naive-ui";
 import { NH1, NGi, NGrid, NBackTop } from "naive-ui";
 import { NGlobalStyle, NConfigProvider } from "naive-ui";
 
-import READMECard from "@/components/READMECard";
-
 export default defineComponent({
   components: {
-    READMECard,
     NH1,
     NGi,
     NGrid,

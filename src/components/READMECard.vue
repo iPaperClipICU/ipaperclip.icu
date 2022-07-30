@@ -1,5 +1,5 @@
 <template>
-  <n-card v-if="show" hoverable>
+  <n-card hoverable>
     <n-p>He, 这里是 ipaperclip.icu</n-p>
     <n-h2>网站</n-h2>
     <n-p>
@@ -103,16 +103,9 @@
 </template>
 
 <script>
-import { ref, defineComponent } from "vue";
+import { defineComponent } from "vue";
 import { NA, NP, NGi, NH2, NCard, NGrid, NAlert, NDivider } from "naive-ui";
 
-const init = () => {
-  if (location.pathname == "/") {
-    show.value = true;
-  }
-};
-
-const show = ref(false);
 export default defineComponent({
   components: {
     NA,
@@ -125,10 +118,7 @@ export default defineComponent({
     NDivider,
   },
   setup() {
-    init();
-    return {
-      show,
-    };
+    return {};
   },
 });
 </script>
