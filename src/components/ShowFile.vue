@@ -10,7 +10,12 @@
     <n-grid :cols="36" item-responsive>
       <n-gi span="1 768:5" />
       <n-gi span="34 768:26">
-        <img :src="fineData.url" :alt="fineData.name" loading="lazy" style="width: 100%" />
+        <img
+          :src="fineData.url"
+          :alt="fineData.name"
+          loading="lazy"
+          style="width: 100%"
+        />
       </n-gi>
       <n-gi span="1 768:5" />
     </n-grid>
