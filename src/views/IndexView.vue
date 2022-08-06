@@ -57,7 +57,7 @@ const setNullState = () => {
   showFilesMenu.value = false;
   showShowFile.value = false;
   showEmpty.value = true;
-}
+};
 
 /**
  * /
@@ -118,7 +118,11 @@ const init = () => {
     } else {
       // /files/tag/file
       const fileNameC = data.searchData[fileName];
-      if (fileNameC == void 0 || fileNameC[0] != filesName || fileNameC[1] != tagName) {
+      if (
+        fileNameC == void 0 ||
+        fileNameC[0] != filesName ||
+        fileNameC[1] != tagName
+      ) {
         setNullState();
         return;
       }
@@ -157,7 +161,7 @@ const init = () => {
       showShowFile.value = true;
     }
   }
-}
+};
 
 const getCMenu = () => {
   const filesName = decodeURIComponent(location.pathname).split("/")[1];
@@ -302,7 +306,7 @@ export default defineComponent({
       },
       FilesMenuRefresh: () => {
         init();
-      }
+      },
     };
   },
 });
