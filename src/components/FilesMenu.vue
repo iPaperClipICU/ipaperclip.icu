@@ -122,7 +122,7 @@ export default defineComponent({
     NPagination,
   },
   props: ["data"],
-  emits: ['refresh'],
+  emits: ["refresh"],
   setup(props, { emit }) {
     return {
       getListData,
@@ -136,8 +136,8 @@ export default defineComponent({
       },
       async clickButton(data) {
         await router.push(data.href);
-        emit('refresh');
-      }
+        emit("refresh");
+      },
     };
   },
 });
