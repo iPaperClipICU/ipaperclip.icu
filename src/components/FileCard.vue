@@ -1,18 +1,18 @@
 <template>
   <!-- TODO: 写个视频/音频播放器 -->
-  <div v-if="fineData.type == 'video'" class="video">
-    <video :src="fineData.url" controls preload>
+  <div v-if="store.state.FileCardData.type == 'video'" class="video">
+    <video :src="store.state.FileCardData.url" controls preload>
       <n-result status="info" title="您的浏览器不支持 video 标签" />
     </video>
   </div>
-  <div v-if="fineData.type == 'image'">
+  <div v-if="store.state.FileCardData.type == 'image'">
     <!-- TODO: Use NaiveUI Image -->
     <n-grid :cols="36" item-responsive>
       <n-gi span="1 768:5" />
       <n-gi span="34 768:26">
         <img
-          :src="fineData.url"
-          :alt="fineData.name"
+          :src="store.state.FileCardData.url"
+          :alt="store.state.FileCardData.name"
           loading="lazy"
           style="width: 100%"
         />
@@ -20,9 +20,9 @@
       <n-gi span="1 768:5" />
     </n-grid>
   </div>
-  <div v-if="fineData.type == 'audio'">
+  <div v-if="store.state.FileCardData.type == 'audio'">
     <!-- <audio preload="none" controls>
-      <source :src="fineData.url" type="audio/mpeg" />
+      <source :src="store.state.FileCardData.url" type="audio/mpeg" />
       <n-result status="info" title="您的浏览器不支持此音频格式" />
     </audio> -->
     <div id="audioPlayer"></div>
@@ -31,6 +31,7 @@
 
 <script>
 import { onMounted, defineComponent } from "vue";
+import { useStore } from "vuex";
 import { NGi, NGrid, NResult } from "naive-ui";
 import "aplayer/dist/APlayer.min.css";
 import APlayer from "aplayer";
@@ -42,23 +43,26 @@ export default defineComponent({
     NGrid,
     NResult,
   },
-  props: ["data"],
-  setup(props) {
+  setup() {
+    const store = useStore();
+    window.$store = store;
+
     onMounted(() => {
-      if (props.data.type == "audio") {
+      if (store.state.FileCardData.type == "audio") {
         new APlayer({
           container: document.getElementById("audioPlayer"),
           audio: [
             {
-              name: getFileInfo(props.data.name).name,
-              url: props.data.url,
+              name: getFileInfo(store.state.FileCardData.name).name,
+              url: store.state.FileCardData.url,
             },
           ],
         });
       }
     });
+
     return {
-      fineData: props.data,
+      store,
     };
   },
 });
