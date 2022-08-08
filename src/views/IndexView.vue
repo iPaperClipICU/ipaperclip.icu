@@ -52,7 +52,7 @@ import FileCard from "@/components/FileCard";
 import FilesMenu from "@/components/FilesMenu";
 import READMECard from "@/components/READMECard";
 import data from "@/assets/data.json";
-import { getFileInfo } from "@/assets/utils.js";
+import { getFileInfo, clearRubbish } from "@/assets/utils.js";
 
 /**
  * /
@@ -226,6 +226,7 @@ export default defineComponent({
         e.preventDefault();
         // location.href = `/search?s=${searchValue.value}`;
         router.push(`/search?s=${searchValue.value}`);
+        clearRubbish();
       },
     };
   },
