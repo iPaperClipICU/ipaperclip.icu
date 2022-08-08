@@ -28,7 +28,7 @@
       />
     </n-card>
   </div>
-  <div v-if="store.state.AtPageType == 'Home'" style="padding-top: 15px">
+  <div v-if="store.state.AtPageType == 'Home'" style="margin-top: 15px">
     <READMECard />
   </div>
 </template>
