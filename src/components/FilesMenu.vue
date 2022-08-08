@@ -1,6 +1,9 @@
 <template>
   <n-list :key="listKey">
-    <n-list-item v-for="(item, index) in getListData(data)" :key="index">
+    <n-list-item
+      v-for="(item, index) in getListData(store.state.FilesMenuData)"
+      :key="index"
+    >
       <n-button
         size="large"
         tag="a"
@@ -20,7 +23,7 @@
   <div v-if="showPage">
     <n-pagination
       @update:page="updatePage"
-      v-model:page="getPage"
+      v-model:page="nowPage"
       :page-count="maxPage"
     />
   </div>
@@ -28,6 +31,7 @@
 
 <script>
 import { ref, defineComponent } from "vue";
+import { useStore } from "vuex";
 import router from "@/router";
 import { NIcon, NList, NButton, NListItem, NPagination } from "naive-ui";
 import FilesMenuICON from "@/components/FilesMenuICON.vue";
@@ -111,6 +115,7 @@ const getListData_search = (data) => {
 
 const showPage = ref(false);
 const maxPage = ref(100);
+const nowPage = ref(1);
 const listKey = ref(1);
 export default defineComponent({
   components: {
@@ -121,22 +126,25 @@ export default defineComponent({
     NListItem,
     NPagination,
   },
-  props: ["data"],
-  emits: ["refresh"],
-  setup(props, { emit }) {
+  setup() {
+    const store = useStore();
+    window.$store = store;
+
     return {
+      store,
       getListData,
       showPage,
       maxPage,
+      nowPage,
       listKey,
-      getPage: getPage(),
       async updatePage(page) {
         await router.push(`${location.pathname}?p=${page}`);
         listKey.value = page;
+        nowPage.value = page;
       },
       async clickButton(data) {
         await router.push(data.href);
-        emit("refresh");
+        store.state.init();
       },
     };
   },

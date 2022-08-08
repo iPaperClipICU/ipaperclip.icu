@@ -13,11 +13,13 @@
   <div style="padding-top: 15px">
     <n-card hoverable>
       <!-- 菜单 -->
-      <CMenu />
+      <TagMenu />
       <n-divider />
       <!-- 文件夹 -->
-      共找到相关结果 {{ searchNum }} 个
-      <FilesMenu :data="FilesMenu_data" />
+      <div v-if="!(showErrorEmpty || showNullEmpty)">
+        共找到相关结果 {{ searchNum }} 个
+        <FilesMenu />
+      </div>
       <!-- Null -->
       <n-empty v-if="showErrorEmpty" description="请输入关键词" />
       <n-empty v-if="showNullEmpty" description="找不到和查询相匹配的结果" />
@@ -26,7 +28,8 @@
 </template>
 
 <script>
-import { h, defineComponent, ref } from "vue";
+import { defineComponent, ref } from "vue";
+import { useStore } from "vuex";
 import router from "@/router";
 import {
   NGi,
@@ -34,12 +37,11 @@ import {
   NCard,
   NEmpty,
   NInput,
-  NSpace,
   NButton,
   NDivider,
-  NDropdown,
   NInputGroup,
 } from "naive-ui";
+import TagMenu from "@/components/TagMenu";
 import FilesMenu from "@/components/FilesMenu";
 import { getSearch } from "@/assets/box";
 import data from "@/assets/data.json";
@@ -57,6 +59,14 @@ const init = () => {
 };
 
 const search = (keyword) => {
+  const store = window.$store;
+
+  if (keyword == void 0 || keyword == "") {
+    // 没有搜索关键字
+    showErrorEmpty.value = true;
+    return;
+  }
+
   showNullEmpty.value = false;
   showErrorEmpty.value = false;
 
@@ -85,105 +95,33 @@ const search = (keyword) => {
   }
 
   if (searchData.data.length == 0) {
+    // 没有搜索结果
     showNullEmpty.value = true;
   } else {
-    FilesMenu_data.value = searchData;
+    // 有搜索结果
+    store.commit("setState", (state) => {
+      state.FilesMenuData = searchData;
+    });
     searchNum.value = searchData.data.length;
   }
 };
 
-const getCMenu = () => {
-  const filesName = decodeURIComponent(location.pathname.split("/")[1]);
-  const getButton = (name, at, click) => {
-    let type = "";
-    if (at) type = "primary";
-    else type = "default";
-
-    return h(
-      NButton,
-      {
-        text: true,
-        size: "large",
-        type,
-        "on-click": () => {
-          if (click) location.href = `/${name}`;
-        },
-      },
-      {
-        default: () => name,
-      }
-    );
-  };
-
-  let MenuList = [];
-  for (const i in data.menuData) {
-    const MenuData = data.menuData[i];
-    let at;
-    if (filesName == MenuData[0]) at = true;
-    else at = false;
-
-    if (MenuData.length == 2) {
-      // 有Tag
-      let options = [];
-      for (const ii in MenuData[1]) {
-        options.push({
-          label: MenuData[1][ii],
-          key: `/${MenuData[0]}/${MenuData[1][ii]}`,
-        });
-      }
-
-      MenuList.push(
-        h(
-          NDropdown,
-          {
-            trigger: "hover",
-            options: options,
-            "on-select": (key) => {
-              location.href = key;
-            },
-          },
-          {
-            default: () => getButton(MenuData[0], at, false),
-          }
-        )
-      );
-    } else {
-      // 没有Tag
-      MenuList.push(getButton(MenuData[0], at, true));
-    }
-  }
-
-  return h(
-    NSpace,
-    {
-      justify: "center",
-      size: 30,
-    },
-    {
-      default: () => MenuList,
-    }
-  );
-};
-
 const showNullEmpty = ref(false);
 const showErrorEmpty = ref(false);
-
-const FilesMenu_data = ref({
-  hrefHead: "/test",
-  search: false,
-  data: [
-    {
-      name: "test",
-    },
-  ],
-});
+// const FilesMenu_data = ref({
+//   hrefHead: "/test",
+//   search: false,
+//   data: [
+//     {
+//       name: "test",
+//     },
+//   ],
+// });
 const searchNum = ref(0);
-
-const CMenu = getCMenu();
 const searchValue = ref("");
 export default defineComponent({
   components: {
-    CMenu,
+    TagMenu,
     FilesMenu,
     NGi,
     NGrid,
@@ -195,15 +133,16 @@ export default defineComponent({
     NInputGroup,
   },
   setup() {
+    const store = useStore();
+    window.$store = store;
     init();
+
     return {
       showNullEmpty,
       showErrorEmpty,
-      FilesMenu_data,
       searchNum,
       searchValue,
-      searchButton: (e) => {
-        e.preventDefault();
+      searchButton: () => {
         search(searchValue.value.toLocaleLowerCase());
         router.push(`/search?s=${searchValue.value}`);
       },
