@@ -35,6 +35,7 @@ import { defineComponent } from "vue";
 import { NSpace, NButton, NDropdown } from "naive-ui";
 import router from "@/router";
 import data from "@/assets/data.json";
+import { clearRubbish } from "@/assets/utils.js";
 
 export default defineComponent({
   components: {
@@ -74,6 +75,7 @@ export default defineComponent({
           });
           await router.push(`/${name}`);
           store.state.init();
+          clearRubbish();
         }
       },
       async onSelect(key) {
@@ -82,6 +84,7 @@ export default defineComponent({
           state.AtPageFilesName = key[1];
         });
         store.state.init();
+        clearRubbish();
       },
     };
   },
