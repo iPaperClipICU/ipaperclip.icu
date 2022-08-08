@@ -49,7 +49,7 @@ export default defineComponent({
 
     onMounted(() => {
       if (store.state.FileCardData.type == "audio") {
-        new APlayer({
+        const ap = new APlayer({
           container: document.getElementById("audioPlayer"),
           audio: [
             {
@@ -58,6 +58,7 @@ export default defineComponent({
             },
           ],
         });
+        window.$AudioPlayer = ap;
       }
     });
 
