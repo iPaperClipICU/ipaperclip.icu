@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
 import { useStore } from "vuex";
-import router from "@/router";
+import { defineComponent } from "vue";
 import { NSpace, NButton, NDropdown } from "naive-ui";
+import router from "@/router";
 import data from "@/assets/data.json";
 
 export default defineComponent({

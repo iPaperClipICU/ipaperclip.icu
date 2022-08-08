@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import { onMounted, defineComponent } from "vue";
 import { useStore } from "vuex";
-import { NGi, NGrid, NResult } from "naive-ui";
-import "aplayer/dist/APlayer.min.css";
+import { onMounted, defineComponent } from "vue";
 import APlayer from "aplayer";
-import { getFileInfo } from "@/assets/box.js";
+import "aplayer/dist/APlayer.min.css";
+import { NGi, NGrid, NResult } from "naive-ui";
+import { getFileInfo } from "@/assets/utils.js";
 
 export default defineComponent({
   components: {

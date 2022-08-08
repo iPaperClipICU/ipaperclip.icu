@@ -34,9 +34,8 @@
 </template>
 
 <script>
-import { ref, defineComponent } from "vue";
 import { useStore } from "vuex";
-import router from "@/router";
+import { ref, defineComponent } from "vue";
 import {
   NGi,
   NCard,
@@ -47,12 +46,13 @@ import {
   NDivider,
   NInputGroup,
 } from "naive-ui";
+import router from "@/router";
 import TagMenu from "@/components/TagMenu";
 import FileCard from "@/components/FileCard";
 import FilesMenu from "@/components/FilesMenu";
 import READMECard from "@/components/READMECard";
 import data from "@/assets/data.json";
-import { getFileInfo } from "@/assets/box.js";
+import { getFileInfo } from "@/assets/utils.js";
 
 /**
  * /
