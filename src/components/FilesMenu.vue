@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import { ref, defineComponent } from "vue";
 import { useStore } from "vuex";
-import router from "@/router";
+import { ref, defineComponent } from "vue";
 import { NIcon, NList, NButton, NListItem, NPagination } from "naive-ui";
+import router from "@/router";
 import FilesMenuICON from "@/components/FilesMenuICON.vue";
-import { getFileInfo, getSearch } from "@/assets/box.js";
+import { getFileInfo, getSearch } from "@/assets/utils.js";
 
 /**
  * 获取当前页数

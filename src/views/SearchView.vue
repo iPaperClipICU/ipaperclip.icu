@@ -28,9 +28,8 @@
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
-import router from "@/router";
+import { defineComponent, ref } from "vue";
 import {
   NGi,
   NGrid,
@@ -41,10 +40,11 @@ import {
   NDivider,
   NInputGroup,
 } from "naive-ui";
+import router from "@/router";
 import TagMenu from "@/components/TagMenu";
 import FilesMenu from "@/components/FilesMenu";
-import { getSearch } from "@/assets/box";
 import data from "@/assets/data.json";
+import { getSearch } from "@/assets/utils";
 
 const init = () => {
   const KeyWord = getSearch(location.search, "s");
@@ -124,8 +124,8 @@ export default defineComponent({
     TagMenu,
     FilesMenu,
     NGi,
-    NGrid,
     NCard,
+    NGrid,
     NEmpty,
     NInput,
     NButton,

@@ -7,8 +7,7 @@ export default createStore({
     FilesMenuData: {},
     FileCardData: {}
   },
-  getters: {
-  },
+  getters: {},
   mutations: {
     setAtPageType(state, type) {
       state.AtPageType = type
@@ -17,8 +16,6 @@ export default createStore({
       func(state);
     }
   },
-  actions: {
-  },
-  modules: {
-  }
+  actions: {},
+  modules: {}
 })
