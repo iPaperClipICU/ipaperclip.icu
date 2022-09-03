@@ -196,10 +196,12 @@ const init = () => {
 // });
 export default defineComponent({
   components: {
+    // Components
     TagMenu,
     FileCard,
     FilesMenu,
     READMECard,
+    // NaiveUI
     NGi,
     NCard,
     NGrid,
