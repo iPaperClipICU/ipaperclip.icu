@@ -21,14 +21,14 @@
 
 <script>
 import { defineComponent } from "vue";
-import { darkTheme, zhCN } from "naive-ui";
-import { NH1, NGi, NGrid, NBackTop } from "naive-ui";
+import { zhCN, darkTheme } from "naive-ui";
+import { NGi, NH1, NGrid, NBackTop } from "naive-ui";
 import { NGlobalStyle, NConfigProvider } from "naive-ui";
 
 export default defineComponent({
   components: {
-    NH1,
     NGi,
+    NH1,
     NGrid,
     NBackTop,
     NGlobalStyle,
