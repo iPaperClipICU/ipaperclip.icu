@@ -33,28 +33,6 @@ const getFileInfo = (FileName) => {
 };
 
 /**
- * 整理查询参数
- * @param {String} search location.search
- * @param {String} key 键
- * @returns {JSON|String|undefined} 整理后的查询参数
- */
-const getSearch = (search, key = null) => {
-  if (search == "") {
-    return void 0;
-  } else {
-    const searchList = search.replace("?", "").split("&");
-    const searchData = {};
-    for (const i in searchList) {
-      const tmp = searchList[i].split("=");
-
-      if (key != null && key == tmp[0]) return tmp[1];
-      searchData[tmp[0]] = tmp[1];
-    }
-    return searchData;
-  }
-};
-
-/**
  * 清理 Video 和 Audio 播放器
  */
 const clearRubbish = () => {
@@ -64,4 +42,4 @@ const clearRubbish = () => {
   if (window.$AudioPlayer != void 0) window.$AudioPlayer.destroy();
 };
 
-export { getFileInfo, getSearch, clearRubbish };
+export { getFileInfo, clearRubbish };

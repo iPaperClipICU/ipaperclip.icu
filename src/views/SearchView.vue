@@ -44,11 +44,16 @@ import router from "@/router";
 import TagMenu from "@/components/TagMenu.vue";
 import FilesMenu from "@/components/FilesMenu.vue";
 import data from "@/assets/data.json";
-import { getSearch } from "@/assets/utils.js";
 
 const init = () => {
-  const KeyWord = getSearch(location.search, "s");
-  if (KeyWord == void 0) {
+  const KeyWord = new URL(decodeURIComponent(location.href)).searchParams.get(
+    "s"
+  );
+  if (
+    KeyWord === void 0 ||
+    KeyWord === null ||
+    KeyWord.replace(/\s+/g, "") === ""
+  ) {
     // 没有搜索关键字
     showErrorEmpty.value = true;
     return;
@@ -61,7 +66,7 @@ const init = () => {
 const search = (keyword) => {
   const store = window.$store;
 
-  if (keyword == void 0 || keyword == "") {
+  if (keyword === void 0 || keyword === "") {
     // 没有搜索关键字
     showErrorEmpty.value = true;
     return;
@@ -76,7 +81,7 @@ const search = (keyword) => {
   };
   for (const i in data.searchData) {
     if (i.toLocaleLowerCase().indexOf(keyword) != -1) {
-      if (data.searchData[i].length == 2) {
+      if (data.searchData[i].length === 2) {
         // 有Tag
         searchData.data.push({
           name: i,
@@ -94,7 +99,7 @@ const search = (keyword) => {
     }
   }
 
-  if (searchData.data.length == 0) {
+  if (searchData.data.length === 0) {
     // 没有搜索结果
     showNullEmpty.value = true;
   } else {
