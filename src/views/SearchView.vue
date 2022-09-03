@@ -29,7 +29,7 @@
 
 <script>
 import { useStore } from "vuex";
-import { defineComponent, ref } from "vue";
+import { ref, defineComponent } from "vue";
 import {
   NGi,
   NGrid,
@@ -41,10 +41,10 @@ import {
   NInputGroup,
 } from "naive-ui";
 import router from "@/router";
-import TagMenu from "@/components/TagMenu";
-import FilesMenu from "@/components/FilesMenu";
+import TagMenu from "@/components/TagMenu.vue";
+import FilesMenu from "@/components/FilesMenu.vue";
 import data from "@/assets/data.json";
-import { getSearch } from "@/assets/utils";
+import { getSearch } from "@/assets/utils.js";
 
 const init = () => {
   const KeyWord = getSearch(location.search, "s");
