@@ -2,7 +2,7 @@
   <n-space justify="center" :size="30">
     <div v-for="(item, index) in menuData" :key="index">
       <n-dropdown
-        v-if="item.length == 2"
+        v-if="item.length === 2"
         trigger="hover"
         :options="getDropdownOptions(item)"
         @select="onSelect"
@@ -10,7 +10,7 @@
         <n-button
           :text="true"
           size="large"
-          :type="getButtonType(store.state.AtPageFilesName == item[0])"
+          :type="getButtonType(store.state.AtPageFilesName === item[0])"
           @click="onClick(false)"
         >
           {{ item[0] }}
@@ -20,7 +20,7 @@
         v-else
         :text="true"
         size="large"
-        :type="getButtonType(store.state.AtPageFilesName == item[0])"
+        :type="getButtonType(store.state.AtPageFilesName === item[0])"
         @click="onClick(true, item[0])"
       >
         {{ item[0] }}

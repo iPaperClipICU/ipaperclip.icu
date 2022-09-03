@@ -35,18 +35,20 @@ import { ref, defineComponent } from "vue";
 import { NIcon, NList, NButton, NListItem, NPagination } from "naive-ui";
 import router from "@/router";
 import FilesMenuICON from "@/components/FilesMenuICON.vue";
-import { getFileInfo, getSearch } from "@/assets/utils.js";
+import { getFileInfo } from "@/assets/utils.js";
 
 /**
  * 获取当前页数
  * @returns {Number} 页数
  */
 const getPage = () => {
-  const search = getSearch(location.search, "p");
-  if (search == void 0) {
+  const search = Number(
+    new URL(decodeURIComponent(location.href)).searchParams.get("p")
+  );
+  if (search === void 0 || isNaN(search) || search === 0) {
     return 1;
   } else {
-    return Number(search);
+    return search;
   }
 };
 
@@ -57,7 +59,7 @@ const getPage = () => {
 const getListData = (data) => {
   showPage.value = false;
 
-  if (data == void 0) return;
+  if (data === void 0) return;
   const hrefHead = data.hrefHead;
   if (data.search) {
     return getListData_search(data.data);

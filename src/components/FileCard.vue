@@ -1,11 +1,11 @@
 <template>
   <!-- TODO: 写个视频/音频播放器 -->
-  <div v-if="store.state.FileCardData.type == 'video'" class="video">
+  <div v-if="store.state.FileCardData.type === 'video'" class="video">
     <video :src="store.state.FileCardData.url" controls preload>
       <n-result status="info" title="您的浏览器不支持 video 标签" />
     </video>
   </div>
-  <div v-if="store.state.FileCardData.type == 'image'">
+  <div v-if="store.state.FileCardData.type === 'image'">
     <!-- TODO: Use NaiveUI Image -->
     <n-grid :cols="36" item-responsive>
       <n-gi span="1 768:5" />
@@ -20,7 +20,7 @@
       <n-gi span="1 768:5" />
     </n-grid>
   </div>
-  <div v-if="store.state.FileCardData.type == 'audio'">
+  <div v-if="store.state.FileCardData.type === 'audio'">
     <!-- <audio preload="none" controls>
       <source :src="store.state.FileCardData.url" type="audio/mpeg" />
       <n-result status="info" title="您的浏览器不支持此音频格式" />
@@ -48,7 +48,7 @@ export default defineComponent({
     window.$store = store;
 
     onMounted(() => {
-      if (store.state.FileCardData.type == "audio") {
+      if (store.state.FileCardData.type === "audio") {
         const ap = new APlayer({
           container: document.getElementById("audioPlayer"),
           audio: [
