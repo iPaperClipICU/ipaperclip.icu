@@ -58,7 +58,7 @@ const getSearch = (search, key = null) => {
  * 清理 Video 和 Audio 播放器
  */
 const clearRubbish = () => {
-  const vp = document.getElementsByClassName('video');
+  const vp = document.getElementsByClassName("video");
   for (let i = 0; i < vp.length; i++) vp[i].innerHTML = "";
 
   if (window.$AudioPlayer != void 0) window.$AudioPlayer.destroy();
