@@ -16,19 +16,19 @@
       <TagMenu />
       <n-divider />
       <!-- 文件夹 -->
-      <FilesMenu v-if="store.state.AtPageType == 'Files'" />
+      <FilesMenu v-if="store.state.AtPageType === 'Files'" />
       <!-- 文件 -->
-      <div v-if="store.state.AtPageType == 'File'" style="margin-top: 15px">
+      <div v-if="store.state.AtPageType === 'File'" style="margin-top: 15px">
         <FileCard />
       </div>
       <!-- Null -->
       <n-empty
-        v-if="store.state.AtPageType == 'Home'"
+        v-if="store.state.AtPageType === 'Home'"
         description="请在「菜单」中选择"
       />
     </n-card>
   </div>
-  <div v-if="store.state.AtPageType == 'Home'" style="margin-top: 15px">
+  <div v-if="store.state.AtPageType === 'Home'" style="margin-top: 15px">
     <READMECard />
   </div>
 </template>
@@ -69,21 +69,21 @@ const init = () => {
   const filesName = pathList[1];
 
   const filesData = data.data[filesName];
-  if (path == "/" || filesData == void 0) {
+  if (path === "/" || filesData === void 0) {
     // Path: / || FilesName错误
     store.commit("setAtPageType", "Home");
     return;
   }
 
-  if (filesData[0] == void 0) {
+  if (filesData[0] === void 0) {
     // 有Tag
 
     // 获取TagName
     let tagName = pathList[2];
-    if (tagName == void 0 || tagName == "") {
+    if (tagName === void 0 || tagName === "") {
       // 缺少TagName
       for (const i in data.menuData) {
-        if (data.menuData[i][0] == filesName) {
+        if (data.menuData[i][0] === filesName) {
           tagName = data.menuData[i][1][0];
           router.push(`/${filesName}/${tagName}`);
         }
@@ -91,12 +91,12 @@ const init = () => {
     }
     const tagData = filesData[tagName];
 
-    if (tagData == void 0) {
+    if (tagData === void 0) {
       return;
     }
 
     const fileName = pathList[3];
-    if (fileName == void 0) {
+    if (fileName === void 0) {
       // /files/tag
       store.commit("setAtPageType", "Files");
       store.commit("setState", (state) => {
@@ -113,7 +113,7 @@ const init = () => {
       store.commit("setAtPageType", "File");
       const fileNameC = data.searchData[fileName];
       if (
-        fileNameC == void 0 ||
+        fileNameC === void 0 ||
         fileNameC[0] != filesName ||
         fileNameC[1] != tagName
       ) {
@@ -135,7 +135,7 @@ const init = () => {
     // 无Tag
 
     const fileName = pathList[2];
-    if (fileName == void 0) {
+    if (fileName === void 0) {
       // /files
       store.commit("setAtPageType", "Files");
       store.commit("setState", (state) => {
@@ -151,7 +151,7 @@ const init = () => {
       // /files/file
       store.commit("setAtPageType", "File");
       const fileNameC = data.searchData[fileName];
-      if (fileNameC == void 0 || fileNameC[0] != filesName) {
+      if (fileNameC === void 0 || fileNameC[0] != filesName) {
         return;
       }
 
