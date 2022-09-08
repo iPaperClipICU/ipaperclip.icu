@@ -55,7 +55,7 @@ export default defineComponent({
         for (const i in data[1]) {
           options.push({
             label: data[1][i],
-            key: [`/${data[0]}/${data[1][i]}`, data[0]],
+            key: JSON.stringify([`/${data[0]}/${data[1][i]}`, data[0]]),
           });
         }
 
@@ -79,6 +79,8 @@ export default defineComponent({
         }
       },
       async onSelect(key) {
+        key = JSON.parse(key);
+
         await router.push(key[0]);
         store.commit("setState", (state) => {
           state.AtPageFilesName = key[1];
