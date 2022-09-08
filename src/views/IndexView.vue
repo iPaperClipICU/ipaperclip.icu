@@ -33,9 +33,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from "vue";
 import { useStore } from "vuex";
-import { ref, defineComponent } from "vue";
 import {
   NGi,
   NCard,
@@ -54,6 +54,8 @@ import READMECard from "@/components/READMECard.vue";
 import data from "@/assets/data.json";
 import { getFileInfo, clearRubbish } from "@/assets/utils.js";
 
+const store = useStore();
+
 /**
  * /
  * /files
@@ -63,7 +65,6 @@ import { getFileInfo, clearRubbish } from "@/assets/utils.js";
  */
 
 const init = () => {
-  const store = window.$store;
   const path = decodeURIComponent(location.pathname);
   const pathList = path.split("/");
   const filesName = pathList[1];
@@ -169,68 +170,44 @@ const init = () => {
   }
 };
 
-// Data
-// const FilesMenu_data = ref({
-//   hrefHead: "/test",
-//   search: false,
-//   data: [
-//     {
-//       name: "test",
-//     },
-//   ],
-// });
-// const FilesMenu_data = ref({
-//   search: true,
-//   data: [
-//     {
-//       name: "test",
-//       hrefHead: "/test",
-//       tag: "[XXX]",
-//     },
-//   ],
-// });
-// const ShowFile_data = ref({
-//   type: "audio",
-//   name: "test audio",
-//   url: "https://file.hsyhx.top/video/test.mp3",
-// });
-export default defineComponent({
-  components: {
-    // Components
-    TagMenu,
-    FileCard,
-    FilesMenu,
-    READMECard,
-    // NaiveUI
-    NGi,
-    NCard,
-    NGrid,
-    NEmpty,
-    NInput,
-    NButton,
-    NDivider,
-    NInputGroup,
-  },
-  setup() {
-    const store = useStore();
-    window.$store = store;
-    store.commit("setState", (state) => {
-      state.init = init;
-    });
-    init();
+// 搜索
+const searchValue = ref("");
+const searchButton = (e) => {
+  e.preventDefault();
+  // location.href = `/search?s=${searchValue.value}`;
+  router.push(`/search?s=${searchValue.value}`);
+  clearRubbish();
+};
 
-    const searchValue = ref("");
-    return {
-      store,
-      // 搜索
-      searchValue,
-      searchButton: (e) => {
-        e.preventDefault();
-        // location.href = `/search?s=${searchValue.value}`;
-        router.push(`/search?s=${searchValue.value}`);
-        clearRubbish();
-      },
-    };
-  },
+// Run
+store.commit("setState", (state) => {
+  state.init = init;
 });
+init();
+
+/* Data
+const FilesMenu_data = ref({
+  hrefHead: "/test",
+  search: false,
+  data: [
+    {
+      name: "test",
+    },
+  ],
+});
+const FilesMenu_data = ref({
+  search: true,
+  data: [
+    {
+      name: "test",
+      hrefHead: "/test",
+      tag: "[XXX]",
+    },
+  ],
+});
+const ShowFile_data = ref({
+  type: "audio",
+  name: "test audio",
+  url: "https://file.hsyhx.top/video/test.mp3",
+}); */
 </script>
