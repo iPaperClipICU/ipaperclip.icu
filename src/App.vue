@@ -19,26 +19,7 @@
   </n-config-provider>
 </template>
 
-<script>
-import { defineComponent } from "vue";
-import { zhCN, darkTheme } from "naive-ui";
+<script setup>
 import { NGi, NH1, NGrid, NBackTop } from "naive-ui";
-import { NGlobalStyle, NConfigProvider } from "naive-ui";
-
-export default defineComponent({
-  components: {
-    NGi,
-    NH1,
-    NGrid,
-    NBackTop,
-    NGlobalStyle,
-    NConfigProvider,
-  },
-  setup() {
-    return {
-      zhCN,
-      darkTheme,
-    };
-  },
-});
+import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from "naive-ui"; // NaiveUI Config
 </script>

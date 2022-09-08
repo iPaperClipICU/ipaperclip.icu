@@ -29,43 +29,29 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { useStore } from "vuex";
-import { onMounted, defineComponent } from "vue";
+import { onMounted } from "vue";
 import APlayer from "aplayer";
 import "aplayer/dist/APlayer.min.css";
 import { NGi, NGrid, NResult } from "naive-ui";
 import { getFileInfo } from "@/assets/utils.js";
 
-export default defineComponent({
-  components: {
-    NGi,
-    NGrid,
-    NResult,
-  },
-  setup() {
-    const store = useStore();
-    window.$store = store;
+const store = useStore();
 
-    onMounted(() => {
-      if (store.state.FileCardData.type === "audio") {
-        const ap = new APlayer({
-          container: document.getElementById("audioPlayer"),
-          audio: [
-            {
-              name: getFileInfo(store.state.FileCardData.name).name,
-              url: store.state.FileCardData.url,
-            },
-          ],
-        });
-        window.$AudioPlayer = ap;
-      }
+onMounted(() => {
+  if (store.state.FileCardData.type === "audio") {
+    const ap = new APlayer({
+      container: document.getElementById("audioPlayer"),
+      audio: [
+        {
+          name: getFileInfo(store.state.FileCardData.name).name,
+          url: store.state.FileCardData.url,
+        },
+      ],
     });
-
-    return {
-      store,
-    };
-  },
+    window.$AudioPlayer = ap;
+  }
 });
 </script>
 

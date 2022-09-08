@@ -29,13 +29,20 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from "vue";
 import { useStore } from "vuex";
-import { ref, defineComponent } from "vue";
 import { NIcon, NList, NButton, NListItem, NPagination } from "naive-ui";
 import router from "@/router";
 import FilesMenuICON from "@/components/FilesMenuICON.vue";
 import { getFileInfo } from "@/assets/utils.js";
+
+const store = useStore();
+
+const showPage = ref(false);
+const maxPage = ref(100);
+const nowPage = ref(1);
+const listKey = ref(1);
 
 /**
  * 获取当前页数
@@ -115,40 +122,14 @@ const getListData_search = (data) => {
   return ListData;
 };
 
-const showPage = ref(false);
-const maxPage = ref(100);
-const nowPage = ref(1);
-const listKey = ref(1);
-export default defineComponent({
-  components: {
-    FilesMenuICON,
-    NIcon,
-    NList,
-    NButton,
-    NListItem,
-    NPagination,
-  },
-  setup() {
-    const store = useStore();
-    window.$store = store;
+const updatePage = async (page) => {
+  await router.push(`${location.pathname}?p=${page}`);
+  listKey.value = page;
+  nowPage.value = page;
+};
 
-    return {
-      store,
-      getListData,
-      showPage,
-      maxPage,
-      nowPage,
-      listKey,
-      async updatePage(page) {
-        await router.push(`${location.pathname}?p=${page}`);
-        listKey.value = page;
-        nowPage.value = page;
-      },
-      async clickButton(data) {
-        await router.push(data.href);
-        store.state.init();
-      },
-    };
-  },
-});
+const clickButton = async (data) => {
+  await router.push(data.href);
+  store.state.init();
+};
 </script>

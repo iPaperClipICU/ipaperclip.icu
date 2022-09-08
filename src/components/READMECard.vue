@@ -104,25 +104,8 @@
   </n-card>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script setup>
 import { NA, NP, NGi, NH2, NCard, NGrid, NAlert, NDivider } from "naive-ui";
-
-export default defineComponent({
-  components: {
-    NA,
-    NP,
-    NGi,
-    NH2,
-    NCard,
-    NGrid,
-    NAlert,
-    NDivider,
-  },
-  setup() {
-    return {};
-  },
-});
 </script>
 
 <style>
