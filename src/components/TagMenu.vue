@@ -29,66 +29,55 @@
   </n-space>
 </template>
 
-<script>
+<script setup>
 import { useStore } from "vuex";
-import { defineComponent } from "vue";
 import { NSpace, NButton, NDropdown } from "naive-ui";
 import router from "@/router";
 import data from "@/assets/data.json";
 import { clearRubbish } from "@/assets/utils.js";
 
-export default defineComponent({
-  components: {
-    NSpace,
-    NButton,
-    NDropdown,
-  },
-  setup() {
-    const store = useStore();
-    window.$store = store;
+const store = useStore();
+const menuData = data.menuData;
 
-    return {
-      store,
-      menuData: data.menuData,
-      getDropdownOptions(data) {
-        const options = [];
-        for (const i in data[1]) {
-          options.push({
-            label: data[1][i],
-            key: JSON.stringify([`/${data[0]}/${data[1][i]}`, data[0]]),
-          });
-        }
+const getDropdownOptions = (data) => {
+  const options = [];
+  for (const i in data[1]) {
+    options.push({
+      label: data[1][i],
+      key: JSON.stringify([`/${data[0]}/${data[1][i]}`, data[0]]),
+    });
+  }
 
-        return options;
-      },
-      getButtonType(at) {
-        if (at) {
-          return "primary";
-        } else {
-          return "default";
-        }
-      },
-      async onClick(click, name = "") {
-        if (click) {
-          store.commit("setState", (state) => {
-            state.AtPageFilesName = name;
-          });
-          await router.push(`/${name}`);
-          store.state.init();
-          clearRubbish();
-        }
-      },
-      async onSelect(key) {
-        key = JSON.parse(key);
+  return options;
+};
 
-        await router.push(key[0]);
-        store.commit("setState", (state) => {
-          state.AtPageFilesName = key[1];
-        });
-        store.state.init();
-        clearRubbish();
-      },
-    };
-  },
-});
+const getButtonType = (at) => {
+  if (at) {
+    return "primary";
+  } else {
+    return "default";
+  }
+};
+
+const onClick = async (click, name = "") => {
+  if (click) {
+    store.commit("setState", (state) => {
+      state.AtPageFilesName = name;
+    });
+    await router.push(`/${name}`);
+    store.state.init();
+    clearRubbish();
+  }
+};
+
+const onSelect = async (key) => {
+  key = JSON.parse(key);
+
+  await router.push(key[0]);
+  store.commit("setState", (state) => {
+    state.AtPageFilesName = key[1];
+  });
+  store.state.init();
+  clearRubbish();
+};
 </script>

@@ -37,13 +37,6 @@
   </svg>
 </template>
 
-<script>
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  props: ["type"],
-  setup() {
-    return {};
-  },
-});
+<script setup>
+defineProps(["type"]);
 </script>

@@ -27,9 +27,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from "vue";
 import { useStore } from "vuex";
-import { ref, defineComponent } from "vue";
 import {
   NGi,
   NGrid,
@@ -44,6 +44,8 @@ import router from "@/router";
 import TagMenu from "@/components/TagMenu.vue";
 import FilesMenu from "@/components/FilesMenu.vue";
 import data from "@/assets/data.json";
+
+const store = useStore();
 
 const init = () => {
   const KeyWord = new URL(decodeURIComponent(location.href)).searchParams.get(
@@ -64,8 +66,6 @@ const init = () => {
 };
 
 const search = (keyword) => {
-  const store = window.$store;
-
   if (keyword === void 0 || keyword === "") {
     // 没有搜索关键字
     showErrorEmpty.value = true;
@@ -124,34 +124,12 @@ const showErrorEmpty = ref(false);
 // });
 const searchNum = ref(0);
 const searchValue = ref("");
-export default defineComponent({
-  components: {
-    TagMenu,
-    FilesMenu,
-    NGi,
-    NCard,
-    NGrid,
-    NEmpty,
-    NInput,
-    NButton,
-    NDivider,
-    NInputGroup,
-  },
-  setup() {
-    const store = useStore();
-    window.$store = store;
-    init();
 
-    return {
-      showNullEmpty,
-      showErrorEmpty,
-      searchNum,
-      searchValue,
-      searchButton: () => {
-        search(searchValue.value.toLocaleLowerCase());
-        router.push(`/search?s=${searchValue.value}`);
-      },
-    };
-  },
-});
+const searchButton = () => {
+  search(searchValue.value.toLocaleLowerCase());
+  router.push(`/search?s=${searchValue.value}`);
+};
+
+// Run
+init();
 </script>
