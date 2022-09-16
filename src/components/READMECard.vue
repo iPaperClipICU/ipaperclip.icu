@@ -77,7 +77,7 @@
     <n-grid :cols="201" item-responsive>
       <n-gi span="100">
         <img
-          src="//file.hsyhx.top/image/RIP/rip1.webp"
+          src="//ipaperclip-file.xodvnm.cn/image/RIP/rip1.webp"
           alt="rip1"
           loading="lazy"
           style="width: 100%"
@@ -86,7 +86,7 @@
       <n-gi span="1" />
       <n-gi span="100">
         <img
-          src="//file.hsyhx.top/image/RIP/rip2.webp"
+          src="//ipaperclip-file.xodvnm.cn/image/RIP/rip2.webp"
           alt="rip2"
           loading="lazy"
           style="width: 100%"
