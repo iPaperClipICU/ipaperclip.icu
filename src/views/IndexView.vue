@@ -125,7 +125,7 @@ const init = () => {
         state.FileCardData = {
           type: getFileInfo(fileName).type,
           name: fileName,
-          url: `https://file.hsyhx.top/video/${filesName}/${tagName}/${fileName}`,
+          url: `https://ipaperclip-file.xodvnm.cn/video/${filesName}/${tagName}/${fileName}`,
         };
       });
       store.commit("setState", (state) => {
@@ -160,7 +160,7 @@ const init = () => {
         state.FileCardData = {
           type: getFileInfo(fileName).type,
           name: fileName,
-          url: `https://file.hsyhx.top/video/${filesName}/${fileName}`,
+          url: `https://ipaperclip-file.xodvnm.cn/video/${filesName}/${fileName}`,
         };
       });
       store.commit("setState", (state) => {
@@ -208,6 +208,6 @@ const FilesMenu_data = ref({
 const ShowFile_data = ref({
   type: "audio",
   name: "test audio",
-  url: "https://file.hsyhx.top/video/test.mp3",
+  url: "https://ipaperclip-file.xodvnm.cn/video/test.mp3",
 }); */
 </script>
