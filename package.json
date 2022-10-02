@@ -19,7 +19,7 @@
     "@vue/eslint-config-prettier": "^7.0.0",
     "aplayer": "^1.10.1",
     "eslint": "^8.24.0",
-    "eslint-plugin-vue": "^9.3.0",
+    "eslint-plugin-vue": "^9.5.1",
     "naive-ui": "^2.33.3",
     "prettier": "^2.7.1",
     "vite": "^3.1.4",
