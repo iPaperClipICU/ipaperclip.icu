@@ -83,8 +83,7 @@ const getListData = (data) => {
   }
 
   const ListData = [];
-  for (const i in data) {
-    const fileName = data[i];
+  for (const fileName of data) {
     const fileInfo = getFileInfo(fileName);
 
     ListData.push({
@@ -109,13 +108,13 @@ const getListData = (data) => {
 // };
 const getListData_search = (data) => {
   const ListData = [];
-  for (const i in data) {
-    const fileInfo = getFileInfo(data[i].name);
+  for (const FileName of data) {
+    const fileInfo = getFileInfo(data[FileName].name);
 
     ListData.push({
-      name: `${data[i].tag} ${fileInfo.name}`,
+      name: `${data[FileName].tag} ${fileInfo.name}`,
       type: fileInfo.type,
-      href: `${data[i].hrefHead}/${data[i].name}`,
+      href: `${data[FileName].hrefHead}/${data[FileName].name}`,
     });
   }
 
