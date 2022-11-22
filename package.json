@@ -15,14 +15,14 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
-    "@vitejs/plugin-vue": "^3.1.0",
+    "@vitejs/plugin-vue": "^3.2.0",
     "@vue/eslint-config-prettier": "^7.0.0",
     "aplayer": "^1.10.1",
-    "eslint": "^8.24.0",
-    "eslint-plugin-vue": "^9.5.1",
-    "naive-ui": "^2.33.3",
+    "eslint": "^8.28.0",
+    "eslint-plugin-vue": "^9.7.0",
+    "naive-ui": "^2.34.0",
     "prettier": "^2.7.1",
-    "vite": "^3.1.4",
+    "vite": "^3.2.4",
     "vite-plugin-html": "^3.2.0"
   }
 }
