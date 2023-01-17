@@ -45,7 +45,7 @@ const clearRubbish = () => {
   if (window.$AudioPlayer != void 0) window.$AudioPlayer.destroy();
 };
 
-const getSigh = (FileURL) => {
+const getSign = (FileURL) => {
   const getUID = () => {
     nanoid(10);
     let uid = localStorage.getItem("uid");
@@ -75,4 +75,4 @@ const getSigh = (FileURL) => {
   }
 };
 
-export { getFileInfo, clearRubbish, getSigh };
+export { getFileInfo, clearRubbish, getSign as getSign };

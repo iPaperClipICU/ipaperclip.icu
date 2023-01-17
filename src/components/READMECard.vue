@@ -77,7 +77,7 @@
     <n-grid :cols="201" item-responsive>
       <n-gi span="100">
         <img
-          :src="getSigh('https://ipaperclip-file.xodvnm.cn/image/RIP/rip1.webp')"
+          :src="getSign('https://ipaperclip-file.xodvnm.cn/image/RIP/rip1.webp')"
           alt="rip1"
           loading="lazy"
           style="width: 100%"
@@ -86,7 +86,7 @@
       <n-gi span="1" />
       <n-gi span="100">
         <img
-          :src="getSigh('https://ipaperclip-file.xodvnm.cn/image/RIP/rip2.webp')"
+          :src="getSign('https://ipaperclip-file.xodvnm.cn/image/RIP/rip2.webp')"
           alt="rip2"
           loading="lazy"
           style="width: 100%"
@@ -105,7 +105,7 @@
 </template>
 
 <script setup>
-import { getSigh } from "@/assets/utils";
+import { getSign } from "@/assets/utils";
 import { NA, NP, NGi, NH2, NCard, NGrid, NAlert, NDivider } from "naive-ui";
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <!-- TODO: 写个视频/音频播放器 -->
   <div v-if="store.state.FileCardData.type === 'video'" class="video">
-    <video :src="getSigh(store.state.FileCardData.url)" controls preload>
+    <video :src="getSign(store.state.FileCardData.url)" controls preload>
       <n-result status="info" title="您的浏览器不支持 video 标签" />
     </video>
   </div>
@@ -11,7 +11,7 @@
       <n-gi span="1 768:5" />
       <n-gi span="34 768:26">
         <img
-          :src="getSigh(store.state.FileCardData.url)"
+          :src="getSign(store.state.FileCardData.url)"
           :alt="store.state.FileCardData.name"
           loading="lazy"
           style="width: 100%"
@@ -22,7 +22,7 @@
   </div>
   <div v-if="store.state.FileCardData.type === 'audio'">
     <!-- <audio preload="none" controls>
-      <source :src="getSigh(store.state.FileCardData.url)" type="audio/mpeg" />
+      <source :src="getSign(store.state.FileCardData.url)" type="audio/mpeg" />
       <n-result status="info" title="您的浏览器不支持此音频格式" />
     </audio> -->
     <div id="audioPlayer"></div>
@@ -34,7 +34,7 @@ import { useStore } from "vuex";
 import { onMounted } from "vue";
 import APlayer from "aplayer";
 import "aplayer/dist/APlayer.min.css";
-import { getSigh } from "@/assets/utils";
+import { getSign } from "@/assets/utils";
 import { NGi, NGrid, NResult } from "naive-ui";
 import { getFileInfo } from "@/assets/utils.js";
 
@@ -47,7 +47,7 @@ onMounted(() => {
       audio: [
         {
           name: getFileInfo(store.state.FileCardData.name).name,
-          url: getSigh(store.state.FileCardData.url),
+          url: getSign(store.state.FileCardData.url),
         },
       ],
     });
