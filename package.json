@@ -21,7 +21,7 @@
     "@vitejs/plugin-vue": "^3.2.0",
     "@vue/eslint-config-prettier": "^7.0.0",
     "aplayer": "^1.10.1",
-    "eslint": "^8.28.0",
+    "eslint": "^8.32.0",
     "eslint-plugin-vue": "^9.7.0",
     "naive-ui": "^2.34.0",
     "prettier": "^2.7.1",
