@@ -9,12 +9,15 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "js-md5": "^0.7.3",
+    "nanoid": "^4.0.0",
     "vue": "^3.2.37",
     "vue-router": "^4.1.3",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
+    "@types/js-md5": "^0.7.0",
     "@vitejs/plugin-vue": "^3.2.0",
     "@vue/eslint-config-prettier": "^7.0.0",
     "aplayer": "^1.10.1",
@@ -22,6 +25,7 @@
     "eslint-plugin-vue": "^9.7.0",
     "naive-ui": "^2.34.0",
     "prettier": "^2.7.1",
+    "rollup-plugin-javascript-obfuscator": "^1.0.4",
     "vite": "^3.2.4",
     "vite-plugin-html": "^3.2.0"
   }
