@@ -64,10 +64,10 @@ const getSign = (FileURL) => {
     const ts = Math.floor(Date.now() / 1000); // ts
     const uid = getUID();
     const rand = nanoid(10);
-    const sigh = `${ts}-${rand}-${uid}-${md5(
+    const sign = `${ts}-${rand}-${uid}-${md5(
       `${uri}-${ts}-${rand}-${uid}-${PKEY}`
     )}`;
-    u.searchParams.set("sigh", sigh);
+    u.searchParams.set("sign", sign);
 
     return u.href;
   } else {
