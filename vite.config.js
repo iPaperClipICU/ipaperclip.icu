@@ -7,6 +7,7 @@ import { createHtmlPlugin } from "vite-plugin-html";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  envPrefix: ["VITE_", "TencentCDN_"],
   plugins: [
     vue(),
     createHtmlPlugin({
