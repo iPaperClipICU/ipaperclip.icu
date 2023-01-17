@@ -1,5 +1,6 @@
 import md5 from "js-md5";
-import { nanoid } from "nanoid";
+import { customAlphabet } from 'nanoid/non-secure'
+const nanoid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', 10);
 
 /**
  * 通过文件名获取文件类型
@@ -46,24 +47,13 @@ const clearRubbish = () => {
 };
 
 const getSign = (FileURL) => {
-  const getUID = () => {
-    nanoid(10);
-    let uid = localStorage.getItem("uid");
-    if (uid === null) {
-      const t = nanoid(10);
-      localStorage.setItem("uid", t);
-      uid = t;
-    }
-  
-    return uid;
-  };
   const u = new URL(FileURL);
   if (u.host === "ipaperclip-file.xodvnm.cn") {
     const PKEY = import.meta.env.TencentCDN_PKEY || "null";
     const uri = u.pathname; // url
     const ts = Math.floor(Date.now() / 1000); // ts
-    const uid = getUID();
-    const rand = nanoid(10);
+    const uid = 0;
+    const rand = nanoid();
     const sign = `${ts}-${rand}-${uid}-${md5(
       `${uri}-${ts}-${rand}-${uid}-${PKEY}`
     )}`;
