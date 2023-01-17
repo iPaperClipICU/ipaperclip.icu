@@ -34,8 +34,7 @@ import { useStore } from "vuex";
 import { onMounted } from "vue";
 import APlayer from "aplayer";
 import "aplayer/dist/APlayer.min.css";
-import md5 from "js-md5";
-import { nanoid } from "nanoid";
+import { getSigh } from "@/assets/utils";
 import { NGi, NGrid, NResult } from "naive-ui";
 import { getFileInfo } from "@/assets/utils.js";
 
@@ -55,37 +54,6 @@ onMounted(() => {
     window.$AudioPlayer = ap;
   }
 });
-
-const getUID = () => {
-  nanoid(10);
-  let uid = localStorage.getItem("uid");
-  if (uid === null) {
-    const t = nanoid(10);
-    localStorage.setItem("uid", t);
-    uid = t;
-  }
-
-  return uid;
-};
-
-const getSigh = (FileURL) => {
-  const u = new URL(FileURL);
-  if (u.host === "ipaperclip-file.xodvnm.cn") {
-    const PKEY = import.meta.env.TencentCDN_PKEY || "null";
-    const uri = u.pathname; // url
-    const ts = Math.floor(Date.now() / 1000); // ts
-    const uid = getUID();
-    const rand = nanoid(10);
-    const sigh = `${ts}-${rand}-${uid}-${md5(
-      `${uri}-${ts}-${rand}-${uid}-${PKEY}`
-    )}`;
-    u.searchParams.set("sigh", sigh);
-
-    return u.href;
-  } else {
-    return FileURL;
-  }
-};
 </script>
 
 <style>
