@@ -19,6 +19,8 @@
 import { NH1, NBackTop } from "naive-ui";
 import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from "naive-ui"; // NaiveUI Config
 
+console.log(import.meta.env.TencentCDN_PKEY);
+
 // container 样式
 const container = {
   "max-width": "1055px",
