@@ -73,7 +73,7 @@
       |
       <n-a href="https://jibencaozuo.com/" target="_blank">基本操作</n-a>
     </n-p>
-    <n-h2>R.I.P</n-h2>
+    <!-- <n-h2>R.I.P</n-h2>
     <n-grid :cols="201" item-responsive>
       <n-gi span="100">
         <img
@@ -92,15 +92,15 @@
           style="width: 100%"
         />
       </n-gi>
-    </n-grid>
-    <n-alert type="info" :show-icon="false">
+    </n-grid> -->
+    <!-- <n-alert type="info" :show-icon="false">
       <n-p>
         本站点建立之初单纯就是为了站长本人能有个观看回形针PaperClip视频的地方，不管用不用魔法都可以流畅的观看，目前看来已经实现了
       </n-p>
       <n-p>
         至于回形针PaperClip能不能重生，我认为唯一有能力去考虑这个问题的只有吴老师一人，其余人的帮忙均可能变为帮倒忙
       </n-p>
-    </n-alert>
+    </n-alert> -->
   </n-card>
 </template>
 
