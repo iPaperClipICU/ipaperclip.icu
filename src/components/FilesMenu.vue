@@ -109,12 +109,12 @@ const getListData = (data) => {
 const getListData_search = (data) => {
   const ListData = [];
   for (const FileName of data) {
-    const fileInfo = getFileInfo(data[FileName].name);
+    const fileInfo = getFileInfo(FileName.name);
 
     ListData.push({
-      name: `${data[FileName].tag} ${fileInfo.name}`,
+      name: `${FileName.tag} ${fileInfo.name}`,
       type: fileInfo.type,
-      href: `${data[FileName].hrefHead}/${data[FileName].name}`,
+      href: `${FileName.hrefHead}/${FileName.name}`,
     });
   }
 
