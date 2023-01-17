@@ -25,7 +25,6 @@
     "eslint-plugin-vue": "^9.7.0",
     "naive-ui": "^2.34.0",
     "prettier": "^2.7.1",
-    "rollup-plugin-javascript-obfuscator": "^1.0.4",
     "vite": "^3.2.4",
     "vite-plugin-html": "^3.2.0",
     "vite-plugin-obfuscator": "^1.0.5"
