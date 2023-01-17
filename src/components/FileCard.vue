@@ -73,7 +73,7 @@ const getSigh = (FileURL) => {
   if (u.host === "ipaperclip-file.xodvnm.cn") {
     const PKEY = import.meta.env.TencentCDN_PKEY || "null";
     const uri = u.pathname; // url
-    const ts = Date.now() / 1000; // ts
+    const ts = Math.floor(Date.now() / 1000); // ts
     const uid = getUID();
     const rand = nanoid(10);
     const sigh = `${ts}-${rand}-${uid}-${md5(
