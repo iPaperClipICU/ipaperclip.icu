@@ -2,7 +2,7 @@ import { fileURLToPath, URL } from "node:url";
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import obfuscatorPlugin from "rollup-plugin-javascript-obfuscator";
+import { viteObfuscateFile } from "vite-plugin-obfuscator";
 
 import { createHtmlPlugin } from "vite-plugin-html";
 
@@ -15,7 +15,7 @@ export default defineConfig({
       minify: true,
     }),
     {
-      ...obfuscatorPlugin({
+      ...viteObfuscateFile({
         options: {
           rotateUnicodeArray: true, // 必须为true
           compact: true, // 紧凑 从输出混淆代码中删除换行符。
