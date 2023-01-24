@@ -1,7 +1,7 @@
 <template>
   <n-list :key="listKey">
     <n-list-item
-      v-for="(item, index) in getListData(store.state.FilesMenuData)"
+      v-for="(item, index) in getListData(counter.FilesMenuData)"
       :key="index"
     >
       <n-button
@@ -29,26 +29,28 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
-import { useStore } from "vuex";
 import { NIcon, NList, NButton, NListItem, NPagination } from "naive-ui";
+
 import router from "@/router";
+import { getFileInfo } from "@/assets/utils";
+import { useCounterStore } from "@/stores/counter";
 import FilesMenuICON from "@/components/FilesMenuICON.vue";
-import { getFileInfo } from "@/assets/utils.js";
+import type { FilesMenuDataType, Search_FilesMenuDataType } from "@/types/";
 
-const store = useStore();
+const counter = useCounterStore();
 
-const showPage = ref(false);
-const maxPage = ref(100);
-const nowPage = ref(1);
-const listKey = ref(1);
+const showPage = ref<boolean>(false);
+const maxPage = ref<number>(100);
+const nowPage = ref<number>(1);
+const listKey = ref<number>(1);
 
 /**
  * 获取当前页数
- * @returns {Number} 页数
+ * @returns 页数
  */
-const getPage = () => {
+const getPage = (): number => {
   const search = Number(
     new URL(decodeURIComponent(location.href)).searchParams.get("p")
   );
@@ -59,31 +61,26 @@ const getPage = () => {
   }
 };
 
-// {
-//   hrefHead: "",
-//   data: [["FileName"], ["FileName"]],
-// };
-const getListData = (data) => {
+const getListData = (d: FilesMenuDataType | Search_FilesMenuDataType) => {
   showPage.value = false;
 
-  if (data === void 0) return;
-  const hrefHead = data.hrefHead;
-  if (data.search) {
-    return getListData_search(data.data);
+  if (d.search === true) {
+    return getListData_search(d.data);
   }
-  const pages = data.data.length != 1;
-  data = data.data;
-
-  if (pages) {
-    showPage.value = true;
-    maxPage.value = data.length;
-    data = data[getPage() - 1];
-  } else {
-    data = data[0];
-  }
+  const { hrefHead, data } = d;
+  const pages = data.length != 1;
+  const FileNameList = (() => {
+    if (pages) {
+      showPage.value = true;
+      maxPage.value = data.length;
+      return data[getPage() - 1];
+    } else {
+      return data[0];
+    }
+  })();
 
   const ListData = [];
-  for (const fileName of data) {
+  for (const fileName of FileNameList) {
     const fileInfo = getFileInfo(fileName);
 
     ListData.push({
@@ -96,17 +93,7 @@ const getListData = (data) => {
   return ListData;
 };
 
-// {
-//   search: true,
-//   data: [
-//     {
-//       name: "test",
-//       hrefHead: "/test",
-//       tag: "[XXX]",
-//     },
-//   ],
-// };
-const getListData_search = (data) => {
+const getListData_search = (data: Search_FilesMenuDataType["data"]) => {
   const ListData = [];
   for (const FileName of data) {
     const fileInfo = getFileInfo(FileName.name);
@@ -121,14 +108,18 @@ const getListData_search = (data) => {
   return ListData;
 };
 
-const updatePage = async (page) => {
+const updatePage = async (page: number) => {
   await router.push(`${location.pathname}?p=${page}`);
   listKey.value = page;
   nowPage.value = page;
 };
 
-const clickButton = async (data) => {
+const clickButton = async (data: {
+  name: string;
+  type: "audio" | "video" | "image" | undefined;
+  href: string;
+}) => {
   await router.push(data.href);
-  store.state.init();
+  counter.init();
 };
 </script>

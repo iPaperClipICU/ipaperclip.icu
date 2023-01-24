@@ -13,7 +13,7 @@
   </svg>
   <!-- Audio -->
   <svg
-    v-if="type === 'audio'"
+    v-else-if="type === 'audio'"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     viewBox="0 0 384 512"
@@ -25,7 +25,7 @@
   </svg>
   <!-- Image -->
   <svg
-    v-if="type === 'image'"
+    v-else-if="type === 'image'"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     viewBox="0 0 384 512"
@@ -37,6 +37,6 @@
   </svg>
 </template>
 
-<script setup>
+<script setup lang="ts">
 defineProps(["type"]);
 </script>

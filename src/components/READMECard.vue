@@ -104,9 +104,8 @@
   </n-card>
 </template>
 
-<script setup>
-import { getSign } from "@/assets/utils";
-import { NA, NP, NGi, NH2, NCard, NGrid, NAlert, NDivider } from "naive-ui";
+<script setup lang="ts">
+import { NA, NP, NH2, NCard, NDivider } from "naive-ui";
 </script>
 
 <style>
