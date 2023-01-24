@@ -10,7 +10,7 @@
         <n-button
           :text="true"
           size="large"
-          :type="getButtonType(store.state.AtPageFilesName === item[0])"
+          :type="getButtonType(counter.AtPageFilesName === item[0])"
           @click="onClick(false)"
         >
           {{ item[0] }}
@@ -20,7 +20,7 @@
         v-else
         :text="true"
         size="large"
-        :type="getButtonType(store.state.AtPageFilesName === item[0])"
+        :type="getButtonType(counter.AtPageFilesName === item[0])"
         @click="onClick(true, item[0])"
       >
         {{ item[0] }}
@@ -29,17 +29,19 @@
   </n-space>
 </template>
 
-<script setup>
-import { useStore } from "vuex";
+<script setup lang="ts">
 import { NSpace, NButton, NDropdown } from "naive-ui";
-import router from "@/router";
-import data from "@/assets/data.json";
-import { clearRubbish } from "@/assets/utils.js";
 
-const store = useStore();
+import router from "@/router";
+import { useCounterStore } from "@/stores/counter";
+import { clearRubbish, getData } from "@/assets/utils";
+
+const data = getData();
+const counter = useCounterStore();
+
 const menuData = data.menuData;
 
-const getDropdownOptions = (data) => {
+const getDropdownOptions = (data: [string, string[]]) => {
   const options = [];
   for (const i in data[1]) {
     options.push({
@@ -51,7 +53,7 @@ const getDropdownOptions = (data) => {
   return options;
 };
 
-const getButtonType = (at) => {
+const getButtonType = (at: boolean) => {
   if (at) {
     return "primary";
   } else {
@@ -59,25 +61,21 @@ const getButtonType = (at) => {
   }
 };
 
-const onClick = async (click, name = "") => {
+const onClick = async (click: boolean, name: string = "") => {
   if (click) {
-    store.commit("setState", (state) => {
-      state.AtPageFilesName = name;
-    });
+    counter.AtPageFilesName = name;
     await router.push(`/${name}`);
-    store.state.init();
+    counter.init();
     clearRubbish();
   }
 };
 
-const onSelect = async (key) => {
+const onSelect = async (key: string) => {
   key = JSON.parse(key);
 
   await router.push(key[0]);
-  store.commit("setState", (state) => {
-    state.AtPageFilesName = key[1];
-  });
-  store.state.init();
+  counter.AtPageFilesName = key[1];
+  counter.init();
   clearRubbish();
 };
 </script>

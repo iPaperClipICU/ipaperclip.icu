@@ -1,14 +1,30 @@
 import md5 from "js-md5";
-import { customAlphabet } from 'nanoid/non-secure'
-const nanoid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', 10);
+import { customAlphabet } from "nanoid/non-secure";
+
+import d from "@/assets/data.json";
+import type { DataType, FileTypeT } from "@/types/";
+
+const nanoid = customAlphabet(
+  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+  10
+);
+
+export const getData = (): DataType => {
+  return d as any;
+};
 
 /**
  * 通过文件名获取文件类型
- * @param {String} FileName 文件名
- * @returns {Json} Data
+ * @param FileName 文件名
+ * @returns Data
  */
-const getFileInfo = (FileName) => {
-  let FileType = "";
+export const getFileInfo = (
+  FileName: string
+): {
+  name: string;
+  type: FileTypeT;
+} => {
+  let FileType: FileTypeT = undefined;
 
   if (FileName.endsWith(".mp4") || FileName.endsWith(".flv")) {
     FileType = "video";
@@ -20,8 +36,6 @@ const getFileInfo = (FileName) => {
     FileType = "image";
   } else if (FileName.endsWith(".mp3") || FileName.endsWith(".flac")) {
     FileType = "audio";
-  } else {
-    FileType = void 0;
   }
 
   return {
@@ -39,14 +53,15 @@ const getFileInfo = (FileName) => {
 /**
  * 清理 Video 和 Audio 播放器
  */
-const clearRubbish = () => {
+export const clearRubbish = () => {
+  const w = window as any;
   const vp = document.getElementsByClassName("video");
   for (let i = 0; i < vp.length; i++) vp[i].innerHTML = "";
 
-  if (window.$AudioPlayer != void 0) window.$AudioPlayer.destroy();
+  if (w.$AudioPlayer != void 0) w.$AudioPlayer.destroy();
 };
 
-const getSign = (FileURL) => {
+export const getSign = (FileURL: string): string => {
   const u = new URL(FileURL);
   if (u.host === "ipaperclip-file.xodvnm.cn") {
     const PKEY = import.meta.env.TencentCDN_PKEY || "null";
@@ -64,5 +79,3 @@ const getSign = (FileURL) => {
     return FileURL;
   }
 };
-
-export { getFileInfo, clearRubbish, getSign as getSign };

@@ -16,26 +16,25 @@
       <TagMenu />
       <n-divider />
       <!-- 文件夹 -->
-      <FilesMenu v-if="store.state.AtPageType === 'Files'" />
+      <FilesMenu v-if="AtPageType === 'Files'" />
       <!-- 文件 -->
-      <div v-if="store.state.AtPageType === 'File'" style="margin-top: 15px">
+      <div v-else-if="AtPageType === 'File'" style="margin-top: 15px">
         <FileCard />
       </div>
       <!-- Null -->
       <n-empty
-        v-if="store.state.AtPageType === 'Home'"
+        v-else-if="AtPageType === 'Home'"
         description="请在「菜单」中选择"
       />
     </n-card>
   </div>
-  <div v-if="store.state.AtPageType === 'Home'" style="margin-top: 15px">
+  <div v-if="AtPageType === 'Home'" style="margin-top: 15px">
     <READMECard />
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
-import { useStore } from "vuex";
 import {
   NGi,
   NCard,
@@ -46,15 +45,19 @@ import {
   NDivider,
   NInputGroup,
 } from "naive-ui";
+
 import router from "@/router";
+import { useCounterStore } from "@/stores/counter";
 import TagMenu from "@/components/TagMenu.vue";
 import FileCard from "@/components/FileCard.vue";
 import FilesMenu from "@/components/FilesMenu.vue";
 import READMECard from "@/components/READMECard.vue";
-import data from "@/assets/data.json";
-import { getFileInfo, clearRubbish } from "@/assets/utils.js";
+import { getFileInfo, clearRubbish, getData } from "@/assets/utils.js";
 
-const store = useStore();
+const data = getData();
+const counter = useCounterStore();
+
+const AtPageType = ref("Home");
 
 /**
  * /
@@ -64,19 +67,19 @@ const store = useStore();
  * /files/file
  */
 
-const init = () => {
+const init = (): void => {
   const path = decodeURIComponent(location.pathname);
   const pathList = path.split("/");
   const filesName = pathList[1];
 
   const filesData = data.data[filesName];
-  if (path === "/" || filesData === void 0) {
+  if (path === "/" || filesData === undefined) {
     // Path: / || FilesName错误
-    store.commit("setAtPageType", "Home");
+    AtPageType.value = "Home";
     return;
   }
 
-  if (filesData[0] === void 0) {
+  if (!Array.isArray(filesData)) {
     // 有Tag
 
     // 获取TagName
@@ -84,34 +87,32 @@ const init = () => {
     if (tagName === void 0 || tagName === "") {
       // 缺少TagName
       for (const i in data.menuData) {
-        if (data.menuData[i][0] === filesName) {
-          tagName = data.menuData[i][1][0];
+        const md = data.menuData[i] as [string, string[]];
+        if (md[0] === filesName) {
+          tagName = md[0];
           router.push(`/${filesName}/${tagName}`);
         }
       }
     }
     const tagData = filesData[tagName];
 
-    if (tagData === void 0) {
+    if (tagData === undefined) {
       return;
     }
 
     const fileName = pathList[3];
     if (fileName === void 0) {
       // /files/tag
-      store.commit("setAtPageType", "Files");
-      store.commit("setState", (state) => {
-        state.FilesMenuData = {
-          hrefHead: `/${filesName}/${tagName}`,
-          data: tagData,
-        };
-      });
-      store.commit("setState", (state) => {
-        state.AtPageFilesName = filesName;
-      });
+      AtPageType.value = "Files";
+      counter.FilesMenuData = {
+        search: false,
+        hrefHead: `/${filesName}/${tagName}`,
+        data: tagData,
+      };
+      counter.AtPageFilesName = filesName;
     } else {
       // /files/tag/file
-      store.commit("setAtPageType", "File");
+      AtPageType.value = "File";
       const fileNameC = data.searchData[fileName];
       if (
         fileNameC === void 0 ||
@@ -121,16 +122,12 @@ const init = () => {
         return;
       }
 
-      store.commit("setState", (state) => {
-        state.FileCardData = {
-          type: getFileInfo(fileName).type,
-          name: fileName,
-          url: `https://ipaperclip-file.xodvnm.cn/video/${filesName}/${tagName}/${fileName}`,
-        };
-      });
-      store.commit("setState", (state) => {
-        state.AtPageFilesName = filesName;
-      });
+      counter.FileCardData = {
+        type: getFileInfo(fileName).type,
+        name: fileName,
+        url: `https://ipaperclip-file.xodvnm.cn/video/${filesName}/${tagName}/${fileName}`,
+      };
+      counter.AtPageFilesName = filesName;
     }
   } else {
     // 无Tag
@@ -138,41 +135,34 @@ const init = () => {
     const fileName = pathList[2];
     if (fileName === void 0) {
       // /files
-      store.commit("setAtPageType", "Files");
-      store.commit("setState", (state) => {
-        state.FilesMenuData = {
-          hrefHead: `/${filesName}`,
-          data: filesData,
-        };
-      });
-      store.commit("setState", (state) => {
-        state.AtPageFilesName = filesName;
-      });
+      AtPageType.value = "Files";
+      counter.FilesMenuData = {
+        search: false,
+        hrefHead: `/${filesName}`,
+        data: filesData,
+      };
+      counter.AtPageFilesName = filesName;
     } else {
       // /files/file
-      store.commit("setAtPageType", "File");
+      AtPageType.value = "File";
       const fileNameC = data.searchData[fileName];
       if (fileNameC === void 0 || fileNameC[0] != filesName) {
         return;
       }
 
-      store.commit("setState", (state) => {
-        state.FileCardData = {
-          type: getFileInfo(fileName).type,
-          name: fileName,
-          url: `https://ipaperclip-file.xodvnm.cn/video/${filesName}/${fileName}`,
-        };
-      });
-      store.commit("setState", (state) => {
-        state.AtPageFilesName = filesName;
-      });
+      counter.FileCardData = {
+        type: getFileInfo(fileName).type,
+        name: fileName,
+        url: `https://ipaperclip-file.xodvnm.cn/video/${filesName}/${fileName}`,
+      };
+      counter.AtPageFilesName = filesName;
     }
   }
 };
 
 // 搜索
 const searchValue = ref("");
-const searchButton = (e) => {
+const searchButton = (e: MouseEvent) => {
   e.preventDefault();
   // location.href = `/search?s=${searchValue.value}`;
   router.push(`/search?s=${searchValue.value}`);
@@ -180,34 +170,6 @@ const searchButton = (e) => {
 };
 
 // Run
-store.commit("setState", (state) => {
-  state.init = init;
-});
+counter.init = init;
 init();
-
-/* Data
-const FilesMenu_data = ref({
-  hrefHead: "/test",
-  search: false,
-  data: [
-    {
-      name: "test",
-    },
-  ],
-});
-const FilesMenu_data = ref({
-  search: true,
-  data: [
-    {
-      name: "test",
-      hrefHead: "/test",
-      tag: "[XXX]",
-    },
-  ],
-});
-const ShowFile_data = ref({
-  type: "audio",
-  name: "test audio",
-  url: "https://ipaperclip-file.xodvnm.cn/video/test.mp3",
-}); */
 </script>

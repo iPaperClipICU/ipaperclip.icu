@@ -1,18 +1,17 @@
 <template>
   <!-- TODO: 写个视频/音频播放器 -->
-  <div v-if="store.state.FileCardData.type === 'video'" class="video">
-    <video :src="getSign(store.state.FileCardData.url)" controls preload>
+  <div v-if="counter.FileCardData.type === 'video'" class="video">
+    <video :src="getSign(counter.FileCardData.url)" controls preload="metadata">
       <n-result status="info" title="您的浏览器不支持 video 标签" />
     </video>
   </div>
-  <div v-if="store.state.FileCardData.type === 'image'">
-    <!-- TODO: Use NaiveUI Image -->
+  <div v-else-if="counter.FileCardData.type === 'image'">
     <n-grid :cols="36" item-responsive>
       <n-gi span="1 768:5" />
       <n-gi span="34 768:26">
         <img
-          :src="getSign(store.state.FileCardData.url)"
-          :alt="store.state.FileCardData.name"
+          :src="getSign(counter.FileCardData.url)"
+          :alt="counter.FileCardData.name"
           loading="lazy"
           style="width: 100%"
         />
@@ -20,38 +19,38 @@
       <n-gi span="1 768:5" />
     </n-grid>
   </div>
-  <div v-if="store.state.FileCardData.type === 'audio'">
+  <div v-else-if="counter.FileCardData.type === 'audio'">
     <!-- <audio preload="none" controls>
-      <source :src="getSign(store.state.FileCardData.url)" type="audio/mpeg" />
+      <source :src="getSign(counter.FileCardData.url)" type="audio/mpeg" />
       <n-result status="info" title="您的浏览器不支持此音频格式" />
     </audio> -->
     <div id="audioPlayer"></div>
   </div>
 </template>
 
-<script setup>
-import { useStore } from "vuex";
+<script setup lang="ts">
 import { onMounted } from "vue";
-import APlayer from "aplayer";
-import "aplayer/dist/APlayer.min.css";
-import { getSign } from "@/assets/utils";
+import APlayer from "aplayer-ts";
+import "aplayer-ts/dist/APlayer.min.css";
 import { NGi, NGrid, NResult } from "naive-ui";
-import { getFileInfo } from "@/assets/utils.js";
 
-const store = useStore();
+import { useCounterStore } from "@/stores/counter";
+import { getSign, getFileInfo } from "@/assets/utils";
+
+const counter = useCounterStore();
 
 onMounted(() => {
-  if (store.state.FileCardData.type === "audio") {
+  if (counter.FileCardData.type === "audio") {
     const ap = new APlayer({
-      container: document.getElementById("audioPlayer"),
+      container: document.getElementById("audioPlayer") || undefined,
       audio: [
         {
-          name: getFileInfo(store.state.FileCardData.name).name,
-          url: getSign(store.state.FileCardData.url),
+          name: getFileInfo(counter.FileCardData.name).name,
+          url: getSign(counter.FileCardData.url),
         },
       ],
     });
-    window.$AudioPlayer = ap;
+    (window as any).$AudioPlayer = ap;
   }
 });
 </script>

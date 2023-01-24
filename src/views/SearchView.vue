@@ -27,9 +27,8 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
-import { useStore } from "vuex";
 import {
   NGi,
   NGrid,
@@ -40,12 +39,16 @@ import {
   NDivider,
   NInputGroup,
 } from "naive-ui";
+
 import router from "@/router";
+import { getData } from "@/assets/utils";
 import TagMenu from "@/components/TagMenu.vue";
 import FilesMenu from "@/components/FilesMenu.vue";
-import data from "@/assets/data.json";
+import { useCounterStore } from "@/stores/counter";
+import type { Search_FilesMenuDataType } from "@/types/";
 
-const store = useStore();
+const data = getData();
+const counter = useCounterStore();
 
 const init = () => {
   const KeyWord = new URL(decodeURIComponent(location.href)).searchParams.get(
@@ -65,8 +68,8 @@ const init = () => {
   search(String(KeyWord).toLocaleLowerCase());
 };
 
-const search = (keyword) => {
-  if (keyword === void 0 || keyword === "") {
+const search = (keyword: string | undefined) => {
+  if (keyword === undefined || keyword === "") {
     // 没有搜索关键字
     showErrorEmpty.value = true;
     return;
@@ -75,7 +78,7 @@ const search = (keyword) => {
   showNullEmpty.value = false;
   showErrorEmpty.value = false;
 
-  const searchData = {
+  const searchData: Search_FilesMenuDataType = {
     search: true,
     data: [],
   };
@@ -104,26 +107,15 @@ const search = (keyword) => {
     showNullEmpty.value = true;
   } else {
     // 有搜索结果
-    store.commit("setState", (state) => {
-      state.FilesMenuData = searchData;
-    });
+    counter.FilesMenuData = searchData;
     searchNum.value = searchData.data.length;
   }
 };
 
-const showNullEmpty = ref(false);
-const showErrorEmpty = ref(false);
-// const FilesMenu_data = ref({
-//   hrefHead: "/test",
-//   search: false,
-//   data: [
-//     {
-//       name: "test",
-//     },
-//   ],
-// });
-const searchNum = ref(0);
-const searchValue = ref("");
+const showNullEmpty = ref<boolean>(false);
+const showErrorEmpty = ref<boolean>(false);
+const searchNum = ref<number>(0);
+const searchValue = ref<string>("");
 
 const searchButton = () => {
   search(searchValue.value.toLocaleLowerCase());
