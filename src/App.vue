@@ -2,7 +2,8 @@
   <n-config-provider :locale="zhCN" :theme="darkTheme">
     <n-back-top />
     <div class="container">
-      <div style="text-align: center; margin-top: 15px; margin-bottom: 10px;">
+      <!-- Title -->
+      <div style="text-align: center; margin-top: 15px; margin-bottom: 10px">
         <n-button text @click="router.push(`/`)">
           <n-h1>iPaperClipICU</n-h1>
         </n-button>
@@ -12,8 +13,14 @@
         <n-grid :cols="4" item-responsive>
           <n-gi span="4 425:2 705:1">
             <n-input-group>
-              <n-input v-model:value="searchValue" placeholder="搜索" clearable />
-              <n-button type="primary" @click="searchButtonClick" ghost>搜索</n-button>
+              <n-input
+                v-model:value="searchValue"
+                placeholder="搜索"
+                clearable
+              />
+              <n-button type="primary" @click="searchButtonClick" ghost>
+                搜索
+              </n-button>
             </n-input-group>
           </n-gi>
           <n-gi span="0 425:2 705:3" />
@@ -69,7 +76,7 @@ router.beforeEach((to, from) => {
   const p = from.params.pathMatch;
   if (Array.isArray(p) && getFileInfo(p[p.length - 1]).type !== undefined) {
     clearRubbish();
-  };
+  }
 });
 
 // 搜索
