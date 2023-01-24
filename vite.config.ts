@@ -8,54 +8,65 @@ import { viteObfuscateFile } from "vite-plugin-obfuscator";
 import { createHtmlPlugin } from "vite-plugin-html";
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  envPrefix: ["VITE_", "TencentCDN_"],
-  plugins: [
-    vue(),
-    createHtmlPlugin({
-      minify: true,
-    }),
-    {
-      ...viteObfuscateFile({
-        options: {
-          exclude: ["data.json", "data"],
-          compact: true,
-          controlFlowFlattening: true,
-          controlFlowFlatteningThreshold: 1,
-          deadCodeInjection: true,
-          deadCodeInjectionThreshold: 1,
-          debugProtection: true,
-          debugProtectionInterval: 4000,
-          disableConsoleOutput: true,
-          identifierNamesGenerator: 'hexadecimal',
-          log: false,
-          numbersToExpressions: true,
-          renameGlobals: false,
-          selfDefending: true,
-          simplify: true,
-          splitStrings: true,
-          splitStringsChunkLength: 5,
-          stringArray: true,
-          stringArrayCallsTransform: true,
-          stringArrayEncoding: ['rc4'],
-          stringArrayIndexShift: true,
-          stringArrayRotate: true,
-          stringArrayShuffle: true,
-          stringArrayWrappersCount: 5,
-          stringArrayWrappersChainedCalls: true,
-          stringArrayWrappersParametersMaxCount: 5,
-          stringArrayWrappersType: 'function',
-          stringArrayThreshold: 1,
-          transformObjectKeys: true,
-          unicodeEscapeSequence: false
+export default defineConfig(({ command }) => {
+  const CloudFlareWebAnalytics =
+    command === "serve"
+      ? "" // 开发
+      : `<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a9d6db727c5a4b3483f3bb80358921ed"}'></script>`; // 生产
+  return {
+    envPrefix: ["VITE_", "TencentCDN_"],
+    plugins: [
+      vue(),
+      createHtmlPlugin({
+        minify: true,
+        inject: {
+          data: {
+            CloudFlareWebAnalytics,
+          },
         },
       }),
-      apply: "build",
+      {
+        ...viteObfuscateFile({
+          options: {
+            exclude: ["data.json", "data"],
+            compact: true,
+            controlFlowFlattening: true,
+            controlFlowFlatteningThreshold: 1,
+            deadCodeInjection: true,
+            deadCodeInjectionThreshold: 1,
+            debugProtection: true,
+            debugProtectionInterval: 4000,
+            disableConsoleOutput: true,
+            identifierNamesGenerator: "hexadecimal",
+            log: false,
+            numbersToExpressions: true,
+            renameGlobals: false,
+            selfDefending: true,
+            simplify: true,
+            splitStrings: true,
+            splitStringsChunkLength: 5,
+            stringArray: true,
+            stringArrayCallsTransform: true,
+            stringArrayEncoding: ["rc4"],
+            stringArrayIndexShift: true,
+            stringArrayRotate: true,
+            stringArrayShuffle: true,
+            stringArrayWrappersCount: 5,
+            stringArrayWrappersChainedCalls: true,
+            stringArrayWrappersParametersMaxCount: 5,
+            stringArrayWrappersType: "function",
+            stringArrayThreshold: 1,
+            transformObjectKeys: true,
+            unicodeEscapeSequence: false,
+          },
+        }),
+        apply: "build",
+      },
+    ],
+    resolve: {
+      alias: {
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
+      },
     },
-  ],
-  resolve: {
-    alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-    },
-  },
+  };
 });
