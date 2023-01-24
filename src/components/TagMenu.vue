@@ -30,7 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { NSpace, NButton, NDropdown } from "naive-ui";
 
 import router from "@/router";
