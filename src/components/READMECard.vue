@@ -7,10 +7,6 @@
       <n-a href="https://ipaperclip.icu/" target="_blank">ipaperclip.icu</n-a>
     </n-p>
     <n-p>
-      R.I.P(归档站导航):
-      <n-a href="https://ipaperclip.rip/" target="_blank">ipaperclip.rip</n-a>
-    </n-p>
-    <n-p>
       视频源备份站:
       <n-a href="https://onedrive.ipaperclip.icu/" target="_blank">
         onedrive.ipaperclip.icu
