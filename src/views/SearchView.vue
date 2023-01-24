@@ -1,54 +1,29 @@
 <template>
-  <n-card hoverable>
-    <n-grid :cols="4" item-responsive>
-      <n-gi span="4 425:2 705:1">
-        <n-input-group>
-          <n-input v-model:value="searchValue" placeholder="搜索" clearable />
-          <n-button type="primary" ghost @click="searchButton">搜索</n-button>
-        </n-input-group>
-      </n-gi>
-      <n-gi span="0 425:2 705:3" />
-    </n-grid>
-  </n-card>
-  <div style="margin-top: 15px">
-    <n-card hoverable>
-      <!-- 菜单 -->
-      <TagMenu />
-      <n-divider />
-      <!-- 文件夹 -->
-      <div v-if="!(showErrorEmpty || showNullEmpty)">
-        共找到相关结果 {{ searchNum }} 个
-        <FilesMenu />
-      </div>
-      <!-- Null -->
-      <n-empty v-if="showErrorEmpty" description="请输入关键词" />
-      <n-empty v-if="showNullEmpty" description="找不到和查询相匹配的结果" />
-    </n-card>
+  <!-- 文件夹 -->
+  <div v-if="!(showErrorEmpty || showNullEmpty)">
+    共找到相关结果 {{ searchNum }} 个
+    <FilesMenu />
   </div>
+  <!-- Null -->
+  <n-empty v-if="showErrorEmpty" description="请输入关键词" />
+  <n-empty v-if="showNullEmpty" description="找不到和查询相匹配的结果" />
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import {
-  NGi,
-  NGrid,
-  NCard,
-  NEmpty,
-  NInput,
-  NButton,
-  NDivider,
-  NInputGroup,
-} from "naive-ui";
+import { NEmpty } from "naive-ui";
 
-import router from "@/router";
 import { getData } from "@/assets/utils";
-import TagMenu from "@/components/TagMenu.vue";
 import FilesMenu from "@/components/FilesMenu.vue";
 import { useCounterStore } from "@/stores/counter";
 import type { Search_FilesMenuDataType } from "@/types/";
 
 const data = getData();
 const counter = useCounterStore();
+
+const showNullEmpty = ref<boolean>(false);
+const showErrorEmpty = ref<boolean>(false);
+const searchNum = ref<number>(0);
 
 const init = () => {
   const KeyWord = new URL(decodeURIComponent(location.href)).searchParams.get(
@@ -63,7 +38,6 @@ const init = () => {
     showErrorEmpty.value = true;
     return;
   }
-  searchValue.value = KeyWord;
 
   search(String(KeyWord).toLocaleLowerCase());
 };
@@ -110,16 +84,6 @@ const search = (keyword: string | undefined) => {
     counter.FilesMenuData = searchData;
     searchNum.value = searchData.data.length;
   }
-};
-
-const showNullEmpty = ref<boolean>(false);
-const showErrorEmpty = ref<boolean>(false);
-const searchNum = ref<number>(0);
-const searchValue = ref<string>("");
-
-const searchButton = () => {
-  search(searchValue.value.toLocaleLowerCase());
-  router.push(`/search?s=${searchValue.value}`);
 };
 
 // Run
