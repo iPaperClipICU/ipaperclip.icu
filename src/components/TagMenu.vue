@@ -33,8 +33,8 @@
 import { NSpace, NButton, NDropdown } from "naive-ui";
 
 import router from "@/router";
+import { getData } from "@/assets/utils";
 import { useCounterStore } from "@/stores/counter";
-import { clearRubbish, getData } from "@/assets/utils";
 
 const data = getData();
 const counter = useCounterStore();
@@ -65,8 +65,6 @@ const onClick = async (click: boolean, name: string = "") => {
   if (click) {
     counter.AtPageFilesName = name;
     await router.push(`/${name}`);
-    counter.init();
-    clearRubbish();
   }
 };
 
@@ -75,7 +73,5 @@ const onSelect = async (key: string) => {
 
   await router.push(key[0]);
   counter.AtPageFilesName = key[1];
-  counter.init();
-  clearRubbish();
 };
 </script>

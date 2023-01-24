@@ -120,6 +120,5 @@ const clickButton = async (data: {
   href: string;
 }) => {
   await router.push(data.href);
-  counter.init();
 };
 </script>
