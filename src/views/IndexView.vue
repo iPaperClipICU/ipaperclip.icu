@@ -89,7 +89,7 @@ const init = (): void => {
       for (const i in data.menuData) {
         const md = data.menuData[i] as [string, string[]];
         if (md[0] === filesName) {
-          tagName = md[0];
+          tagName = md[1][0];
           router.push(`/${filesName}/${tagName}`);
         }
       }
