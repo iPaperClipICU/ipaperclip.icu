@@ -26,18 +26,15 @@
           <n-gi span="0 425:2 705:3" />
         </n-grid>
       </n-card>
-      <div style="margin-top: 15px">
-        <n-card hoverable>
-          <!-- 菜单 -->
-          <TagMenu />
-          <n-divider />
-          <router-view />
-        </n-card>
-      </div>
+      <!-- 菜单 -->
+      <n-card hoverable style="margin-top: 15px">
+        <TagMenu />
+      </n-card>
+      <n-card hoverable style="margin-top: 5px">
+        <router-view />
+      </n-card>
       <!-- README -->
-      <div v-if="showREADME" style="margin-top: 15px">
-        <READMECard />
-      </div>
+      <READMECard v-if="showREADME" style="margin-top: 15px" />
     </div>
     <n-global-style />
   </n-config-provider>
@@ -53,7 +50,6 @@ import {
   NInput,
   NButton,
   NBackTop,
-  NDivider,
   NInputGroup,
 } from "naive-ui";
 import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from "naive-ui"; // NaiveUI Config
