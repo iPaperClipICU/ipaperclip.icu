@@ -14,6 +14,9 @@ export default defineConfig(({ command }) => {
       ? "" // 开发
       : `<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a9d6db727c5a4b3483f3bb80358921ed"}'></script>`; // 生产
   return {
+    server: {
+      host: "0.0.0.0",
+    },
     envPrefix: ["VITE_", "TencentCDN_"],
     plugins: [
       vue(),
