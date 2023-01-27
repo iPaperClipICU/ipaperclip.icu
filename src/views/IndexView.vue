@@ -1,4 +1,9 @@
 <template>
+  <n-collapse-transition :show="tag !== false && AtPageType !== 'Home'">
+    <n-h5 prefix="bar" style="margin-bottom: 0px">
+      当前分支: <n-text type="info">{{ tag }}</n-text>
+    </n-h5>
+  </n-collapse-transition>
   <!-- 文件夹 -->
   <FilesMenu v-if="AtPageType === 'Files'" />
   <!-- 文件 -->
@@ -11,7 +16,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { NEmpty } from "naive-ui";
+import { NH5, NText, NEmpty, NCollapseTransition } from "naive-ui";
 
 import router from "@/router";
 import { useCounterStore } from "@/stores/counter";
@@ -22,7 +27,8 @@ import { getFileInfo, getData } from "@/assets/utils.js";
 const data = getData();
 const counter = useCounterStore();
 
-const AtPageType = ref("Home");
+const AtPageType = ref<"Home" | "Files" | "File">("Home");
+const tag = ref<false | string>(false);
 
 /**
  * /
@@ -75,6 +81,7 @@ const init = (url?: string): void => {
         data: tagData,
       };
       counter.AtPageFilesName = filesName;
+      tag.value = tagName;
     } else {
       // /files/tag/file
       AtPageType.value = "File";
@@ -93,6 +100,7 @@ const init = (url?: string): void => {
         url: `https://ipaperclip-file.xodvnm.cn/video/${filesName}/${tagName}/${fileName}`,
       };
       counter.AtPageFilesName = filesName;
+      tag.value = tagName;
     }
   } else {
     // 无Tag
@@ -107,6 +115,7 @@ const init = (url?: string): void => {
         data: filesData,
       };
       counter.AtPageFilesName = filesName;
+      tag.value = false;
     } else {
       // /files/file
       AtPageType.value = "File";
@@ -121,6 +130,7 @@ const init = (url?: string): void => {
         url: `https://ipaperclip-file.xodvnm.cn/video/${filesName}/${fileName}`,
       };
       counter.AtPageFilesName = filesName;
+      tag.value = false;
     }
   }
 };

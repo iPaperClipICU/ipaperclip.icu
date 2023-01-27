@@ -1,4 +1,7 @@
 <template>
+  <n-h5 prefix="bar">
+    文件名: <n-text type="info">{{ counter.FileCardData.name }}</n-text>
+  </n-h5>
   <!-- TODO: 写个视频/音频播放器 -->
   <div v-if="counter.FileCardData.type === 'video'" class="video">
     <video :src="getSign(counter.FileCardData.url)" controls preload="metadata">
@@ -32,7 +35,7 @@
 import { onMounted } from "vue";
 import APlayer from "aplayer-ts";
 import "aplayer-ts/dist/APlayer.min.css";
-import { NGi, NGrid, NResult } from "naive-ui";
+import { NH5, NGi, NText, NGrid, NResult } from "naive-ui";
 
 import { useCounterStore } from "@/stores/counter";
 import { getSign, getFileInfo } from "@/assets/utils";
