@@ -80,7 +80,6 @@ const init = (url?: string): void => {
         hrefHead: `/${filesName}/${tagName}`,
         data: tagData,
       };
-      counter.AtPageFilesName = filesName;
       tag.value = tagName;
     } else {
       // /files/tag/file
@@ -99,7 +98,6 @@ const init = (url?: string): void => {
         name: fileName,
         url: `https://ipaperclip-file.xodvnm.cn/video/${filesName}/${tagName}/${fileName}`,
       };
-      counter.AtPageFilesName = filesName;
       tag.value = tagName;
     }
   } else {
@@ -114,7 +112,6 @@ const init = (url?: string): void => {
         hrefHead: `/${filesName}`,
         data: filesData,
       };
-      counter.AtPageFilesName = filesName;
       tag.value = false;
     } else {
       // /files/file
@@ -129,7 +126,6 @@ const init = (url?: string): void => {
         name: fileName,
         url: `https://ipaperclip-file.xodvnm.cn/video/${filesName}/${fileName}`,
       };
-      counter.AtPageFilesName = filesName;
       tag.value = false;
     }
   }

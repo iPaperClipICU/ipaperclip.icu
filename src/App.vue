@@ -1,41 +1,30 @@
 <template>
   <n-config-provider :locale="zhCN" :theme="darkTheme">
     <n-back-top />
-    <div class="container">
-      <!-- Title -->
-      <div style="text-align: center; margin-top: 15px; margin-bottom: 10px">
-        <n-button text @click="router.push(`/`)">
-          <n-h1>iPaperClipICU</n-h1>
-        </n-button>
-      </div>
-      <!-- 搜索 -->
-      <n-card hoverable>
-        <n-grid :cols="4" item-responsive>
-          <n-gi span="4 425:2 705:1">
-            <n-input-group>
-              <n-input
-                v-model:value="searchValue"
-                placeholder="搜索"
-                clearable
-              />
-              <n-button type="primary" @click="searchButtonClick" ghost>
-                搜索
-              </n-button>
-            </n-input-group>
-          </n-gi>
-          <n-gi span="0 425:2 705:3" />
-        </n-grid>
-      </n-card>
-      <!-- 菜单 -->
-      <n-card hoverable style="margin-top: 15px">
-        <TagMenu />
-      </n-card>
-      <n-card hoverable style="margin-top: 5px">
-        <router-view />
-      </n-card>
-      <!-- README -->
-      <READMECard v-if="showREADME" style="margin-top: 15px" />
-    </div>
+    <n-layout position="absolute">
+      <n-layout-header
+        bordered
+        class="navigation"
+        style="height: var(--header-height)"
+      >
+        <HeadView
+          @change-padding="(key: string) => navigationCSS_padding = key"
+        />
+      </n-layout-header>
+      <n-layout-content
+        :native-scrollbar="false"
+        style="top: var(--header-height)"
+        position="absolute"
+      >
+        <div class="container">
+          <n-card hoverable style="margin-top: 15px">
+            <router-view />
+          </n-card>
+          <!-- README -->
+          <READMECard v-if="showREADME" style="margin-top: 15px" />
+        </div>
+      </n-layout-content>
+    </n-layout>
     <n-global-style />
   </n-config-provider>
 </template>
@@ -43,24 +32,21 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import {
-  NGi,
-  NH1,
   NCard,
-  NGrid,
-  NInput,
-  NButton,
+  NLayout,
   NBackTop,
-  NInputGroup,
+  NLayoutHeader,
+  NLayoutContent,
 } from "naive-ui";
 import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from "naive-ui"; // NaiveUI Config
 
 import router from "@/router";
 import { clearRubbish, getFileInfo } from "@/assets/utils.js";
-import TagMenu from "./components/TagMenu.vue";
+import HeadView from "@/components/HeadView.vue";
 import READMECard from "./components/READMECard.vue";
 
-const searchValue = ref<string>("");
 const showREADME = ref<boolean>(true);
+const navigationCSS_padding = ref<string>("32px");
 
 // 判断是否显示 README
 router.beforeEach((to) => {
@@ -74,18 +60,21 @@ router.beforeEach((to, from) => {
     clearRubbish();
   }
 });
-
-// 搜索
-const searchButtonClick = (e: MouseEvent) => {
-  e.preventDefault();
-  router.push(`/search?s=${searchValue.value}`);
-};
 </script>
 
 <style>
+body {
+  --header-height: 64px;
+}
+
+.navigation {
+  display: flex;
+  padding: 0 v-bind(navigationCSS_padding);
+}
+
 .container {
   max-width: 1055px;
-  padding: 15px 15px;
+  padding: 0 15px;
   margin: 0 auto;
 }
 </style>
