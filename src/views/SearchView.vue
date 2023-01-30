@@ -1,9 +1,9 @@
 <template>
   <!-- 文件夹 -->
-  <div v-if="!(showErrorEmpty || showNullEmpty)">
-    共找到相关结果 {{ searchNum }} 个
-    <FilesMenu />
+  <div v-if="!showErrorEmpty">
+    关键词: {{ searchKeyWord }}, 共找到相关结果 {{ searchNum }} 个
   </div>
+  <FilesMenu v-if="!(showErrorEmpty || showNullEmpty)" />
   <!-- Null -->
   <n-empty v-if="showErrorEmpty" description="请输入关键词" />
   <n-empty v-if="showNullEmpty" description="找不到和查询相匹配的结果" />
@@ -13,6 +13,7 @@
 import { ref } from "vue";
 import { NEmpty } from "naive-ui";
 
+import router from "@/router";
 import { getData } from "@/assets/utils";
 import FilesMenu from "@/components/FilesMenu.vue";
 import { useCounterStore } from "@/stores/counter";
@@ -24,6 +25,7 @@ const counter = useCounterStore();
 const showNullEmpty = ref<boolean>(false);
 const showErrorEmpty = ref<boolean>(false);
 const searchNum = ref<number>(0);
+const searchKeyWord = ref<string>("");
 
 const init = () => {
   const KeyWord = new URL(decodeURIComponent(location.href)).searchParams.get(
@@ -39,8 +41,14 @@ const init = () => {
     return;
   }
 
+  searchKeyWord.value = KeyWord;
+
   search(String(KeyWord).toLocaleLowerCase());
 };
+
+router.afterEach((to, from) => {
+  if (from.name === "Search" && to.name === "Search") init();
+});
 
 const search = (keyword: string | undefined) => {
   if (keyword === undefined || keyword === "") {
@@ -78,6 +86,7 @@ const search = (keyword: string | undefined) => {
 
   if (searchData.data.length === 0) {
     // 没有搜索结果
+    searchNum.value = 0;
     showNullEmpty.value = true;
   } else {
     // 有搜索结果
@@ -85,7 +94,5 @@ const search = (keyword: string | undefined) => {
     searchNum.value = searchData.data.length;
   }
 };
-
-// Run
 init();
 </script>

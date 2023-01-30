@@ -1,80 +1,116 @@
 <template>
-  <n-space justify="center" :size="30">
-    <div v-for="(item, index) in data.menuData" :key="index">
-      <n-dropdown
-        v-if="item.length === 2"
-        trigger="hover"
-        :options="getDropdownOptions(item)"
-        @select="onSelect"
-      >
-        <n-button
-          :text="true"
-          size="large"
-          :type="getButtonType(counter.AtPageFilesName === item[0])"
-          @click="onClick(false)"
-        >
-          {{ item[0] }}
-        </n-button>
-      </n-dropdown>
-      <n-button
-        v-else
-        :text="true"
-        size="large"
-        :type="getButtonType(counter.AtPageFilesName === item[0])"
-        @click="onClick(true, item[0])"
-      >
-        {{ item[0] }}
-      </n-button>
-    </div>
-  </n-space>
+  <div v-if="props.mode === undefined || props.mode === 'PC'">
+    <n-menu
+      mode="horizontal"
+      v-model:value="menuValue"
+      :options="menuOptions"
+      @update:value="ValueChange"
+    />
+  </div>
+  <div v-if="props.mode === 'Mobile'">
+    <n-scrollbar style="max-height: 400px" trigger="none">
+      <n-menu
+        v-model:value="menuValue"
+        :options="menuOptions"
+        @update:value="ValueChange"
+      />
+    </n-scrollbar>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { NSpace, NButton, NDropdown } from "naive-ui";
+import { RouterLink } from "vue-router";
+import { h, ref, type PropType } from "vue";
+import { NMenu, NScrollbar, type MenuOption } from "naive-ui";
 
 import router from "@/router";
 import { getData } from "@/assets/utils";
-import { useCounterStore } from "@/stores/counter";
+
+const props = defineProps({
+  mode: {
+    type: String as PropType<"PC" | "Mobile">,
+  },
+});
+const emit = defineEmits<{
+  (e: "change", key: string): void;
+}>();
 
 const data = getData();
-const counter = useCounterStore();
+
+const menuValue = ref<string | null>(null);
+const menuOptions: MenuOption[] = [
+  // {
+  //   label: () =>
+  //     h(
+  //       RouterLink,
+  //       {
+  //         to: "/",
+  //       },
+  //       { default: () => "主页" }
+  //     ),
+  //   key: "Home",
+  // },
+  // {
+  //   label: "关于",
+  //   children: [
+  //     {
+  //       label: "饮品",
+  //       key: "beverage",
+  //     },
+  //   ],
+  //   key: "About",
+  // },
+];
 
 router.beforeEach((to) => {
   const p = to.params.pathMatch;
-  if (p === undefined || p === "") counter.AtPageFilesName = "";
+  if (p === undefined || p === "") menuValue.value = null;
 });
 
-const getDropdownOptions = (data: [string, string[]]) => {
-  const options = [];
-  for (const i in data[1]) {
-    options.push({
-      label: data[1][i],
-      key: JSON.stringify([`/${data[0]}/${data[1][i]}`, data[0]]),
-    });
+const ValueChange = (key: string) => {
+  emit("change", key);
+};
+
+const main = () => {
+  for (const i of data.menuData) {
+    const name = i[0];
+
+    if (i[1] !== undefined) {
+      // 有 tag
+      const children = [];
+      for (const tag of i[1]) {
+        children.push({
+          label: () =>
+            h(RouterLink, { to: `/${name}/${tag}` }, { default: () => tag }),
+          key: `${name}/${tag}`,
+        });
+      }
+
+      menuOptions.push({
+        label: name,
+        key: name,
+        children,
+      });
+    } else {
+      // 无 tag
+      menuOptions.push({
+        label: () => h(RouterLink, { to: `/${name}` }, { default: () => name }),
+        key: name,
+      });
+    }
   }
-
-  return options;
+  menuValue.value = (() => {
+    const paths = location.pathname.split("/");
+    const filesName = paths[1];
+    const tagName = paths[2];
+    if (filesName === "" || filesName === undefined) {
+      return null;
+    } else if (tagName !== undefined) {
+      return decodeURIComponent(`${filesName}/${tagName}`);
+    } else {
+      return decodeURIComponent(`${filesName}`);
+    }
+  })();
 };
-
-const getButtonType = (at: boolean) => {
-  if (at) {
-    return "primary";
-  } else {
-    return "default";
-  }
-};
-
-const onClick = async (click: boolean, name: string = "") => {
-  if (click) {
-    counter.AtPageFilesName = name;
-    await router.push(`/${name}`);
-  }
-};
-
-const onSelect = async (key: string) => {
-  key = JSON.parse(key);
-
-  await router.push(key[0]);
-  counter.AtPageFilesName = key[1];
-};
+main();
 </script>
