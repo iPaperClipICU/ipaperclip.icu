@@ -14,6 +14,7 @@
     <n-select
       v-else-if="showData.tag === 'select'"
       style="width: 295px"
+      :menu-props="{ class: 'tag-select' }"
       v-model:value="selectValue"
       v-model:show="selectShow"
       :options="[]"
@@ -144,11 +145,11 @@ pageSizeChange();
 </script>
 
 <style>
-.n-select-menu {
+.tag-select {
   width: 295px !important;
 }
 
-.n-select-menu .n-base-select-menu__empty {
+.tag-select .n-base-select-menu__empty {
   display: block !important;
   padding: 0 !important;
 }
