@@ -96,7 +96,7 @@ const init = (url?: string): void => {
       counter.FileCardData = {
         type: getFileInfo(fileName).type,
         name: fileName,
-        url: `https://ipaperclip-file.xodvnm.cn/video/${filesName}/${tagName}/${fileName}`,
+        url: `video/${filesName}/${tagName}/${fileName}`,
       };
       tag.value = tagName;
     }
@@ -124,7 +124,7 @@ const init = (url?: string): void => {
       counter.FileCardData = {
         type: getFileInfo(fileName).type,
         name: fileName,
-        url: `https://ipaperclip-file.xodvnm.cn/video/${filesName}/${fileName}`,
+        url: `video/${filesName}/${fileName}`,
       };
       tag.value = false;
     }
