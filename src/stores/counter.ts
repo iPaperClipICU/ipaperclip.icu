@@ -6,8 +6,7 @@ import type {
 } from "@/types/";
 
 interface State {
-  init: () => void;
-  AtPageFilesName: string;
+  CDNDomain: string;
   FilesMenuData: FilesMenuDataType | Search_FilesMenuDataType;
   FileCardData: {
     type: FileTypeT;
@@ -18,8 +17,17 @@ interface State {
 
 export const useCounterStore = defineStore("counter", {
   state: (): State => ({
-    init: () => {},
-    AtPageFilesName: "",
+    CDNDomain: (() => {
+      const CDNDomainList = [
+        "https://ipaperclip-file.xodvnm.cn",
+        "https://cf.ipaperclip-icu.cyou",
+      ];
+      const local = localStorage.getItem("CDNDomain");
+      if (local === null || !CDNDomainList.includes(local)) {
+        localStorage.setItem("CDNDomain", CDNDomainList[0]);
+        return CDNDomainList[0];
+      } else return local;
+    })(),
     FilesMenuData: {
       search: false,
       hrefHead: "",
