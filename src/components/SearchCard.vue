@@ -13,6 +13,7 @@
       inputInstRef?.blur();
     "
     ref="inputInstRef"
+    v-model:value="searchValue"
   >
     <template #prefix>
       <n-icon>
@@ -37,7 +38,12 @@
     :bordered="false"
   >
     <n-input-group>
-      <n-input placeholder="搜索" clearable v-model:value="searchValue" />
+      <n-input
+        clearable
+        placeholder="搜索"
+        ref="searchInputInstRef"
+        v-model:value="searchValue"
+      />
       <n-button ghost type="primary" @click="searchButtonClick">
         搜索
       </n-button>
@@ -46,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type PropType } from "vue";
+import { ref, watchEffect, type PropType } from "vue";
 import {
   NIcon,
   NInput,
@@ -55,6 +61,7 @@ import {
   NInputGroup,
   type InputInst,
 } from "naive-ui";
+import tinykeys from "tinykeys";
 
 import router from "@/router";
 import SearchICON from "@/ICON/SearchICON.vue";
@@ -66,6 +73,7 @@ const props = defineProps({
 });
 
 const inputInstRef = ref<InputInst | null>(null);
+const searchInputInstRef = ref<InputInst | null>(null);
 const os: "Mobile" | "Mac" | "Other" = (() => {
   const userAgent = window.navigator.userAgent;
 
@@ -89,6 +97,18 @@ const searchValue = ref<string>(
 
 router.beforeEach((to) => {
   if (to.name !== "Search") searchValue.value = "";
+});
+watchEffect(() => {
+  if (searchInputInstRef.value !== null && showModal.value === true) {
+    searchInputInstRef.value.focus();
+  }
+});
+tinykeys(window, {
+  "$mod+KeyK": (e) => {
+    showModal.value = true;
+    e.preventDefault();
+    searchInputInstRef.value?.focus();
+  },
 });
 
 // 搜索
