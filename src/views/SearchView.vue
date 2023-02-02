@@ -1,8 +1,6 @@
 <template>
   <!-- 文件夹 -->
-  <div v-if="!showErrorEmpty">
-    关键词: {{ searchKeyWord }}, 共找到相关结果 {{ searchNum }} 个
-  </div>
+  <div v-if="!showErrorEmpty">共找到相关结果 {{ searchNum }} 个</div>
   <FilesMenu v-if="!(showErrorEmpty || showNullEmpty)" />
   <!-- Null -->
   <n-empty v-if="showErrorEmpty" description="请输入关键词" />
@@ -25,7 +23,6 @@ const counter = useCounterStore();
 const showNullEmpty = ref<boolean>(false);
 const showErrorEmpty = ref<boolean>(false);
 const searchNum = ref<number>(0);
-const searchKeyWord = ref<string>("");
 
 const init = () => {
   const KeyWord = new URL(decodeURIComponent(location.href)).searchParams.get(
@@ -40,8 +37,6 @@ const init = () => {
     showErrorEmpty.value = true;
     return;
   }
-
-  searchKeyWord.value = KeyWord;
 
   search(String(KeyWord).toLocaleLowerCase());
 };
