@@ -24,7 +24,12 @@
       </template>
     </n-select>
   </div>
-  <div class="search">
+  <div
+    class="search"
+    :style="{
+      '--search-card-flex-grow': showData.search === 'PC' ? '1' : '30',
+    }"
+  >
     <SearchCard :mode="showData.search" />
   </div>
   <div
@@ -80,11 +85,11 @@ const searchCSS_justify_content = ref<"flex-end" | "center">("flex-end");
 const showData = ref<{
   siteName: boolean;
   tag: "menu" | "select" | "popover";
-  search: "ALL" | "OnlyButton" | "OnlyInput";
+  search: "PC" | "Mobile";
 }>({
   siteName: true,
   tag: "menu",
-  search: "ALL",
+  search: "PC",
 });
 
 window.addEventListener("resize", function () {
@@ -106,32 +111,25 @@ const pageSizeChange = () => {
   const tmp: {
     siteName: boolean;
     tag: "menu" | "select" | "popover";
-    search: "ALL" | "OnlyButton" | "OnlyInput";
+    search: "PC" | "Mobile";
   } = {
     siteName: true,
     tag: "menu",
-    search: "ALL",
+    search: "PC",
   };
-  if (pageWidth.value < 1330) {
+  if (pageWidth.value < 1258) {
     tmp.siteName = false;
   }
-  if (pageWidth.value < 1220) {
-    tmp.search = "OnlyButton";
-  }
-  if (pageWidth.value < 1025) {
+  if (pageWidth.value < 1140) {
     tmp.tag = "select";
     tmp.siteName = true;
-    tmp.search = "ALL";
   }
-  if (pageWidth.value < 760) {
+  if (pageWidth.value < 695) {
     tmp.siteName = false;
   }
-  if (pageWidth.value < 650) {
-    tmp.search = "OnlyButton";
-  }
-  if (pageWidth.value < 460) {
+  if (pageWidth.value < 575) {
+    tmp.search = "Mobile";
     tmp.tag = "popover";
-    tmp.search = "OnlyInput";
     emit("changePadding", "10px");
     searchCSS_justify_content.value = "center";
   } else {
@@ -156,7 +154,7 @@ pageSizeChange();
 
 .search {
   display: flex;
-  flex-grow: 1;
+  flex-grow: var(--search-card-flex-grow);
   align-items: center;
   justify-content: v-bind(searchCSS_justify_content);
 }

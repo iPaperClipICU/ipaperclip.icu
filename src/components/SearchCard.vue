@@ -1,25 +1,33 @@
 <template>
-  <div
-    v-if="props.mode === undefined || props.mode === 'ALL'"
-    style="width: 250px; height: 34px"
-  >
-    <n-input-group>
-      <n-input placeholder="搜索" clearable v-model:value="searchValue" />
-      <n-button type="primary" ghost @click="searchButtonClick">
-        搜索
-      </n-button>
-    </n-input-group>
-  </div>
   <n-input
-    v-else-if="props.mode !== 'OnlyButton'"
-    placeholder="搜索"
-    clearable
-    v-model:value="searchValue"
-    @click="showModal = true"
-  />
-  <n-button v-else type="primary" ghost @click="showModal = true">
-    搜索
-  </n-button>
+    class="search-input"
+    :style="{
+      width: `${props.mode === 'PC' ? '172px' : '100%'}`,
+      height: '34px',
+    }"
+    round
+    readonly
+    placeholder="搜索..."
+    @click="
+      showModal = true;
+      inputInstRef?.blur();
+    "
+    ref="inputInstRef"
+  >
+    <template #prefix>
+      <n-icon>
+        <SearchICON />
+      </n-icon>
+    </template>
+    <template #suffix>
+      <div v-if="os !== 'Mobile'" style="display: flex; align-items: center">
+        <div class="search-input-suffix-item">
+          {{ os === "Mac" ? "⌘" : "Ctrl" }}
+        </div>
+        <div class="search-input-suffix-item" style="margin-left: 4px">K</div>
+      </div>
+    </template>
+  </n-input>
   <n-modal
     v-model:show="showModal"
     preset="card"
@@ -39,16 +47,33 @@
 
 <script setup lang="ts">
 import { ref, type PropType } from "vue";
-import { NInputGroup, NInput, NButton, NModal } from "naive-ui";
+import {
+  NIcon,
+  NInput,
+  NModal,
+  NButton,
+  NInputGroup,
+  type InputInst,
+} from "naive-ui";
 
 import router from "@/router";
+import SearchICON from "@/ICON/SearchICON.vue";
 
 const props = defineProps({
   mode: {
-    type: String as PropType<"ALL" | "OnlyInput" | "OnlyButton">,
+    type: String as PropType<"PC" | "Mobile">,
   },
 });
 
+const inputInstRef = ref<InputInst | null>(null);
+const os: "Mobile" | "Mac" | "Other" = (() => {
+  const userAgent = window.navigator.userAgent;
+
+  if (userAgent.indexOf("iPhone") > -1 || userAgent.indexOf("Mobile") > -1)
+    return "Mobile";
+  else if (userAgent.indexOf("Mac OS") > -1) return "Mac";
+  else return "Other";
+})();
 const showModal = ref<boolean>(false);
 const searchValue = ref<string>(
   (() => {
@@ -73,3 +98,19 @@ const searchButtonClick = (e: MouseEvent) => {
   router.push(`/search?s=${searchValue.value}`);
 };
 </script>
+
+<style>
+.n-input.search-input .n-input__input-el,
+.n-input.search-input {
+  cursor: default;
+}
+
+.search-input-suffix-item {
+  line-height: 1rem;
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  color: rgb(99, 226, 183);
+  background-color: rgba(99, 226, 183, 0.16);
+}
+</style>
