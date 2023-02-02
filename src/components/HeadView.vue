@@ -62,6 +62,7 @@ import TagMenu from "@/components/TagMenu.vue";
 
 const emit = defineEmits<{
   (e: "changePadding", key: string): void; // 32px
+  (e: "setTag", key: boolean): void;
 }>();
 
 const selectValue = ref<string | null>(
@@ -84,7 +85,7 @@ const pageWidth = ref<number>(window.innerWidth); // 可视区域宽度
 const searchCSS_justify_content = ref<"flex-end" | "center">("flex-end");
 const showData = ref<{
   siteName: boolean;
-  tag: "menu" | "select" | "popover";
+  tag: "menu" | null | "select" | "popover";
   search: "PC" | "Mobile";
 }>({
   siteName: true,
@@ -110,7 +111,7 @@ const TagChange = (key: string) => {
 const pageSizeChange = () => {
   const tmp: {
     siteName: boolean;
-    tag: "menu" | "select" | "popover";
+    tag: "menu" | null | "select" | "popover";
     search: "PC" | "Mobile";
   } = {
     siteName: true,
@@ -121,8 +122,11 @@ const pageSizeChange = () => {
     tmp.siteName = false;
   }
   if (pageWidth.value < 1140) {
-    tmp.tag = "select";
+    tmp.tag = null;
     tmp.siteName = true;
+  }
+  if (pageWidth.value < 945) {
+    tmp.tag = "select";
   }
   if (pageWidth.value < 695) {
     tmp.siteName = false;
@@ -137,6 +141,7 @@ const pageSizeChange = () => {
     emit("changePadding", "32px");
     searchCSS_justify_content.value = "flex-end";
   }
+  emit("setTag", tmp.tag === null);
   showData.value = tmp;
 };
 pageSizeChange();
