@@ -3,10 +3,20 @@
     v-if="showData.siteName"
     class="siteLogo siteName"
     @click="router.push('/')"
+    :style="{
+      'flex-grow': showData.search === 'PC' ? 1 : 2,
+    }"
   >
     iPaperClipICU
   </span>
-  <div v-else class="siteLogo" @click="router.push('/')">
+  <div
+    v-else
+    class="siteLogo"
+    :style="{
+      'flex-grow': showData.search === 'PC' ? 1 : 2,
+    }"
+    @click="router.push('/')"
+  >
     <img style="width: 32px; height: 32px" src="/favicon.png" />
   </div>
   <div class="tag" v-if="showData.tag !== 'popover'">
@@ -27,13 +37,16 @@
   <div
     class="search"
     :style="{
-      '--search-card-flex-grow': showData.search === 'PC' ? '1' : '30',
+      'flex-grow': showData.search === 'PC' ? 1 : 30,
     }"
   >
     <SearchCard :mode="showData.search" />
   </div>
   <div
     class="tag"
+    :style="{
+      'flex-grow': showData.search === 'PC' ? 1 : 2,
+    }"
     id="tag-popover"
     style="justify-content: flex-end"
     v-if="showData.tag === 'popover'"
@@ -159,7 +172,6 @@ pageSizeChange();
 
 .search {
   display: flex;
-  flex-grow: var(--search-card-flex-grow);
   align-items: center;
   justify-content: v-bind(searchCSS_justify_content);
 }
