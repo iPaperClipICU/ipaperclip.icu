@@ -32,19 +32,28 @@
   <n-modal
     v-model:show="showModal"
     preset="card"
-    style="width: 425px"
-    title="搜索"
     size="huge"
-    :bordered="false"
+    style="width: 425px; margin-top: 48px"
+    hoverable
+    :closable="false"
+    @update:show="(value: boolean) => { if (!value) unbindKeyEnter() }"
   >
     <n-input-group>
       <n-input
+        size="large"
         clearable
-        placeholder="搜索"
+        placeholder="请输入关键词"
         ref="searchInputInstRef"
         v-model:value="searchValue"
-      />
-      <n-button ghost type="primary" @click="searchButtonClick">
+        @focus="bindKeyEnter"
+      >
+        <template #prefix>
+          <n-icon>
+            <SearchICON />
+          </n-icon>
+        </template>
+      </n-input>
+      <n-button ghost type="primary" size="large" @click="searchButtonClick">
         搜索
       </n-button>
     </n-input-group>
@@ -111,10 +120,22 @@ tinykeys(window, {
   },
 });
 
+let unEnterTinyKeys: null | Function = null;
+const unbindKeyEnter = () => {
+  unEnterTinyKeys && unEnterTinyKeys();
+};
+const bindKeyEnter = () => {
+  unEnterTinyKeys = tinykeys(window, {
+    Enter: () => {
+      searchButtonClick();
+    },
+  });
+};
+
 // 搜索
-const searchButtonClick = (e: MouseEvent) => {
-  e.preventDefault();
+const searchButtonClick = () => {
   showModal.value = false;
+  unbindKeyEnter();
   router.push(`/search?s=${searchValue.value}`);
 };
 </script>
