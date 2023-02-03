@@ -69,11 +69,11 @@
       |
       <n-a href="https://jibencaozuo.com/" target="_blank">基本操作</n-a>
     </n-p>
-    <!-- <n-h2>R.I.P</n-h2>
+    <n-h2>R.I.P</n-h2>
     <n-grid :cols="201" item-responsive>
       <n-gi span="100">
         <img
-          :src="getSign('https://ipaperclip-file.xodvnm.cn/image/RIP/rip1.webp')"
+          :src="https://r2.ipaperclip-icu.cyou/rip1.webp"
           alt="rip1"
           loading="lazy"
           style="width: 100%"
@@ -82,13 +82,13 @@
       <n-gi span="1" />
       <n-gi span="100">
         <img
-          :src="getSign('https://ipaperclip-file.xodvnm.cn/image/RIP/rip2.webp')"
+          :src="https://r2.ipaperclip-icu.cyou/rip2.webp"
           alt="rip2"
           loading="lazy"
           style="width: 100%"
         />
       </n-gi>
-    </n-grid> -->
+    </n-grid>
     <!-- <n-alert type="info" :show-icon="false">
       <n-p>
         本站点建立之初单纯就是为了站长本人能有个观看回形针PaperClip视频的地方，不管用不用魔法都可以流畅的观看，目前看来已经实现了

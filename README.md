@@ -15,12 +15,11 @@
 ## 网站
 
 视频、文字稿归档: [ipaperclip.icu](https://ipaperclip.icu/)  
-视频源备份站: [onedrive.ipaperclip.icu](https://onedrive.ipaperclip.icu/)  
-R.I.P(归档站导航): [ipaperclip.rip](https://ipaperclip.rip/)
+视频源备份站: [onedrive.ipaperclip.icu](https://onedrive.ipaperclip.icu/)
 
 ## 联系我
 
-[Telegram 通知频道](https://t.me/iPaperClipICU) | [Telegram Bot](https://t.me/ipaperclipIcu_Bot) | [Github Discussions](https://github.com/ipaperclip-icu/ipaperclip.icu/discussions) | Mail: <a href="mailto:hi@ipaperclip.icu">hi@ipaperclip.icu</a>
+[Telegram 通知频道](https://t.me/iPaperClipICU) | [Telegram Bot](https://t.me/https://t.me/iPaperClipICUChatBot) | [Github Discussions](https://github.com/iPaperClipICU/ipaperclip.icu/discussions) | Mail: <a href="mailto:hi@ipaperclip.icu">hi@ipaperclip.icu</a>
 
 ## 相关链接
 
