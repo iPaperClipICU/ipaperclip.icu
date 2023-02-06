@@ -14,7 +14,7 @@
   "dependencies": {
     "js-md5": "^0.7.3",
     "nanoid": "^4.0.0",
-    "pinia": "^2.0.29",
+    "pinia": "^2.0.30",
     "tinykeys": "^1.4.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
