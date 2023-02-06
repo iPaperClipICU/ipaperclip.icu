@@ -16,7 +16,7 @@
     "nanoid": "^4.0.0",
     "pinia": "^2.0.29",
     "tinykeys": "^1.4.0",
-    "vue": "^3.2.45",
+    "vue": "^3.2.47",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
