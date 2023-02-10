@@ -24,6 +24,12 @@ export type FilesMenuDataType = {
   }[][];
 };
 
+export type FileCardDataType = {
+  fileName: string;
+  fileType: FileTypes;
+  fileUrl: string;
+};
+
 export type FilesMenuDataType = {
   search: false;
   hrefHead: string;
