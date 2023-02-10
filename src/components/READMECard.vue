@@ -101,7 +101,7 @@
 </template>
 
 <script setup lang="ts">
-import { NA, NP, NH2, NCard, NDivider } from "naive-ui";
+import { NA, NP, NH2, NCard, NDivider, NGrid, NGi } from "naive-ui";
 </script>
 
 <style>
