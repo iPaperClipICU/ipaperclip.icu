@@ -38,33 +38,15 @@ const emit = defineEmits<{
 const data = getData();
 
 const menuValue = ref<string | null>(null);
-const menuOptions: MenuOption[] = [
-  // {
-  //   label: () =>
-  //     h(
-  //       RouterLink,
-  //       {
-  //         to: "/",
-  //       },
-  //       { default: () => "主页" }
-  //     ),
-  //   key: "Home",
-  // },
-  // {
-  //   label: "关于",
-  //   children: [
-  //     {
-  //       label: "饮品",
-  //       key: "beverage",
-  //     },
-  //   ],
-  //   key: "About",
-  // },
-];
+const menuOptions: MenuOption[] = [];
 
-router.beforeEach((to) => {
-  const p = to.params.pathMatch;
-  if (p === undefined || p === "") menuValue.value = null;
+router.afterEach(() => {
+  const paths = decodeURIComponent(location.pathname).split("/");
+  const filesName = String(paths[1]);
+  const tagName = String(paths[2]);
+
+  if (Array.isArray(data.data[filesName])) menuValue.value = `${filesName}`;
+  else menuValue.value = `${filesName}/${tagName}`;
 });
 
 const ValueChange = (key: string) => {
@@ -99,18 +81,6 @@ const main = () => {
       });
     }
   }
-  menuValue.value = (() => {
-    const paths = location.pathname.split("/");
-    const filesName = paths[1];
-    const tagName = paths[2];
-    if (filesName === "" || filesName === undefined) {
-      return null;
-    } else if (tagName !== undefined) {
-      return decodeURIComponent(`${filesName}/${tagName}`);
-    } else {
-      return decodeURIComponent(`${filesName}`);
-    }
-  })();
 };
 main();
 </script>

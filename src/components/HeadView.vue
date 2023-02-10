@@ -69,6 +69,7 @@ import { ref } from "vue";
 import { NIcon, NPopover, NSelect } from "naive-ui";
 
 import router from "@/router";
+import { getData } from "@/assets/utils";
 import SearchCard from "./SearchCard.vue";
 import MenuICON from "@/ICON/MenuICON.vue";
 import TagMenu from "@/components/TagMenu.vue";
@@ -78,20 +79,9 @@ const emit = defineEmits<{
   (e: "setTag", key: boolean): void;
 }>();
 
-const selectValue = ref<string | null>(
-  (() => {
-    const paths = location.pathname.split("/");
-    const filesName = paths[1];
-    const tagName = paths[2];
-    if (filesName === "" || filesName === undefined) {
-      return null;
-    } else if (tagName !== undefined) {
-      return decodeURIComponent(`${filesName}/${tagName}`);
-    } else {
-      return decodeURIComponent(`${filesName}`);
-    }
-  })()
-);
+const data = getData();
+
+const selectValue = ref<string | null>(null);
 const selectShow = ref<boolean | undefined>(undefined); // 是否显示 select
 const popoverRef = ref<any>(null);
 const pageWidth = ref<number>(window.innerWidth); // 可视区域宽度
@@ -110,9 +100,17 @@ window.addEventListener("resize", function () {
   pageWidth.value = this.window.innerWidth;
   pageSizeChange();
 });
-router.beforeEach((to) => {
-  const p = to.params.pathMatch;
-  if (p === undefined || p === "") selectValue.value = null;
+router.afterEach((to) => {
+  if (to.name === "Home" || to.name === "Search") {
+    selectValue.value = null;
+    return;
+  }
+  const paths = decodeURIComponent(location.pathname).split("/");
+  const filesName = String(paths[1]);
+  const tagName = String(paths[2]);
+
+  if (Array.isArray(data.data[filesName])) selectValue.value = `${filesName}`;
+  else selectValue.value = `${filesName}/${tagName}`;
 });
 
 const TagChange = (key: string) => {

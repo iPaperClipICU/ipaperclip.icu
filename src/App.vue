@@ -27,11 +27,7 @@
         position="absolute"
       >
         <div class="container">
-          <n-card hoverable style="margin-top: 15px">
-            <router-view />
-          </n-card>
-          <!-- README -->
-          <READMECard v-if="showREADME" style="margin-top: 15px" />
+          <router-view />
         </div>
       </n-layout-content>
     </n-layout>
@@ -42,7 +38,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import {
-  NCard,
   NLayout,
   NBackTop,
   NLayoutHeader,
@@ -53,9 +48,8 @@ import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from "naive-ui"; // Na
 
 import router from "@/router";
 import { clearRubbish, getFileInfo } from "@/assets/utils.js";
-import TagMenu from "./components/TagMenu.vue";
+import TagMenu from "@/components/TagMenu.vue";
 import HeadView from "@/components/HeadView.vue";
-import READMECard from "./components/READMECard.vue";
 
 const showTag = ref<boolean>(false);
 const showREADME = ref<boolean>(true);
@@ -95,6 +89,6 @@ router.beforeEach((to, from) => {
 .container {
   max-width: 1055px;
   padding: 0 15px;
-  margin: 0 auto;
+  margin: 15px auto;
 }
 </style>
