@@ -64,7 +64,7 @@ const search = (keyword: string | undefined) => {
     if (fileName.toLocaleLowerCase().indexOf(keyword) != -1) {
       const [filesName, tagName] = data.searchData[fileName];
       const fileInfo = getFileInfo(fileName);
-      if (tagName !== undefined) {
+      if (tagName !== null) {
         // 有Tag
         searchData.push({
           name: `[${filesName}/${tagName}] ${fileInfo.name}`,

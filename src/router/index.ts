@@ -61,7 +61,7 @@ for (const i of data.menuData) {
 for (const fileName in data.searchData) {
   const [filesName, tagName] = data.searchData[fileName];
 
-  if (tagName === undefined) {
+  if (tagName === null) {
     // 无 Tag
     routes.push({
       path: `/${filesName}/${fileName}`,

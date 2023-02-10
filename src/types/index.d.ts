@@ -3,7 +3,7 @@
  */
 export type DataType = {
   menuData: ([string] | [string, string[]])[];
-  searchData: { [key: string]: [string, string] };
+  searchData: { [key: string]: [string, string | null, string | null] };
   data: {
     [key: string]:
       | {
