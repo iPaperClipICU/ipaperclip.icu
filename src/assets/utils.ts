@@ -2,7 +2,7 @@ import md5 from "js-md5";
 import { customAlphabet } from "nanoid/non-secure";
 
 import d from "@/assets/data.json";
-import type { DataType, FileTypeT } from "@/types/";
+import type { DataType, FileTypes } from "@/types/";
 
 const nanoid = customAlphabet(
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
@@ -22,9 +22,9 @@ export const getFileInfo = (
   FileName: string
 ): {
   name: string;
-  type: FileTypeT;
+  type: FileTypes;
 } => {
-  let FileType: FileTypeT = undefined;
+  let FileType: FileTypes = undefined;
 
   if (FileName.endsWith(".mp4") || FileName.endsWith(".flv")) {
     FileType = "video";

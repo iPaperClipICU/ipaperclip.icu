@@ -13,7 +13,16 @@ export type DataType = {
   };
 };
 
-export type FileTypeT = "video" | "image" | "audio" | undefined;
+export type FileTypes = "video" | "image" | "audio" | undefined;
+
+export type FilesMenuDataType = {
+  needPagination: boolean; // 是否需要分页
+  data: {
+    name: string;
+    type: FileTypes;
+    href: string;
+  }[][];
+};
 
 export type FilesMenuDataType = {
   search: false;
