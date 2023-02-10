@@ -133,8 +133,7 @@ const init = () => {
 
       const fileName = pathList[3];
       const tagName = pathList[2];
-      const sd = data.searchData[fileName];
-      if (sd !== undefined) {
+      if (data.searchData[fileName] !== undefined) {
         const fileInfo = getFileInfo(fileName);
         return {
           name: fileInfo.name,
@@ -146,8 +145,7 @@ const init = () => {
       // 无 Tag
 
       const fileName = pathList[2];
-      const sd = data.searchData[fileName];
-      if (sd !== undefined) {
+      if (data.searchData[fileName] !== undefined) {
         const fileInfo = getFileInfo(fileName);
         return {
           name: fileInfo.name,

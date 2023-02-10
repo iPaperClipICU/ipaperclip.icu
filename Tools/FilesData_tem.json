@@ -4,7 +4,7 @@
         ["基本操作"]
     ],
     "searchData": {
-        "FileName": ["FilesName", "TagName"]
+        "FileName": ["FilesName", "TagName/Null", "DocPath/Null"]
     },
     "data": {
         "有Tag": {
