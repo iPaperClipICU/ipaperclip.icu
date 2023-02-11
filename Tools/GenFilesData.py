@@ -27,7 +27,7 @@ def getDocPath(filesName, tagName, fileName, docData):
                     return f"Vol/{i}"
         elif (tagName == "Sp"):
             for i in docData["Sp"]:
-                if (i[:5] == fileName[:5]):
+                if (i[:6] == fileName[:6]):
                     # 匹配
                     return f"Sp/{i}"
         elif (tagName == "合作视频"):
