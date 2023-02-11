@@ -114,7 +114,7 @@ const init = () => {
     return;
   }
   if (fileData.doc !== null) {
-    MarkdownUrl.value = `https://cdn.jsdelivr.net/gh/ipaperclip/paperclipfans/${fileData.doc}`;
+    MarkdownUrl.value = `https://cdn.jsdelivr.net/gh/iPaperClipICU/paperclip-doc/${fileData.doc}`;
   } else MarkdownUrl.value = "";
   FileCardData.value = {
     fileType: fileData.type,
