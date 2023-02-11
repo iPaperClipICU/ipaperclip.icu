@@ -47,7 +47,6 @@ import {
 import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from "naive-ui"; // NaiveUI Config
 
 import router from "@/router";
-import { clearRubbish, getFileInfo } from "@/assets/utils.js";
 import TagMenu from "@/components/TagMenu.vue";
 import HeadView from "@/components/HeadView.vue";
 
@@ -60,11 +59,10 @@ router.beforeEach((to) => {
   showREADME.value = to.fullPath === "/";
 });
 
-// 清理未删除的视频/音频
+// 清理未删除的音频
 router.beforeEach((to, from) => {
-  const p = from.params.pathMatch;
-  if (Array.isArray(p) && getFileInfo(p[p.length - 1]).type !== undefined) {
-    clearRubbish();
+  if (String(from.name).startsWith("FILE:")) {
+    (window as any).$AudioPlayer?.destroy(); // 清理音频
   }
 });
 </script>

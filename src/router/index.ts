@@ -65,14 +65,14 @@ for (const fileName in data.searchData) {
     // 无 Tag
     routes.push({
       path: `/${filesName}/${fileName}`,
-      name: `/${filesName}/${fileName}`,
+      name: `FILE:/${filesName}/${fileName}`,
       component: FileView,
     });
   } else {
     // 有 Tag
     routes.push({
       path: `/${filesName}/${tagName}/${fileName}`,
-      name: `/${filesName}/${tagName}/${fileName}`,
+      name: `FILE:/${filesName}/${tagName}/${fileName}`,
       component: FileView,
     });
   }
