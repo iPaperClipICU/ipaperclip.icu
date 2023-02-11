@@ -33,6 +33,17 @@
         hi@ipaperclip.icu
       </n-a>
     </n-p>
+    <n-h2>关于文字稿</n-h2>
+    <n-p>
+      来源
+      <n-a href="https://github.com/ipaperclip/paperclipfans">
+        ipaperclip/paperclipfans
+      </n-a>
+      |
+      <n-a href="https://github.com/Just-Prog/paperclipfans/">
+        Just-Prog/paperclipfans
+      </n-a>
+    </n-p>
     <n-h2>相关链接</n-h2>
     <n-p>
       <n-a href="https://paperclip.eu.org/" target="_blank">
