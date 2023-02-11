@@ -55,8 +55,8 @@ export const getFileInfo = (
  */
 export const clearRubbish = () => {
   const w = window as any;
-  const vp = document.getElementsByClassName("video");
-  for (let i = 0; i < vp.length; i++) vp[i].innerHTML = "";
+  // const vp = document.getElementsByClassName("video");
+  // for (let i = 0; i < vp.length; i++) vp[i].innerHTML = "";
 
   if (w.$AudioPlayer != void 0) w.$AudioPlayer.destroy();
 };
