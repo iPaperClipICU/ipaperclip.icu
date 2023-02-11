@@ -1,5 +1,5 @@
 <template>
-  <n-card hoverable>
+  <n-card hoverable style="margin-bottom: 15px">
     <n-h5 prefix="bar">
       文件名: <n-text type="info">{{ FileCardData?.fileName }}</n-text>
     </n-h5>
@@ -22,6 +22,7 @@
     </n-grid>
     <FileCard v-if="FileCardData !== undefined" :data="FileCardData" />
   </n-card>
+  <MarkdownPlayer v-if="MarkdownUrl !== ''" :url="MarkdownUrl" />
 </template>
 
 <script setup lang="ts">
@@ -32,6 +33,7 @@ import FileCard from "@/components/FilePlayer.vue";
 import { useCounterStore } from "@/stores/counter";
 import type { FileCardDataType, FileTypes } from "@/types";
 import { getData, getSign, getFileInfo } from "@/assets/utils";
+import MarkdownPlayer from "@/components/MarkdownPlayer.vue";
 
 const w = window as any;
 const data = getData();
@@ -50,6 +52,7 @@ const selectOptions = [
 
 const showNull = ref<boolean>(false);
 const FileCardData = ref<FileCardDataType>();
+const MarkdownUrl = ref<string>("");
 
 const selectValueUpdate = (value: string) => {
   selectValue.value = value;
@@ -68,6 +71,7 @@ const init = () => {
         name: string;
         url: string;
         type: FileTypes;
+        doc: string | null;
       }
     | undefined => {
     const pathList = decodeURIComponent(location.pathname).split("/");
@@ -78,24 +82,28 @@ const init = () => {
 
       const fileName = pathList[3];
       const tagName = pathList[2];
-      if (data.searchData[fileName] !== undefined) {
+      const searchData = data.searchData[fileName];
+      if (searchData !== undefined) {
         const fileInfo = getFileInfo(fileName);
         return {
           name: fileInfo.name,
           url: `${filesName}/${tagName}/${fileName}`,
           type: fileInfo.type,
+          doc: searchData[2],
         };
       } else return undefined;
     } else if (pathList.length === 3) {
       // 无 Tag
 
       const fileName = pathList[2];
-      if (data.searchData[fileName] !== undefined) {
+      const searchData = data.searchData[fileName];
+      if (searchData !== undefined) {
         const fileInfo = getFileInfo(fileName);
         return {
           name: fileInfo.name,
           url: `${filesName}/${fileName}`,
           type: fileInfo.type,
+          doc: searchData[2],
         };
       } else return undefined;
     } else return undefined;
@@ -105,6 +113,9 @@ const init = () => {
     showNull.value = true;
     return;
   }
+  if (fileData.doc !== null) {
+    MarkdownUrl.value = `https://cdn.jsdelivr.net/gh/ipaperclip/paperclipfans/${fileData.doc}`;
+  } else MarkdownUrl.value = "";
   FileCardData.value = {
     fileType: fileData.type,
     fileUrl: `video/${fileData.url}`,
