@@ -25,8 +25,9 @@ import {
   NDivider,
   NSkeleton,
 } from "naive-ui";
+import cheerio from "cheerio";
 import showdown from "showdown";
-import cheerio, { type Element as cheerioElementType } from "cheerio";
+import type { ChildNode } from "domhandler/lib/node";
 
 const showError = ref<boolean>(false);
 const showLoad = ref<boolean>(true);
@@ -58,7 +59,6 @@ const main = async (url: string) => {
   // const footerReg = /\[\^\d\]:\n[^[]+/;
   const footerReg = /\^\d\]:\r?\n[^^]+/g;
   const footerList = mdText.match(footerReg);
-  (window as any).footerList = footerList;
   mdText = mdText.replace(footerReg, "").replace(/\[$/g, "");
 
   const abstractReg = /!!! abstract ""(\r?\n.*\r?\n(\t| {4}).+)+/gm;
@@ -78,69 +78,108 @@ const main = async (url: string) => {
       `<abstract>${abstract}</abstract>`
     );
 
-  const $ = cheerio.load(html);
+  const parseLink = (strs: string | string[]): (VNode | string)[] => {
+    // [name](url) <url>
 
-  const parseLink = (str: string): (VNode | string)[] | [] => {
-    const match = str.match(/\[.+\]\(.+\)/);
-    const nameMatch = str.match(/\[.+\]/);
-    const urlMatch = str.match(/\(.+\)/);
-    if (match !== null && nameMatch !== null && urlMatch !== null) {
-      const name = nameMatch[0].replace("[", "").replace("]", "");
-      const url = urlMatch[0].replace("(", "").replace(")", "");
+    const REG = [/\[[^[]+\]\(http(s)?:\/\/[^(]+\)/, /<http(s)?:\/\/[^<]+>/];
+    if (!Array.isArray(strs)) strs = [strs];
 
-      return [str.replace(match[0], ""), h(NA, { href: url }, name)];
-    } else return [];
+    let childrenList: (VNode | string)[] = [];
+    for (const str of strs) {
+      if (str.search(REG[0]) !== -1) {
+        // [name](url)
+        const match = (str.match(REG[0]) as RegExpMatchArray)[0];
+        const name = (match.match(/\[.+\]/) as RegExpMatchArray)[0]
+          .replace(/^\[/, "")
+          .replace(/\]$/, "");
+        const url = (match.match(/\(http(s)?:\/\/.+\)/) as RegExpMatchArray)[0]
+          .replace(/^\(/, "")
+          .replace(/\)$/, "");
+        str.split(match).forEach((value, index) => {
+          if (index !== 0) childrenList.push(h(NA, { href: url }, name));
+          childrenList = childrenList.concat(parseLink(value));
+        });
+      } else if (str.search(REG[1]) !== -1) {
+        // <url>
+        const match = (str.match(REG[1]) as RegExpMatchArray)[0];
+        const url = (match.match(/<http(s)?:\/\/.+>/) as RegExpMatchArray)[0]
+          .replace(/^</, "")
+          .replace(/>$/, "");
+        str.split(match).forEach((value, index) => {
+          if (index !== 0) childrenList.push(h(NA, { href: url }, url));
+          childrenList = childrenList.concat(parseLink(value));
+        });
+      } else if (str !== "") childrenList.push(str);
+    }
+
+    return childrenList;
   };
-
-  const mdCD: VNode[] = [];
-  $("h1, p, abstract").each((i, elem) => {
-    const children = elem.children;
-    if (elem.name === "h1" && children[0].type === "text") {
-      // 解析 H1
-      // mdCD.push(h(NH1, null, children[0].data));
-    } else if (elem.name === "p") {
-      if (
-        children[0].type === "text" &&
-        children[0].data.search(/!!! note ".*"/) === -1
-      ) {
-        // 解析 P Text
-        mdCD.push(h(NP, null, children[0].data));
-      } else if (children[0].type === "tag" && children[0].name === "img") {
-        // 解析 img
-        const node = elem.childNodes[0] as cheerioElementType;
-        const src = node.attribs.src;
-        const alt = node.attribs.src;
-        mdCD.push(
-          h("img", { src, alt, style: "max-width: 100%", loading: "lazy" })
-        );
+  const parseChildren = (ele: ChildNode): VNode | string | undefined => {
+    if (ele.type === "text") {
+      // Text
+      return ele.data;
+    } else if (ele.type === "tag") {
+      const childrenList: (VNode | string)[] = [];
+      for (const children of ele.children) {
+        const parse = parseChildren(children);
+        if (parse !== undefined) childrenList.push(parse);
       }
-    } else if (elem.name === "abstract" && children[0].type === "text") {
-      // 解析 abstract
-      const match = children[0].data.match(/(\t| {4}).+\n?/gm);
-      if (match !== null) {
-        let msgs: (VNode | string)[] = [];
-        for (const i of match) {
-          const [msg, link] = parseLink(
-            i.replace("\t", "").replace("\n", "").replace("    ", "")
-          );
-          if (msg === undefined) {
-            msgs.push(msg, h("br"));
-          } else {
-            msgs.push(msg, link, h("br"));
+      if (ele.name === "h1") {
+        // H1
+        // return h(NH1, null, childrenList);
+      } else if (ele.name === "p") {
+        // p
+        return h(NP, null, childrenList);
+      } else if (ele.name === "img") {
+        // img
+        const { src, alt } = ele.attribs;
+        return h("img", {
+          src,
+          alt,
+          style: "max-width: 100%",
+          loading: "lazy",
+        });
+      } else if (ele.name === "abstract") {
+        // abstract
+        if (typeof childrenList[0] !== "string") throw new Error(); // TODO: Error
+        const match = childrenList[0].match(/(\t| {4}).+\n?/gm);
+        if (match !== null) {
+          let msgs: (VNode | string)[] = [];
+          for (const i of match) {
+            msgs = msgs.concat(
+              parseLink(
+                i.replace("\t", "").replace("\n", "").replace("    ", "")
+              )
+            );
+            msgs.push(h("br"));
           }
-        }
-        mdCD.push(
-          h(
+          return h(
             NAlert,
             {
               "show-icon": false,
             },
             msgs
-          )
-        );
+          );
+        }
       }
     }
-  });
+  };
+
+  const mdCD: (VNode | string)[] = [];
+  cheerio
+    .load(html)("h1, p, abstract")
+    .each((i, elem) => {
+      if (
+        elem.type === "tag" &&
+        elem.name === "p" &&
+        elem.children[0].type === "text" &&
+        elem.children[0].data.search(/!!! note ".*"/) !== -1
+      ) {
+        return;
+      }
+      const parse = parseChildren(elem);
+      if (parse !== undefined) mdCD.push(parse);
+    });
   if (footerList !== null) {
     mdCD.push(h(NDivider));
     const olList: VNode[] = [];
@@ -154,45 +193,13 @@ const main = async (url: string) => {
       const msgList: (VNode | string)[] = [];
       i.split("\n").forEach((v) => {
         if (v === "") return;
-        else {
-          let msg: string | (VNode | string)[] = v;
-          if (msg.search(/( {4}|\t).+/) !== -1)
-            msg = msg.replace(/( {4}|\t)/, "");
 
-          // TODO: BUG 当两种样式都存在
-          if (msg.search(/<http(s)?:\/\/.+>/) !== -1) {
-            const urlMatch = (
-              msg.match(/<http(s)?:\/\/.+>/) as RegExpMatchArray
-            )[0];
-            const url = urlMatch.replace("<", "").replace(">", "");
-            const tmp: (VNode | string)[] = [];
-            msg.split(urlMatch).forEach((v, i) => {
-              if (i === 0) tmp.push(v);
-              else {
-                tmp.push(h(NA, { href: url }, url));
-                tmp.push(v);
-              }
-            });
-            msg = tmp;
-          } else if (msg.search(/\[.+\]\(http(s)?:\/\/.+\)/) !== -1) {
-            const urlMatch = (
-              msg.match(/\[.+\]\(http(s)?:\/\/.+\)/) as RegExpMatchArray
-            )[0];
-            const name = urlMatch.replace(/\]\(.+\)/g, "").replace(/^\[/g, "");
-            const url = urlMatch.replace(/\[.+\]\(/g, "").replace(/\)$/g, "");
-            const tmp: (VNode | string)[] = [];
-            msg.split(urlMatch).forEach((v, i) => {
-              if (i === 0) tmp.push(v);
-              else {
-                tmp.push(h(NA, { href: url }, name));
-                tmp.push(v);
-              }
-            });
-            msg = tmp;
-          }
+        let msg: string | (VNode | string)[] = v;
+        if (msg.search(/( {4}|\t).+/) !== -1)
+          msg = msg.replace(/( {4}|\t)/, "");
+        msg = parseLink(msg);
 
-          msgList.push(h("p", { class: "footer" }, msg));
-        }
+        msgList.push(h("p", { class: "footer" }, msg));
       });
       olList.push(h(NLi, null, msgList));
     }
