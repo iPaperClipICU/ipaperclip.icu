@@ -63,6 +63,9 @@ onMounted(() => {
     });
   } else if (props.data.fileType === "video") {
     player = new Plyr("#videoPlayer", {
+      fullscreen: {
+        iosNative: true,
+      },
       i18n: {
         speed: "速度",
         normal: "正常",
