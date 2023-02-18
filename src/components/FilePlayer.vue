@@ -76,6 +76,6 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style scoped>
+<style>
 @import "plyr/dist/plyr.css";
 </style>
