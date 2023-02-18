@@ -96,7 +96,8 @@ const main = async (url: string) => {
           .replace(/^\(/, "")
           .replace(/\)$/, "");
         str.split(match).forEach((value, index) => {
-          if (index !== 0) childrenList.push(h(NA, { href: url }, name));
+          if (index !== 0)
+            childrenList.push(h(NA, { href: url }, { default: () => name }));
           childrenList = childrenList.concat(parseLink(value));
         });
       } else if (str.search(REG[1]) !== -1) {
@@ -106,7 +107,8 @@ const main = async (url: string) => {
           .replace(/^</, "")
           .replace(/>$/, "");
         str.split(match).forEach((value, index) => {
-          if (index !== 0) childrenList.push(h(NA, { href: url }, url));
+          if (index !== 0)
+            childrenList.push(h(NA, { href: url }, { default: () => url }));
           childrenList = childrenList.concat(parseLink(value));
         });
       } else if (str !== "") childrenList.push(str);
@@ -126,10 +128,10 @@ const main = async (url: string) => {
       }
       if (ele.name === "h1") {
         // H1
-        // return h(NH1, null, childrenList);
+        // return h(NH1, null, { default: () => childrenList });
       } else if (ele.name === "p") {
         // p
-        return h(NP, null, childrenList);
+        return h(NP, null, { default: () => childrenList });
       } else if (ele.name === "img") {
         // img
         const { src, alt } = ele.attribs;
@@ -158,7 +160,7 @@ const main = async (url: string) => {
             {
               "show-icon": false,
             },
-            msgs
+            { default: () => msgs }
           );
         }
       }
@@ -199,13 +201,13 @@ const main = async (url: string) => {
           msg = msg.replace(/( {4}|\t)/, "");
         msg = parseLink(msg);
 
-        msgList.push(h("p", { class: "footer" }, msg));
+        msgList.push(h("p", { class: "footer" }, { default: () => msg }));
       });
-      olList.push(h(NLi, null, msgList));
+      olList.push(h(NLi, null, { default: () => msgList }));
     }
-    mdCD.push(h(NOl, null, olList));
+    mdCD.push(h(NOl, null, { default: () => olList }));
   }
-  MarkdownView.value = () => h("div", null, mdCD);
+  MarkdownView.value = () => h("div", null, { default: () => mdCD });
   showLoad.value = false;
 };
 const refreshButtonClick = () => {
