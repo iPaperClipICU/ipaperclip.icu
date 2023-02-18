@@ -1,9 +1,9 @@
 <template>
-  <!-- TODO: 写个视频/音频播放器 -->
-  <div v-if="props.data.fileType === 'video'" class="video">
+  <div v-if="props.data.fileType === 'video'">
     <video
       controls
-      preload="metadata"
+      playsinline
+      id="videoPlayer"
       :src="getSign(`${counter.CDNDomain}/${props.data.fileUrl}`)"
     >
       <n-result status="info" title="您的浏览器不支持 video 标签" />
@@ -24,26 +24,24 @@
     </n-grid>
   </div>
   <div v-else-if="props.data.fileType === 'audio'">
-    <!-- <audio preload="none" controls>
-      <source :src="getSign(`${counter.CDNDomain}/${props.data.fileUrl}`)" type="audio/mpeg" />
+    <audio
+      controls
+      id="audioPlayer"
+      :src="getSign(`${counter.CDNDomain}/${props.data.fileUrl}`)"
+    >
       <n-result status="info" title="您的浏览器不支持此音频格式" />
-    </audio> -->
-    <div id="audioPlayer"></div>
+    </audio>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, type PropType } from "vue";
-import APlayer from "aplayer-ts";
-import "aplayer-ts/dist/APlayer.min.css";
-import { NGi, NGrid } from "naive-ui";
+import { onMounted, onBeforeUnmount, type PropType } from "vue";
+import Plyr from "plyr";
+import { NGi, NGrid, NResult } from "naive-ui";
 
 import { getSign } from "@/assets/utils";
 import type { FileCardDataType } from "@/types/";
 import { useCounterStore } from "@/stores/counter";
-
-const w = window as any;
-const counter = useCounterStore();
 
 const props = defineProps({
   data: {
@@ -51,47 +49,33 @@ const props = defineProps({
     required: true,
   },
 });
+const counter = useCounterStore();
+
+let player: null | Plyr = null;
 
 onMounted(() => {
   if (props.data.fileType === "audio") {
-    const ap = new APlayer({
-      container: document.getElementById("audioPlayer") || undefined,
-      audio: [
-        {
-          name: props.data.fileName,
-          url: getSign(`${counter.CDNDomain}/${props.data.fileUrl}`),
-        },
-      ],
+    player = new Plyr("#audioPlayer", {
+      i18n: {
+        speed: "速度",
+        normal: "正常",
+      },
     });
-    w.$AudioPlayer = ap;
+  } else if (props.data.fileType === "video") {
+    player = new Plyr("#videoPlayer", {
+      i18n: {
+        speed: "速度",
+        normal: "正常",
+      },
+    });
   }
+});
+
+onBeforeUnmount(() => {
+  player?.destroy();
 });
 </script>
 
-<style>
-/* video标签自适应 */
-
-.video {
-  position: relative;
-  padding-top: 56.25%;
-}
-
-video {
-  border: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-}
-
-/* APlayer */
-
-.aplayer-title {
-  color: #24292e;
-}
-
-.aplayer-author {
-  color: #fff !important;
-}
+<style scoped>
+@import "plyr/dist/plyr.css";
 </style>
