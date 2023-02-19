@@ -8,20 +8,18 @@
     />
   </div>
   <div v-if="props.mode === 'Mobile'">
-    <n-scrollbar style="max-height: 400px" trigger="none">
-      <n-menu
-        v-model:value="menuValue"
-        :options="menuOptions"
-        @update:value="ValueChange"
-      />
-    </n-scrollbar>
+    <n-menu
+      v-model:value="menuValue"
+      :options="menuOptions"
+      @update:value="ValueChange"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 import { h, ref, type PropType } from "vue";
-import { NMenu, NScrollbar, type MenuOption } from "naive-ui";
+import { NMenu, type MenuOption } from "naive-ui";
 
 import router from "@/router";
 import { getData } from "@/assets/utils";
@@ -40,18 +38,22 @@ const data = getData();
 const menuValue = ref<string | null>(null);
 const menuOptions: MenuOption[] = [];
 
-router.afterEach(() => {
+const setMenuValue = () => {
   const paths = decodeURIComponent(location.pathname).split("/");
   const filesName = String(paths[1]);
   const tagName = String(paths[2]);
 
   if (Array.isArray(data.data[filesName])) menuValue.value = `${filesName}`;
   else menuValue.value = `${filesName}/${tagName}`;
-});
+};
 
 const ValueChange = (key: string) => {
   emit("change", key);
 };
+
+router.afterEach(() => {
+  setMenuValue();
+});
 
 const main = () => {
   for (const i of data.menuData) {
@@ -81,6 +83,8 @@ const main = () => {
       });
     }
   }
+
+  setMenuValue();
 };
 main();
 </script>
