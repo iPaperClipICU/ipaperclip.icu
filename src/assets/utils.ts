@@ -50,21 +50,10 @@ export const getFileInfo = (
   };
 };
 
-/**
- * 清理 Video 和 Audio 播放器
- */
-export const clearRubbish = () => {
-  const w = window as any;
-  // const vp = document.getElementsByClassName("video");
-  // for (let i = 0; i < vp.length; i++) vp[i].innerHTML = "";
-
-  if (w.$AudioPlayer != void 0) w.$AudioPlayer.destroy();
-};
-
 export const getSign = (FileURL: string): string => {
   const u = new URL(FileURL);
   if (u.host === "ipaperclip-file.xodvnm.cn") {
-    const PKEY = import.meta.env.TencentCDN_PKEY || "null";
+    const PKEY = String(import.meta.env.TencentCDN_PKEY);
     const uri = u.pathname; // url
     const ts = Math.floor(Date.now() / 1000); // ts
     const uid = 0;
