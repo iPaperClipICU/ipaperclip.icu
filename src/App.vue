@@ -58,13 +58,6 @@ const navigationCSS_padding = ref<string>("32px");
 router.beforeEach((to) => {
   showREADME.value = to.fullPath === "/";
 });
-
-// 清理未删除的音频
-router.beforeEach((to, from) => {
-  if (String(from.name).startsWith("FILE:")) {
-    (window as any).$AudioPlayer?.destroy(); // 清理音频
-  }
-});
 </script>
 
 <style>
