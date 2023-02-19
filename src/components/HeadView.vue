@@ -1,75 +1,50 @@
 <template>
+  <div class="tag" v-if="showData.tag === 'drawer'" style="margin-right: 5px">
+    <n-icon size="32" @click="showDrawer = true"><MenuICON /></n-icon>
+  </div>
   <span
     v-if="showData.siteName"
     class="siteLogo siteName"
     @click="router.push('/')"
-    :style="{
-      'flex-grow': showData.search === 'PC' ? 1 : 2,
-    }"
+    :style="{ 'flex-grow': showData.tag === 'drawer' ? 0 : 1 }"
   >
     iPaperClipICU
   </span>
   <div
     v-else
     class="siteLogo"
-    :style="{
-      'flex-grow': showData.search === 'PC' ? 1 : 2,
-    }"
     @click="router.push('/')"
+    :style="{ 'flex-grow': showData.tag === 'drawer' ? 0 : 1 }"
   >
     <img style="width: 32px; height: 32px" src="/favicon.png" />
   </div>
-  <div class="tag" v-if="showData.tag !== 'popover'">
-    <TagMenu v-if="showData.tag === 'menu'" />
-    <n-select
-      v-else-if="showData.tag === 'select'"
-      style="width: 295px"
-      :menu-props="{ class: 'tag-select' }"
-      v-model:value="selectValue"
-      v-model:show="selectShow"
-      :options="[]"
-    >
-      <template #empty>
-        <TagMenu mode="Mobile" @change="TagChange" />
-      </template>
-    </n-select>
+  <div class="tag" v-if="showData.tag === 'menu'">
+    <TagMenu />
   </div>
   <div
     class="search"
     :style="{
       'flex-grow': showData.search === 'PC' ? 1 : 30,
+      'margin-left': showData.search === 'PC' ? 0 : '5px',
+      'justify-content': showData.search === 'PC' ? 'flex-end' : 'center',
     }"
   >
     <SearchCard :mode="showData.search" />
   </div>
-  <div
-    class="tag"
-    :style="{
-      'flex-grow': showData.search === 'PC' ? 1 : 2,
-    }"
-    id="tag-popover"
-    style="justify-content: flex-end"
-    v-if="showData.tag === 'popover'"
-  >
-    <n-popover
-      trigger="click"
-      ref="popoverRef"
-      style="padding: 0px; width: 270px"
-    >
-      <template #trigger>
-        <n-icon size="32"><MenuICON /></n-icon>
-      </template>
-      <TagMenu mode="Mobile" @change="TagChange" />
-    </n-popover>
-  </div>
+  <!-- 抽屉 -->
+  <n-drawer v-model:show="showDrawer" :width="250" placement="left">
+    <n-drawer-content>
+      <template #header>菜单</template>
+      <TagMenu mode="Mobile" @change="showDrawer = false" />
+    </n-drawer-content>
+  </n-drawer>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { NIcon, NPopover, NSelect } from "naive-ui";
+import { NIcon, NDrawer, NDrawerContent } from "naive-ui";
 
 import router from "@/router";
-import { getData } from "@/assets/utils";
 import SearchCard from "./SearchCard.vue";
 import MenuICON from "@/ICON/MenuICON.vue";
 import TagMenu from "@/components/TagMenu.vue";
@@ -79,16 +54,10 @@ const emit = defineEmits<{
   (e: "setTag", key: boolean): void;
 }>();
 
-const data = getData();
-
-const selectValue = ref<string | null>(null);
-const selectShow = ref<boolean | undefined>(undefined); // 是否显示 select
-const popoverRef = ref<any>(null);
-const pageWidth = ref<number>(window.innerWidth); // 可视区域宽度
-const searchCSS_justify_content = ref<"flex-end" | "center">("flex-end");
+const showDrawer = ref<boolean>(false);
 const showData = ref<{
   siteName: boolean;
-  tag: "menu" | null | "select" | "popover";
+  tag: "menu" | null | "drawer";
   search: "PC" | "Mobile";
 }>({
   siteName: true,
@@ -97,60 +66,39 @@ const showData = ref<{
 });
 
 window.addEventListener("resize", function () {
-  pageWidth.value = this.window.innerWidth;
   pageSizeChange();
 });
-router.afterEach((to) => {
-  if (to.name === "Home" || to.name === "Search") {
-    selectValue.value = null;
-    return;
-  }
-  const paths = decodeURIComponent(location.pathname).split("/");
-  const filesName = String(paths[1]);
-  const tagName = String(paths[2]);
-
-  if (Array.isArray(data.data[filesName])) selectValue.value = `${filesName}`;
-  else selectValue.value = `${filesName}/${tagName}`;
-});
-
-const TagChange = (key: string) => {
-  selectValue.value = key;
-  selectShow.value = false;
-  popoverRef.value?.setShow(false);
-};
 
 const pageSizeChange = () => {
   const tmp: {
     siteName: boolean;
-    tag: "menu" | null | "select" | "popover";
+    tag: "menu" | null | "drawer";
     search: "PC" | "Mobile";
   } = {
     siteName: true,
     tag: "menu",
     search: "PC",
   };
-  if (pageWidth.value < 1258) {
+
+  const pageWidth = window.innerWidth;
+  if (pageWidth < 1260) {
     tmp.siteName = false;
   }
-  if (pageWidth.value < 1140) {
+  if (pageWidth < 1140) {
     tmp.tag = null;
     tmp.siteName = true;
   }
-  if (pageWidth.value < 945) {
-    tmp.tag = "select";
-  }
-  if (pageWidth.value < 695) {
-    tmp.siteName = false;
-  }
-  if (pageWidth.value < 575) {
-    tmp.search = "Mobile";
-    tmp.tag = "popover";
-    emit("changePadding", "10px");
-    searchCSS_justify_content.value = "center";
+  if (pageWidth <= 935) {
+    tmp.tag = "drawer";
+    emit("changePadding", "16px");
   } else {
-    // 大于 460
+    // 大于 935
     emit("changePadding", "32px");
-    searchCSS_justify_content.value = "flex-end";
+  }
+  if (pageWidth < 440) {
+    tmp.siteName = false;
+    tmp.search = "Mobile";
+    emit("changePadding", "10px");
   }
   emit("setTag", tmp.tag === null);
   showData.value = tmp;
@@ -159,31 +107,23 @@ pageSizeChange();
 </script>
 
 <style>
-.tag-select {
-  width: 295px !important;
-}
-
-.tag-select .n-base-select-menu__empty {
-  display: block !important;
+.n-drawer-body-content-wrapper {
   padding: 0 !important;
 }
 
 .search {
   display: flex;
   align-items: center;
-  justify-content: v-bind(searchCSS_justify_content);
 }
 
 .tag {
   display: flex;
-  flex-grow: 1;
   align-items: center;
   justify-content: space-around;
 }
 
 .siteLogo {
   display: flex;
-  flex-grow: 1;
   align-items: center;
 
   cursor: default;
