@@ -1,7 +1,9 @@
 import { defineStore } from "pinia";
+import type { MenuOption } from "naive-ui";
 
 interface State {
   CDNDomain: string;
+  menuOptions: MenuOption[];
 }
 
 export const useCounterStore = defineStore("counter", {
@@ -17,5 +19,6 @@ export const useCounterStore = defineStore("counter", {
         return CDNDomainList[0];
       } else return local;
     })(),
+    menuOptions: [],
   }),
 });
