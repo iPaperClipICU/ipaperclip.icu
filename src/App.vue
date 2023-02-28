@@ -63,7 +63,6 @@ router.beforeEach((to) => {
 <style>
 .navigation {
   display: grid;
-  border-radius: 0.5em;
   height: var(--header-height);
   padding: 0 v-bind(navigationCSS_padding);
   padding-top: 15px;

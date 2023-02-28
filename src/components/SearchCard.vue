@@ -2,7 +2,7 @@
   <n-input
     class="search-input"
     :style="{
-      width: `${props.mode === 'PC' ? '172px' : '100%'}`,
+      width: `${props.mode ? '172px' : '100%'}`,
       height: '34px',
     }"
     round
@@ -21,7 +21,7 @@
       </n-icon>
     </template>
     <template #suffix>
-      <div v-if="os !== 'Mobile'" style="display: flex; align-items: center">
+      <div style="display: flex; align-items: center">
         <div class="search-input-suffix-item">
           {{ os === "Mac" ? "⌘" : "Ctrl" }}
         </div>
@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect, type PropType } from "vue";
+import { ref, watchEffect } from "vue";
 import {
   NIcon,
   NInput,
@@ -77,9 +77,12 @@ import SearchICON from "@/ICON/SearchICON.vue";
 
 const props = defineProps({
   mode: {
-    type: String as PropType<"PC" | "Mobile">,
+    type: Boolean,
   },
 });
+const emit = defineEmits<{
+  (e: "change"): void;
+}>();
 
 const inputInstRef = ref<InputInst | null>(null);
 const searchInputInstRef = ref<InputInst | null>(null);
@@ -136,6 +139,7 @@ const bindKeyEnter = () => {
 const searchButtonClick = () => {
   showModal.value = false;
   unbindKeyEnter();
+  emit("change");
   router.push(`/search?s=${searchValue.value}`);
 };
 </script>

@@ -1,28 +1,23 @@
 <template>
-  <div v-if="props.mode === undefined || props.mode === 'PC'">
-    <n-menu
-      mode="horizontal"
-      v-model:value="menuValue"
-      :options="menuOptions"
-      @update:value="ValueChange"
-    />
-  </div>
-  <div v-if="props.mode === 'Mobile'">
-    <n-menu
-      v-model:value="menuValue"
-      :options="menuOptions"
-      @update:value="ValueChange"
-    />
-  </div>
+  <n-menu
+    :mode="
+      props.mode === undefined || props.mode === 'PC'
+        ? 'horizontal'
+        : 'vertical'
+    "
+    v-model:value="menuValue"
+    :options="counter.menuOptions"
+    @update:value="ValueChange"
+  />
 </template>
 
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 import { h, ref, type PropType } from "vue";
-import { NMenu, type MenuOption } from "naive-ui";
+import { NMenu } from "naive-ui";
 
-import router from "@/router";
 import { getData } from "@/assets/utils";
+import { useCounterStore } from "@/stores/counter";
 
 const props = defineProps({
   mode: {
@@ -32,11 +27,11 @@ const props = defineProps({
 const emit = defineEmits<{
   (e: "change", key: string): void;
 }>();
+const counter = useCounterStore();
 
 const data = getData();
 
 const menuValue = ref<string | null>(null);
-const menuOptions: MenuOption[] = [];
 
 const setMenuValue = () => {
   const paths = decodeURIComponent(location.pathname).split("/");
@@ -51,36 +46,35 @@ const ValueChange = (key: string) => {
   emit("change", key);
 };
 
-router.afterEach(() => {
-  setMenuValue();
-});
-
 const main = () => {
-  for (const i of data.menuData) {
-    const name = i[0];
+  if (counter.menuOptions.length === 0) {
+    for (const i of data.menuData) {
+      const name = i[0];
 
-    if (i[1] !== undefined) {
-      // 有 tag
-      const children = [];
-      for (const tag of i[1]) {
-        children.push({
+      if (i[1] !== undefined) {
+        // 有 tag
+        const children = [];
+        for (const tag of i[1]) {
+          children.push({
+            label: () =>
+              h(RouterLink, { to: `/${name}/${tag}` }, { default: () => tag }),
+            key: `${name}/${tag}`,
+          });
+        }
+
+        counter.menuOptions.push({
+          label: name,
+          key: name,
+          children,
+        });
+      } else {
+        // 无 tag
+        counter.menuOptions.push({
           label: () =>
-            h(RouterLink, { to: `/${name}/${tag}` }, { default: () => tag }),
-          key: `${name}/${tag}`,
+            h(RouterLink, { to: `/${name}` }, { default: () => name }),
+          key: name,
         });
       }
-
-      menuOptions.push({
-        label: name,
-        key: name,
-        children,
-      });
-    } else {
-      // 无 tag
-      menuOptions.push({
-        label: () => h(RouterLink, { to: `/${name}` }, { default: () => name }),
-        key: name,
-      });
     }
   }
 
