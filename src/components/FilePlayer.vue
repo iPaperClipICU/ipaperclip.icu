@@ -1,13 +1,20 @@
 <template>
-  <div v-if="props.data.fileType === 'video'">
+  <div
+    v-if="props.data.fileType === 'video'"
+    :class="playerStatus === 'def' ? 'videoPlayer' : ''"
+  >
+    <n-skeleton
+      v-if="playerStatus === 'load'"
+      :sharp="false"
+      class="videoPlayer"
+    />
     <video
+      v-show="playerStatus !== 'load'"
       controls
       playsinline
       id="videoPlayer"
       :src="getSign(`${counter.CDNDomain}/${props.data.fileUrl}`)"
-    >
-      <n-result status="info" title="您的浏览器不支持 video 标签" />
-    </video>
+    ></video>
   </div>
   <div v-else-if="props.data.fileType === 'image'">
     <n-grid :cols="36" item-responsive>
@@ -24,22 +31,23 @@
     </n-grid>
   </div>
   <div v-else-if="props.data.fileType === 'audio'">
+    <n-skeleton v-if="playerStatus === 'load'" height="52px" />
     <audio
+      v-show="playerStatus !== 'load'"
       controls
       id="audioPlayer"
+      style="max-width: 100%"
       :src="getSign(`${counter.CDNDomain}/${props.data.fileUrl}`)"
-    >
-      <n-result status="info" title="您的浏览器不支持此音频格式" />
-    </audio>
+    ></audio>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, type PropType } from "vue";
-import Plyr from "plyr";
-import { NGi, NGrid, NResult } from "naive-ui";
+import { ref, onMounted, onBeforeUnmount, type PropType } from "vue";
+// import Plyr from "plyr";
+import { NGi, NGrid, NSkeleton } from "naive-ui";
 
-import { getSign } from "@/assets/utils";
+import { getSign, loadScripts } from "@/assets/utils";
 import type { FileCardDataType } from "@/types/";
 import { useCounterStore } from "@/stores/counter";
 
@@ -51,34 +59,58 @@ const props = defineProps({
 });
 const counter = useCounterStore();
 
-let player: null | Plyr = null;
+const w = window as any;
+let playerStatus = ref<"load" | "def" | "plyr">("load");
+let plyrPlayer: null | any = null;
 
-onMounted(() => {
-  if (props.data.fileType === "audio") {
-    player = new Plyr("#audioPlayer", {
-      i18n: {
-        speed: "速度",
-        normal: "正常",
-      },
-    });
-  } else if (props.data.fileType === "video") {
-    player = new Plyr("#videoPlayer", {
-      fullscreen: {
-        iosNative: true,
-      },
-      i18n: {
-        speed: "速度",
-        normal: "正常",
-      },
-    });
+const loadPlyr = async (): Promise<string | boolean> => {
+  if (typeof w.Plyr === "function") return true;
+
+  return await loadScripts([
+    "https://cdn.jsdelivr.net/npm/plyr@3.7.3/dist/plyr.min.js",
+    "https://cdn.plyr.io/3.7.3/plyr.js",
+  ]);
+};
+
+onMounted(async () => {
+  if (await loadPlyr()) {
+    playerStatus.value = "plyr";
+
+    const i18n = {
+      speed: "速度",
+      normal: "正常",
+    };
+
+    if (props.data.fileType === "audio") {
+      plyrPlayer = new w.Plyr("#audioPlayer", { i18n });
+    } else if (props.data.fileType === "video") {
+      plyrPlayer = new w.Plyr("#videoPlayer", {
+        i18n,
+        fullscreen: {
+          iosNative: true,
+        },
+      });
+    }
+  } else {
+    playerStatus.value = "def";
   }
 });
 
 onBeforeUnmount(() => {
-  player?.destroy();
+  plyrPlayer?.destroy();
 });
 </script>
 
 <style>
 @import "plyr/dist/plyr.css";
+.videoPlayer {
+  position: relative;
+  padding-top: 56.25%;
+  background-color: black;
+}
+.videoPlayer video {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
 </style>
