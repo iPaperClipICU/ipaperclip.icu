@@ -68,3 +68,31 @@ export const getSign = (FileURL: string): string => {
     return FileURL;
   }
 };
+
+export const loadScript = (url: string): Promise<string | false> => {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = url;
+    script.async = true;
+    script.onload = () => {
+      resolve(url);
+    };
+    script.onerror = () => {
+      resolve(false);
+    };
+    document.body.appendChild(script);
+  });
+};
+
+export const loadScripts = async (
+  urls: string[] | string
+): Promise<string | false> => {
+  if (typeof urls === "string") urls = [urls];
+
+  for (const url of urls) {
+    const t = await loadScript(url);
+    if (t !== false) return t;
+  }
+
+  return Promise.resolve(false);
+};

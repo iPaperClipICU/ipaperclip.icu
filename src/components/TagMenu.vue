@@ -16,6 +16,7 @@ import { RouterLink } from "vue-router";
 import { h, ref, type PropType } from "vue";
 import { NMenu } from "naive-ui";
 
+import router from "@/router";
 import { getData } from "@/assets/utils";
 import { useCounterStore } from "@/stores/counter";
 
@@ -45,6 +46,11 @@ const setMenuValue = () => {
 const ValueChange = (key: string) => {
   emit("change", key);
 };
+
+router.afterEach(() => {
+  // 路由变化时，更新 menuValue
+  setMenuValue();
+});
 
 const main = () => {
   if (counter.menuOptions.length === 0) {
