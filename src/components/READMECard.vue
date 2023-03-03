@@ -82,7 +82,13 @@
       <n-a href="https://paperclip.wiki/">paperclip.wiki</n-a>
     </n-p>
     <n-h2>R.I.P</n-h2>
-    <n-grid cols="1 345:2" :x-gap="5" :y-gap="5" item-responsive style="min-height: 90px">
+    <n-grid
+      cols="1 345:2"
+      :x-gap="5"
+      :y-gap="5"
+      item-responsive
+      style="min-height: 90px"
+    >
       <n-gi span="1">
         <img
           src="https://cf.ipaperclip-icu.cyou/rip1.webp"
