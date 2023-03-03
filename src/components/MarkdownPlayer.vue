@@ -1,5 +1,10 @@
 <template>
   <n-card title="文字稿" hoverable>
+    <template #header-extra>
+      <n-button quaternary type="primary" @click="showAbout = true">
+        关于来源
+      </n-button>
+    </template>
     <n-result v-if="showError" status="error" title="加载失败">
       <template #footer>
         <n-button @click="refreshButtonClick()">刷新</n-button>
@@ -7,6 +12,28 @@
     </n-result>
     <n-skeleton v-if="showLoad && !showError" text :repeat="5" />
     <MarkdownView v-if="!showLoad && !showError" />
+    <n-modal
+      v-model:show="showAbout"
+      preset="card"
+      style="width: 600px"
+      title="关于文字稿来源"
+      :bordered="false"
+    >
+      <n-p
+        >来源:
+        <n-a href="https://github.com/ipaperclip/paperclipfans" target="_blank"
+          >ipaperclip/paperclipfans</n-a
+        >
+        和
+        <n-a href="https://github.com/Just-Prog/paperclipfans" target="_blank"
+          >Just-Prog/paperclipfans</n-a
+        ></n-p
+      >
+      <n-p
+        >如果您希望对文字稿进行修改, 请前往上述两个仓库,
+        当我们注意到上游仓库更新时, 我们将会同步更新</n-p
+      >
+    </n-modal>
   </n-card>
 </template>
 
@@ -20,6 +47,7 @@ import {
   NOl,
   NCard,
   NAlert,
+  NModal,
   NButton,
   NResult,
   NDivider,
@@ -29,6 +57,7 @@ import cheerio from "cheerio";
 import showdown from "showdown";
 import type { ChildNode } from "domhandler/lib/node";
 
+const showAbout = ref<boolean>(false);
 const showError = ref<boolean>(false);
 const showLoad = ref<boolean>(true);
 const MarkdownView = ref(() => h("div", null, ""));
