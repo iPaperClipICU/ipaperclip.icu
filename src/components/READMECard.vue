@@ -1,18 +1,13 @@
 <template>
   <n-card hoverable>
     <n-p>He, 这里是 ipaperclip.icu</n-p>
-    <n-h2>网站</n-h2>
-    <n-p>
-      视频、文字稿归档:
-      <n-a href="https://ipaperclip.icu/" target="_blank">ipaperclip.icu</n-a>
-    </n-p>
-    <n-p>
-      视频源备份站:
-      <n-a href="https://onedrive.ipaperclip.icu/" target="_blank">
+    <n-p
+      >如果您想要批量下载, 请前往
+      <n-a href="https://onedrive.ipaperclip.icu/">
         onedrive.ipaperclip.icu
-      </n-a>
-    </n-p>
-    <n-h2>联系我</n-h2>
+      </n-a></n-p
+    >
+    <n-h2>联系我们</n-h2>
     <n-p>
       <n-a href="https://t.me/iPaperClipICU" target="_blank">
         Telegram 通知频道
@@ -33,37 +28,6 @@
         hi@ipaperclip.icu
       </n-a>
     </n-p>
-    <n-h2>关于文字稿</n-h2>
-    <n-p>
-      来源
-      <n-a href="https://github.com/ipaperclip/paperclipfans">
-        ipaperclip/paperclipfans
-      </n-a>
-      |
-      <n-a href="https://github.com/Just-Prog/paperclipfans/">
-        Just-Prog/paperclipfans
-      </n-a>
-    </n-p>
-    <n-h2>相关链接</n-h2>
-    <n-p>
-      <n-a href="https://paperclip.eu.org/" target="_blank">
-        回形针视频归档站
-      </n-a>
-    </n-p>
-    <n-p>
-      <n-a href="https://wandering-paperclip.glitch.me/" target="_blank">
-        Wandering PaperClip 流浪回形针
-      </n-a>
-    </n-p>
-    <n-p>
-      <n-a href="https://paper-clips.purestream.eu.org/" target="_blank">
-        paper-clips.purestream.eu.org
-      </n-a>
-    </n-p>
-    <n-p>
-      <n-a href="https://paperclip.wiki/" target="_blank">paperclip.wiki</n-a>
-    </n-p>
-    <n-divider />
     <n-p>
       <n-a href="https://t.me/papercliphub" target="_blank">
         基本操作非官方频道
@@ -73,16 +37,53 @@
         基本操作非官方粉丝群
       </n-a>
     </n-p>
+    <n-h2>关于文字稿</n-h2>
+    <n-p
+      >来源:
+      <n-a href="https://github.com/ipaperclip/paperclipfans" target="_blank"
+        >ipaperclip/paperclipfans</n-a
+      >
+      和
+      <n-a href="https://github.com/Just-Prog/paperclipfans" target="_blank"
+        >Just-Prog/paperclipfans</n-a
+      ></n-p
+    >
+    <n-p
+      >如果您希望对文字稿进行修改, 请前往上述两个仓库,
+      当我们注意到上游仓库更新时, 我们将会同步更新</n-p
+    >
+    <n-h2>相关链接</n-h2>
     <n-p>
-      <n-a href="https://shop362189133.taobao.com/" target="_blank">
-        干燥工厂
-      </n-a>
-      |
       <n-a href="https://jibencaozuo.com/" target="_blank">基本操作</n-a>
     </n-p>
+    <n-p>
+      <n-text delete>
+        <n-a href="https://shop362189133.taobao.com/" target="_blank">
+          干燥工厂
+        </n-a>
+      </n-text>
+      <span style="width: 5px; display: inline-block" />由于和仓库的合同到期,
+      淘宝店铺已经关闭
+    </n-p>
+    <n-p>
+      <n-a href="https://paperclip.eu.org/">回形针视频归档站</n-a>
+    </n-p>
+    <n-p>
+      <n-a href="https://wandering-paperclip.glitch.me/">
+        Wandering PaperClip 流浪回形针
+      </n-a>
+    </n-p>
+    <n-p>
+      <n-a href="https://paper-clips.purestream.eu.org/">
+        paper-clips.purestream.eu.org
+      </n-a>
+    </n-p>
+    <n-p>
+      <n-a href="https://paperclip.wiki/">paperclip.wiki</n-a>
+    </n-p>
     <n-h2>R.I.P</n-h2>
-    <n-grid :cols="201" item-responsive>
-      <n-gi span="100">
+    <n-grid cols="1 345:2" :x-gap="5" :y-gap="5" item-responsive style="min-height: 90px">
+      <n-gi span="1">
         <img
           src="https://cf.ipaperclip-icu.cyou/rip1.webp"
           alt="rip1"
@@ -90,8 +91,7 @@
           style="width: 100%"
         />
       </n-gi>
-      <n-gi span="1" />
-      <n-gi span="100">
+      <n-gi span="1">
         <img
           src="https://cf.ipaperclip-icu.cyou/rip2.webp"
           alt="rip2"
@@ -112,7 +112,7 @@
 </template>
 
 <script setup lang="ts">
-import { NA, NP, NH2, NCard, NDivider, NGrid, NGi } from "naive-ui";
+import { NA, NP, NH2, NCard, NText, NGrid, NGi } from "naive-ui";
 </script>
 
 <style>
