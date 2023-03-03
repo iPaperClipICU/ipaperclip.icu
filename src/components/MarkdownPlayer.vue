@@ -43,7 +43,7 @@ const props = defineProps({
 const main = async (url: string) => {
   showError.value = false;
   showLoad.value = true;
-  // 💩
+  // 所以下面是怎么跑起来的呢？💩
   const resp = await fetch(url).catch(() => {
     showError.value = true;
     return null;
@@ -57,7 +57,7 @@ const main = async (url: string) => {
   mdText = mdText.replace(/\r/g, "");
 
   // const footerReg = /\[\^\d\]:\n[^[]+/;
-  const footerReg = /\^\d\]:\r?\n[^^]+/g;
+  const footerReg = /\^\d\]:\r?\n?[^^]+/g;
   const footerList = mdText.match(footerReg);
   mdText = mdText.replace(footerReg, "").replace(/\[$/g, "");
 
@@ -78,6 +78,37 @@ const main = async (url: string) => {
       `<abstract>${abstract}</abstract>`
     );
 
+  const parseBold = (strs: string | (VNode | string)[]): (VNode | string)[] => {
+    // 由 Copilot 生成 🙃
+    // **bold** __bold__
+    const REG = [/\*\*[^*]+\*\*/, /__[^_]+__/];
+    if (!Array.isArray(strs)) strs = [strs];
+
+    let childrenList: (VNode | string)[] = [];
+    for (let str of strs) {
+      if (typeof str === "string" && str.search(REG[0]) !== -1) {
+        // **bold**
+        const match = (str.match(REG[0]) as RegExpMatchArray)[0];
+        const name = match.replace(/^\*\*/, "").replace(/\*\*$/, "");
+        str.split(match).forEach((value, index) => {
+          if (index !== 0) childrenList.push(h("b", null, name));
+          childrenList = childrenList.concat(parseBold(value));
+        });
+      } else if (typeof str === "string" && str.search(REG[1]) !== -1) {
+        // __bold__
+        const match = (str.match(REG[1]) as RegExpMatchArray)[0];
+        const name = match.replace(/^__/, "").replace(/__$/, "");
+        str.split(match).forEach((value, index) => {
+          if (index !== 0) childrenList.push(h("b", null, name));
+          childrenList = childrenList.concat(parseBold(value));
+        });
+      } else {
+        childrenList.push(str);
+      }
+    }
+
+    return childrenList;
+  };
   const parseLink = (strs: string | string[]): (VNode | string)[] => {
     // [name](url) <url>
 
@@ -189,7 +220,7 @@ const main = async (url: string) => {
       const i = ii
         .replace(/\[$/g, "")
         .replace(/\r?\n?!!! note[^]+$/, "")
-        .replace(/^\^\d\]:\r?\n( {4}|\t)/g, "");
+        .replace(/^\^\d\]:( |(\r?\n( {4}|\t)))?/g, "");
 
       // const num = numMatch[0].replace("[^", "").replace("]:\n    ", "");
       const msgList: (VNode | string)[] = [];
@@ -200,6 +231,7 @@ const main = async (url: string) => {
         if (msg.search(/( {4}|\t).+/) !== -1)
           msg = msg.replace(/( {4}|\t)/, "");
         msg = parseLink(msg);
+        msg = parseBold(msg);
 
         msgList.push(h("p", { class: "footer" }, { default: () => msg }));
       });
