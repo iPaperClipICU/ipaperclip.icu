@@ -169,7 +169,7 @@ const main = async (url: string) => {
         return h("img", {
           src,
           alt,
-          style: "max-width: 100%",
+          style: "max-width: 100%; min-height: 40px",
           loading: "lazy",
         });
       } else if (ele.name === "abstract") {
