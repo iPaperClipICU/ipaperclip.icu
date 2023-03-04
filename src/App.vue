@@ -1,6 +1,5 @@
 <template>
   <n-config-provider :locale="zhCN" :theme="darkTheme">
-    <n-back-top />
     <n-layout
       position="absolute"
       :style="{ '--header-height': showTag ? '98px' : '64px' }"
@@ -26,6 +25,7 @@
         style="top: var(--header-height)"
         position="absolute"
       >
+        <n-back-top />
         <div class="container">
           <router-view />
         </div>
@@ -47,8 +47,11 @@ import {
 import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from "naive-ui"; // NaiveUI Config
 
 import router from "@/router";
+import { loadScripts } from "./assets/utils";
 import TagMenu from "@/components/TagMenu.vue";
 import HeadView from "@/components/HeadView.vue";
+
+const w = window as any;
 
 const showTag = ref<boolean>(false);
 const showREADME = ref<boolean>(true);
@@ -57,6 +60,20 @@ const navigationCSS_padding = ref<string>("32px");
 // 判断是否显示 README
 router.beforeEach((to) => {
   showREADME.value = to.fullPath === "/";
+});
+
+// 加载 Plyr
+router.afterEach((to, from) => {
+  if (
+    from.name === undefined &&
+    !String(to.name).startsWith("FILE:") &&
+    typeof w.Plyr !== "function"
+  ) {
+    loadScripts([
+      "https://cdn.jsdelivr.net/npm/plyr@3.7.3/dist/plyr.min.js",
+      "https://cdn.plyr.io/3.7.3/plyr.js",
+    ]);
+  }
 });
 </script>
 
