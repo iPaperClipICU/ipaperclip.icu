@@ -157,7 +157,9 @@ const main = async (url: string) => {
           .replace(/\)$/, "");
         str.split(match).forEach((value, index) => {
           if (index !== 0)
-            childrenList.push(h(NA, { href: url }, { default: () => name }));
+            childrenList.push(
+              h(NA, { href: url, target: "_blank" }, { default: () => name })
+            );
           childrenList = childrenList.concat(parseLink(value));
         });
       } else if (str.search(REG[1]) !== -1) {
@@ -168,7 +170,9 @@ const main = async (url: string) => {
           .replace(/>$/, "");
         str.split(match).forEach((value, index) => {
           if (index !== 0)
-            childrenList.push(h(NA, { href: url }, { default: () => url }));
+            childrenList.push(
+              h(NA, { href: url, target: "_blank" }, { default: () => url })
+            );
           childrenList = childrenList.concat(parseLink(value));
         });
       } else if (str !== "") childrenList.push(str);
