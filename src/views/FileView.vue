@@ -35,10 +35,9 @@ import { NH2, NTag, NCard, NRadio, NSpace, NRadioGroup } from "naive-ui";
 import FileCard from "@/components/FilePlayer.vue";
 import { useCounterStore } from "@/stores/counter";
 import type { FileCardDataType, FileTypes } from "@/types";
-import { getData, getSign, getFileInfo } from "@/assets/utils";
+import { getData, getFileInfo } from "@/assets/utils";
 import MarkdownPlayer from "@/components/MarkdownPlayer.vue";
 
-const w = window as any;
 const data = getData();
 const counter = useCounterStore();
 
@@ -64,11 +63,6 @@ const radioOption: {
 const radioChange = (value: string) => {
   counter.CDNDomain = value;
   localStorage.setItem("CDNDomain", value);
-  if (FileCardData.value?.fileType === "audio") {
-    w.$AudioPlayer.audio.src = getSign(
-      `${counter.CDNDomain}/${FileCardData.value?.fileUrl}`
-    );
-  }
 };
 
 const init = () => {
