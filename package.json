@@ -12,6 +12,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@sentry/tracing": "^7.43.0",
+    "@sentry/vue": "^7.43.0",
     "cheerio": "^1.0.0-rc.12",
     "js-md5": "^0.7.3",
     "naive-ui": "^2.34.3",
