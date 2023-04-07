@@ -9,20 +9,35 @@
     style="margin-bottom: 15px"
   />
   <n-card hoverable style="margin-bottom: 15px" size="small">
-    <n-space align="baseline">
-      <span style="font-size: 15px">线路</span>
-      <n-radio-group v-model:value="radioValue" name="radiogroup">
-        <n-space>
-          <n-radio
-            v-for="radio in radioOption"
-            :key="radio.value"
-            :value="radio.value"
-            @change="radioChange(radio.value)"
-          >
-            {{ radio.label }}
-          </n-radio>
+    <n-space justify="space-between" align="center">
+      <div>
+        <n-space align="baseline">
+          <span style="font-size: 15px">线路</span>
+          <n-radio-group v-model:value="radioValue" name="radiogroup">
+            <n-space>
+              <n-radio
+                v-for="radio in radioOption"
+                :key="radio.value"
+                :value="radio.value"
+                @change="radioChange(radio.value)"
+              >
+                {{ radio.label }}
+              </n-radio>
+            </n-space>
+          </n-radio-group>
         </n-space>
-      </n-radio-group>
+      </div>
+      <div>
+        <n-button
+          strong
+          secondary
+          type="primary"
+          size="small"
+          @click="download"
+        >
+          下载
+        </n-button>
+      </div>
     </n-space>
   </n-card>
   <MarkdownPlayer v-if="MarkdownUrl !== ''" :url="MarkdownUrl" />
@@ -30,7 +45,15 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { NH2, NTag, NCard, NRadio, NSpace, NRadioGroup } from "naive-ui";
+import {
+  NH2,
+  NTag,
+  NCard,
+  NRadio,
+  NSpace,
+  NButton,
+  NRadioGroup,
+} from "naive-ui";
 
 import FileCard from "@/components/FilePlayer.vue";
 import { useCounterStore } from "@/stores/counter";
@@ -63,6 +86,13 @@ const radioOption: {
 const radioChange = (value: string) => {
   counter.CDNDomain = value;
   localStorage.setItem("CDNDomain", value);
+};
+
+const download = () => {
+  // 跳转
+  // window.location.href = "";
+  // TODO: value 为 undefined 时会报错
+  window.open(`https://r2.ipaperclip.top/${FileCardData.value?.fileUrl}`);
 };
 
 const init = () => {
