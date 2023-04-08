@@ -63,11 +63,6 @@ const getPage = (): number => {
 const nowPage = ref<number>(getPage());
 
 const updatePage = (page: number) => {
-  // 动态更新 url
-  const url = new URL(location.href);
-  url.searchParams.append("p", String(page));
-  window.history.pushState({}, "", url.href);
-
   listKey.value = page;
   nowPage.value = page;
 };
