@@ -18,9 +18,11 @@ import { NCard, NEmpty } from "naive-ui";
 
 import router from "@/router";
 import type { FilesMenuDataType } from "@/types/";
+import { useCounterStore } from "@/stores/counter";
 import FilesMenu from "@/components/FilesMenu.vue";
 import { getData, getFileInfo } from "@/assets/utils";
 
+const counter = useCounterStore();
 const data = getData();
 
 const searchNum = ref<number>(0); // 结果数量
@@ -86,6 +88,7 @@ const search = (keyword: string | undefined) => {
     // 没有搜索结果
     searchNum.value = 0;
     showNullEmpty.value = true;
+    counter.FilesMenuDate = undefined;
   } else {
     // 有搜索结果
     FilesMenuData.value = {
@@ -93,6 +96,8 @@ const search = (keyword: string | undefined) => {
       data: [searchData],
     };
     searchNum.value = searchData.length;
+    counter.FilesMenuDate = FilesMenuData.value;
+    counter.nowPage = 1;
   }
 };
 init();

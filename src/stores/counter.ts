@@ -1,9 +1,18 @@
 import { defineStore } from "pinia";
 import type { MenuOption } from "naive-ui";
 
+import type { FileTypes, FilesMenuDataType } from "@/types";
+
 interface State {
   CDNDomain: string;
   menuOptions: MenuOption[];
+  nowPage: number;
+  listKey: number;
+  FilesMenuDate: FilesMenuDataType | undefined;
+  download: {
+    switch: boolean; // 是否开启批量下载
+    select: { [key: string]: boolean }; // { href: checked }
+  };
 }
 
 export const useCounterStore = defineStore("counter", {
@@ -20,5 +29,59 @@ export const useCounterStore = defineStore("counter", {
       } else return local;
     })(),
     menuOptions: [],
+    nowPage: 1,
+    listKey: Math.random(),
+    FilesMenuDate: undefined,
+    download: {
+      switch: false,
+      select: (() => {
+        const data = ((): null | string[] => {
+          try {
+            return JSON.parse(localStorage.getItem("downloadSelect") ?? "");
+          } catch (error) {
+            return null;
+          }
+        })();
+        if (data === null || data.length === 0) {
+          localStorage.setItem("downloadSelect", "[]");
+          return {};
+        } else {
+          const obj: { [key: string]: boolean } = {};
+          data.forEach((item) => {
+            obj[item] = true;
+          });
+          return obj;
+        }
+      })(),
+    },
   }),
+  actions: {
+    changeListKey() {
+      this.listKey = Math.random();
+    },
+    changeDownloadSelect(
+      item: {
+        name: string;
+        type: FileTypes;
+        href: string;
+      },
+      checked: boolean = true
+    ) {
+      if (checked) {
+        this.download.select[item.href] = true;
+      } else {
+        delete this.download.select[item.href];
+      }
+
+      // 本地存储
+      localStorage.setItem(
+        "downloadSelect",
+        JSON.stringify(Object.keys(this.download.select))
+      );
+    },
+    deleteDownloadSelect() {
+      this.download.select = {};
+      localStorage.setItem("downloadSelect", "[]");
+    },
+  },
 });

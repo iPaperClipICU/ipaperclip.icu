@@ -7,7 +7,11 @@
     :bordered="false"
     :mask-closable="downloadModalData.status === 'finish'"
     :close-on-esc="downloadModalData.status === 'finish'"
-    :closable="downloadModalData.status === 'finish'"
+    :closable="
+      downloadModalData.status === 'finish' ||
+      downloadModalData.status === 'auth'
+    "
+    @update:show="(value) => emit('close', value)"
   >
     <div v-if="downloadModalData.status === 'auth'">
       <n-result
@@ -16,11 +20,18 @@
         description="请选择并授权一个文件夹用于保存下载的文件"
       >
         <template #footer>
-          <n-button @click="authFilesButtonClick">选择</n-button>
+          <n-button @click="() => authFilesButtonClick(false)">选择</n-button>
         </template>
       </n-result>
     </div>
     <div v-else-if="downloadModalData.status === 'download'">
+      <n-alert
+        v-if="downloadModalData.progress.status === 'error'"
+        :title="downloadModalData.error.title"
+        type="error"
+      >
+        {{ downloadModalData.error.message }}
+      </n-alert>
       <n-h3 align-text>
         <n-text type="warning">
           请不要关闭或刷新当前页面，这会导致下载进度丢失！
@@ -90,14 +101,19 @@
           v-else-if="downloadModalData.progress.status === 'error'"
           size="small"
           type="success"
+          @click="() => retryButtonClick()"
         >
-          重试
+          {{
+            downloadModalData.error.name === "PR:AuthError"
+              ? "重新授权"
+              : "重试"
+          }}
         </n-button>
         <n-popconfirm
           @positive-click="
             () => {
               controlDownload(false);
-              emit('close');
+              emit('close', false, false);
             }
           "
         >
@@ -111,7 +127,7 @@
     <div v-else-if="downloadModalData.status === 'finish'">
       <n-result status="success" title="下载成功">
         <template #footer>
-          <n-button @click="() => emit('close')">关闭</n-button>
+          <n-button @click="() => emit('close', false)">关闭</n-button>
         </template>
       </n-result>
     </div>
@@ -124,6 +140,7 @@ import { ref, type PropType } from "vue";
 import {
   NH3,
   NText,
+  NAlert,
   NModal,
   NSpace,
   NButton,
@@ -144,7 +161,7 @@ const props = defineProps({
   },
 });
 const emit = defineEmits<{
-  (e: "close"): void;
+  (e: "close", value: boolean, needDelete?: boolean): void;
 }>();
 
 const downloadModal = ref<boolean>(true);
@@ -160,7 +177,8 @@ const downloadModalData = ref<{
   };
   error: {
     title: string;
-    description: string;
+    name: string;
+    message: string;
   };
 }>({
   status: "auth",
@@ -174,11 +192,12 @@ const downloadModalData = ref<{
   },
   error: {
     title: "",
-    description: "",
+    name: "",
+    message: "",
   },
 });
 // eslint-disable-next-line no-undef
-const dirHandle = ref<FileSystemDirectoryHandle | null>(null);
+let dirHandle: FileSystemDirectoryHandle | null = null;
 let controller: AbortController | null = new AbortController();
 
 const controlDownload = async (control: boolean) => {
@@ -189,6 +208,28 @@ const controlDownload = async (control: boolean) => {
     downloadModalData.value.progress.status = "stop";
     controller?.abort();
   }
+};
+
+const retryButtonClick = () => {
+  if (downloadModalData.value.error.name === "PR:AuthError") {
+    dirHandle = null;
+  }
+  authFilesButtonClick(true);
+};
+
+const createDir = async (
+  // eslint-disable-next-line no-undef
+  dirHandle: FileSystemDirectoryHandle,
+  files: string[]
+  // eslint-disable-next-line no-undef
+): Promise<FileSystemDirectoryHandle> => {
+  if (files.length === 0) return dirHandle;
+  const newDirHandle = await dirHandle.getDirectoryHandle(files[0], {
+    create: true,
+  });
+  if (files.length > 1) {
+    return await createDir(newDirHandle, files.slice(1));
+  } else return newDirHandle;
 };
 
 const download = async () => {
@@ -206,7 +247,8 @@ const download = async () => {
   };
 
   for (const fileHref of fileHrefList) {
-    const fileName = fileHref.split("/").pop() ?? "";
+    const fileHrefArr = fileHref.split("/");
+    const fileName = fileHrefArr.pop() ?? "";
     downloadModalData.value.progress.nowFileName = fileName;
     downloadModalData.value.progress.nowFileProgressNum = 0;
     if (downloadModalData.value.progress.status === "stop") return;
@@ -225,19 +267,22 @@ const download = async () => {
     });
     controller = null;
 
-    if (dirHandle.value === null) {
-      downloadModalData.value.error = {
-        title: "下载失败",
-        description: "授权失效，请重新授权",
+    if (dirHandle === null) {
+      throw {
+        name: "AbortError",
+        message: "授权失效，请重新授权",
       };
-      throw new Error("授权失效，请重新授权");
     }
-    // TODO: 错误处理
-    const fileHandle = await dirHandle.value.getFileHandle(fileName, {
+    const atHandle = await createDir(
+      // eslint-disable-next-line no-undef
+      dirHandle as FileSystemDirectoryHandle,
+      fileHrefArr.filter((value) => value !== "")
+    ); // 创建文件夹
+    const fileHandle = await atHandle.getFileHandle(fileName, {
       create: true,
-    });
+    }); // 创建文件Handle
     const writable = await fileHandle.createWritable();
-    await writable.write(resp.data);
+    await writable.write(resp.data); // 写入文件
     await writable.close();
     downloadModalData.value.progress.finishedFilesNum++;
     downloadModalData.value.tasks[fileHref] = true;
@@ -246,17 +291,37 @@ const download = async () => {
   downloadModalData.value.status = "finish";
 };
 
-const authFilesButtonClick = async () => {
+const authFilesButtonClick = async (retry?: boolean) => {
   try {
-    dirHandle.value = await window.showDirectoryPicker({
-      mode: "readwrite",
-      startIn: "downloads",
-    });
+    if (dirHandle === null)
+      dirHandle = await window.showDirectoryPicker({
+        mode: "readwrite",
+        startIn: "downloads",
+      });
     downloadModalData.value.status = "download";
-    Object.keys(props.data).forEach((key) => {
-      downloadModalData.value.tasks[key] = false;
+    if (!retry)
+      Object.keys(props.data).forEach((key) => {
+        downloadModalData.value.tasks[key] = false;
+      });
+    download().catch((e) => {
+      console.error(e, e.name, e.code, e.message);
+      if (e.name === "CanceledError") return;
+      if (["AbortError", "NotAllowedError"].includes(e.name)) {
+        // 授权失效
+        downloadModalData.value.error = {
+          title: "授权失效",
+          name: "PR:AuthError",
+          message: "授权失效，请重新授权",
+        };
+      } else {
+        downloadModalData.value.error = {
+          title: "批量下载失败",
+          name: e.name ?? e.code ?? "Error don't have name or code",
+          message: e.message,
+        };
+      }
+      downloadModalData.value.progress.status = "error";
     });
-    download();
   } catch (err: any) {
     if (err.name === "AbortError") {
       DiscreteAPI.message.warning("取消授权");

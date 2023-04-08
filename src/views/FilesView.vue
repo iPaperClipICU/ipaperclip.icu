@@ -6,7 +6,7 @@
       </n-h5>
     </n-collapse-transition>
     <!-- 文件夹 -->
-    <FilesMenu v-if="FilesMenuData !== null" :data="FilesMenuData" />
+    <FilesMenu v-if="FilesMenuData !== undefined" :data="FilesMenuData" />
     <!-- Null -->
     <n-empty v-else-if="showNull" description="请在「菜单」中选择" />
   </n-card>
@@ -18,14 +18,16 @@ import { NH5, NText, NCard, NEmpty, NCollapseTransition } from "naive-ui";
 
 import router from "@/router";
 import type { FilesMenuDataType } from "@/types";
+import { useCounterStore } from "@/stores/counter";
 import FilesMenu from "@/components/FilesMenu.vue";
 import { getFileInfo, getData } from "@/assets/utils.js";
 
+const counter = useCounterStore();
 const data = getData();
 
 const showNull = ref<boolean>(false);
 const tag = ref<false | string>(false);
-const FilesMenuData = ref<FilesMenuDataType | null>(null);
+const FilesMenuData = ref<FilesMenuDataType | undefined>(undefined);
 
 /* 
 No  Tag /files
@@ -98,13 +100,14 @@ const init = (): void => {
     needPagination: true,
     data: pagesData,
   };
+  counter.FilesMenuDate = FilesMenuData.value;
 };
 router.afterEach((to, from) => {
   if (
     String(to.name).startsWith("FILES:") &&
     String(from.name).startsWith("FILES:")
   ) {
-    FilesMenuData.value = null;
+    FilesMenuData.value = undefined;
     init();
   }
 });

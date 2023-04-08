@@ -27,6 +27,7 @@
       >
         <n-back-top />
         <div class="container">
+          <DownloadControlCard />
           <router-view />
         </div>
       </n-layout-content>
@@ -48,10 +49,13 @@ import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from "naive-ui"; // Na
 
 import router from "@/router";
 import { loadScripts } from "./assets/utils";
+import { useCounterStore } from "@/stores/counter";
 import TagMenu from "@/components/TagMenu.vue";
 import HeadView from "@/components/HeadView.vue";
+import DownloadControlCard from "@/components/DownloadControlCard.vue";
 
 const w = window as any;
+const counter = useCounterStore();
 
 const showTag = ref<boolean>(false);
 const showREADME = ref<boolean>(true);
@@ -74,6 +78,10 @@ router.afterEach((to, from) => {
       "https://cdn.plyr.io/3.7.3/plyr.js",
     ]);
   }
+});
+
+router.beforeEach((to) => {
+  if (to.name === "Home") counter.FilesMenuDate = undefined;
 });
 </script>
 
