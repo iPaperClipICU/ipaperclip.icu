@@ -15,17 +15,11 @@
       <n-button strong secondary type="primary" @click="downloadButtonClick">
         下载
       </n-button>
-      <n-button-group>
-        <n-button
-          v-if="counter.FilesMenuDate !== undefined"
-          strong
-          secondary
-          @click="() => selectAll({ at: true })"
-        >
+      <n-button-group v-if="counter.FilesMenuDate !== undefined">
+        <n-button strong secondary @click="() => selectAll({ at: true })">
           全选当前页面
         </n-button>
         <n-button
-          v-if="counter.FilesMenuDate !== undefined"
           strong
           secondary
           type="error"
@@ -34,23 +28,16 @@
           取消当前页面的选择
         </n-button>
       </n-button-group>
-      <n-button-group>
-        <n-button
-          v-if="
-            counter.FilesMenuDate !== undefined &&
-            counter.FilesMenuDate.data.length > 1
-          "
-          strong
-          secondary
-          @click="() => selectAll()"
-        >
+      <n-button-group
+        v-if="
+          counter.FilesMenuDate !== undefined &&
+          counter.FilesMenuDate.data.length > 1
+        "
+      >
+        <n-button strong secondary @click="() => selectAll()">
           全选当前分支
         </n-button>
         <n-button
-          v-if="
-            counter.FilesMenuDate !== undefined &&
-            counter.FilesMenuDate.data.length > 1
-          "
           strong
           secondary
           type="error"
