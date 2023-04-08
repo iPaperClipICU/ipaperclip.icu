@@ -11,7 +11,9 @@
       downloadModalData.status === 'finish' ||
       downloadModalData.status === 'auth'
     "
-    @update:show="(value) => emit('close', value)"
+    @update:show="
+      (value) => emit('close', value, downloadModalData.status === 'finish')
+    "
   >
     <div v-if="downloadModalData.status === 'auth'">
       <n-result
