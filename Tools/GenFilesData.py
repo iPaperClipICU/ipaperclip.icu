@@ -91,10 +91,13 @@ def main():
         if (tag):
             # 有Tag
             for tagName in i[1]:
-                for root, dirs, files in os.walk('..\\..\\ipaperclip-icu-files\\'+filesName+'\\'+tagName):
+                for root, dirs, files in os.walk('..\\..\\ipaperclip-icu-files\\r2\\video\\'+filesName+'\\'+tagName):
                     # SearchData
                     for fileName in files:
-                        SearchData[fileName] = [filesName, tagName, getDocPath(filesName, tagName, fileName, docData)]
+                        # 获取文件大小(KB), 保留两位小数
+                        size = os.path.getsize('..\\..\\ipaperclip-icu-files\\r2\\video\\'+filesName+'\\'+tagName+'\\'+fileName) / 1024
+                        size = round(size, 2)
+                        SearchData[fileName] = [filesName, tagName, getDocPath(filesName, tagName, fileName, docData), size]
                     
                     # FilesData
                     tmp[tagName] = paging(files)
@@ -102,10 +105,13 @@ def main():
         else:
             # 无Tag
             tagName = None
-            for root, dirs, files in os.walk('..\\..\\ipaperclip-icu-files\\'+filesName):
+            for root, dirs, files in os.walk('..\\..\\ipaperclip-icu-files\\r2\\video\\'+filesName):
                 # SearchData
                 for fileName in files:
-                    SearchData[fileName] = [filesName, tagName, getDocPath(filesName, tagName, fileName, docData)]
+                    # 获取文件大小(KB), 保留两位小数
+                    size = os.path.getsize('..\\..\\ipaperclip-icu-files\\r2\\video\\'+filesName+'\\'+fileName) / 1024
+                    size = round(size, 2)
+                    SearchData[fileName] = [filesName, tagName, getDocPath(filesName, tagName, fileName, docData), size]
                 tmp = paging(files)
                 break
         
