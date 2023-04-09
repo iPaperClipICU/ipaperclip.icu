@@ -1,12 +1,6 @@
 <template>
   <n-card hoverable>
     <n-p>He, 这里是 ipaperclip.icu</n-p>
-    <n-p
-      >如果您想要批量下载, 请前往
-      <n-a href="https://onedrive.ipaperclip.icu/">
-        onedrive.ipaperclip.icu
-      </n-a></n-p
-    >
     <n-h2>联系我们</n-h2>
     <n-p>
       <n-a href="https://t.me/iPaperClipICU" target="_blank">
