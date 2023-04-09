@@ -22,14 +22,21 @@
     >
       {{ downloadModalData.error.message }}
     </n-alert>
-    <div v-if="downloadModalData.status === 'loading'">
-      <n-result title="加载中~">
+    <div
+      v-if="
+        downloadModalData.status === 'loading' ||
+        downloadModalData.status === 'zip'
+      "
+    >
+      <n-result
+        :title="downloadModalData.status === 'loading' ? '加载中~' : '压缩中~'"
+      >
         <template #icon>
           <n-spin size="large" />
         </template>
       </n-result>
     </div>
-    <div v-if="downloadModalData.status === 'auth'">
+    <div v-else-if="downloadModalData.status === 'auth'">
       <n-result
         status="info"
         title="获取访问授权"
@@ -178,7 +185,7 @@ const emit = defineEmits<{
 const downloadModal = ref<boolean>(true);
 const needZip = ref<boolean>(false);
 const downloadModalData = ref<{
-  status: "loading" | "auth" | "download" | "finish";
+  status: "loading" | "auth" | "download" | "zip" | "finish";
   // eslint-disable-next-line no-undef
   tasks: { [key: string]: FileSystemFileHandle | null };
   progress: {
@@ -245,7 +252,7 @@ const finish = async () => {
   }
 
   // 需要压缩
-  downloadModalData.value.status = "loading";
+  downloadModalData.value.status = "zip";
   const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
   for (const [fileHref, atHandle] of Object.entries(
     downloadModalData.value.tasks
