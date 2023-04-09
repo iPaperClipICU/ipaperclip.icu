@@ -4,9 +4,11 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
 import { createHtmlPlugin } from "vite-plugin-html";
+import basicSsl from "@vitejs/plugin-basic-ssl";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
+  const needSSL: boolean = false;
   const CloudFlareWebAnalytics =
     command === "serve"
       ? "" // 开发
@@ -14,6 +16,7 @@ export default defineConfig(({ command }) => {
   return {
     server: {
       host: "0.0.0.0",
+      https: needSSL,
     },
     envPrefix: ["VITE_", "TencentCDN_"],
     plugins: [
@@ -26,6 +29,10 @@ export default defineConfig(({ command }) => {
           },
         },
       }),
+      {
+        ...basicSsl(),
+        apply: needSSL ? "serve" : command === "serve" ? "build" : "serve",
+      },
     ],
     resolve: {
       alias: {
