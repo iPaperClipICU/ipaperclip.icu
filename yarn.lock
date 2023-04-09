@@ -444,6 +444,11 @@
     "@typescript-eslint/types" "5.51.0"
     eslint-visitor-keys "^3.3.0"
 
+"@vitejs/plugin-basic-ssl@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@vitejs/plugin-basic-ssl/-/plugin-basic-ssl-1.0.1.tgz#48c46eab21e0730921986ce742563ae83fe7fe34"
+  integrity sha512-pcub+YbFtFhaGRTo1832FQHQSHvMrlb43974e2eS8EKleR3p1cDdkJFPci1UhwkEf1J9Bz+wKBSzqpKp7nNj2A==
+
 "@vitejs/plugin-vue@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-vue/-/plugin-vue-4.0.0.tgz#93815beffd23db46288c787352a8ea31a0c03e5e"
@@ -609,6 +614,11 @@
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@vue/tsconfig/-/tsconfig-0.1.3.tgz#4a61dbd29783d01ddab504276dcf0c2b6988654f"
   integrity sha512-kQVsh8yyWPvHpb8gIc9l/HIDiiVUy1amynLNpCy8p+FoCiZXCo6fQos5/097MmnNZc9AtseDsCrfkhqCrJ8Olg==
+
+"@zip.js/zip.js@^2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@zip.js/zip.js/-/zip.js-2.7.1.tgz#4d828ad1057760d95fbaad1fbf2cf07ee5c56f77"
+  integrity sha512-Mi7yttBQ3Nzq4Dz71uvwWAY6osr/KxvRCkHLAL3urhjwZTuYJdvXh40zaI+w34SEliMXsrahqGUgqRXzRZD3WQ==
 
 acorn-jsx@^5.3.2:
   version "5.3.2"

@@ -3,7 +3,7 @@
  */
 export type DataType = {
   menuData: ([string] | [string, string[]])[];
-  searchData: { [key: string]: [string, string | null, string | null] };
+  searchData: { [key: string]: [string, string | null, string | null, number] };
   data: {
     [key: string]:
       | {
@@ -21,6 +21,7 @@ export type FilesMenuDataType = {
     name: string;
     type: FileTypes;
     href: string;
+    size: number;
   }[][];
 };
 

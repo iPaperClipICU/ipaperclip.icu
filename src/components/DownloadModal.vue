@@ -15,6 +15,20 @@
       (value) => emit('close', value, downloadModalData.status === 'finish')
     "
   >
+    <n-alert
+      v-if="downloadModalData.progress.status === 'error'"
+      :title="downloadModalData.error.title"
+      type="error"
+    >
+      {{ downloadModalData.error.message }}
+    </n-alert>
+    <div v-if="downloadModalData.status === 'loading'">
+      <n-result title="加载中~">
+        <template #icon>
+          <n-spin size="large" />
+        </template>
+      </n-result>
+    </div>
     <div v-if="downloadModalData.status === 'auth'">
       <n-result
         status="info"
@@ -22,18 +36,11 @@
         description="请选择并授权一个文件夹用于保存下载的文件"
       >
         <template #footer>
-          <n-button @click="() => authFilesButtonClick(false)">选择</n-button>
+          <n-button @click="() => authFilesButtonClick()">选择</n-button>
         </template>
       </n-result>
     </div>
     <div v-else-if="downloadModalData.status === 'download'">
-      <n-alert
-        v-if="downloadModalData.progress.status === 'error'"
-        :title="downloadModalData.error.title"
-        type="error"
-      >
-        {{ downloadModalData.error.message }}
-      </n-alert>
       <n-h3 align-text>
         <n-text type="warning">
           请不要关闭或刷新当前页面，这会导致下载进度丢失！
@@ -141,6 +148,7 @@
 import { ref, type PropType } from "vue";
 import {
   NH3,
+  NSpin,
   NText,
   NAlert,
   NModal,
@@ -151,6 +159,7 @@ import {
   NPopconfirm,
 } from "naive-ui";
 import axios from "axios";
+import { BlobReader, BlobWriter, ZipWriter } from "@zip.js/zip.js";
 
 import DiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
 
@@ -167,9 +176,11 @@ const emit = defineEmits<{
 }>();
 
 const downloadModal = ref<boolean>(true);
+const needZip = ref<boolean>(false);
 const downloadModalData = ref<{
-  status: "auth" | "download" | "finish";
-  tasks: { [key: string]: boolean };
+  status: "loading" | "auth" | "download" | "finish";
+  // eslint-disable-next-line no-undef
+  tasks: { [key: string]: FileSystemFileHandle | null };
   progress: {
     status: "download" | "stop" | "error";
     totalFilesNum: number; // 总文件数
@@ -183,7 +194,7 @@ const downloadModalData = ref<{
     message: string;
   };
 }>({
-  status: "auth",
+  status: "loading",
   tasks: {},
   progress: {
     status: "download",
@@ -212,13 +223,6 @@ const controlDownload = async (control: boolean) => {
   }
 };
 
-const retryButtonClick = () => {
-  if (downloadModalData.value.error.name === "PR:AuthError") {
-    dirHandle = null;
-  }
-  authFilesButtonClick(true);
-};
-
 const createDir = async (
   // eslint-disable-next-line no-undef
   dirHandle: FileSystemDirectoryHandle,
@@ -234,10 +238,41 @@ const createDir = async (
   } else return newDirHandle;
 };
 
+const finish = async () => {
+  if (!needZip.value) {
+    downloadModalData.value.status = "finish";
+    return;
+  }
+
+  // 需要压缩
+  downloadModalData.value.status = "loading";
+  const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
+  for (const [fileHref, atHandle] of Object.entries(
+    downloadModalData.value.tasks
+  )) {
+    // eslint-disable-next-line no-undef
+    const fileHandle = atHandle as FileSystemFileHandle;
+    const file = await fileHandle.getFile();
+    zipWriter.add(fileHref, new BlobReader(file));
+  }
+  const blob = await zipWriter.close();
+  // 下载
+  // 创建下载链接
+  const downloadLink = document.createElement("a");
+  downloadLink.href = URL.createObjectURL(blob);
+  downloadLink.download = "ipaperclip.icu 批量下载.zip";
+
+  // 触发下载
+  downloadLink.click();
+
+  downloadModalData.value.status = "finish";
+};
+
 const download = async () => {
+  downloadModalData.value.status = "download";
   const pathName = decodeURI(location.pathname);
   const fileHrefList = Object.keys(downloadModalData.value.tasks).filter(
-    (key) => !downloadModalData.value.tasks[key]
+    (key) => downloadModalData.value.tasks[key] === null
   );
   const totalFilesNum = Object.keys(downloadModalData.value.tasks).length;
   downloadModalData.value.progress = {
@@ -276,8 +311,7 @@ const download = async () => {
       };
     }
     const atHandle = await createDir(
-      // eslint-disable-next-line no-undef
-      dirHandle as FileSystemDirectoryHandle,
+      dirHandle,
       fileHrefArr.filter((value) => value !== "")
     ); // 创建文件夹
     const fileHandle = await atHandle.getFileHandle(fileName, {
@@ -287,50 +321,80 @@ const download = async () => {
     await writable.write(resp.data); // 写入文件
     await writable.close();
     downloadModalData.value.progress.finishedFilesNum++;
-    downloadModalData.value.tasks[fileHref] = true;
+    downloadModalData.value.tasks[fileHref] = fileHandle;
   }
 
-  downloadModalData.value.status = "finish";
+  await finish();
 };
 
-const authFilesButtonClick = async (retry?: boolean) => {
+/**
+ * 处理下载错误
+ * @param e Error
+ */
+const downloadError = (e: any) => {
+  console.error(e, e.name, e.code, e.message);
+  if (e.name === "CanceledError") return;
+  if (["AbortError", "NotAllowedError"].includes(e.name)) {
+    // 授权失效
+    downloadModalData.value.error = {
+      title: "授权失效",
+      name: "PR:AuthError",
+      message: "授权失效，请重新授权",
+    };
+    dirHandle = null;
+  } else {
+    downloadModalData.value.error = {
+      title: "出现错误",
+      name: e.name ?? e.code ?? "Error don't have name or code",
+      message: e.message,
+    };
+  }
+  downloadModalData.value.progress.status = "error";
+};
+
+const setDirHandle = async (): Promise<boolean> => {
   try {
     if (dirHandle === null)
       dirHandle = await window.showDirectoryPicker({
         mode: "readwrite",
         startIn: "downloads",
       });
-    downloadModalData.value.status = "download";
-    if (!retry)
-      Object.keys(props.data).forEach((key) => {
-        downloadModalData.value.tasks[key] = false;
-      });
-    download().catch((e) => {
-      console.error(e, e.name, e.code, e.message);
-      if (e.name === "CanceledError") return;
-      if (["AbortError", "NotAllowedError"].includes(e.name)) {
-        // 授权失效
-        downloadModalData.value.error = {
-          title: "授权失效",
-          name: "PR:AuthError",
-          message: "授权失效，请重新授权",
-        };
-      } else {
-        downloadModalData.value.error = {
-          title: "批量下载失败",
-          name: e.name ?? e.code ?? "Error don't have name or code",
-          message: e.message,
-        };
-      }
-      downloadModalData.value.progress.status = "error";
-    });
-  } catch (err: any) {
-    if (err.name === "AbortError") {
+    return true;
+  } catch (e: any) {
+    if (e.name === "AbortError") {
       DiscreteAPI.message.warning("取消授权");
     } else {
-      DiscreteAPI.message.error(`授权失败: ${err.message}`);
+      DiscreteAPI.message.error(`授权失败: ${e.message}`);
     }
-    console.error(err.name, err.code, err.message);
+    console.error(e.name, e.code, e.message);
+    return false;
   }
 };
+
+const retryButtonClick = async () => {
+  if (downloadModalData.value.error.name === "PR:AuthError") {
+    dirHandle = null;
+  }
+  if (!(await setDirHandle())) return;
+  download().catch(downloadError);
+};
+
+const authFilesButtonClick = async () => {
+  if (!(await setDirHandle())) return;
+  download().catch(downloadError);
+};
+
+const main = async () => {
+  Object.keys(props.data).forEach((key) => {
+    downloadModalData.value.tasks[key] = null;
+  });
+  if (typeof window.showDirectoryPicker === "function") {
+    downloadModalData.value.status = "auth";
+  } else {
+    needZip.value = true;
+    dirHandle = await navigator.storage.getDirectory();
+    download().catch(downloadError);
+  }
+};
+main();
 </script>

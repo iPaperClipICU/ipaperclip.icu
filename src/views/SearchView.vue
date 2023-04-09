@@ -64,7 +64,7 @@ const search = (keyword: string | undefined) => {
   const searchData: FilesMenuDataType["data"][0] = [];
   for (const fileName in data.searchData) {
     if (fileName.toLocaleLowerCase().indexOf(keyword) != -1) {
-      const [filesName, tagName] = data.searchData[fileName];
+      const [filesName, tagName, , fileSize] = data.searchData[fileName];
       const fileInfo = getFileInfo(fileName);
       if (tagName !== null) {
         // 有Tag
@@ -72,6 +72,7 @@ const search = (keyword: string | undefined) => {
           name: `[${filesName}/${tagName}] ${fileInfo.name}`,
           href: `/${filesName}/${tagName}/${fileName}`,
           type: fileInfo.type,
+          size: fileSize,
         });
       } else {
         // 没有Tag
@@ -79,6 +80,7 @@ const search = (keyword: string | undefined) => {
           name: `[${filesName}] ${fileInfo.name}`,
           href: `/${filesName}/${fileName}`,
           type: fileInfo.type,
+          size: fileSize,
         });
       }
     }

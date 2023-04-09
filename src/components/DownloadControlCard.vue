@@ -85,8 +85,6 @@ import DownloadModal from "./DownloadModal.vue";
 
 const counter = useCounterStore();
 
-const getLocalStorageName = () =>
-  `downloadSelectData_${decodeURI(location.pathname)}`;
 const downloadModal = ref<boolean>(false);
 
 const downloadButtonClick = () => {
@@ -98,27 +96,41 @@ const downloadButtonClick = () => {
 /**
  * 打开批量下载模式
  */
-const openDownloadMode = () => {
-  if (typeof window.showDirectoryPicker !== "function") {
+const openDownloadMode = async () => {
+  if (
+    typeof window.showDirectoryPicker === "function" ||
+    (await (async (): Promise<boolean> => {
+      try {
+        const dirHandle = await navigator.storage.getDirectory();
+        const fileHandle = await dirHandle.getFileHandle("test.txt", {
+          create: true,
+        });
+        if (typeof fileHandle.createWritable !== "function") return false;
+        else return true;
+      } catch (e) {
+        return false;
+      }
+    })())
+  ) {
+    const selectLength = Object.keys(counter.download.select).length;
+    if (selectLength > 0) {
+      DiscreteAPI.dialog.warning({
+        title: "是否使用上次的选择？",
+        content: `上次您选择了 ${selectLength} 个文件，是否使用上次的选择？`,
+        positiveText: "使用",
+        negativeText: "不使用",
+        onNegativeClick: () => {
+          localStorage.setItem("downloadSelect", "[]");
+          counter.deleteDownloadSelect();
+        },
+        onAfterLeave: () => {
+          counter.download.switch = true;
+        },
+      });
+    } else counter.download.switch = true;
+  } else {
     DiscreteAPI.message.warning("您的浏览器不支持批量下载");
-    return;
   }
-  const selectLength = Object.keys(counter.download.select).length;
-  if (selectLength > 0) {
-    DiscreteAPI.dialog.warning({
-      title: "是否使用上次的选择？",
-      content: `上次您选择了 ${selectLength} 个文件，是否使用上次的选择？`,
-      positiveText: "使用",
-      negativeText: "不使用",
-      onNegativeClick: () => {
-        localStorage.setItem(getLocalStorageName(), "[]");
-        counter.deleteDownloadSelect();
-      },
-      onAfterLeave: () => {
-        counter.download.switch = true;
-      },
-    });
-  } else counter.download.switch = true;
 };
 
 /**

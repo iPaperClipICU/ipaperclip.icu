@@ -87,10 +87,12 @@ const init = (): void => {
   for (const i of filesData) {
     const pageData: FilesMenuDataType["data"][0] = [];
     for (const fileName of i) {
+      const fileSize = data.searchData[fileName][3];
       pageData.push({
         name: getFileInfo(fileName).name,
         type: getFileInfo(fileName).type,
         href: `${hrefHead}/${fileName}`,
+        size: fileSize,
       });
     }
     pagesData.push(pageData);
