@@ -3,12 +3,7 @@
 import DiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
 import { BlobReader, BlobWriter, ZipWriter } from "@zip.js/zip.js";
 
-(window as any).test = async () => {
-  const dirHandle = await navigator.storage.getDirectory();
-  for await (const [key] of dirHandle.entries()) {
-    console.log(key);
-  }
-};
+type SupportType = "native" | "storage" | null;
 
 /**
  * 创建文件夹
@@ -28,15 +23,16 @@ const createDir = async (
   } else return newDirHandle;
 };
 
-const initDirHandle = async (dirHandle: FileSystemDirectoryHandle) => {
+const initDirHandle = async (
+  dirHandle: FileSystemDirectoryHandle,
+  supportType: SupportType
+) => {
   for await (const [key] of dirHandle.entries()) {
     console.log(`Deleting ${key}`);
     await dirHandle.removeEntry(key, { recursive: true });
   }
 
-  for await (const [key] of dirHandle.entries()) {
-    console.log(key);
-  }
+  if (supportType === "native") return dirHandle;
 
   dirHandle = await dirHandle.getDirectoryHandle("iPaperClipICU", {
     create: true,
@@ -45,10 +41,8 @@ const initDirHandle = async (dirHandle: FileSystemDirectoryHandle) => {
   return dirHandle;
 };
 
-type SupportType = "native" | "storage";
-
 export default class FileControl {
-  supportType: SupportType | null = null;
+  supportType: SupportType = null;
   dirHandle: FileSystemDirectoryHandle | null = null;
   iPaperClipICUDirHandle: FileSystemDirectoryHandle | null = null;
   tasks: { [key: string]: FileSystemFileHandle };
@@ -61,7 +55,10 @@ export default class FileControl {
   async init() {
     if (this.supportType === "storage") {
       this.dirHandle = await navigator.storage.getDirectory();
-      this.iPaperClipICUDirHandle = await initDirHandle(this.dirHandle);
+      this.iPaperClipICUDirHandle = await initDirHandle(
+        this.dirHandle,
+        this.supportType
+      );
     }
   }
 
@@ -75,7 +72,10 @@ export default class FileControl {
           mode: "readwrite",
           startIn: "downloads",
         });
-        this.iPaperClipICUDirHandle = await initDirHandle(this.dirHandle);
+        this.iPaperClipICUDirHandle = await initDirHandle(
+          this.dirHandle,
+          this.supportType
+        );
       }
       return true;
     } catch (e: any) {
@@ -149,7 +149,7 @@ export default class FileControl {
    * 检查支持情况
    */
   static checkSupport() {
-    if (!("showDirectoryPicker" in window)) {
+    if ("showDirectoryPicker" in window) {
       // 支持授权写入
       return "native";
     } else if (
