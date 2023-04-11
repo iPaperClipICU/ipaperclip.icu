@@ -272,12 +272,14 @@ const finish = async () => {
   // 触发下载
   downloadLink.click();
 
+  // 释放下载链接
+  URL.revokeObjectURL(downloadLink.href);
+
   downloadModalData.value.status = "finish";
 };
 
 const download = async () => {
   downloadModalData.value.status = "download";
-  const pathName = decodeURI(location.pathname);
   const fileHrefList = Object.keys(downloadModalData.value.tasks).filter(
     (key) => downloadModalData.value.tasks[key] === null
   );
@@ -299,7 +301,7 @@ const download = async () => {
 
     controller = new AbortController();
     const resp = await axios({
-      url: `https://r2.ipaperclip.top/video${pathName}/${fileName}`,
+      url: `https://r2.ipaperclip.top/video${fileHref}`,
       method: "GET",
       responseType: "blob",
       signal: controller.signal,
