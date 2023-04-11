@@ -166,9 +166,7 @@ import {
   NPopconfirm,
 } from "naive-ui";
 import axios from "axios";
-import { BlobReader, BlobWriter, ZipWriter } from "@zip.js/zip.js";
-
-import DiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
+import FileControl from "@/assets/FileCotrol";
 
 const props = defineProps({
   data: {
@@ -183,7 +181,6 @@ const emit = defineEmits<{
 }>();
 
 const downloadModal = ref<boolean>(true);
-const needZip = ref<boolean>(false);
 const downloadModalData = ref<{
   status: "loading" | "auth" | "download" | "zip" | "finish";
   // eslint-disable-next-line no-undef
@@ -216,9 +213,8 @@ const downloadModalData = ref<{
     message: "",
   },
 });
-// eslint-disable-next-line no-undef
-let dirHandle: FileSystemDirectoryHandle | null = null;
 let controller: AbortController | null = new AbortController();
+const fc: FileControl = new FileControl();
 
 const controlDownload = async (control: boolean) => {
   if (control) {
@@ -230,50 +226,11 @@ const controlDownload = async (control: boolean) => {
   }
 };
 
-const createDir = async (
-  // eslint-disable-next-line no-undef
-  dirHandle: FileSystemDirectoryHandle,
-  files: string[]
-  // eslint-disable-next-line no-undef
-): Promise<FileSystemDirectoryHandle> => {
-  if (files.length === 0) return dirHandle;
-  const newDirHandle = await dirHandle.getDirectoryHandle(files[0], {
-    create: true,
-  });
-  if (files.length > 1) {
-    return await createDir(newDirHandle, files.slice(1));
-  } else return newDirHandle;
-};
-
 const finish = async () => {
-  if (!needZip.value) {
-    downloadModalData.value.status = "finish";
-    return;
+  if (fc.supportType !== "native") {
+    downloadModalData.value.status = "zip";
   }
-
-  // 需要压缩
-  downloadModalData.value.status = "zip";
-  const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
-  for (const [fileHref, atHandle] of Object.entries(
-    downloadModalData.value.tasks
-  )) {
-    // eslint-disable-next-line no-undef
-    const fileHandle = atHandle as FileSystemFileHandle;
-    const file = await fileHandle.getFile();
-    zipWriter.add(fileHref, new BlobReader(file));
-  }
-  const blob = await zipWriter.close();
-  // 下载
-  // 创建下载链接
-  const downloadLink = document.createElement("a");
-  downloadLink.href = URL.createObjectURL(blob);
-  downloadLink.download = "ipaperclip.icu 批量下载.zip";
-
-  // 触发下载
-  downloadLink.click();
-
-  // 释放下载链接
-  URL.revokeObjectURL(downloadLink.href);
+  await fc.finish();
 
   downloadModalData.value.status = "finish";
 };
@@ -293,9 +250,8 @@ const download = async () => {
   };
 
   for (const fileHref of fileHrefList) {
-    const fileHrefArr = fileHref.split("/");
-    const fileName = fileHrefArr.pop() ?? "";
-    downloadModalData.value.progress.nowFileName = fileName;
+    downloadModalData.value.progress.nowFileName =
+      FileControl.parseFileHref(fileHref).fileName;
     downloadModalData.value.progress.nowFileProgressNum = 0;
     if (downloadModalData.value.progress.status === "stop") return;
 
@@ -313,24 +269,8 @@ const download = async () => {
     });
     controller = null;
 
-    if (dirHandle === null) {
-      throw {
-        name: "AbortError",
-        message: "授权失效，请重新授权",
-      };
-    }
-    const atHandle = await createDir(
-      dirHandle,
-      fileHrefArr.filter((value) => value !== "")
-    ); // 创建文件夹
-    const fileHandle = await atHandle.getFileHandle(fileName, {
-      create: true,
-    }); // 创建文件Handle
-    const writable = await fileHandle.createWritable();
-    await writable.write(resp.data); // 写入文件
-    await writable.close();
+    await fc.addFile(resp.data, fileHref);
     downloadModalData.value.progress.finishedFilesNum++;
-    downloadModalData.value.tasks[fileHref] = fileHandle;
   }
 
   await finish();
@@ -350,7 +290,7 @@ const downloadError = (e: any) => {
       name: "PR:AuthError",
       message: "授权失效，请重新授权",
     };
-    dirHandle = null;
+    fc.supportType = null;
   } else {
     downloadModalData.value.error = {
       title: "出现错误",
@@ -361,35 +301,16 @@ const downloadError = (e: any) => {
   downloadModalData.value.progress.status = "error";
 };
 
-const setDirHandle = async (): Promise<boolean> => {
-  try {
-    if (dirHandle === null)
-      dirHandle = await window.showDirectoryPicker({
-        mode: "readwrite",
-        startIn: "downloads",
-      });
-    return true;
-  } catch (e: any) {
-    if (e.name === "AbortError") {
-      DiscreteAPI.message.warning("取消授权");
-    } else {
-      DiscreteAPI.message.error(`授权失败: ${e.message}`);
-    }
-    console.error(e.name, e.code, e.message);
-    return false;
-  }
-};
-
 const retryButtonClick = async () => {
   if (downloadModalData.value.error.name === "PR:AuthError") {
-    dirHandle = null;
+    fc.supportType = null;
   }
-  if (!(await setDirHandle())) return;
+  if (!(await fc.auth())) return;
   download().catch(downloadError);
 };
 
 const authFilesButtonClick = async () => {
-  if (!(await setDirHandle())) return;
+  if (!(await fc.auth())) return;
   download().catch(downloadError);
 };
 
@@ -397,11 +318,10 @@ const main = async () => {
   Object.keys(props.data).forEach((key) => {
     downloadModalData.value.tasks[key] = null;
   });
-  if (typeof window.showDirectoryPicker === "function") {
+  if (fc.supportType === "native") {
     downloadModalData.value.status = "auth";
   } else {
-    needZip.value = true;
-    dirHandle = await navigator.storage.getDirectory();
+    await fc.init();
     download().catch(downloadError);
   }
 };
