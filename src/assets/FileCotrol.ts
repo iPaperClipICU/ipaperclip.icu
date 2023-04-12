@@ -28,7 +28,6 @@ const initDirHandle = async (
   supportType: SupportType
 ) => {
   for await (const [key] of dirHandle.entries()) {
-    console.log(`Deleting ${key}`);
     await dirHandle.removeEntry(key, { recursive: true });
   }
 
