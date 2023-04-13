@@ -1,9 +1,10 @@
 /// <reference types="@types/wicg-file-system-access" />
 
+import { openDB, dbCheckHref } from "@/assets/IndexedDB";
 import DiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
 import { BlobReader, BlobWriter, ZipWriter } from "@zip.js/zip.js";
 
-type SupportType = "native" | "storage" | null;
+type SupportType = "native" | "storage" | "indexedDB" | null;
 
 /**
  * 创建文件夹
@@ -44,7 +45,8 @@ export default class FileControl {
   supportType: SupportType = null;
   dirHandle: FileSystemDirectoryHandle | null = null;
   iPaperClipICUDirHandle: FileSystemDirectoryHandle | null = null;
-  tasks: { [key: string]: FileSystemFileHandle };
+  DB: IDBDatabase | null = null;
+  tasks: { [key: string]: FileSystemFileHandle | null };
 
   constructor() {
     this.supportType = FileControl.checkSupport();
@@ -58,6 +60,9 @@ export default class FileControl {
         this.dirHandle,
         this.supportType
       );
+    } else if (this.supportType === "indexedDB") {
+      // 清理垃圾
+      this.DB = await openDB();
     }
   }
 
@@ -94,40 +99,90 @@ export default class FileControl {
    * @param fileName 文件名
    * @param files 文件夹路径
    */
-  async addFile(
-    data: FileSystemWriteChunkType,
-    fileHref: string
-  ): Promise<void> {
-    if (this.iPaperClipICUDirHandle === null) {
-      throw {
-        name: "AbortError",
-        message: "授权失效，请重新授权",
-      };
+  async addFile(data: Blob, fileHref: string): Promise<void> {
+    if (this.supportType === "native" || this.supportType === "storage") {
+      if (this.iPaperClipICUDirHandle === null) {
+        throw {
+          name: "AbortError",
+          message: "授权失效，请重新授权",
+        };
+      }
+
+      const { fileHrefArr, fileName } = FileControl.parseFileHref(fileHref);
+
+      const atHandle = await createDir(
+        this.iPaperClipICUDirHandle,
+        fileHrefArr.filter((value) => value !== "")
+      );
+      const fileHandle = await atHandle.getFileHandle(fileName, {
+        create: true,
+      });
+      const writable = await fileHandle.createWritable();
+      await writable.write(data);
+      await writable.close();
+      this.tasks[fileHref] = fileHandle;
+    } else if (this.supportType === "indexedDB") {
+      if (this.DB === null) {
+        throw {
+          name: "DB Not Found",
+          message: "数据库错误",
+        };
+      }
+
+      if (await dbCheckHref(this.DB, fileHref)) {
+        // 已存在
+        this.tasks[fileHref] = null;
+      } else {
+        // 不存在
+        const transaction = this.DB.transaction(["FileStorage"], "readwrite");
+        const objectStore = transaction.objectStore("FileStorage");
+        const request = objectStore.put({ fileHref, data });
+
+        await (async () => {
+          return new Promise((resolve) => {
+            request.onsuccess = async () => {
+              if (await dbCheckHref(this.DB as IDBDatabase, fileHref)) {
+                this.tasks[fileHref] = null;
+                resolve(true);
+              }
+            };
+          });
+        })();
+      }
     }
-
-    const { fileHrefArr, fileName } = FileControl.parseFileHref(fileHref);
-
-    const atHandle = await createDir(
-      this.iPaperClipICUDirHandle,
-      fileHrefArr.filter((value) => value !== "")
-    );
-    const fileHandle = await atHandle.getFileHandle(fileName, {
-      create: true,
-    });
-    const writable = await fileHandle.createWritable();
-    await writable.write(data);
-    await writable.close();
-    this.tasks[fileHref] = fileHandle;
   }
 
   async finish() {
-    if (this.supportType === "native") return "native";
+    if (this.supportType === "native") return "";
 
     // 压缩
     const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
-    for (const [fileHref, atHandle] of Object.entries(this.tasks)) {
-      const fileData = await atHandle.getFile();
-      zipWriter.add(`iPaperClipICU${fileHref}`, new BlobReader(fileData));
+    if (this.supportType === "storage") {
+      for (const [fileHref, atHandle] of Object.entries(this.tasks)) {
+        const fileData = await (atHandle as FileSystemFileHandle).getFile();
+        zipWriter.add(`iPaperClipICU${fileHref}`, new BlobReader(fileData));
+      }
+    } else if (this.supportType === "indexedDB") {
+      for (const fileHref of Object.keys(this.tasks)) {
+        const db = this.DB as IDBDatabase;
+        const transaction = db.transaction(["FileStorage"], "readwrite");
+        const objectStore = transaction.objectStore("FileStorage");
+
+        const request = objectStore.index("fileHref").get(fileHref);
+        const fileData: Blob | null = await (() => {
+          return new Promise((resolve) => {
+            request.onsuccess = function () {
+              resolve(this.result.data);
+            };
+            request.onerror = () => {
+              resolve(null);
+            };
+          });
+        })();
+        if (fileData !== null) {
+          zipWriter.add(`iPaperClipICU${fileHref}`, fileData.stream());
+        }
+      }
     }
     const blob = await zipWriter.close();
 
@@ -140,8 +195,9 @@ export default class FileControl {
 
     // 清理
     await this.dirHandle?.removeEntry("iPaperClipICU", { recursive: true });
+    window.indexedDB.deleteDatabase("Download");
 
-    return "storage";
+    return "";
   }
 
   /**
@@ -150,15 +206,21 @@ export default class FileControl {
   static checkSupport() {
     if ("showDirectoryPicker" in window) {
       // 支持授权写入
+      console.log("support native");
       return "native";
     } else if (
       "FileSystemWritableFileStream" in window &&
       "write" in FileSystemWritableFileStream.prototype
     ) {
+      console.log("support storage");
       // 支持写入 storage
       return "storage";
+    } else if ("indexedDB" in window) {
+      // 支持 IndexedDB
+      console.log("support indexedDB");
+      return "indexedDB";
     } else {
-      // TODO: 支持 IndexedDB
+      console.log("support null");
       return null;
     }
   }

@@ -80,6 +80,7 @@ import { ref } from "vue";
 import { NCard, NSpace, NButton, NButtonGroup } from "naive-ui";
 
 import { useCounterStore } from "@/stores/counter";
+import FileControl from "@/assets/FileControl";
 import DiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
 import DownloadModal from "./DownloadModal.vue";
 
@@ -97,21 +98,7 @@ const downloadButtonClick = () => {
  * 打开批量下载模式
  */
 const openDownloadMode = async () => {
-  if (
-    typeof window.showDirectoryPicker === "function" ||
-    (await (async (): Promise<boolean> => {
-      try {
-        const dirHandle = await navigator.storage.getDirectory();
-        const fileHandle = await dirHandle.getFileHandle("test.txt", {
-          create: true,
-        });
-        if (typeof fileHandle.createWritable !== "function") return false;
-        else return true;
-      } catch (e) {
-        return false;
-      }
-    })())
-  ) {
+  if (FileControl.checkSupport() !== null) {
     const selectLength = Object.keys(counter.download.select).length;
     if (selectLength > 0) {
       DiscreteAPI.dialog.warning({

@@ -166,7 +166,7 @@ import {
   NPopconfirm,
 } from "naive-ui";
 import axios from "axios";
-import FileControl from "@/assets/FileCotrol";
+import FileControl from "@/assets/FileControl.js";
 
 const props = defineProps({
   data: {
@@ -303,9 +303,9 @@ const downloadError = (e: any) => {
 
 const retryButtonClick = async () => {
   if (downloadModalData.value.error.name === "PR:AuthError") {
-    fc.supportType = null;
+    fc.dirHandle = null;
   }
-  if (!(await fc.auth())) return;
+  if (fc.supportType === "native" && !(await fc.auth())) return;
   download().catch(downloadError);
 };
 
