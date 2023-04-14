@@ -44,7 +44,6 @@ import TagMenu from "@/components/TagMenu.vue";
 
 const emit = defineEmits<{
   (e: "changeSider", key: boolean): void;
-  (e: "changeMargin", key: string): void;
 }>();
 
 type showDataType = {
@@ -72,11 +71,6 @@ const pageSizeChange = () => {
   };
 
   const pageWidth = window.innerWidth;
-  if (pageWidth <= 1024) {
-    emit("changeMargin", "15px");
-  } else {
-    emit("changeMargin", "15px 40px");
-  }
   if (pageWidth <= 750) {
     tmp.siteName = "center";
     tmp.tag = "drawer";

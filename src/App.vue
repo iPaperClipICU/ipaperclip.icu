@@ -3,10 +3,7 @@
     <n-layout position="absolute">
       <n-layout-header bordered class="navigation">
         <div class="navigation-head">
-          <HeadView
-            @change-sider="(key) => (showSider = key)"
-            @change-margin="(key) => (contentMargin = key)"
-          />
+          <HeadView @change-sider="(key) => (showSider = key)" />
         </div>
       </n-layout-header>
       <n-layout has-sider position="absolute" style="top: 64px">
@@ -24,11 +21,13 @@
         </n-layout-sider>
         <n-layout-content embedded :native-scrollbar="false">
           <n-back-top />
-          <div :style="`margin: ${contentMargin}`">
-            <n-collapse-transition :show="counter.download.switch">
-              <DownloadControlCard />
-            </n-collapse-transition>
-            <router-view />
+          <div style="display: flex; justify-content: center">
+            <div style="margin: 20px; max-width: 1200px">
+              <n-collapse-transition :show="counter.download.switch">
+                <DownloadControlCard />
+              </n-collapse-transition>
+              <router-view />
+            </div>
           </div>
         </n-layout-content>
       </n-layout>
@@ -61,7 +60,6 @@ const counter = useCounterStore();
 
 const showREADME = ref<boolean>(true);
 const showSider = ref<boolean>(true);
-const contentMargin = ref<string>("15px");
 
 // 判断是否显示 README
 router.beforeEach((to) => {

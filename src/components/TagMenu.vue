@@ -53,6 +53,10 @@ const props = defineProps({
     type: String as PropType<"PC" | "Mobile">,
   },
 });
+const emit = defineEmits<{
+  (e: "change", key: string): void;
+  (e: "changeDownloadMode", key: boolean): void;
+}>();
 const counter = useCounterStore();
 
 const data = getData();
@@ -190,7 +194,8 @@ const setMenuValue = () => {
   else menuValue.value = `${filesName}/${tagName}`;
 };
 
-const ValueChange = () => {
+const ValueChange = (key: string) => {
+  emit("change", key);
   setMenuValue();
 };
 setMenuValue();
