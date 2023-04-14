@@ -1,36 +1,37 @@
 <template>
   <n-config-provider :locale="zhCN" :theme="darkTheme">
-    <n-layout
-      position="absolute"
-      :style="{ '--header-height': showTag ? '98px' : '64px' }"
-    >
+    <n-layout position="absolute">
       <n-layout-header bordered class="navigation">
         <div class="navigation-head">
           <HeadView
-            @change-padding="(key: string) => navigationCSS_padding = key"
-            @set-tag="(key: boolean) => showTag = key"
+            @change-sider="(key) => (showSider = key)"
+            @change-margin="(key) => (contentMargin = key)"
           />
         </div>
-        <n-collapse-transition :show="showTag">
-          <div
-            class="navigation-tag"
-            :style="{ display: showTag ? 'flex' : 'none' }"
-          >
-            <TagMenu />
-          </div>
-        </n-collapse-transition>
       </n-layout-header>
-      <n-layout-content
-        :native-scrollbar="false"
-        style="top: var(--header-height)"
-        position="absolute"
-      >
-        <n-back-top />
-        <div class="container">
-          <DownloadControlCard />
-          <router-view />
-        </div>
-      </n-layout-content>
+      <n-layout has-sider position="absolute" style="top: 64px">
+        <n-layout-sider
+          v-if="showSider"
+          :native-scrollbar="false"
+          :collapsed-width="0"
+          collapse-mode="transform"
+          trigger-style="top: 240px;"
+          collapsed-trigger-style="top: 240px; right: -20px;"
+          bordered
+          show-trigger="arrow-circle"
+        >
+          <TagMenu mode="Mobile" />
+        </n-layout-sider>
+        <n-layout-content embedded :native-scrollbar="false">
+          <n-back-top />
+          <div :style="`margin: ${contentMargin}`">
+            <n-collapse-transition :show="counter.download.switch">
+              <DownloadControlCard />
+            </n-collapse-transition>
+            <router-view />
+          </div>
+        </n-layout-content>
+      </n-layout>
     </n-layout>
     <n-global-style />
   </n-config-provider>
@@ -41,6 +42,7 @@ import { ref } from "vue";
 import {
   NLayout,
   NBackTop,
+  NLayoutSider,
   NLayoutHeader,
   NLayoutContent,
   NCollapseTransition,
@@ -57,9 +59,9 @@ import DownloadControlCard from "@/components/DownloadControlCard.vue";
 const w = window as any;
 const counter = useCounterStore();
 
-const showTag = ref<boolean>(false);
 const showREADME = ref<boolean>(true);
-const navigationCSS_padding = ref<string>("32px");
+const showSider = ref<boolean>(true);
+const contentMargin = ref<string>("15px");
 
 // 判断是否显示 README
 router.beforeEach((to) => {
@@ -88,22 +90,12 @@ router.beforeEach((to) => {
 <style>
 .navigation {
   display: grid;
-  height: var(--header-height);
-  padding: 0 v-bind(navigationCSS_padding);
+  height: 64px;
+  padding: 0 32px;
   padding-top: 15px;
 }
 .navigation-head {
   display: flex;
   height: 34px;
-}
-.navigation-tag {
-  height: 34px;
-  justify-content: center;
-}
-
-.container {
-  max-width: 1055px;
-  padding: 0 15px;
-  margin: 15px auto;
 }
 </style>

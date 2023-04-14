@@ -1,6 +1,6 @@
 <template>
   <n-card hoverable>
-    <n-p>He, 这里是 ipaperclip.icu</n-p>
+    <n-p>👋 He, 这里是 ipaperclip.icu</n-p>
     <n-h2>联系我们</n-h2>
     <n-p>
       <n-a href="https://t.me/iPaperClipICU" target="_blank">

@@ -1,10 +1,10 @@
 <template>
   <div class="tag" v-if="showData.tag === 'drawer'" style="margin-right: 5px">
-    <n-icon size="32" @click="showDrawer = true"><MenuICON /></n-icon>
+    <n-icon size="32" @click="() => (showDrawer = true)"><MenuICON /></n-icon>
   </div>
   <span
     class="siteName"
-    @click="router.push('/')"
+    @click="() => router.push('/')"
     :style="{
       'margin-left': showData.siteName === 'start' ? '0' : '-37px',
       'justify-content':
@@ -13,9 +13,6 @@
   >
     iPaperClipICU
   </span>
-  <div class="tag" v-if="showData.tag === 'menu'">
-    <TagMenu />
-  </div>
   <div class="search" v-if="showData.search">
     <SearchCard :mode="showData.search" />
   </div>
@@ -25,10 +22,13 @@
       <template #header>
         <span>菜单</span>
         <div style="margin-top: 10px">
-          <SearchCard :mode="showData.search" @change="showDrawer = false" />
+          <SearchCard
+            :mode="showData.search"
+            @change="() => (showDrawer = false)"
+          />
         </div>
       </template>
-      <TagMenu mode="Mobile" @change="showDrawer = false" />
+      <TagMenu mode="Mobile" @change="() => (showDrawer = false)" />
     </n-drawer-content>
   </n-drawer>
 </template>
@@ -43,13 +43,13 @@ import MenuICON from "@/ICON/MenuICON.vue";
 import TagMenu from "@/components/TagMenu.vue";
 
 const emit = defineEmits<{
-  (e: "changePadding", key: string): void; // 32px
-  (e: "setTag", key: boolean): void;
+  (e: "changeSider", key: boolean): void;
+  (e: "changeMargin", key: string): void;
 }>();
 
 type showDataType = {
   siteName: "start" | "center";
-  tag: "menu" | null | "drawer";
+  tag: "menu" | "drawer";
   search: boolean;
 };
 
@@ -72,22 +72,19 @@ const pageSizeChange = () => {
   };
 
   const pageWidth = window.innerWidth;
-  if (pageWidth < 1258) {
-    tmp.tag = null;
+  if (pageWidth <= 1024) {
+    emit("changeMargin", "15px");
+  } else {
+    emit("changeMargin", "15px 40px");
   }
-  if (pageWidth <= 935) {
+  if (pageWidth <= 750) {
+    tmp.siteName = "center";
     tmp.tag = "drawer";
     tmp.search = false;
-    tmp.siteName = "center";
-    emit("changePadding", "16px");
+    emit("changeSider", false);
   } else {
-    // 大于 935
-    emit("changePadding", "32px");
+    emit("changeSider", true);
   }
-  if (pageWidth < 440) {
-    emit("changePadding", "10px");
-  }
-  emit("setTag", tmp.tag === null);
   showData.value = tmp;
 };
 pageSizeChange();

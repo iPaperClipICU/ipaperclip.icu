@@ -1,17 +1,6 @@
 <template>
   <n-card size="small" hoverable style="margin-bottom: 15px">
-    <n-button
-      v-if="!counter.download.switch"
-      type="primary"
-      dashed
-      @click="openDownloadMode"
-    >
-      批量下载
-    </n-button>
-    <n-space v-else align="center">
-      <n-button type="error" dashed @click="() => closeDownloadMode()">
-        关闭批量下载
-      </n-button>
+    <n-space align="center">
       <n-button strong secondary type="primary" @click="downloadButtonClick">
         下载
       </n-button>
@@ -79,8 +68,8 @@
 import { ref } from "vue";
 import { NCard, NSpace, NButton, NButtonGroup } from "naive-ui";
 
+import router from "@/router";
 import { useCounterStore } from "@/stores/counter";
-import FileControl from "@/assets/FileControl";
 import DiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
 import DownloadModal from "./DownloadModal.vue";
 
@@ -92,49 +81,6 @@ const downloadButtonClick = () => {
   if (Object.keys(counter.download.select).length === 0) {
     DiscreteAPI.message.warning("您还没有选择任何文件");
   } else downloadModal.value = true;
-};
-
-/**
- * 打开批量下载模式
- */
-const openDownloadMode = async () => {
-  if (FileControl.checkSupport() !== null) {
-    const selectLength = Object.keys(counter.download.select).length;
-    if (selectLength > 0) {
-      DiscreteAPI.dialog.warning({
-        title: "是否使用上次的选择？",
-        content: `上次您选择了 ${selectLength} 个文件，是否使用上次的选择？`,
-        positiveText: "使用",
-        negativeText: "不使用",
-        onNegativeClick: () => {
-          localStorage.setItem("downloadSelect", "[]");
-          counter.deleteDownloadSelect();
-        },
-        onAfterLeave: () => {
-          counter.download.switch = true;
-        },
-      });
-    } else counter.download.switch = true;
-  } else {
-    DiscreteAPI.message.warning("您的浏览器不支持批量下载");
-  }
-};
-
-/**
- * 关闭批量下载模式
- */
-const closeDownloadMode = () => {
-  if (Object.keys(counter.download.select).length > 0) {
-    DiscreteAPI.dialog.warning({
-      title: "确定要关闭批量下载模式吗？",
-      content: "您的已经选择已保存到本地，下次打开时将会自动加载。",
-      positiveText: "确定",
-      negativeText: "不确定",
-      onPositiveClick: () => {
-        counter.download.switch = false;
-      },
-    });
-  } else counter.download.switch = false;
 };
 
 /**
@@ -153,4 +99,10 @@ const selectAll = (opt?: { at?: boolean; remove?: boolean }) => {
     });
   counter.changeListKey();
 };
+
+router.afterEach((to) => {
+  if (String(to.name).startsWith("FILE:")) {
+    counter.FilesMenuDate = undefined;
+  }
+});
 </script>
