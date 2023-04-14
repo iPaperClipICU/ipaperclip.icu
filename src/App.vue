@@ -22,7 +22,7 @@
         <n-layout-content embedded :native-scrollbar="false">
           <n-back-top />
           <div style="display: flex; justify-content: center">
-            <div style="margin: 20px; max-width: 1200px">
+            <div style="margin: 20px; max-width: 1200px; width: 1200px">
               <n-collapse-transition :show="counter.download.switch">
                 <DownloadControlCard />
               </n-collapse-transition>
