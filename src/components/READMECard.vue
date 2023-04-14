@@ -1,36 +1,6 @@
 <template>
   <n-card hoverable>
     <n-p>👋 He, 这里是 ipaperclip.icu</n-p>
-    <n-h2>联系我们</n-h2>
-    <n-p>
-      <n-a href="https://t.me/iPaperClipICU" target="_blank">
-        Telegram 通知频道
-      </n-a>
-      |
-      <n-a href="https://t.me/iPaperClipICUChatBot" target="_blank">
-        Telegram Bot
-      </n-a>
-      |
-      <n-a
-        href="https://github.com/iPaperClipICU/ipaperclip.icu/"
-        target="_blank"
-      >
-        Github
-      </n-a>
-      |
-      <n-a href="mailto:hi@ipaperclip.icu" target="_blank">
-        hi@ipaperclip.icu
-      </n-a>
-    </n-p>
-    <n-p>
-      <n-a href="https://t.me/papercliphub" target="_blank">
-        基本操作非官方频道
-      </n-a>
-      |
-      <n-a href="https://t.me/paperclipfans" target="_blank">
-        基本操作非官方粉丝群
-      </n-a>
-    </n-p>
     <n-h2>关于文字稿</n-h2>
     <n-p
       >来源:
@@ -59,6 +29,17 @@
       <span style="width: 5px; display: inline-block" />由于和仓库的合同到期,
       淘宝店铺已经关闭
     </n-p>
+    <n-h2>友情链接</n-h2>
+    <n-p>
+      <n-a href="https://t.me/papercliphub" target="_blank">
+        基本操作非官方频道
+      </n-a>
+      |
+      <n-a href="https://t.me/paperclipfans" target="_blank">
+        基本操作非官方粉丝群
+      </n-a>
+    </n-p>
+    <n-h2>其他归档站</n-h2>
     <n-p>
       <n-a href="https://paperclip.eu.org/">回形针视频归档站</n-a>
     </n-p>

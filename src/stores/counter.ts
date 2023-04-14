@@ -1,11 +1,9 @@
 import { defineStore } from "pinia";
-import type { MenuOption } from "naive-ui";
 
 import type { FileTypes, FilesMenuDataType } from "@/types";
 
 interface State {
   CDNDomain: string;
-  menuOptions: MenuOption[];
   nowPage: number;
   listKey: number;
   FilesMenuDate: FilesMenuDataType | undefined;
@@ -28,7 +26,6 @@ export const useCounterStore = defineStore("counter", {
         return CDNDomainList[0];
       } else return local;
     })(),
-    menuOptions: [],
     nowPage: 1,
     listKey: Math.random(),
     FilesMenuDate: undefined,

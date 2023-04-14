@@ -18,7 +18,7 @@
       size="large"
       @click="closeDownloadMode"
     >
-      关闭批量下载
+      关闭批量下载模式
     </n-button>
   </div>
   <n-menu
@@ -28,35 +28,106 @@
         : 'vertical'
     "
     v-model:value="menuValue"
-    :options="counter.menuOptions"
+    :options="menuOptions"
+    accordion
     @update:value="ValueChange"
   />
 </template>
 
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
-import { h, ref, type PropType } from "vue";
-import { NMenu, NButton } from "naive-ui";
+import { h, ref, type PropType, type Component } from "vue";
+import { NIcon, NMenu, NButton, type MenuOption } from "naive-ui";
 
 import router from "@/router";
 import FileControl from "@/assets/FileControl";
 import DiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
 import { getData } from "@/assets/utils";
 import { useCounterStore } from "@/stores/counter";
+import GithubICON from "@/ICON/Contact/Github.vue";
+import TelegramICON from "@/ICON/Contact/Telegram.vue";
+import MailICON from "@/ICON/Contact/Mail.vue";
 
 const props = defineProps({
   mode: {
     type: String as PropType<"PC" | "Mobile">,
   },
 });
-const emit = defineEmits<{
-  (e: "change", key: string): void;
-  (e: "changeDownloadMode", key: boolean): void;
-}>();
 const counter = useCounterStore();
 
 const data = getData();
 
+const renderIcon = (icon: Component) => {
+  return () => h(NIcon, null, { default: () => h(icon) });
+};
+
+const menuOptions = ref<MenuOption[]>(
+  (() => {
+    const tmp: MenuOption[] = [];
+    tmp.push({
+      label: () => h(RouterLink, { to: `/` }, { default: () => "首页" }),
+      key: "Home",
+    });
+    for (const i of data.menuData) {
+      const name = i[0];
+
+      if (i[1] !== undefined) {
+        // 有 tag
+        const children = [];
+        for (const tag of i[1]) {
+          children.push({
+            label: () =>
+              h(RouterLink, { to: `/${name}/${tag}` }, { default: () => tag }),
+            key: `${name}/${tag}`,
+          });
+        }
+
+        tmp.push({
+          label: name,
+          key: name,
+          children,
+        });
+      } else {
+        // 无 tag
+        tmp.push({
+          label: () =>
+            h(RouterLink, { to: `/${name}` }, { default: () => name }),
+          key: name,
+        });
+      }
+    }
+    const contact: [string, string, any][] = [
+      ["Telegram 通知频道", "https://t.me/iPaperClipICU", TelegramICON],
+      ["Telegram Bot", "https://t.me/iPaperClipICUChatBot", TelegramICON],
+      [
+        "GitHub",
+        "https://github.com/iPaperClipICU/ipaperclip.icu/",
+        GithubICON,
+      ],
+      ["hi@ipaperclip.icu", "mailto:hi@ipaperclip.icu", MailICON],
+    ];
+    tmp.push({
+      key: "divider-1",
+      type: "divider",
+    });
+    for (const [name, href, ICON] of contact) {
+      tmp.push({
+        label: () =>
+          h(
+            "a",
+            {
+              href,
+              target: "_blank",
+            },
+            name
+          ),
+        key: name,
+        icon: renderIcon(ICON),
+      });
+    }
+    return tmp;
+  })()
+);
 const menuValue = ref<string | null>(null);
 
 /**
@@ -119,52 +190,14 @@ const setMenuValue = () => {
   else menuValue.value = `${filesName}/${tagName}`;
 };
 
-const ValueChange = (key: string) => {
-  emit("change", key);
-};
-
-router.afterEach(() => {
-  // 路由变化时，更新 menuValue
+const ValueChange = () => {
   setMenuValue();
-});
+};
+setMenuValue();
 
-const main = () => {
-  if (counter.menuOptions.length === 0) {
-    counter.menuOptions.push({
-      label: () => h(RouterLink, { to: `/` }, { default: () => "首页" }),
-      key: "Home",
-    });
-    for (const i of data.menuData) {
-      const name = i[0];
-
-      if (i[1] !== undefined) {
-        // 有 tag
-        const children = [];
-        for (const tag of i[1]) {
-          children.push({
-            label: () =>
-              h(RouterLink, { to: `/${name}/${tag}` }, { default: () => tag }),
-            key: `${name}/${tag}`,
-          });
-        }
-
-        counter.menuOptions.push({
-          label: name,
-          key: name,
-          children,
-        });
-      } else {
-        // 无 tag
-        counter.menuOptions.push({
-          label: () =>
-            h(RouterLink, { to: `/${name}` }, { default: () => name }),
-          key: name,
-        });
-      }
-    }
+router.afterEach((to) => {
+  if (to.path === "/") {
+    menuValue.value = "Home";
   }
-
-  setMenuValue();
-};
-main();
+});
 </script>
