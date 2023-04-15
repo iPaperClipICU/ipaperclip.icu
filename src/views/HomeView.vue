@@ -3,7 +3,7 @@
     <n-empty description="请在「菜单」中选择" />
   </n-card> -->
   <!-- README -->
-  <READMECard style="margin-top: 15px" />
+  <READMECard />
 </template>
 
 <script setup lang="ts">
