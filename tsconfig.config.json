@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "@tsconfig/node18/tsconfig.json",
-  	"@vue/tsconfig/tsconfig.json"
-  ],
+  "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": ["vite.config.*", "vitest.config.*", "cypress.config.*", "playwright.config.*"],
   "compilerOptions": {
     "composite": true,
