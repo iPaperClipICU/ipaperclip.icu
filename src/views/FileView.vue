@@ -79,7 +79,7 @@ const radioOption: {
   },
   {
     label: "Cloudflare",
-    value: "https://cf.ipaperclip-icu.cyou",
+    value: "https://r2.ipaperclip.top",
   },
 ];
 
