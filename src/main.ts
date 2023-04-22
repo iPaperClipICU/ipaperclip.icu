@@ -21,10 +21,7 @@ if (import.meta.env.PROD) {
         routingInstrumentation: Sentry.vueRouterInstrumentation(router),
         tracePropagationTargets: [
           "ipaperclip-file.xodvnm.cn",
-          "cf.ipaperclip-icu.cyou",
-          "r2.ipaperclip-icu.cyou",
-          "api.ipaperclip-icu.cyou",
-          "api.ipaperclip.icu",
+          "r2.ipaperclip.top",
           /^\//,
         ],
       }),

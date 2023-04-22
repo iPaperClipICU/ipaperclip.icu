@@ -66,7 +66,7 @@
     >
       <n-gi span="1">
         <img
-          src="https://cf.ipaperclip-icu.cyou/rip1.webp"
+          src="https://r2.ipaperclip.top/rip1.webp"
           alt="rip1"
           loading="lazy"
           style="width: 100%"
@@ -74,7 +74,7 @@
       </n-gi>
       <n-gi span="1">
         <img
-          src="https://cf.ipaperclip-icu.cyou/rip2.webp"
+          src="https://r2.ipaperclip.top/rip2.webp"
           alt="rip2"
           loading="lazy"
           style="width: 100%"
