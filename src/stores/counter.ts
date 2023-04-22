@@ -18,12 +18,15 @@ export const useCounterStore = defineStore("counter", {
     CDNDomain: (() => {
       const CDNDomainList = [
         "https://ipaperclip-file.xodvnm.cn",
-        "https://cf.ipaperclip-icu.cyou",
+        "https://r2.ipaperclip.top",
       ];
       const local = localStorage.getItem("CDNDomain");
       if (local === null || !CDNDomainList.includes(local)) {
         localStorage.setItem("CDNDomain", CDNDomainList[0]);
         return CDNDomainList[0];
+      } else if (local === "https://cf.ipaperclip-icu.cyou") {
+        localStorage.setItem("CDNDomain", CDNDomainList[1]);
+        return CDNDomainList[1];
       } else return local;
     })(),
     nowPage: 1,
