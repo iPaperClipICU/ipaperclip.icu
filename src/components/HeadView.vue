@@ -17,7 +17,12 @@
     <SearchCard :mode="showData.search" />
   </div>
   <!-- 抽屉 -->
-  <n-drawer v-model:show="showDrawer" :width="250" placement="left">
+  <n-drawer
+    v-model:show="showDrawer"
+    :width="250"
+    placement="left"
+    :auto-focus="false"
+  >
     <n-drawer-content>
       <template #header>
         <span>菜单</span>
