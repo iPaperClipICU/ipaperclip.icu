@@ -15,7 +15,7 @@ if (import.meta.env.PROD) {
   VercelAnalyticsInject();
   Sentry.init({
     app,
-    dsn: "https://2956ca4446814699b4025c0930d18ee1@o4504849146118144.ingest.sentry.io/4504854292004864",
+    dsn: "https://ae9c3808da514430acdf87f18b2a02e7@o4504849146118144.ingest.sentry.io/4504849148608512",
     integrations: [
       new BrowserTracing({
         routingInstrumentation: Sentry.vueRouterInstrumentation(router),
