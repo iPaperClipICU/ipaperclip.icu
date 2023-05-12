@@ -12,7 +12,7 @@ export default defineConfig(({ command }) => {
   const CloudFlareWebAnalytics =
     command === "serve"
       ? "" // 开发
-      : `<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a9d6db727c5a4b3483f3bb80358921ed"}'></script>`; // 生产
+      : `<script defer src='https://analytics.ipaperclip.top/index.min.js' data-cf-beacon='{"token": "a9d6db727c5a4b3483f3bb80358921ed"}'></script>`; // 生产
   return {
     server: {
       host: "0.0.0.0",
