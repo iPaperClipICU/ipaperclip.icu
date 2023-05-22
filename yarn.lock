@@ -434,6 +434,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry-internal/tracing@npm:7.52.1":
+  version: 7.52.1
+  resolution: "@sentry-internal/tracing@npm:7.52.1"
+  dependencies:
+    "@sentry/core": 7.52.1
+    "@sentry/types": 7.52.1
+    "@sentry/utils": 7.52.1
+    tslib: ^1.9.3
+  checksum: 6693f95ced8b06853eac46edc841206ceb972f83890fd18095dabe22500b93c2e0642fede3210a56b93d78143cf85a57bf726985697086d1de6846408d309adc
+  languageName: node
+  linkType: hard
+
 "@sentry/browser@npm:7.49.0":
   version: 7.49.0
   resolution: "@sentry/browser@npm:7.49.0"
@@ -459,6 +471,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry/core@npm:7.52.1":
+  version: 7.52.1
+  resolution: "@sentry/core@npm:7.52.1"
+  dependencies:
+    "@sentry/types": 7.52.1
+    "@sentry/utils": 7.52.1
+    tslib: ^1.9.3
+  checksum: 3acd6770c6214823bcc24c5f333587da8973198280f2181c8dc8f9b7ad9fc4f2e691695b09aa858d8c41fac52df60bf9cff039a34cd50f36309f8cd1dd2c7ce7
+  languageName: node
+  linkType: hard
+
 "@sentry/replay@npm:7.49.0":
   version: 7.49.0
   resolution: "@sentry/replay@npm:7.49.0"
@@ -470,12 +493,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/tracing@npm:^7.49.0":
-  version: 7.49.0
-  resolution: "@sentry/tracing@npm:7.49.0"
+"@sentry/tracing@npm:^7.52.1":
+  version: 7.52.1
+  resolution: "@sentry/tracing@npm:7.52.1"
   dependencies:
-    "@sentry-internal/tracing": 7.49.0
-  checksum: 47c609e18ba8abb3876335b3368545a91fc4bc80d3882ab1c05fd7ba4c7ad88fdef177d3eb3e590372d6ad55a3f734298bd3e66f72c0f8572cf1ae49e0ac75fa
+    "@sentry-internal/tracing": 7.52.1
+  checksum: 1b10abe41533fb1d429fea273153e347f3559959548e570669b6a865cef5940c8806cd2b27d01542b6237b00c69ad4a6d65e80133de5a12f076949621809512e
   languageName: node
   linkType: hard
 
@@ -486,6 +509,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry/types@npm:7.52.1":
+  version: 7.52.1
+  resolution: "@sentry/types@npm:7.52.1"
+  checksum: 9afbba9239107024207418755d189972887c2cd5c3948157531c520be202b5efcd1542b1864120b3d1a535e7f61ebbef802b64ad0cd7ad02d2d8d669454f5abb
+  languageName: node
+  linkType: hard
+
 "@sentry/utils@npm:7.49.0":
   version: 7.49.0
   resolution: "@sentry/utils@npm:7.49.0"
@@ -493,6 +523,16 @@ __metadata:
     "@sentry/types": 7.49.0
     tslib: ^1.9.3
   checksum: b3382418fbc98a685c3c01571ef24217d8cbcb283f8e12e2e44a518d9697e9fadcaa48c24e31063ecad6a13f3fc7b0caf0dcb8e7c0097bc2613e8f465de5d0be
+  languageName: node
+  linkType: hard
+
+"@sentry/utils@npm:7.52.1":
+  version: 7.52.1
+  resolution: "@sentry/utils@npm:7.52.1"
+  dependencies:
+    "@sentry/types": 7.52.1
+    tslib: ^1.9.3
+  checksum: 5e0b8c95db28350fcdcd871ad22c0d2eab4c541be4d5652b2c4018937640d8482fd3fc4fd02967ef5be367ee720735fbc902e50087746d6f59a2bbf2beaf2273
   languageName: node
   linkType: hard
 
@@ -2689,7 +2729,7 @@ __metadata:
   resolution: "ipaperclip.icu@workspace:."
   dependencies:
     "@rushstack/eslint-patch": ^1.2.0
-    "@sentry/tracing": ^7.49.0
+    "@sentry/tracing": ^7.52.1
     "@sentry/vue": ^7.49.0
     "@types/js-md5": ^0.7.0
     "@types/node": ^18.14.2
