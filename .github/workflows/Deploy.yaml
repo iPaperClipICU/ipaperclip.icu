@@ -5,41 +5,48 @@ on:
     branches: ['main']
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  Cloudflare-Worker-Site:
+  Cloudflare:
+    name: Cloudflare Worker Site
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3 #Git Clone
-    - uses: actions/setup-node@v3 #Node.js环境
-      with:
-        node-version: '16.x' #Node.js 16.x
-    - name: 🔧 Timezone #UTC+0 → UTC+8
-      run: sudo timedatectl set-timezone 'Asia/Shanghai'
-    - name: 📦️ YARN #安装依赖
-      run: yarn install
-    - name: 🚀 Deploy # 部署
-      env: #设置环境变量
-        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      run: yarn deploy
-  Github-Page:
-    needs: Cloudflare-Worker-Site
+      - uses: actions/checkout@v3 #Git Clone
+      - uses: actions/setup-node@v3 #Node.js环境
+        with:
+          node-version: '16.x' #Node.js 16.x
+      - name: 🔧 Timezone #UTC+0 → UTC+8
+        run: sudo timedatectl set-timezone 'Asia/Shanghai'
+      - name: 📦️ YARN #安装依赖
+        run: yarn install
+      - name: 🚀 Deploy # 部署
+        env: #设置环境变量
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: yarn deploy
+  Github:
+    name: Github Page
+    # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+    # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3 #Git Clone
+      - uses: actions/setup-node@v3 #Node.js环境
+        with:
+          node-version: '16.x' #Node.js 16.x
+      - name: 🔧 Timezone #UTC+0 → UTC+8
+        run: sudo timedatectl set-timezone 'Asia/Shanghai'
+      - name: 📦️ YARN #安装依赖
+        run: yarn install
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
