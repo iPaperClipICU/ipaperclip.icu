@@ -1,0 +1,7 @@
+{
+  "upgrade": true,
+  "packageManager": "yarn",
+  "reject": [
+    "@types/node"
+  ]
+}
