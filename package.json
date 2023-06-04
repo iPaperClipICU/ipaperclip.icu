@@ -9,7 +9,7 @@
     "build": "run-p type-check build-only",
     "preview": "vite preview",
     "build-only": "vite build",
-    "deploy": "yarn build && wrangler deploy",
+    "deploy": "run-s build deploy-only",
     "deploy-only": "wrangler deploy",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
