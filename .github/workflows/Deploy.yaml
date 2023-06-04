@@ -1,0 +1,21 @@
+name: Deploy Cloudflare Worker Site
+
+on:
+  workflow_dispatch: #手动调试按钮
+
+jobs:
+  Check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3 #Git Clone
+    - uses: actions/setup-node@v3 #Node.js环境
+      with:
+        node-version: '16.x' #Node.js 16.x
+    - name: 🔧 Timezone #UTC+0 → UTC+8
+      run: sudo timedatectl set-timezone 'Asia/Shanghai'
+    - name: 📦️ YARN #安装依赖
+      run: yarn install
+    - name: Deploy
+      env: #设置环境变量
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      run: yarn deploy
