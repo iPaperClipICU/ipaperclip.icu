@@ -47,13 +47,13 @@ jobs:
         run: sudo timedatectl set-timezone 'Asia/Shanghai'
       - name: 📦️ YARN #安装依赖
         run: yarn install
-      - name: Setup Pages
+      - name: 🔧 Setup Pages
         uses: actions/configure-pages@v3
-      - name: Upload artifact
+      - name: 🔧 Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: './dist/'
-      - name: Deploy to GitHub Pages
+          path: 'dist/'
+      - name: 🚀 Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
