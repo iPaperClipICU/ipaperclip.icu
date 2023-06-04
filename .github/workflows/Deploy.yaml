@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: ['main']
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -10,27 +10,25 @@ jobs:
     name: Cloudflare Worker Site
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3 #Git Clone
-      - uses: actions/setup-node@v3 #Node.js环境
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '16.x' #Node.js 16.x
-      - name: 🔧 Timezone #UTC+0 → UTC+8
+          node-version: "16.x"
+      - name: 🔧 Timezone
         run: sudo timedatectl set-timezone 'Asia/Shanghai'
-      - name: 📦️ YARN #安装依赖
+      - name: 📦️ YARN # 安装依赖
         run: yarn install
-      - name: 🚀 Deploy # 部署
-        env: #设置环境变量
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      - name: 🚀 Build & Deploy # 构建 & 部署
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }} # Cloudflare Token
         run: yarn deploy
+
   Github:
     name: Github Page
-    # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
     permissions:
       contents: read
       pages: write
       id-token: write
-    # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-    # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
     concurrency:
       group: "pages"
       cancel-in-progress: false
@@ -39,23 +37,22 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3 #Git Clone
-      - uses: actions/setup-node@v3 #Node.js环境
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '16.x' #Node.js 16.x
-      - name: 🔧 Timezone #UTC+0 → UTC+8
+          node-version: "16.x"
+      - name: 🔧 Timezone
         run: sudo timedatectl set-timezone 'Asia/Shanghai'
-      - name: 📦️ YARN #安装依赖
+      - name: 📦️ YARN # 安装依赖
         run: yarn install
-      - name: 🚀 Build
+      - name: 🚀 Build # 构建
         run: yarn build
-      - name: 🔧 Setup Pages
+      - name: 🔧 Setup Pages # 初始化
         uses: actions/configure-pages@v3
-      - name: 🔧 Upload artifact
+      - name: ⬆️ Upload # 上传
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
-          path: './dist/'
-      - name: 🚀 Deploy to GitHub Pages
+          path: "./dist/"
+      - name: 🚀 Deploy # 部署
         id: deployment
         uses: actions/deploy-pages@v2
