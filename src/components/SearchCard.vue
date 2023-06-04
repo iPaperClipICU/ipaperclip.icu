@@ -70,7 +70,8 @@ import {
   NInputGroup,
   type InputInst,
 } from "naive-ui";
-import tinykeys from "tinykeys";
+// import tinykeys from "tinykeys";
+import tinykeys from "../../node_modules/tinykeys/";
 
 import router from "@/router";
 import SearchICON from "@/ICON/SearchICON.vue";

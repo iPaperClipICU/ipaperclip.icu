@@ -55,7 +55,8 @@ import {
 } from "naive-ui";
 import cheerio from "cheerio";
 import showdown from "showdown";
-import type { ChildNode } from "domhandler/lib/node";
+// import type { ChildNode } from "domhandler/lib/node";
+import type { ChildNode } from "../../node_modules/domhandler/lib/esm/node";
 
 const showAbout = ref<boolean>(false);
 const showError = ref<boolean>(false);
