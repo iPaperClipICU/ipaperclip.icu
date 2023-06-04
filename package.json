@@ -16,7 +16,6 @@
   "dependencies": {
     "@sentry/tracing": "^7.54.0",
     "@sentry/vue": "^7.54.0",
-    "@vercel/analytics": "^1.0.1",
     "@zip.js/zip.js": "^2.7.14",
     "axios": "^1.4.0",
     "cheerio": "^1.0.0-rc.12",

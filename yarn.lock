@@ -720,13 +720,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/analytics@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@vercel/analytics@npm:1.0.1"
-  checksum: 6876e1d0868e85198d43a17ffec7266cdee5a53d5fc797d3f7e0d64e9d76a2ade3cbdcbc0a665e2ee2389f65dfc80591f7d667e9fc981cdbaa848006cbaefe19
-  languageName: node
-  linkType: hard
-
 "@vitejs/plugin-basic-ssl@npm:^1.0.1":
   version: 1.0.1
   resolution: "@vitejs/plugin-basic-ssl@npm:1.0.1"
@@ -2716,7 +2709,6 @@ __metadata:
     "@types/node": 16.x
     "@types/showdown": ^2.0.1
     "@types/wicg-file-system-access": ^2020.9.6
-    "@vercel/analytics": ^1.0.1
     "@vitejs/plugin-basic-ssl": ^1.0.1
     "@vitejs/plugin-vue": ^4.2.3
     "@vue/eslint-config-prettier": ^7.1.0
