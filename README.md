@@ -15,21 +15,31 @@
 ## 网站
 
 视频、文字稿归档: [ipaperclip.icu](https://ipaperclip.icu/)  
-视频源备份站: [onedrive.ipaperclip.icu](https://onedrive.ipaperclip.icu/)
 
 ## 联系我
 
 [Telegram 通知频道](https://t.me/iPaperClipICU) | [Telegram Bot](https://t.me/https://t.me/iPaperClipICUChatBot) | [Github Discussions](https://github.com/iPaperClipICU/ipaperclip.icu/discussions) | Mail: <a href="mailto:hi@ipaperclip.icu">hi@ipaperclip.icu</a>
 
+## 关于文字稿
+
+来源: [ipaperclip/paperclipfans](https://github.com/ipaperclip/paperclipfans) 和 [Just-Prog/paperclipfans](https://github.com/Just-Prog/paperclipfans)  
+如果您希望对文字稿进行修改, 请前往上述两个仓库, 当我们注意到上游仓库更新时, 我们将会同步更新
+
 ## 相关链接
+
+[基本操作](https://jibencaozuo.com/)  
+[干燥工厂](https://shop362189133.taobao.com/) 由于和仓库的合同到期, 淘宝店铺已经关闭
+
+## 友情链接
+
+[基本操作非官方频道](https://t.me/paperclipfans) | [基本操作非官方粉丝群](https://t.me/paperclipfans)  
+
+## 其他归档站
 
 [回形针视频归档站](https://paperclip.eu.org/)  
 [Wandering PaperClip 流浪回形针](https://wandering-paperclip.glitch.me/)  
 [paper-clips.purestream.eu.org](https://paper-clips.purestream.eu.org/)  
 [paperclip.wiki](https://paperclip.wiki/)
-
-[基本操作非官方频道](https://t.me/paperclipfans) | [基本操作非官方粉丝群](https://t.me/paperclipfans)  
-[干燥工厂](https://shop362189133.taobao.com/) | [基本操作](https://jibencaozuo.com/)
 
 ## R.I.P
 
