@@ -32,6 +32,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "16.x"
+          cache: "yarn"
       - name: 📦️ YARN # 安装依赖
         run: yarn install
       - name: ⬇️ Download dist # 下载 dist
