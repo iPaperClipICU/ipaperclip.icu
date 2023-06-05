@@ -10,23 +10,12 @@
     >
       打开批量下载模式
     </n-button>
-    <n-button
-      v-else
-      dashed
-      type="error"
-      block
-      size="large"
-      @click="closeDownloadMode"
-    >
+    <n-button v-else dashed type="error" block size="large" @click="closeDownloadMode">
       关闭批量下载模式
     </n-button>
   </div>
   <n-menu
-    :mode="
-      props.mode === undefined || props.mode === 'PC'
-        ? 'horizontal'
-        : 'vertical'
-    "
+    :mode="props.mode === undefined || props.mode === 'PC' ? 'horizontal' : 'vertical'"
     v-model:value="menuValue"
     :options="menuOptions"
     accordion
@@ -80,8 +69,7 @@ const menuOptions = ref<MenuOption[]>(
         const children = [];
         for (const tag of i[1]) {
           children.push({
-            label: () =>
-              h(RouterLink, { to: `/${name}/${tag}` }, { default: () => tag }),
+            label: () => h(RouterLink, { to: `/${name}/${tag}` }, { default: () => tag }),
             key: `${name}/${tag}`,
           });
         }
@@ -94,8 +82,7 @@ const menuOptions = ref<MenuOption[]>(
       } else {
         // 无 tag
         tmp.push({
-          label: () =>
-            h(RouterLink, { to: `/${name}` }, { default: () => name }),
+          label: () => h(RouterLink, { to: `/${name}` }, { default: () => name }),
           key: name,
         });
       }
@@ -103,11 +90,7 @@ const menuOptions = ref<MenuOption[]>(
     const contact: [string, string, any][] = [
       ["Telegram 通知频道", "https://t.me/iPaperClipICU", TelegramICON],
       ["Telegram Bot", "https://t.me/iPaperClipICUChatBot", TelegramICON],
-      [
-        "GitHub",
-        "https://github.com/iPaperClipICU/ipaperclip.icu/",
-        GithubICON,
-      ],
+      ["GitHub", "https://github.com/iPaperClipICU/ipaperclip.icu/", GithubICON],
       ["hi@ipaperclip.icu", "mailto:hi@ipaperclip.icu", MailICON],
     ];
     tmp.push({

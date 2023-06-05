@@ -4,10 +4,7 @@ import { customAlphabet } from "nanoid/non-secure";
 import d from "@/assets/data.json";
 import type { DataType, FileTypes } from "@/types/";
 
-const nanoid = customAlphabet(
-  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-  10
-);
+const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 10);
 
 export const getData = (): DataType => {
   return d as any;
@@ -28,11 +25,7 @@ export const getFileInfo = (
 
   if (FileName.endsWith(".mp4") || FileName.endsWith(".flv")) {
     FileType = "video";
-  } else if (
-    FileName.endsWith(".jpg") ||
-    FileName.endsWith(".png") ||
-    FileName.endsWith(".gif")
-  ) {
+  } else if (FileName.endsWith(".jpg") || FileName.endsWith(".png") || FileName.endsWith(".gif")) {
     FileType = "image";
   } else if (FileName.endsWith(".mp3") || FileName.endsWith(".flac")) {
     FileType = "audio";
@@ -58,9 +51,7 @@ export const getSign = (FileURL: string): string => {
     const ts = Math.floor(Date.now() / 1000); // ts
     const uid = 0;
     const rand = nanoid();
-    const sign = `${ts}-${rand}-${uid}-${md5(
-      `${uri}-${ts}-${rand}-${uid}-${PKEY}`
-    )}`;
+    const sign = `${ts}-${rand}-${uid}-${md5(`${uri}-${ts}-${rand}-${uid}-${PKEY}`)}`;
     u.searchParams.set("sign", sign);
 
     return u.href;
@@ -84,9 +75,7 @@ export const loadScript = (url: string): Promise<string | false> => {
   });
 };
 
-export const loadScripts = async (
-  urls: string[] | string
-): Promise<string | false> => {
+export const loadScripts = async (urls: string[] | string): Promise<string | false> => {
   if (typeof urls === "string") urls = [urls];
 
   for (const url of urls) {

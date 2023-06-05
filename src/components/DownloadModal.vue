@@ -7,13 +7,8 @@
     :bordered="false"
     :mask-closable="downloadModalData.status === 'finish'"
     :close-on-esc="downloadModalData.status === 'finish'"
-    :closable="
-      downloadModalData.status === 'finish' ||
-      downloadModalData.status === 'auth'
-    "
-    @update:show="
-      (value) => emit('close', value, downloadModalData.status === 'finish')
-    "
+    :closable="downloadModalData.status === 'finish' || downloadModalData.status === 'auth'"
+    @update:show="(value) => emit('close', value, downloadModalData.status === 'finish')"
   >
     <n-alert
       v-if="downloadModalData.progress.status === 'error'"
@@ -22,15 +17,8 @@
     >
       {{ downloadModalData.error.message }}
     </n-alert>
-    <div
-      v-if="
-        downloadModalData.status === 'loading' ||
-        downloadModalData.status === 'zip'
-      "
-    >
-      <n-result
-        :title="downloadModalData.status === 'loading' ? '加载中~' : '压缩中~'"
-      >
+    <div v-if="downloadModalData.status === 'loading' || downloadModalData.status === 'zip'">
+      <n-result :title="downloadModalData.status === 'loading' ? '加载中~' : '压缩中~'">
         <template #icon>
           <n-spin size="large" />
         </template>
@@ -49,9 +37,7 @@
     </div>
     <div v-else-if="downloadModalData.status === 'download'">
       <n-h3 align-text>
-        <n-text type="warning">
-          请不要关闭或刷新当前页面，这会导致下载进度丢失！
-        </n-text>
+        <n-text type="warning">请不要关闭或刷新当前页面，这会导致下载进度丢失！</n-text>
       </n-h3>
       <span>总进度</span>
       <n-progress
@@ -119,11 +105,7 @@
           type="success"
           @click="() => retryButtonClick()"
         >
-          {{
-            downloadModalData.error.name === "PR:AuthError"
-              ? "重新授权"
-              : "重试"
-          }}
+          {{ downloadModalData.error.name === "PR:AuthError" ? "重新授权" : "重试" }}
         </n-button>
         <n-popconfirm
           @positive-click="
@@ -250,8 +232,7 @@ const download = async () => {
   };
 
   for (const fileHref of fileHrefList) {
-    downloadModalData.value.progress.nowFileName =
-      FileControl.parseFileHref(fileHref).fileName;
+    downloadModalData.value.progress.nowFileName = FileControl.parseFileHref(fileHref).fileName;
     downloadModalData.value.progress.nowFileProgressNum = 0;
     if (downloadModalData.value.progress.status === "stop") return;
 

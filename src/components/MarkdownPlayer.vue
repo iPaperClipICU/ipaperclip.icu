@@ -1,9 +1,7 @@
 <template>
   <n-card title="文字稿" hoverable>
     <template #header-extra>
-      <n-button quaternary type="primary" @click="showAbout = true">
-        关于来源
-      </n-button>
+      <n-button quaternary type="primary" @click="showAbout = true"> 关于来源 </n-button>
     </template>
     <n-result v-if="showError" status="error" title="加载失败">
       <template #footer>
@@ -30,8 +28,8 @@
         ></n-p
       >
       <n-p
-        >如果您希望对文字稿进行修改, 请前往上述两个仓库,
-        当我们注意到上游仓库更新时, 我们将会同步更新</n-p
+        >如果您希望对文字稿进行修改, 请前往上述两个仓库, 当我们注意到上游仓库更新时,
+        我们将会同步更新</n-p
       >
     </n-modal>
   </n-card>
@@ -103,10 +101,7 @@ const main = async (url: string) => {
   let html = md.makeHtml(mdText);
 
   if (abstract !== null)
-    html = html.replace(
-      "<p><abstract></abstract></p>",
-      `<abstract>${abstract}</abstract>`
-    );
+    html = html.replace("<p><abstract></abstract></p>", `<abstract>${abstract}</abstract>`);
 
   const parseBold = (strs: string | (VNode | string)[]): (VNode | string)[] => {
     // 由 Copilot 生成 🙃
@@ -158,9 +153,7 @@ const main = async (url: string) => {
           .replace(/\)$/, "");
         str.split(match).forEach((value, index) => {
           if (index !== 0)
-            childrenList.push(
-              h(NA, { href: url, target: "_blank" }, { default: () => name })
-            );
+            childrenList.push(h(NA, { href: url, target: "_blank" }, { default: () => name }));
           childrenList = childrenList.concat(parseLink(value));
         });
       } else if (str.search(REG[1]) !== -1) {
@@ -171,9 +164,7 @@ const main = async (url: string) => {
           .replace(/>$/, "");
         str.split(match).forEach((value, index) => {
           if (index !== 0)
-            childrenList.push(
-              h(NA, { href: url, target: "_blank" }, { default: () => url })
-            );
+            childrenList.push(h(NA, { href: url, target: "_blank" }, { default: () => url }));
           childrenList = childrenList.concat(parseLink(value));
         });
       } else if (str !== "") childrenList.push(str);
@@ -214,9 +205,7 @@ const main = async (url: string) => {
           let msgs: (VNode | string)[] = [];
           for (const i of match) {
             msgs = msgs.concat(
-              parseLink(
-                i.replace("\t", "").replace("\n", "").replace("    ", "")
-              )
+              parseLink(i.replace("\t", "").replace("\n", "").replace("    ", ""))
             );
             msgs.push(h("br"));
           }
@@ -262,8 +251,7 @@ const main = async (url: string) => {
         if (v === "") return;
 
         let msg: string | (VNode | string)[] = v;
-        if (msg.search(/( {4}|\t).+/) !== -1)
-          msg = msg.replace(/( {4}|\t)/, "");
+        if (msg.search(/( {4}|\t).+/) !== -1) msg = msg.replace(/( {4}|\t)/, "");
         msg = parseLink(msg);
         msg = parseBold(msg);
 

@@ -31,14 +31,8 @@ const showErrorEmpty = ref<boolean>(false);
 const FilesMenuData = ref<FilesMenuDataType>();
 
 const init = () => {
-  const KeyWord = new URL(decodeURIComponent(location.href)).searchParams.get(
-    "s"
-  );
-  if (
-    KeyWord === void 0 ||
-    KeyWord === null ||
-    KeyWord.replace(/\s+/g, "") === ""
-  ) {
+  const KeyWord = new URL(decodeURIComponent(location.href)).searchParams.get("s");
+  if (KeyWord === void 0 || KeyWord === null || KeyWord.replace(/\s+/g, "") === "") {
     // 没有搜索关键字
     showErrorEmpty.value = true;
     return;

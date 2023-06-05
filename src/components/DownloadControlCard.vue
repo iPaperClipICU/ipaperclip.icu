@@ -1,13 +1,9 @@
 <template>
   <n-card size="small" hoverable style="margin-bottom: 15px">
     <n-space align="center">
-      <n-button strong secondary type="primary" @click="downloadButtonClick">
-        下载
-      </n-button>
+      <n-button strong secondary type="primary" @click="downloadButtonClick">下载</n-button>
       <n-button-group v-if="counter.FilesMenuDate !== undefined">
-        <n-button strong secondary @click="() => selectAll({ at: true })">
-          全选当前页面
-        </n-button>
+        <n-button strong secondary @click="() => selectAll({ at: true })">全选当前页面</n-button>
         <n-button
           strong
           secondary
@@ -18,34 +14,17 @@
         </n-button>
       </n-button-group>
       <n-button-group
-        v-if="
-          counter.FilesMenuDate !== undefined &&
-          counter.FilesMenuDate.data.length > 1
-        "
+        v-if="counter.FilesMenuDate !== undefined && counter.FilesMenuDate.data.length > 1"
       >
-        <n-button strong secondary @click="() => selectAll()">
-          全选当前分支
-        </n-button>
-        <n-button
-          strong
-          secondary
-          type="error"
-          @click="() => selectAll({ remove: true })"
-        >
+        <n-button strong secondary @click="() => selectAll()">全选当前分支</n-button>
+        <n-button strong secondary type="error" @click="() => selectAll({ remove: true })">
           取消当前分支的选择
         </n-button>
       </n-button-group>
-      <n-button
-        strong
-        secondary
-        type="error"
-        @click="() => counter.deleteDownloadSelect()"
-      >
+      <n-button strong secondary type="error" @click="() => counter.deleteDownloadSelect()">
         取消全部选择
       </n-button>
-      <div>
-        您已选择 {{ Object.keys(counter.download.select).length }} 个文件
-      </div>
+      <div>您已选择 {{ Object.keys(counter.download.select).length }} 个文件</div>
     </n-space>
   </n-card>
   <DownloadModal

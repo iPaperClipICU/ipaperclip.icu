@@ -1,15 +1,10 @@
 <template>
   <n-list :key="counter.listKey">
-    <n-list-item
-      v-for="(item, index) in props.data.data[counter.nowPage - 1]"
-      :key="index"
-    >
+    <n-list-item v-for="(item, index) in props.data.data[counter.nowPage - 1]" :key="index">
       <template #prefix v-if="counter.download.switch">
         <n-checkbox
           v-model:checked="counter.download.select[item.href]"
-          @update-checked="
-            (checked) => counter.changeDownloadSelect(item, checked)
-          "
+          @update-checked="(checked) => counter.changeDownloadSelect(item, checked)"
         />
       </template>
       <n-button
@@ -40,14 +35,7 @@
 <script setup lang="ts">
 /// <reference types="@types/wicg-file-system-access" />
 import type { PropType } from "vue";
-import {
-  NIcon,
-  NList,
-  NButton,
-  NCheckbox,
-  NListItem,
-  NPagination,
-} from "naive-ui";
+import { NIcon, NList, NButton, NCheckbox, NListItem, NPagination } from "naive-ui";
 
 import router from "@/router";
 import { useCounterStore } from "@/stores/counter";
@@ -62,11 +50,7 @@ const props = defineProps({
 });
 const counter = useCounterStore();
 
-const clickButton = async (data: {
-  name: string;
-  type: FileTypes;
-  href: string;
-}) => {
+const clickButton = async (data: { name: string; type: FileTypes; href: string }) => {
   await router.push(data.href);
 };
 
@@ -94,10 +78,7 @@ const updatePage = (page: number) => {
 };
 
 router.afterEach((to, from) => {
-  if (
-    String(to.name).startsWith("FILES:") &&
-    String(from.name).startsWith("FILES:")
-  ) {
+  if (String(to.name).startsWith("FILES:") && String(from.name).startsWith("FILES:")) {
     counter.nowPage = 1;
     counter.listKey = counter.nowPage;
   }

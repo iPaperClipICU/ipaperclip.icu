@@ -1,8 +1,4 @@
-import {
-  getAssetFromKV,
-  mapRequestToAsset,
-  type Options,
-} from "@cloudflare/kv-asset-handler";
+import { getAssetFromKV, mapRequestToAsset, type Options } from "@cloudflare/kv-asset-handler";
 // @ts-ignore
 import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 const assetManifest = JSON.parse(manifestJSON);
@@ -12,11 +8,7 @@ export interface Env {
 }
 
 export default {
-  async fetch(
-    request: Request,
-    env: Env,
-    ctx: ExecutionContext
-  ): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const Evt = {
       request,
       waitUntil: (promise: Promise<any>) => {

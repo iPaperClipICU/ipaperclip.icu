@@ -16,11 +16,7 @@ if (import.meta.env.PROD) {
     integrations: [
       new BrowserTracing({
         routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-        tracePropagationTargets: [
-          "ipaperclip-file.xodvnm.cn",
-          "r2.ipaperclip.top",
-          /^\//,
-        ],
+        tracePropagationTargets: ["ipaperclip-file.xodvnm.cn", "r2.ipaperclip.top", /^\//],
       }),
     ],
     // Set tracesSampleRate to 1.0 to capture 100%

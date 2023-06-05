@@ -3,11 +3,7 @@
     <n-tag type="success">{{ filesName }}</n-tag>
     <n-h2 style="margin-bottom: 0">{{ FileCardData?.fileName }}</n-h2>
   </n-space>
-  <FileCard
-    v-if="FileCardData !== undefined"
-    :data="FileCardData"
-    style="margin-bottom: 15px"
-  />
+  <FileCard v-if="FileCardData !== undefined" :data="FileCardData" style="margin-bottom: 15px" />
   <n-card hoverable style="margin-bottom: 15px" size="small">
     <n-space justify="space-between" align="center">
       <div>
@@ -28,15 +24,7 @@
         </n-space>
       </div>
       <div>
-        <n-button
-          strong
-          secondary
-          type="primary"
-          size="small"
-          @click="download"
-        >
-          下载
-        </n-button>
+        <n-button strong secondary type="primary" size="small" @click="download">下载</n-button>
       </div>
     </n-space>
   </n-card>
@@ -45,15 +33,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import {
-  NH2,
-  NTag,
-  NCard,
-  NRadio,
-  NSpace,
-  NButton,
-  NRadioGroup,
-} from "naive-ui";
+import { NH2, NTag, NCard, NRadio, NSpace, NButton, NRadioGroup } from "naive-ui";
 
 import FileCard from "@/components/FilePlayer.vue";
 import { useCounterStore } from "@/stores/counter";

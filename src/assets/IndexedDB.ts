@@ -20,10 +20,7 @@ export const openDB = (): Promise<IDBDatabase> => {
   });
 };
 
-export const dbCheckHref = async (
-  db: IDBDatabase,
-  href: string
-): Promise<boolean> => {
+export const dbCheckHref = async (db: IDBDatabase, href: string): Promise<boolean> => {
   const transaction = db.transaction(["FileStorage"], "readwrite");
   const objectStore = transaction.objectStore("FileStorage");
   const request = objectStore.index("fileHref").get(href);

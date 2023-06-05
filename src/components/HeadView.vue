@@ -7,8 +7,7 @@
     @click="() => router.push('/')"
     :style="{
       'margin-left': showData.siteName === 'start' ? '0' : '-37px',
-      'justify-content':
-        showData.siteName === 'start' ? 'flex-start' : 'center',
+      'justify-content': showData.siteName === 'start' ? 'flex-start' : 'center',
     }"
   >
     iPaperClipICU
@@ -17,20 +16,12 @@
     <SearchCard :mode="showData.search" />
   </div>
   <!-- 抽屉 -->
-  <n-drawer
-    v-model:show="showDrawer"
-    :width="250"
-    placement="left"
-    :auto-focus="false"
-  >
+  <n-drawer v-model:show="showDrawer" :width="250" placement="left" :auto-focus="false">
     <n-drawer-content>
       <template #header>
         <span>菜单</span>
         <div style="margin-top: 10px">
-          <SearchCard
-            :mode="showData.search"
-            @change="() => (showDrawer = false)"
-          />
+          <SearchCard :mode="showData.search" @change="() => (showDrawer = false)" />
         </div>
       </template>
       <TagMenu mode="Mobile" @change="() => (showDrawer = false)" />

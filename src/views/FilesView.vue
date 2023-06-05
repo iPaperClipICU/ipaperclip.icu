@@ -35,9 +35,7 @@ Has Tag /files or /files/tag
 */
 
 const init = (): void => {
-  const [hrefHead, filesData] = (():
-    | [string, string[][]]
-    | [undefined, undefined] => {
+  const [hrefHead, filesData] = ((): [string, string[][]] | [undefined, undefined] => {
     const pathList = decodeURIComponent(location.pathname).split("/");
     const filesName = pathList[1];
 
@@ -105,10 +103,7 @@ const init = (): void => {
   counter.FilesMenuDate = FilesMenuData.value;
 };
 router.afterEach((to, from) => {
-  if (
-    String(to.name).startsWith("FILES:") &&
-    String(from.name).startsWith("FILES:")
-  ) {
+  if (String(to.name).startsWith("FILES:") && String(from.name).startsWith("FILES:")) {
     FilesMenuData.value = undefined;
     init();
   }

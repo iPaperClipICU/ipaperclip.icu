@@ -53,23 +53,14 @@
           </n-icon>
         </template>
       </n-input>
-      <n-button ghost type="primary" size="large" @click="searchButtonClick">
-        搜索
-      </n-button>
+      <n-button ghost type="primary" size="large" @click="searchButtonClick"> 搜索 </n-button>
     </n-input-group>
   </n-modal>
 </template>
 
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
-import {
-  NIcon,
-  NInput,
-  NModal,
-  NButton,
-  NInputGroup,
-  type InputInst,
-} from "naive-ui";
+import { NIcon, NInput, NModal, NButton, NInputGroup, type InputInst } from "naive-ui";
 // import tinykeys from "tinykeys";
 import tinykeys from "../../node_modules/tinykeys/";
 
@@ -90,16 +81,14 @@ const searchInputInstRef = ref<InputInst | null>(null);
 const os: "Mobile" | "Mac" | "Other" = (() => {
   const userAgent = window.navigator.userAgent;
 
-  if (userAgent.indexOf("iPhone") > -1 || userAgent.indexOf("Mobile") > -1)
-    return "Mobile";
+  if (userAgent.indexOf("iPhone") > -1 || userAgent.indexOf("Mobile") > -1) return "Mobile";
   else if (userAgent.indexOf("Mac OS") > -1) return "Mac";
   else return "Other";
 })();
 const showModal = ref<boolean>(false);
 const searchValue = ref<string>(
   (() => {
-    const KeyWord =
-      new URL(decodeURIComponent(location.href)).searchParams.get("s") || "";
+    const KeyWord = new URL(decodeURIComponent(location.href)).searchParams.get("s") || "";
     if (location.pathname !== "/search") {
       return "";
     } else {

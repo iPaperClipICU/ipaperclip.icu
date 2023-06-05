@@ -1,13 +1,6 @@
 <template>
-  <div
-    v-if="props.data.fileType === 'video'"
-    :class="playerStatus === 'def' ? 'videoPlayer' : ''"
-  >
-    <n-skeleton
-      v-if="playerStatus === 'load'"
-      :sharp="false"
-      class="videoPlayer"
-    />
+  <div v-if="props.data.fileType === 'video'" :class="playerStatus === 'def' ? 'videoPlayer' : ''">
+    <n-skeleton v-if="playerStatus === 'load'" :sharp="false" class="videoPlayer" />
     <video
       v-show="playerStatus !== 'load'"
       controls

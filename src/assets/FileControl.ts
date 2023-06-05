@@ -24,10 +24,7 @@ const createDir = async (
   } else return newDirHandle;
 };
 
-const initDirHandle = async (
-  dirHandle: FileSystemDirectoryHandle,
-  supportType: SupportType
-) => {
+const initDirHandle = async (dirHandle: FileSystemDirectoryHandle, supportType: SupportType) => {
   for await (const [key] of dirHandle.entries()) {
     await dirHandle.removeEntry(key, { recursive: true });
   }
@@ -56,10 +53,7 @@ export default class FileControl {
   async init() {
     if (this.supportType === "storage") {
       this.dirHandle = await navigator.storage.getDirectory();
-      this.iPaperClipICUDirHandle = await initDirHandle(
-        this.dirHandle,
-        this.supportType
-      );
+      this.iPaperClipICUDirHandle = await initDirHandle(this.dirHandle, this.supportType);
     } else if (this.supportType === "indexedDB") {
       // 清理垃圾
       this.DB = await openDB();
@@ -76,10 +70,7 @@ export default class FileControl {
           mode: "readwrite",
           startIn: "downloads",
         });
-        this.iPaperClipICUDirHandle = await initDirHandle(
-          this.dirHandle,
-          this.supportType
-        );
+        this.iPaperClipICUDirHandle = await initDirHandle(this.dirHandle, this.supportType);
       }
       return true;
     } catch (e: any) {

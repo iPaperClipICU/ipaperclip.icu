@@ -16,10 +16,7 @@ interface State {
 export const useCounterStore = defineStore("counter", {
   state: (): State => ({
     CDNDomain: (() => {
-      const CDNDomainList = [
-        "https://ipaperclip-file.xodvnm.cn",
-        "https://r2.ipaperclip.top",
-      ];
+      const CDNDomainList = ["https://ipaperclip-file.xodvnm.cn", "https://r2.ipaperclip.top"];
       const local = localStorage.getItem("CDNDomain");
       if (local === null || !CDNDomainList.includes(local)) {
         localStorage.setItem("CDNDomain", CDNDomainList[0]);
@@ -74,10 +71,7 @@ export const useCounterStore = defineStore("counter", {
       }
 
       // 本地存储
-      localStorage.setItem(
-        "downloadSelect",
-        JSON.stringify(Object.keys(this.download.select))
-      );
+      localStorage.setItem("downloadSelect", JSON.stringify(Object.keys(this.download.select)));
     },
     deleteDownloadSelect() {
       this.download.select = {};
