@@ -1,0 +1,58 @@
+name: Deploy
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  Cloudflare:
+    name: Cloudflare Worker Site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+      - name: 🔧 Timezone
+        run: sudo timedatectl set-timezone 'Asia/Shanghai'
+      - name: 📦️ YARN # 安装依赖
+        run: yarn install
+      - name: 🚀 Build & Deploy # 构建 & 部署
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }} # Cloudflare Token
+        run: yarn deploy
+
+  Github:
+    name: Github Page
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+      - name: 🔧 Timezone
+        run: sudo timedatectl set-timezone 'Asia/Shanghai'
+      - name: 📦️ YARN # 安装依赖
+        run: yarn install
+      - name: 🚀 Build # 构建
+        run: yarn build
+      - name: 🔧 Setup Pages # 初始化
+        uses: actions/configure-pages@v3
+      - name: ⬆️ Upload # 上传
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: "./dist/"
+      - name: 🚀 Deploy # 部署
+        id: deployment
+        uses: actions/deploy-pages@v2
