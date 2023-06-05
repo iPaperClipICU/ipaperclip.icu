@@ -59,7 +59,7 @@ const radioOption: {
   },
   {
     label: "Cloudflare",
-    value: "https://r2.ipaperclip.top",
+    value: "https://r2.ipaperclip.icu",
   },
 ];
 
@@ -72,7 +72,7 @@ const download = () => {
   // 跳转
   // window.location.href = "";
   // TODO: value 为 undefined 时会报错
-  window.open(`https://r2.ipaperclip.top/${FileCardData.value?.fileUrl}`);
+  window.open(`https://r2.ipaperclip.icu/${FileCardData.value?.fileUrl}`);
 };
 
 const init = () => {

@@ -238,7 +238,7 @@ const download = async () => {
 
     controller = new AbortController();
     const resp = await axios({
-      url: `https://r2.ipaperclip.top/video${fileHref}`,
+      url: `https://r2.ipaperclip.icu/video${fileHref}`,
       method: "GET",
       responseType: "blob",
       signal: controller.signal,

@@ -16,7 +16,7 @@ interface State {
 export const useCounterStore = defineStore("counter", {
   state: (): State => ({
     CDNDomain: (() => {
-      const CDNDomainList = ["https://ipaperclip-file.xodvnm.cn", "https://r2.ipaperclip.top"];
+      const CDNDomainList = ["https://ipaperclip-file.xodvnm.cn", "https://r2.ipaperclip.icu"];
       const local = localStorage.getItem("CDNDomain");
       if (local === null || !CDNDomainList.includes(local)) {
         localStorage.setItem("CDNDomain", CDNDomainList[0]);
