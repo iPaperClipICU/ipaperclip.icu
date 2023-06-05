@@ -13,8 +13,8 @@
       ></n-p
     >
     <n-p
-      >如果您希望对文字稿进行修改, 请前往上述两个仓库,
-      当我们注意到上游仓库更新时, 我们将会同步更新</n-p
+      >如果您希望对文字稿进行修改, 请前往上述两个仓库, 当我们注意到上游仓库更新时,
+      我们将会同步更新</n-p
     >
     <n-h2>相关链接</n-h2>
     <n-p>
@@ -22,63 +22,36 @@
     </n-p>
     <n-p>
       <n-text delete>
-        <n-a href="https://shop362189133.taobao.com/" target="_blank">
-          干燥工厂
-        </n-a>
+        <n-a href="https://shop362189133.taobao.com/" target="_blank"> 干燥工厂 </n-a>
       </n-text>
-      <span style="width: 5px; display: inline-block" />由于和仓库的合同到期,
-      淘宝店铺已经关闭
+      <span style="width: 5px; display: inline-block" />由于和仓库的合同到期, 淘宝店铺已经关闭
     </n-p>
     <n-h2>友情链接</n-h2>
     <n-p>
-      <n-a href="https://t.me/papercliphub" target="_blank">
-        基本操作非官方频道
-      </n-a>
+      <n-a href="https://t.me/papercliphub" target="_blank"> 基本操作非官方频道 </n-a>
       |
-      <n-a href="https://t.me/paperclipfans" target="_blank">
-        基本操作非官方粉丝群
-      </n-a>
+      <n-a href="https://t.me/paperclipfans" target="_blank"> 基本操作非官方粉丝群 </n-a>
     </n-p>
     <n-h2>其他归档站</n-h2>
     <n-p>
       <n-a href="https://paperclip.eu.org/">回形针视频归档站</n-a>
     </n-p>
     <n-p>
-      <n-a href="https://wandering-paperclip.glitch.me/">
-        Wandering PaperClip 流浪回形针
-      </n-a>
+      <n-a href="https://wandering-paperclip.glitch.me/"> Wandering PaperClip 流浪回形针 </n-a>
     </n-p>
     <n-p>
-      <n-a href="https://paper-clips.purestream.eu.org/">
-        paper-clips.purestream.eu.org
-      </n-a>
+      <n-a href="https://paper-clips.purestream.eu.org/"> paper-clips.purestream.eu.org </n-a>
     </n-p>
     <n-p>
       <n-a href="https://paperclip.wiki/">paperclip.wiki</n-a>
     </n-p>
     <n-h2>R.I.P</n-h2>
-    <n-grid
-      cols="1 345:2"
-      :x-gap="5"
-      :y-gap="5"
-      item-responsive
-      style="min-height: 90px"
-    >
+    <n-grid cols="1 345:2" :x-gap="5" :y-gap="5" item-responsive style="min-height: 90px">
       <n-gi span="1">
-        <img
-          src="https://r2.ipaperclip.top/rip1.webp"
-          alt="rip1"
-          loading="lazy"
-          style="width: 100%"
-        />
+        <img src="/rip1.webp" alt="rip1" loading="lazy" style="width: 100%" />
       </n-gi>
       <n-gi span="1">
-        <img
-          src="https://r2.ipaperclip.top/rip2.webp"
-          alt="rip2"
-          loading="lazy"
-          style="width: 100%"
-        />
+        <img src="/rip2.webp" alt="rip2" loading="lazy" style="width: 100%" />
       </n-gi>
     </n-grid>
     <!-- <n-alert type="info" :show-icon="false">
