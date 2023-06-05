@@ -38,8 +38,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: github-pages
+          path: "./dist/"
       - name: Decompress # 解压
-        run: tar -xvf artifact.tar
+        run: |
+          cd dist
+          tar -xvf artifact.tar
       - name: 🚀 Deploy # 部署
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }} # Cloudflare Token
