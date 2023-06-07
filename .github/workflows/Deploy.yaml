@@ -34,8 +34,7 @@ jobs:
           node-version: "16.x"
           cache: "yarn"
       - name: 📦️ YARN # 安装依赖
-        # run: yarn install
-        run: yarn add wrangler @cloudflare/kv-asset-handler
+        run: yarn install
       - name: ⬇️ Download dist # 下载 dist
         uses: actions/download-artifact@v3
         with:
@@ -49,7 +48,7 @@ jobs:
       - name: 🚀 Deploy # 部署
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }} # Cloudflare Token
-        run: yarn wrangler deploy
+        run: yarn deploy-only
 
   Github:
     needs: Build
@@ -67,10 +66,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-          cache: "yarn"
       - name: 🔧 Setup Pages # 初始化
         uses: actions/configure-pages@v3
       - name: 🚀 Deploy # 部署
