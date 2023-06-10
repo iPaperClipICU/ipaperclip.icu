@@ -175,7 +175,6 @@ const setMenuValue = () => {
 
   if (Array.isArray(data.data[filesName])) menuValue.value = `${filesName}`;
   else menuValue.value = `${filesName}/${tagName}`;
-  console.log(menuValue.value);
 };
 
 const ValueChange = (key: string) => {
