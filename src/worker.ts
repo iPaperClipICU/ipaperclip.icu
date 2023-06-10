@@ -25,24 +25,30 @@ export default {
     };
     const url = new URL(request.url);
 
-    return await getAssetFromKV(Evt, {
-      ...publicOpts,
-      mapRequestToAsset: (request) => {
-        if (url.pathname.startsWith("/assets/")) {
-          return mapRequestToAsset(request);
-        } else {
-          url.pathname = "/index.html";
-          return mapRequestToAsset(new Request(url.toString(), request));
-        }
-      },
-    }).catch(async () => {
+    const resp = await (async () => {
       return await getAssetFromKV(Evt, {
         ...publicOpts,
         mapRequestToAsset: (request) => {
-          url.pathname = "/index.html";
-          return mapRequestToAsset(new Request(url.toString(), request));
+          if (url.pathname.startsWith("/assets/")) {
+            return mapRequestToAsset(request);
+          } else {
+            url.pathname = "/index.html";
+            return mapRequestToAsset(new Request(url.toString(), request));
+          }
         },
-      }).catch((e) => new Response(e.message || e.toString(), { status: 500 }));
-    });
+      }).catch(async () => {
+        return await getAssetFromKV(Evt, {
+          ...publicOpts,
+          mapRequestToAsset: (request) => {
+            url.pathname = "/index.html";
+            return mapRequestToAsset(new Request(url.toString(), request));
+          },
+        }).catch((e) => new Response(e.message || e.toString(), { status: 500 }));
+      });
+    })();
+
+    resp.headers.set("Content-Encoding", "gzip");
+
+    return resp;
   },
 };
