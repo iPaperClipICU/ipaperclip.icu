@@ -8,6 +8,10 @@ import vue from "@vitejs/plugin-vue";
 
 import basicSsl from "@vitejs/plugin-basic-ssl";
 
+// @ts-ignore
+import d from "./src/assets/data.json";
+const data = d as any;
+
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   const needSSL: boolean = false;
@@ -73,6 +77,51 @@ export default defineConfig(({ command }) => {
           } catch (err) {
             console.error("Error moving Sourcemap:", err);
           }
+        },
+      },
+      {
+        name: "sitemap",
+        apply: "build",
+        closeBundle() {
+          const hostname = "https://ipaperclip.icu";
+          const outList: string[] = [`${hostname}/`];
+          const addOut = (path: string) => {
+            outList.push(`${hostname}/${encodeURI(path)}`);
+          };
+
+          // Files
+          for (const [filesName, tagsList] of data.menuData) {
+            if (tagsList !== undefined) {
+              // 有 Tag
+              tagsList.forEach((tagName: string) => {
+                addOut(`${filesName}/${tagName}`);
+              });
+            } else {
+              // 沒有 Tag
+              addOut(`${filesName}`);
+            }
+          }
+
+          // File
+          for (const fileName in data.searchData) {
+            const [filesName, tagName] = data.searchData[fileName];
+            if (tagName !== null) {
+              // 有 Tag
+              addOut(`${filesName}/${tagName}/${fileName}`);
+            } else {
+              // 沒有 Tag
+              addOut(`${filesName}/${fileName}`);
+            }
+          }
+
+          fs.writeFileSync(
+            path.resolve(__dirname, "dist/web/sitemap.txt"),
+            outList.join("\n"),
+            "utf-8"
+          );
+          console.log(
+            `🎉 Sitemap generation successful! There are a total of ${outList.length} links.`
+          );
         },
       },
     ],
