@@ -1,4 +1,3 @@
-import md5 from "js-md5";
 import { customAlphabet } from "nanoid/non-secure";
 
 import d from "@/assets/data.json";
@@ -41,6 +40,21 @@ export const getFileInfo = (
       .replace(".flac", ""),
     type: FileType,
   };
+};
+
+const md5 = async (message: string): Promise<string> => {
+  // 将字符串转换为字节数组
+  const encoder = new TextEncoder();
+  const data = encoder.encode(message);
+
+  // 计算MD5哈希值
+  const hashBuffer = await crypto.subtle.digest("MD5", data);
+
+  // 将哈希结果转换为十六进制字符串
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashString = hashArray.map((byte) => byte.toString(16).padStart(2, "0")).join("");
+
+  return hashString;
 };
 
 export const getSign = (FileURL: string): string => {

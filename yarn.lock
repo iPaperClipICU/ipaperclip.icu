@@ -776,13 +776,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/js-md5@npm:^0.7.0":
-  version: 0.7.0
-  resolution: "@types/js-md5@npm:0.7.0"
-  checksum: dead6d8e2cc46ddac284dd1f79bf26be006ac337d103ce59fde7d756b53713f6d4ff978249e63daae9e0959e27bcf311bf04c05742c0bc15b653eafa132adab9
-  languageName: node
-  linkType: hard
-
 "@types/json-schema@npm:^7.0.9":
   version: 7.0.12
   resolution: "@types/json-schema@npm:7.0.12"
@@ -3264,7 +3257,6 @@ __metadata:
     "@sentry/tracing": ^7.54.0
     "@sentry/vue": ^7.54.0
     "@tsconfig/node16": ^1.0.4
-    "@types/js-md5": ^0.7.0
     "@types/node": 16.x
     "@types/showdown": ^2.0.1
     "@types/wicg-file-system-access": ^2020.9.6
@@ -3278,7 +3270,6 @@ __metadata:
     cheerio: ^1.0.0-rc.12
     eslint: ^8.42.0
     eslint-plugin-vue: ^9.14.1
-    js-md5: ^0.7.3
     naive-ui: ^2.34.4
     nanoid: ^4.0.2
     npm-run-all: ^4.1.5
@@ -3505,13 +3496,6 @@ __metadata:
   bin:
     jake: bin/cli.js
   checksum: a23fd2273fb13f0d0d845502d02c791fd55ef5c6a2d207df72f72d8e1eac6d2b8ffa6caf660bc8006b3242e0daaa88a3ecc600194d72b5c6016ad56e9cd43553
-  languageName: node
-  linkType: hard
-
-"js-md5@npm:^0.7.3":
-  version: 0.7.3
-  resolution: "js-md5@npm:0.7.3"
-  checksum: 1ed9f7f23a2ad224fc159ba7e074617d20e6b501ea96319091ae4c7cfe722cc472c4e05366fd25708311fb66dc2deb1b82e51c730f9ccd910e64b67ba36d3a75
   languageName: node
   linkType: hard
 
