@@ -5,7 +5,6 @@ import vue from "@vitejs/plugin-vue";
 
 import { createHtmlPlugin } from "vite-plugin-html";
 import basicSsl from "@vitejs/plugin-basic-ssl";
-import { sentryVitePlugin } from "@sentry/vite-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
@@ -36,14 +35,6 @@ export default defineConfig(({ command }) => {
       {
         ...basicSsl(),
         apply: needSSL ? "serve" : command === "serve" ? "build" : "serve",
-      },
-      {
-        ...sentryVitePlugin({
-          org: "q-team-wl",
-          project: "ipaperclip-icu",
-          authToken: process.env.SENTRY_AUTH_TOKEN,
-        }),
-        apply: "build",
       },
     ],
     resolve: {

@@ -73,3 +73,24 @@ jobs:
       - name: 🚀 Deploy # 部署
         id: deployment
         uses: actions/deploy-pages@v2
+  
+  
+  Sentry:
+    needs: [Cloudflare, Github]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: ⬇️ Download dist # 下载 dist
+        uses: actions/download-artifact@v3
+        with:
+          name: github-pages
+          path: "./dist/"
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        with:
+          environment: production
+          sourcemaps: ./dist
