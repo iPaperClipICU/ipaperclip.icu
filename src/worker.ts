@@ -29,7 +29,11 @@ export default {
       return await getAssetFromKV(Evt, {
         ...publicOpts,
         mapRequestToAsset: (request) => {
-          if (url.pathname.startsWith("/assets/")) {
+          if (
+            ["/assets/", "sitemap.txt", "robots.txt", "favicon.ico", "service-worker.js"].some(
+              (path) => request.url.startsWith(path)
+            )
+          ) {
             return mapRequestToAsset(request);
           } else {
             url.pathname = "/index.html";
