@@ -42,18 +42,25 @@ export default defineConfig(({ command }) => {
         name: "html",
         apply: "build",
         transformIndexHtml(html) {
-          return minify(
-            html.replace(
-              "<!-- CloudFlareWebAnalytics -->",
-              `<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a9d6db727c5a4b3483f3bb80358921ed"}'></script>`
-            ),
-            {
-              collapseWhitespace: true,
-              removeComments: true,
-              minifyJS: true,
-              minifyCSS: true,
-            }
+          html = html.replace(
+            "<!-- CloudFlareWebAnalytics -->",
+            `<script
+              defer
+              src='https://static.cloudflareinsights.com/beacon.min.js'
+              data-cf-beacon='{"token": "a9d6db727c5a4b3483f3bb80358921ed"}'
+            ></script>`
           );
+          html = html.replace(
+            "<!-- MicrosoftClarity -->",
+            `<script type="text/javascript">
+              (function (c, l, a, r, i, t, y) {
+                c[a] = c[a] || function () {(c[a].q = c[a].q || []).push(arguments)};
+                t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+                y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+              })(window, document, "clarity", "script", "9p0cfoa6gl");
+            </script>`
+          );
+          return minify(html);
         },
       },
       {
