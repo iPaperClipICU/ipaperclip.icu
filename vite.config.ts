@@ -13,7 +13,7 @@ export default defineConfig(({ command }) => {
   const needSSL: boolean = false;
   return {
     build: {
-      sourcemap: true,
+      sourcemap: "hidden",
       rollupOptions: {
         output: {
           entryFileNames: "assets/[hash].js",
