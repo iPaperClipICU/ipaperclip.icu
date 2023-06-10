@@ -48,10 +48,20 @@
     <n-h2>R.I.P</n-h2>
     <n-grid cols="1 345:2" :x-gap="5" :y-gap="5" item-responsive style="min-height: 90px">
       <n-gi span="1">
-        <img src="//r2.ipaperclip.icu/rip1.webp" alt="rip1" loading="lazy" style="width: 100%" />
+        <img
+          src="https://r2.ipaperclip.icu/rip1.webp"
+          alt="rip1"
+          loading="lazy"
+          style="width: 100%"
+        />
       </n-gi>
       <n-gi span="1">
-        <img src="//r2.ipaperclip.icu/rip2.webp" alt="rip2" loading="lazy" style="width: 100%" />
+        <img
+          src="https://r2.ipaperclip.icu/rip2.webp"
+          alt="rip2"
+          loading="lazy"
+          style="width: 100%"
+        />
       </n-gi>
     </n-grid>
     <!-- <n-alert type="info" :show-icon="false">
