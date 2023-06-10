@@ -6,6 +6,7 @@
   <img src="https://img.shields.io/github/license/ipaperclip-icu/ipaperclip.icu?style=flat-square" alt="license" />
   <img src="https://img.shields.io/github/issues/ipaperclip-icu/ipaperclip.icu?style=flat-square" alt="issues open" />
   <img src="https://img.shields.io/github/issues-pr/ipaperclip-icu/ipaperclip.icu?style=flat-square" alt="pull requests open" />
+  <img src="https://img.shields.io/github/actions/workflow/status/iPaperClipICU/ipaperclip.icu/Deploy.yaml?style=flat-square" alt="deploy status" />
   <br>
   <img src="https://img.shields.io/github/forks/ipaperclip-icu/ipaperclip.icu?style=social" alt="fork" />
   <img src="https://img.shields.io/github/stars/ipaperclip-icu/ipaperclip.icu?style=social" alt="stars" />
