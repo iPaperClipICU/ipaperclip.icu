@@ -1,4 +1,5 @@
 import { customAlphabet } from "nanoid/non-secure";
+import { MD5 } from "crypto-js";
 
 import d from "@/assets/data.json";
 import type { DataType, FileTypes } from "@/types/";
@@ -42,21 +43,6 @@ export const getFileInfo = (
   };
 };
 
-const md5 = async (message: string): Promise<string> => {
-  // 将字符串转换为字节数组
-  const encoder = new TextEncoder();
-  const data = encoder.encode(message);
-
-  // 计算MD5哈希值
-  const hashBuffer = await crypto.subtle.digest("MD5", data);
-
-  // 将哈希结果转换为十六进制字符串
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashString = hashArray.map((byte) => byte.toString(16).padStart(2, "0")).join("");
-
-  return hashString;
-};
-
 export const getSign = (FileURL: string): string => {
   const u = new URL(FileURL);
   if (u.host === "ipaperclip-file.xodvnm.cn") {
@@ -65,7 +51,7 @@ export const getSign = (FileURL: string): string => {
     const ts = Math.floor(Date.now() / 1000); // ts
     const uid = 0;
     const rand = nanoid();
-    const sign = `${ts}-${rand}-${uid}-${md5(`${uri}-${ts}-${rand}-${uid}-${PKEY}`)}`;
+    const sign = `${ts}-${rand}-${uid}-${MD5(`${uri}-${ts}-${rand}-${uid}-${PKEY}`)}`;
     u.searchParams.set("sign", sign);
 
     return u.href;
