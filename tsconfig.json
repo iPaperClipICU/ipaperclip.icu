@@ -6,7 +6,11 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["@cloudflare/workers-types", "./node_modules/vidstack/globals"]
+    "types": [
+      "@cloudflare/workers-types",
+      "./node_modules/vidstack/globals",
+      "./node_modules/tinykeys/dist/tinykeys.d.ts"
+    ]
   },
 
   "references": [

@@ -666,10 +666,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rushstack/eslint-patch@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "@rushstack/eslint-patch@npm:1.3.0"
-  checksum: 2860b4adeebbab9a13bff68a2737ecf660fe199a3d2eca45b0359132ff92052467622ac4b22837958bc3ad611714d5f2b662db98ffdc5db34df604b4d502d347
+"@rushstack/eslint-patch@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "@rushstack/eslint-patch@npm:1.3.1"
+  checksum: 951023fffbfa71696eab8d7e6676f3bea0b8efc954e06c4ab10cacd94d1323744ad94c2ed8e81b0c9390df4a8cefbed1faacd2bf56e4c26f2b41852719273e24
   languageName: node
   linkType: hard
 
@@ -1240,10 +1240,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zip.js/zip.js@npm:^2.7.14":
-  version: 2.7.14
-  resolution: "@zip.js/zip.js@npm:2.7.14"
-  checksum: 4659465abdb2a58cebe96fa0fc7f46bd6db3d0e3fe8848347d9dff68e719817f9c1b95cac89efa03657a49ff0b8b07ace06198e5d239661f76895caf76614c0f
+"@zip.js/zip.js@npm:^2.7.15":
+  version: 2.7.15
+  resolution: "@zip.js/zip.js@npm:2.7.15"
+  checksum: 9ebd267cc82077102d346a7ddf748a0a089c7fba9a0326dbd49c6fd56f524955343c3d03ae3ef3154e4d275fd952fb66d14196b78531ee46eb3227306d664336
   languageName: node
   linkType: hard
 
@@ -3347,7 +3347,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": ^0.3.0
     "@cloudflare/workers-types": ^4.20230518.0
-    "@rushstack/eslint-patch": ^1.3.0
+    "@rushstack/eslint-patch": ^1.3.1
     "@sentry/tracing": ^7.54.0
     "@sentry/vue": ^7.54.0
     "@tsconfig/node16": ^1.0.4
@@ -3361,7 +3361,7 @@ __metadata:
     "@vue/eslint-config-prettier": ^7.1.0
     "@vue/eslint-config-typescript": ^11.0.3
     "@vue/tsconfig": ^0.4.0
-    "@zip.js/zip.js": ^2.7.14
+    "@zip.js/zip.js": ^2.7.15
     axios: ^1.4.0
     cheerio: ^1.0.0-rc.12
     crypto-js: ^4.1.1
@@ -3382,7 +3382,7 @@ __metadata:
     vue: ^3.3.4
     vue-router: ^4.2.2
     vue-tsc: ^1.6.5
-    wrangler: ^3.0.1
+    wrangler: ^3.1.0
   languageName: unknown
   linkType: soft
 
@@ -5767,9 +5767,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "wrangler@npm:3.0.1"
+"wrangler@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "wrangler@npm:3.1.0"
   dependencies:
     "@cloudflare/kv-asset-handler": ^0.2.0
     "@esbuild-plugins/node-globals-polyfill": ^0.1.1
@@ -5790,7 +5790,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 7970d31b5fe8c9266f1fb2351eaec34cd714338613cd360959ed4559f73ec3037069a0ce821119579d707e920050465dd039780776322f9b853ba4c64b97d6cb
+  checksum: 03ff3905cb32db214f5338ac514b306c22f3684f402405d12abf96d0672d94082a5fd9249b67bfa86710824b8643914987173ca1443a30340530ae6824a7c68b
   languageName: node
   linkType: hard
 

@@ -2,6 +2,7 @@
   "upgrade": true,
   "packageManager": "yarn",
   "reject": [
-    "@types/node"
+    "@types/node",
+    "tinykeys"
   ]
 }
