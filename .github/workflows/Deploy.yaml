@@ -94,6 +94,7 @@ jobs:
       - name: 📦️ Decompress # 解压
         run: |
           cd dist/map
+          ls
           tar -xvf artifact.tar
           rm artifact.tar
       - name: 🔖 Create Sentry release # 发布版本
