@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import { getData } from "@/assets/utils";
+import NaiveUIDiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
 // import SearchView from "@/views/SearchView.vue";
 // import FilesView from "@/views/FilesView.vue";
 // import FileView from "@/views/FileView.vue";
@@ -100,6 +101,15 @@ router.beforeEach((to) => {
   if (decodedPath !== to.path) {
     return { path: decodedPath };
   }
+});
+
+// 加载进度条
+router.beforeEach((to, from, next) => {
+  NaiveUIDiscreteAPI.loadingBar.start();
+  next();
+});
+router.afterEach(() => {
+  NaiveUIDiscreteAPI.loadingBar.finish();
 });
 
 export default router;
