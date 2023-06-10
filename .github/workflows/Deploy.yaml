@@ -90,10 +90,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: SourceMap
-          path: "./dist/"
+          path: "./dist/map/"
       - name: 📦️ Decompress # 解压
         run: |
-          cd dist
+          cd dist/map
           tar -xvf artifact.tar
           rm artifact.tar
       - name: 🔖 Create Sentry release # 发布版本
