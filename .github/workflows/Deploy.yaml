@@ -17,6 +17,8 @@ jobs:
       - name: 📦️ YARN # 安装依赖
         run: yarn install
       - name: 🚀 Build # 构建
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }} # Sentry Token
         run: yarn build
       - name: ⬆️ Upload dist # 上传 dist
         uses: actions/upload-pages-artifact@v1
