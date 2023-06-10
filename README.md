@@ -32,7 +32,7 @@
 
 ## 友情链接
 
-[基本操作非官方频道](https://t.me/paperclipfans) | [基本操作非官方粉丝群](https://t.me/paperclipfans)  
+[基本操作非官方频道](https://t.me/paperclipfans) | [基本操作非官方粉丝群](https://t.me/paperclipfans)
 
 ## 其他归档站
 
