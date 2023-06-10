@@ -49,13 +49,11 @@ import {
 import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from "naive-ui"; // NaiveUI Config
 
 import router from "@/router";
-import { loadScripts } from "./assets/utils";
 import { useCounterStore } from "@/stores/counter";
 import TagMenu from "@/components/TagMenu.vue";
 import HeadView from "@/components/HeadView.vue";
 import DownloadControlCard from "@/components/DownloadControlCard.vue";
 
-const w = window as any;
 const counter = useCounterStore();
 
 const showREADME = ref<boolean>(true);
@@ -64,20 +62,6 @@ const showSider = ref<boolean>(true);
 // 判断是否显示 README
 router.beforeEach((to) => {
   showREADME.value = to.fullPath === "/";
-});
-
-// 加载 Plyr
-router.afterEach((to, from) => {
-  if (
-    from.name === undefined &&
-    !String(to.name).startsWith("FILE:") &&
-    typeof w.Plyr !== "function"
-  ) {
-    loadScripts([
-      "https://cdn.jsdelivr.net/npm/plyr@3.7.3/dist/plyr.min.js",
-      "https://cdn.plyr.io/3.7.3/plyr.js",
-    ]);
-  }
 });
 
 router.beforeEach((to) => {

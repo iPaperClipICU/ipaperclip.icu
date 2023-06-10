@@ -602,6 +602,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@maverick-js/signals@npm:^5.10.3":
+  version: 5.10.3
+  resolution: "@maverick-js/signals@npm:5.10.3"
+  checksum: 2e7f3894043ccc3e5ec68ffb73090d3704fe736c70855cf40327211fc54eb55aca24fc84b9a7920e9e00602235d1cff702e8cd5b9742f3363bd665c4fa39af38
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -1789,13 +1796,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.26.1":
-  version: 3.30.2
-  resolution: "core-js@npm:3.30.2"
-  checksum: 73d47e2b9d9f502800973982d08e995bbf04832e20b04e04be31dd7607247158271315e9328788a2408190e291c7ffbefad141167b1e57dea9f983e1e723541e
-  languageName: node
-  linkType: hard
-
 "cross-spawn@npm:^6.0.5":
   version: 6.0.5
   resolution: "cross-spawn@npm:6.0.5"
@@ -1883,13 +1883,6 @@ __metadata:
   version: 3.0.11
   resolution: "csstype@npm:3.0.11"
   checksum: 95e56abfe9ca219ae065acb4e43f61771a03170eed919127f558dfa168240867aba7629c8d98a201a0dd06d9a5ce82686f0570031c928516c61816adbc7c877f
-  languageName: node
-  linkType: hard
-
-"custom-event-polyfill@npm:^1.0.7":
-  version: 1.0.7
-  resolution: "custom-event-polyfill@npm:1.0.7"
-  checksum: f9ff2cf13e482a75b3cf83dce9e2c6e3063c5ac1b9c23ac440e4f27e875b0873445b11811237f3f30aeb1216e9ad20f9f9d30ccf5b1b658a4e50dd0b3e67b629
   languageName: node
   linkType: hard
 
@@ -3290,11 +3283,11 @@ __metadata:
     nanoid: ^4.0.2
     npm-run-all: ^4.1.5
     pinia: ^2.1.3
-    plyr: ^3.7.8
     prettier: ^2.8.8
     showdown: ^2.1.0
     tinykeys: ^1.4.0
     typescript: ~5.1.3
+    vidstack: ^0.6.9
     vite: ^4.3.9
     vite-plugin-html: ^3.2.0
     vue: ^3.3.4
@@ -3596,13 +3589,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loadjs@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "loadjs@npm:4.2.0"
-  checksum: 2144723f55c75260ce6781b36009c40d098d96fe06e3ec5c85ba250cf96c3a0aa37169b829e818c40bcba7c5141a8e52736fec193333bb6260ab95f9a493a2ef
-  languageName: node
-  linkType: hard
-
 "locate-path@npm:^6.0.0":
   version: 6.0.0
   resolution: "locate-path@npm:6.0.0"
@@ -3697,6 +3683,23 @@ __metadata:
     socks-proxy-agent: ^7.0.0
     ssri: ^9.0.0
   checksum: 2332eb9a8ec96f1ffeeea56ccefabcb4193693597b132cd110734d50f2928842e22b84cfa1508e921b8385cdfd06dda9ad68645fed62b50fff629a580f5fb72c
+  languageName: node
+  linkType: hard
+
+"maverick.js@npm:0.37.0":
+  version: 0.37.0
+  resolution: "maverick.js@npm:0.37.0"
+  dependencies:
+    "@maverick-js/signals": ^5.10.3
+    type-fest: ^3.8.0
+  checksum: 837c17ffc80711b2e72b5acc5e9367f5cf01d1961047adaf8872d121ad5007a13584417c816db05795be8ccd0db4e3166d62b292e97ce743d4e1487ad6208cc0
+  languageName: node
+  linkType: hard
+
+"media-captions@npm:0.0.15":
+  version: 0.0.15
+  resolution: "media-captions@npm:0.0.15"
+  checksum: 85ecf4a1a69767f3c03aa7bc3b764e125d0d168b58516bba304f2d1a789bd1180510633448ff09f327b0dd5925a0e5709772929a613076e3b7a5a1404c37a321
   languageName: node
   linkType: hard
 
@@ -4393,19 +4396,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"plyr@npm:^3.7.8":
-  version: 3.7.8
-  resolution: "plyr@npm:3.7.8"
-  dependencies:
-    core-js: ^3.26.1
-    custom-event-polyfill: ^1.0.7
-    loadjs: ^4.2.0
-    rangetouch: ^2.0.1
-    url-polyfill: ^1.1.12
-  checksum: 7eac9ea02269059a95f2ed945ab03932f472ae1c2e2c4789c6d3b08b62c4b477fe5a1a507f3530c7394a3450a937df8ef9c0fdedb6819f86b1ccc05ef1935d62
-  languageName: node
-  linkType: hard
-
 "postcss-selector-parser@npm:^6.0.9":
   version: 6.0.13
   resolution: "postcss-selector-parser@npm:6.0.13"
@@ -4526,13 +4516,6 @@ __metadata:
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
   checksum: b676f8c040cdc5b12723ad2f91414d267605b26419d5c821ff03befa817ddd10e238d22b25d604920340fd73efd8ba795465a0377c4adf45a4a41e4234e42dc4
-  languageName: node
-  linkType: hard
-
-"rangetouch@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "rangetouch@npm:2.0.1"
-  checksum: 2aa7c0901d28356ef0c02021656ed7d11fc6652f01ffe92806862fc4593e75f7a5d52d4455fa1b0ab2123d438e03dc091315949dbfad9562a680440ac0dfeb7d
   languageName: node
   linkType: hard
 
@@ -5269,6 +5252,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"type-fest@npm:^3.8.0":
+  version: 3.11.1
+  resolution: "type-fest@npm:3.11.1"
+  checksum: 33be49e3b671c2ff3b5e320ef8c160c488205b08ab7631369116909a1baf2aebfcf45234c045e6902b8aa35730ac2bfd0655ea9e0fe3f8d26af9d99a16b07abd
+  languageName: node
+  linkType: hard
+
 "typed-array-length@npm:^1.0.4":
   version: 1.0.4
   resolution: "typed-array-length@npm:1.0.4"
@@ -5355,13 +5345,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"url-polyfill@npm:^1.1.12":
-  version: 1.1.12
-  resolution: "url-polyfill@npm:1.1.12"
-  checksum: 3214cc82424c215e921dacadac56b4b099f995d24e14078369bea9ff8aa74d1a4c803ab03021e61e0a275bee7979d212d046092dba3aab73cf232ee6739ddee4
-  languageName: node
-  linkType: hard
-
 "util-deprecate@npm:^1.0.1, util-deprecate@npm:^1.0.2":
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
@@ -5387,6 +5370,17 @@ __metadata:
   peerDependencies:
     vue: ^3.0.11
   checksum: a7be8ccad3e72f2891150d53085b8f924cc9d9a9e474cd58827e81417e8feef7f5a8ecbb00efa7631592bf5b3be0a0fa40da41789fcf18dab2cec2bddd01ea47
+  languageName: node
+  linkType: hard
+
+"vidstack@npm:^0.6.9":
+  version: 0.6.9
+  resolution: "vidstack@npm:0.6.9"
+  dependencies:
+    maverick.js: 0.37.0
+    media-captions: 0.0.15
+    type-fest: ^3.8.0
+  checksum: 029bba0271f11925b7465a04900f81c67608bfcb7fc9fa14b9b06af3ea8b141238dd24bc87195f92fa9fae15b816ffac4bd9315527ace3a39a10fdcaa42ab3cc
   languageName: node
   linkType: hard
 

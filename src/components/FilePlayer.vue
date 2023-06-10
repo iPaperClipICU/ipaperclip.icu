@@ -1,13 +1,17 @@
 <template>
-  <div v-if="props.data.fileType === 'video'" :class="playerStatus === 'def' ? 'videoPlayer' : ''">
-    <n-skeleton v-if="playerStatus === 'load'" :sharp="false" class="videoPlayer" />
-    <video
-      v-show="playerStatus !== 'load'"
-      controls
-      playsinline
-      id="videoPlayer"
+  <div v-if="props.data.fileType === 'video'">
+    <media-player
       :src="getSign(`${counter.CDNDomain}/${props.data.fileUrl}`)"
-    ></video>
+      aspect-ratio="16/9"
+      crossorigin
+    >
+      <media-outlet>
+        <media-poster
+          alt="Girl walks into sprite gnomes around her friend on a campfire in danger!"
+        ></media-poster>
+      </media-outlet>
+      <media-community-skin></media-community-skin>
+    </media-player>
   </div>
   <div v-else-if="props.data.fileType === 'image'">
     <n-grid :cols="36" item-responsive>
@@ -23,26 +27,31 @@
       <n-gi span="1 768:5" />
     </n-grid>
   </div>
-  <div v-else-if="props.data.fileType === 'audio'">
-    <n-skeleton v-if="playerStatus === 'load'" height="52px" />
-    <audio
-      v-show="playerStatus !== 'load'"
-      controls
-      id="audioPlayer"
-      style="max-width: 100%"
-      :src="getSign(`${counter.CDNDomain}/${props.data.fileUrl}`)"
-    ></audio>
+  <div v-else-if="props.data.fileType === 'audio'" style="min-height: 76px">
+    <media-player viewType="audio" crossorigin>
+      <media-outlet>
+        <source :src="getSign(`${counter.CDNDomain}/${props.data.fileUrl}`)" type="audio/flac" />
+      </media-outlet>
+      <media-community-skin default-appearance></media-community-skin>
+    </media-player>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, type PropType } from "vue";
-// import Plyr from "plyr";
-import { NGi, NGrid, NSkeleton } from "naive-ui";
+import { onMounted, type PropType } from "vue";
+import { NGi, NGrid } from "naive-ui";
 
-import { getSign, loadScripts } from "@/assets/utils";
+import { getSign } from "@/assets/utils";
 import type { FileCardDataType } from "@/types/";
 import { useCounterStore } from "@/stores/counter";
+
+// Vidstack
+import "vidstack/styles/defaults.css";
+import "vidstack/styles/community-skin/audio.css";
+import "vidstack/styles/community-skin/video.css";
+import "vidstack/define/media-player.js";
+import { defineCustomElements } from "vidstack/elements";
+import type { CommunitySkinTranslations } from "vidstack";
 
 const props = defineProps({
   data: {
@@ -52,59 +61,45 @@ const props = defineProps({
 });
 const counter = useCounterStore();
 
-const w = window as any;
-let playerStatus = ref<"load" | "def" | "plyr">("load");
-let plyrPlayer: null | any = null;
-
-const loadPlyr = async (): Promise<string | boolean> => {
-  if (typeof w.Plyr === "function") return true;
-
-  return await loadScripts([
-    "https://cdn.jsdelivr.net/npm/plyr@3.7.3/dist/plyr.min.js",
-    "https://cdn.plyr.io/3.7.3/plyr.js",
-  ]);
-};
-
 onMounted(async () => {
-  if (await loadPlyr()) {
-    playerStatus.value = "plyr";
+  await defineCustomElements();
 
-    const i18n = {
-      speed: "速度",
-      normal: "正常",
-    };
-
-    if (props.data.fileType === "audio") {
-      plyrPlayer = new w.Plyr("#audioPlayer", { i18n });
-    } else if (props.data.fileType === "video") {
-      plyrPlayer = new w.Plyr("#videoPlayer", {
-        i18n,
-        fullscreen: {
-          iosNative: true,
-        },
-      });
-    }
-  } else {
-    playerStatus.value = "def";
+  const SPANISH: CommunitySkinTranslations = {
+    Audio: "音频",
+    Auto: "自动",
+    Captions: "字幕",
+    Chapters: "章节",
+    Default: "默认",
+    Mute: "静音",
+    Normal: "正常",
+    Off: "关闭",
+    Pause: "暂停",
+    Play: "播放",
+    Speed: "速度",
+    Quality: "质量",
+    Settings: "设置",
+    Unmute: "取消静音",
+    "Seek Forward": "快进",
+    "Seek Backward": "快退",
+    "Closed-Captions On": "开启字幕",
+    "Closed-Captions Off": "关闭字幕",
+    "Enter Fullscreen": "进入全屏",
+    "Exit Fullscreen": "退出全屏",
+    "Enter PiP": "进入画中画",
+    "Exit PiP": "退出画中画",
+  };
+  try {
+    const skin = document.querySelector("media-community-skin") as any;
+    skin.translations = SPANISH;
+  } catch (e) {
+    console.error(e);
   }
-});
-
-onBeforeUnmount(() => {
-  plyrPlayer?.destroy();
 });
 </script>
 
 <style>
-@import "plyr/dist/plyr.css";
-
-.videoPlayer {
-  position: relative;
-  padding-top: 56.25%;
-}
-.videoPlayer video {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
+media-community-skin[data-audio] {
+  --audio-border: none; /* 解决左侧有一条竖线的问题 */
+  --audio-bg: rgb(24, 24, 28);
 }
 </style>
