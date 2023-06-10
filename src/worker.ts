@@ -30,8 +30,8 @@ export default {
         ...publicOpts,
         mapRequestToAsset: (request) => {
           if (
-            ["/assets/", "sitemap.txt", "robots.txt", "favicon.ico", "service-worker.js"].some(
-              (path) => request.url.startsWith(path)
+            ["/assets/", "/sitemap.txt", "/robots.txt", "/favicon.png", "/service-worker.js"].some(
+              (path) => url.pathname.startsWith(path)
             )
           ) {
             return mapRequestToAsset(request);
