@@ -7,6 +7,7 @@ on:
 
 jobs:
   Build:
+    name: 📦️ Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -27,7 +28,7 @@ jobs:
 
   Cloudflare:
     needs: Build
-    name: Deploy Cloudflare Worker Site
+    name: 🚀 Deploy Cloudflare Worker Site
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -42,7 +43,7 @@ jobs:
         with:
           name: github-pages
           path: "./dist/"
-      - name: Decompress # 解压
+      - name: 📦️ Decompress # 解压
         run: |
           cd dist
           tar -xvf artifact.tar
@@ -54,7 +55,7 @@ jobs:
 
   Github:
     needs: Build
-    name: Deploy Github Page
+    name: 🚀 Deploy Github Page
     permissions:
       contents: read
       pages: write
@@ -77,6 +78,7 @@ jobs:
   
   Sentry:
     needs: [Cloudflare, Github]
+    name: 🔖 Create Sentry release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -85,12 +87,12 @@ jobs:
         with:
           name: github-pages
           path: "./dist/"
-      - name: Decompress # 解压
+      - name: 📦️ Decompress # 解压
         run: |
           cd dist
           tar -xvf artifact.tar
           rm artifact.tar
-      - name: 🚀 Create Sentry release
+      - name: 🔖 Create Sentry release
         uses: getsentry/action-release@v1
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
