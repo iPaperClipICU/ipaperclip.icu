@@ -56,13 +56,7 @@ import DownloadControlCard from "@/components/DownloadControlCard.vue";
 
 const counter = useCounterStore();
 
-const showREADME = ref<boolean>(true);
 const showSider = ref<boolean>(true);
-
-// 判断是否显示 README
-router.beforeEach((to) => {
-  showREADME.value = to.fullPath === "/";
-});
 
 router.beforeEach((to) => {
   if (to.name === "Home") counter.FilesMenuDate = undefined;

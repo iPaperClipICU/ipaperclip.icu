@@ -1,10 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
-import SearchView from "@/views/SearchView.vue";
-import FilesView from "@/views/FilesView.vue";
-import FileView from "@/views/FileView.vue";
 
 import { getData } from "@/assets/utils";
-import HomeView from "@/views/HomeView.vue";
+// import SearchView from "@/views/SearchView.vue";
+// import FilesView from "@/views/FilesView.vue";
+// import FileView from "@/views/FileView.vue";
+// import HomeView from "@/views/HomeView.vue";
+
+const HomeView = () => import("@/views/HomeView.vue");
+const FileView = () => import("@/views/FileView.vue");
+const FilesView = () => import("@/views/FilesView.vue");
+const SearchView = () => import("@/views/SearchView.vue");
 
 const data = getData();
 
