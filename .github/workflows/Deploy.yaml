@@ -85,7 +85,7 @@ jobs:
         with:
           name: github-pages
           path: "./dist/"
-      - name: Create Sentry release
+      - name: 🚀 Create Sentry release
         uses: getsentry/action-release@v1
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -93,4 +93,4 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: production
-          sourcemaps: ./dist
+          sourcemaps: ./dist/assets
