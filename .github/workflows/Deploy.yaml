@@ -47,7 +47,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: github-pages
-          path: "./dist/"
+          path: "./dist/web/"
       - name: 📦️ Decompress # 解压
         run: |
           cd dist
