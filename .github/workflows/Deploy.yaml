@@ -19,7 +19,7 @@ jobs:
         run: yarn install
       - name: 🚀 Build # 构建
         env:
-          TENCENTCDN_PKEY: ${{ secrets.TENCENTCDN_PKEY }}
+          TencentCDN_PKEY: ${{ secrets.TENCENTCDN_PKEY }}
         run: yarn build
       - name: ⬆️ Upload dist # 上传 dist
         uses: actions/upload-pages-artifact@v1
