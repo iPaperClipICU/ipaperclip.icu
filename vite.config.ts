@@ -13,6 +13,7 @@ export default defineConfig(({ command }) => {
   const needSSL: boolean = false;
   return {
     build: {
+      outDir: "dist/web",
       sourcemap: "hidden",
       rollupOptions: {
         output: {
@@ -56,12 +57,15 @@ export default defineConfig(({ command }) => {
         apply: "build",
         closeBundle() {
           try {
-            const files = fs.readdirSync(path.resolve(__dirname, "dist/assets/"));
+            const assetsPath = path.resolve(__dirname, "dist/web/assets/");
+            const mapPath = path.resolve(__dirname, "dist/map/");
+
+            const files = fs.readdirSync(assetsPath);
             const mapFiles = files.filter((file) => file.endsWith(".js.map"));
-            fs.mkdirSync(path.resolve(__dirname, "dist/map/"), { recursive: true });
+            fs.mkdirSync(mapPath, { recursive: true });
             mapFiles.forEach((file) => {
-              const sourcePath = path.join(__dirname, "dist/assets/", file);
-              const destinationPath = path.join(__dirname, "dist/map/", file);
+              const sourcePath = path.join(assetsPath, file);
+              const destinationPath = path.join(mapPath, file);
 
               fs.renameSync(sourcePath, destinationPath);
             });

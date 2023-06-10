@@ -24,7 +24,12 @@ jobs:
       - name: ⬆️ Upload dist # 上传 dist
         uses: actions/upload-pages-artifact@v1
         with:
-          path: "./dist/"
+          path: "./dist/web/"
+      - name: ⬆️ Upload map # 上传 map
+        uses: actions/upload-artifact@v3
+        with:
+          name: SourceMap
+          path: "./dist/map/"
 
   Cloudflare:
     needs: Build
@@ -74,8 +79,7 @@ jobs:
       - name: 🚀 Deploy # 部署
         id: deployment
         uses: actions/deploy-pages@v2
-  
-  
+
   Sentry:
     needs: [Cloudflare, Github]
     name: 🔖 Create Sentry release
@@ -85,14 +89,14 @@ jobs:
       - name: ⬇️ Download dist # 下载 dist
         uses: actions/download-artifact@v3
         with:
-          name: github-pages
+          name: SourceMap
           path: "./dist/"
       - name: 📦️ Decompress # 解压
         run: |
           cd dist
           tar -xvf artifact.tar
           rm artifact.tar
-      - name: 🔖 Create Sentry release
+      - name: 🔖 Create Sentry release # 发布版本
         uses: getsentry/action-release@v1
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
