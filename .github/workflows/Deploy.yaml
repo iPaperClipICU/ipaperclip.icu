@@ -50,7 +50,7 @@ jobs:
           path: "./dist/web/"
       - name: 📦️ Decompress # 解压
         run: |
-          cd dist
+          cd dist/web
           tar -xvf artifact.tar
           rm artifact.tar
       - name: 🚀 Deploy # 部署
