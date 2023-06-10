@@ -85,6 +85,11 @@ jobs:
         with:
           name: github-pages
           path: "./dist/"
+      - name: Decompress # 解压
+        run: |
+          cd dist
+          tar -xvf artifact.tar
+          rm artifact.tar
       - name: 🚀 Create Sentry release
         uses: getsentry/action-release@v1
         env:
@@ -93,4 +98,4 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: production
-          sourcemaps: "./dist/assets/"
+          sourcemaps: ./dist/assets/
