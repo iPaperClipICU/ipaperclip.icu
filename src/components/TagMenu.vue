@@ -175,17 +175,15 @@ const setMenuValue = () => {
 
   if (Array.isArray(data.data[filesName])) menuValue.value = `${filesName}`;
   else menuValue.value = `${filesName}/${tagName}`;
+  console.log(menuValue.value);
 };
 
 const ValueChange = (key: string) => {
   emit("change", key);
-  setMenuValue();
 };
 setMenuValue();
 
-router.afterEach((to) => {
-  if (to.path === "/") {
-    menuValue.value = "Home";
-  }
+router.afterEach(() => {
+  setMenuValue();
 });
 </script>
