@@ -1,30 +1,43 @@
 <template>
   <n-card size="small" hoverable style="margin-bottom: 15px">
-    <n-space align="center">
-      <n-button strong secondary type="primary" @click="downloadButtonClick">下载</n-button>
-      <n-button-group v-if="counter.FilesMenuDate !== undefined">
-        <n-button strong secondary @click="() => selectAll({ at: true })">全选当前页面</n-button>
-        <n-button
-          strong
-          secondary
-          type="error"
-          @click="() => selectAll({ at: true, remove: true })"
+    <n-space align="center" justify="space-between">
+      <n-space align="center" justify="start">
+        <n-button strong secondary type="primary" @click="downloadButtonClick">下载</n-button>
+        <n-button-group v-if="counter.FilesMenuDate !== undefined">
+          <n-button strong secondary @click="() => selectAll({ at: true })">全选当前页面</n-button>
+          <n-button
+            strong
+            secondary
+            type="error"
+            @click="() => selectAll({ at: true, remove: true })"
+          >
+            取消当前页面的选择
+          </n-button>
+        </n-button-group>
+        <n-button-group
+          v-if="counter.FilesMenuDate !== undefined && counter.FilesMenuDate.data.length > 1"
         >
-          取消当前页面的选择
+          <n-button strong secondary @click="() => selectAll()">全选当前分支</n-button>
+          <n-button strong secondary type="error" @click="() => selectAll({ remove: true })">
+            取消当前分支的选择
+          </n-button>
+        </n-button-group>
+        <n-button strong secondary type="error" @click="() => counter.deleteDownloadSelect()">
+          取消全部选择
         </n-button>
-      </n-button-group>
-      <n-button-group
-        v-if="counter.FilesMenuDate !== undefined && counter.FilesMenuDate.data.length > 1"
-      >
-        <n-button strong secondary @click="() => selectAll()">全选当前分支</n-button>
-        <n-button strong secondary type="error" @click="() => selectAll({ remove: true })">
-          取消当前分支的选择
-        </n-button>
-      </n-button-group>
-      <n-button strong secondary type="error" @click="() => counter.deleteDownloadSelect()">
-        取消全部选择
-      </n-button>
-      <div>您已选择 {{ Object.keys(counter.download.select).length }} 个文件</div>
+        <div>您已选择 {{ Object.keys(counter.download.select).length }} 个文件</div>
+      </n-space>
+      <n-space align="center" justify="end">
+        <n-tooltip trigger="hover">
+          <template #trigger>
+            <n-button strong secondary tag="a" href="https://r2.ipaperclip.icu/zip/ALL_221205.7z">
+              下载全部文件
+            </n-button>
+          </template>
+          共 42.6 GB，请注意磁盘剩余空间及网络环境<br />
+          SHA-256: CEC8D73C9183A046E815B623900EFAF48F038F30A91F89C8BBE93AE804222F06
+        </n-tooltip>
+      </n-space>
     </n-space>
   </n-card>
   <DownloadModal
@@ -45,7 +58,7 @@
 <script setup lang="ts">
 /// <reference types="@types/wicg-file-system-access" />
 import { ref } from "vue";
-import { NCard, NSpace, NButton, NButtonGroup } from "naive-ui";
+import { NCard, NSpace, NButton, NButtonGroup, NTooltip } from "naive-ui";
 
 import router from "@/router";
 import { useCounterStore } from "@/stores/counter";
