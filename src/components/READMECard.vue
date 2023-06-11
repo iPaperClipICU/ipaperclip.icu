@@ -107,13 +107,13 @@ a {
   text-decoration: none !important;
 }
 
-.item.n-h:first-child {
+.item .n-h:first-child {
   margin: 0 0 12px 0 !important;
 }
-.item.n-p:last-child {
+.item .n-p:last-child {
   margin: 6px 0 0 0 !important;
 }
-.item.n-p {
+.item .n-p {
   margin: 6px 0;
 }
 </style>
