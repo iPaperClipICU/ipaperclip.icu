@@ -11,6 +11,7 @@ const HomeView = () => import("@/views/HomeView.vue");
 const FileView = () => import("@/views/FileView.vue");
 const FilesView = () => import("@/views/FilesView.vue");
 const SearchView = () => import("@/views/SearchView.vue");
+const NotFoundView = () => import("@/views/NotFoundView.vue");
 
 const data = getData();
 
@@ -84,11 +85,18 @@ for (const fileName in data.searchData) {
   }
 }
 
-routes.push({
-  path: "/:pathMatch(.*)*",
-  name: "Home",
-  component: HomeView,
-});
+routes.push(
+  {
+    path: "/",
+    name: "Home",
+    component: HomeView,
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: NotFoundView,
+  }
+);
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
