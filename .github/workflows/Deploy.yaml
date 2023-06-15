@@ -14,8 +14,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "16.x"
+          catch: yarn
       - name: 📦️ YARN # 安装依赖
-        run: yarn install
+        run: yarn install --frozen-lockfile
       - name: 🚀 Build # 构建
         env:
           TencentCDN_PKEY: ${{ secrets.TENCENTCDN_PKEY }}
@@ -42,7 +43,7 @@ jobs:
         with:
           node-version: "16.x"
       - name: 📦️ YARN # 安装依赖
-        run: yarn install
+        run: yarn install --frozen-lockfile
       - name: ⬇️ Download dist # 下载 dist
         uses: actions/download-artifact@v3
         with:
