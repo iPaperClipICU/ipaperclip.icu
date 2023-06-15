@@ -21,15 +21,15 @@ jobs:
         env:
           TencentCDN_PKEY: ${{ secrets.TENCENTCDN_PKEY }}
         run: yarn build
-      - name: ⬆️ Upload dist # 上传 dist
+      - name: ⬆️ Upload dist To Page # 上传 dist
         uses: actions/upload-pages-artifact@v1
         with:
           path: "./dist/web/"
-      - name: ⬆️ Upload map # 上传 map
+      - name: ⬆️ Upload dist # 上传 map
         uses: actions/upload-artifact@v3
         with:
-          name: SourceMap
-          path: "./dist/map/"
+          name: dist
+          path: "./dist/"
 
   Cloudflare:
     needs: Build
@@ -47,13 +47,8 @@ jobs:
       - name: ⬇️ Download dist # 下载 dist
         uses: actions/download-artifact@v3
         with:
-          name: github-pages
-          path: "./dist/web/"
-      - name: 📦️ Decompress # 解压
-        run: |
-          cd dist/web
-          tar -xvf artifact.tar
-          rm artifact.tar
+          name: dist
+          path: "./dist/"
       - name: 🚀 Deploy Cloudflare Page # 部署到 Cloudflare Pages
         run: yarn deploy-page
       - name: 🚀 Deploy Cloudflare Worker # 部署到 Cloudflare Worker
@@ -90,8 +85,8 @@ jobs:
       - name: ⬇️ Download dist # 下载 dist
         uses: actions/download-artifact@v3
         with:
-          name: SourceMap
-          path: "./dist/map/"
+          name: dist
+          path: "./dist/"
       - name: 🔖 Create Sentry release # 发布版本
         uses: getsentry/action-release@v1
         env:
