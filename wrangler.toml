@@ -1,5 +1,5 @@
 name = "ipaperclip-icu-site"
-main = "src/worker.ts"
+main = "src-worker/index.ts"
 compatibility_date = "2023-06-04"
 workers_dev = false
 
