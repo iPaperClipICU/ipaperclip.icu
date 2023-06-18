@@ -29,12 +29,15 @@ const matchFileData = (path: string): boolean => {
   if (filesData !== undefined) {
     if (Array.isArray(filesData)) {
       // 无Tag
+      if (pathList.length === 1) return true; // /filesName
       fileName = decURI(pathList[1]);
     } else {
       // 有Tag
+      // TODO: match /filesName to /filesName/tagName
       const tagName = decURI(pathList[1]);
       console.log(`tagName: ${tagName}`);
       if (tagName in filesData) {
+        if (pathList.length === 2) return true; // /filesName/tagName
         fileName = decURI(pathList[2]);
       }
     }
