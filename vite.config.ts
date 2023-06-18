@@ -103,7 +103,10 @@ export default defineConfig(({ command }) => {
             deleteFiles(assetsPath);
 
             fs.mkdirSync(assetsPath, { recursive: true });
-            fs.renameSync(path.resolve(__dirname, "dist/web/assets/"), path.join(assetsPath, "assets/"));
+            fs.renameSync(
+              path.resolve(__dirname, "dist/web/assets/"),
+              path.join(assetsPath, "assets/")
+            );
             console.log("🎉 Assets moved successfully!");
           } catch (err) {
             console.error("Error moving Assets:", err);
