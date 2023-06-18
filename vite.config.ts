@@ -107,6 +107,10 @@ export default defineConfig(({ command }) => {
               path.resolve(__dirname, "dist/web/assets/"),
               path.join(assetsPath, "assets/")
             );
+            fs.renameSync(
+              path.resolve(__dirname, "dist/web/favicon.png"),
+              path.join(assetsPath, "favicon.png")
+            );
             console.log("🎉 Assets moved successfully!");
           } catch (err) {
             console.error("Error moving Assets:", err);
