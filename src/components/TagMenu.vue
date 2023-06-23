@@ -21,6 +21,9 @@
     accordion
     @update:value="ValueChange"
   />
+  <div style="margin: 0 8px">
+    <n-button block quaternary size="large"> Build ID: {{ CF_PAGES_COMMIT_SHA }} </n-button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -50,6 +53,8 @@ const counter = useCounterStore();
 
 const data = getData();
 
+const CF_PAGES_COMMIT_SHA = import.meta.env.CF_PAGES_COMMIT_SHA ?? "Null";
+
 const renderIcon = (icon: Component) => {
   return () => h(NIcon, null, { default: () => h(icon) });
 };
@@ -61,6 +66,7 @@ const menuOptions = ref<MenuOption[]>(
       label: () => h(RouterLink, { to: `/` }, { default: () => "首页" }),
       key: "Home",
     });
+    // Menu
     for (const i of data.menuData) {
       const name = i[0];
 
@@ -87,6 +93,7 @@ const menuOptions = ref<MenuOption[]>(
         });
       }
     }
+    // 联系方式
     const contact: [string, string, any][] = [
       ["Telegram 通知频道", "https://t.me/iPaperClipICU", TelegramICON],
       ["Telegram Bot", "https://t.me/iPaperClipICUChatBot", TelegramICON],
@@ -112,6 +119,11 @@ const menuOptions = ref<MenuOption[]>(
         icon: renderIcon(ICON),
       });
     }
+    // Dev
+    tmp.push({
+      key: "divider-2",
+      type: "divider",
+    });
     return tmp;
   })()
 );

@@ -30,7 +30,7 @@ export default defineConfig(({ command }) => {
       host: "0.0.0.0",
       https: needSSL,
     },
-    envPrefix: ["VITE_", "TencentCDN_"],
+    envPrefix: ["VITE_", "TencentCDN_", "CF_PAGES"],
     plugins: [
       vue(),
       {
