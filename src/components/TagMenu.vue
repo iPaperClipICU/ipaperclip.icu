@@ -53,7 +53,7 @@ const counter = useCounterStore();
 
 const data = getData();
 
-const CF_PAGES_COMMIT_SHA = import.meta.env.CF_PAGES_COMMIT_SHA ?? "Null";
+const CF_PAGES_COMMIT_SHA = import.meta.env.CF_PAGES_COMMIT_SHA?.substring(0, 6) ?? "Null";
 
 const renderIcon = (icon: Component) => {
   return () => h(NIcon, null, { default: () => h(icon) });
