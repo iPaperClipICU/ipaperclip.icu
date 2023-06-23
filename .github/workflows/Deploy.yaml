@@ -1,4 +1,4 @@
-name: Deploy
+name: 🔖 Create Sentry release
 
 on:
   push:
@@ -6,87 +6,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  Build:
-    name: 📦️ Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-          cache: yarn
-      - name: 📦️ YARN # 安装依赖
-        run: yarn install --frozen-lockfile
-      - name: 🚀 Build # 构建
-        env:
-          TencentCDN_PKEY: ${{ secrets.TENCENTCDN_PKEY }}
-        run: yarn build
-      - name: ⬆️ Upload dist To Page # 上传 dist
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: "./dist/web/"
-      - name: ⬆️ Upload dist # 上传 map
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: "./dist/"
-
-  Cloudflare:
-    needs: Build
-    name: 🚀 Deploy Cloudflare
-    runs-on: ubuntu-latest
-    env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }} # Cloudflare Token
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-      - name: 📦️ YARN # 安装依赖
-        run: yarn install --frozen-lockfile
-      - name: ⬇️ Download dist # 下载 dist
-        uses: actions/download-artifact@v3
-        with:
-          name: dist
-          path: "./dist/"
-      - name: 🚀 Deploy Cloudflare Page # 部署到 Cloudflare Pages
-        run: yarn deploy-page
-      - name: 🚀 Deploy Cloudflare Worker # 部署到 Cloudflare Worker
-        run: yarn deploy-worker
-
-  Github:
-    needs: Build
-    name: 🚀 Deploy Github Page
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    concurrency:
-      group: "pages"
-      cancel-in-progress: false
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: 🔧 Setup Pages # 初始化
-        uses: actions/configure-pages@v3
-      - name: 🚀 Deploy # 部署
-        id: deployment
-        uses: actions/deploy-pages@v2
-
   Sentry:
-    needs: [Cloudflare, Github]
     name: 🔖 Create Sentry release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: ⬇️ Download dist # 下载 dist
-        uses: actions/download-artifact@v3
-        with:
-          name: dist
-          path: "./dist/"
       - name: 🔖 Create Sentry release # 发布版本
         uses: getsentry/action-release@v1
         env:
@@ -95,4 +19,3 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: production
-          sourcemaps: ./dist/map/

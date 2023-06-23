@@ -12,20 +12,12 @@ import basicSsl from "@vitejs/plugin-basic-ssl";
 import d from "./src/assets/data.json";
 const data = d as any;
 
-const deleteFiles = (path: string) => {
-  if (fs.existsSync(path)) {
-    fs.rmSync(path, { recursive: true });
-  }
-};
-
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   const needSSL: boolean = false;
   return {
-    base: "https://assets.ipaperclip.icu/",
     build: {
-      outDir: "dist/web",
-      sourcemap: "hidden",
+      sourcemap: true,
       rollupOptions: {
         output: {
           entryFileNames: "assets/[hash].js",
@@ -71,53 +63,6 @@ export default defineConfig(({ command }) => {
         },
       },
       {
-        name: "move-sourcemap-plugin",
-        apply: "build",
-        closeBundle() {
-          try {
-            const assetsPath = path.resolve(__dirname, "dist/web/assets/");
-            const mapPath = path.resolve(__dirname, "dist/map/");
-            deleteFiles(mapPath);
-
-            const files = fs.readdirSync(assetsPath);
-            const mapFiles = files.filter((file) => file.endsWith(".js.map"));
-            fs.mkdirSync(mapPath, { recursive: true });
-            mapFiles.forEach((file) => {
-              const sourcePath = path.join(assetsPath, file);
-              const destinationPath = path.join(mapPath, file);
-
-              fs.renameSync(sourcePath, destinationPath);
-            });
-            console.log("🎉 Sourcemap moved successfully!");
-          } catch (err) {
-            console.error("Error moving Sourcemap:", err);
-          }
-        },
-      },
-      {
-        name: "move-assets-plugin",
-        apply: "build",
-        closeBundle() {
-          try {
-            const assetsPath = path.resolve(__dirname, "dist/assets/");
-            deleteFiles(assetsPath);
-
-            fs.mkdirSync(assetsPath, { recursive: true });
-            fs.renameSync(
-              path.resolve(__dirname, "dist/web/assets/"),
-              path.join(assetsPath, "assets/")
-            );
-            fs.renameSync(
-              path.resolve(__dirname, "dist/web/favicon.png"),
-              path.join(assetsPath, "favicon.png")
-            );
-            console.log("🎉 Assets moved successfully!");
-          } catch (err) {
-            console.error("Error moving Assets:", err);
-          }
-        },
-      },
-      {
         name: "sitemap",
         apply: "build",
         closeBundle() {
@@ -153,7 +98,7 @@ export default defineConfig(({ command }) => {
           }
 
           fs.writeFileSync(
-            path.resolve(__dirname, "dist/web/sitemap.txt"),
+            path.resolve(__dirname, "dist/sitemap.txt"),
             outList.join("\n"),
             "utf-8"
           );
