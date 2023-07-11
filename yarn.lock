@@ -650,6 +650,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/web-bluetooth@npm:^0.0.17":
+  version: 0.0.17
+  resolution: "@types/web-bluetooth@npm:0.0.17"
+  checksum: 8c72ba8cd1d7abd3fcab608e1d8eb828420df23f67d783f1282d4a747f995e91a0c861f92fa195e9423edb22bb34854452028f8a68148a593b35915635a4f4db
+  languageName: node
+  linkType: hard
+
 "@types/wicg-file-system-access@npm:^2020.9.6":
   version: 2020.9.6
   resolution: "@types/wicg-file-system-access@npm:2020.9.6"
@@ -1009,6 +1016,34 @@ __metadata:
     "@volar/typescript": 1.7.8
     "@vue/language-core": 1.8.1
   checksum: 4c36968663b76f5cc48c983698a93589d3c123e47664286c788b6e5e2fa9309c6e1b7b7577108d2548d7905d42bf22a691eaacdeb6b3db9c233a67789a62199a
+  languageName: node
+  linkType: hard
+
+"@vueuse/core@npm:^10.2.0":
+  version: 10.2.0
+  resolution: "@vueuse/core@npm:10.2.0"
+  dependencies:
+    "@types/web-bluetooth": ^0.0.17
+    "@vueuse/metadata": 10.2.0
+    "@vueuse/shared": 10.2.0
+    vue-demi: ">=0.14.5"
+  checksum: 022b07ca097ca32eb8995ff17a8855d1ac641194aa89956a2f3bf62b7861caa72df39750e885e9b67e4a55ee9cb98ca54554450ee62b56445c6d587dc065c88f
+  languageName: node
+  linkType: hard
+
+"@vueuse/metadata@npm:10.2.0":
+  version: 10.2.0
+  resolution: "@vueuse/metadata@npm:10.2.0"
+  checksum: 01d98a3f6918442a919c6c875a0e467429e84db997eb4c74b8da5c524072969684e5443b938cace6a51f632ed328834ac1685fa4d8fc67d506f5373ef4829275
+  languageName: node
+  linkType: hard
+
+"@vueuse/shared@npm:10.2.0":
+  version: 10.2.0
+  resolution: "@vueuse/shared@npm:10.2.0"
+  dependencies:
+    vue-demi: ">=0.14.5"
+  checksum: b96884b82f315622639cbb186f6989d08527e2aa43236e91d6d454afb9a599b23e32af326351c8c9db9c7d7cc4a0797d44e4644d31de9615bba4f8371838e0e1
   languageName: node
   linkType: hard
 
@@ -2803,6 +2838,7 @@ __metadata:
     "@vue/eslint-config-prettier": ^7.1.0
     "@vue/eslint-config-typescript": ^11.0.3
     "@vue/tsconfig": ^0.4.0
+    "@vueuse/core": ^10.2.0
     "@zip.js/zip.js": ^2.7.16
     axios: ^1.4.0
     cheerio: ^1.0.0-rc.12

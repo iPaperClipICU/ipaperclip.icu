@@ -66,6 +66,7 @@ import tinykeys from "../../node_modules/tinykeys/";
 
 import router from "@/router";
 import SearchICON from "@/ICON/SearchICON.vue";
+import { useUrlSearchParams } from "@vueuse/core";
 
 const props = defineProps({
   mode: {
@@ -88,11 +89,11 @@ const os: "Mobile" | "Mac" | "Other" = (() => {
 const showModal = ref<boolean>(false);
 const searchValue = ref<string>(
   (() => {
-    const KeyWord = new URL(decodeURIComponent(location.href)).searchParams.get("s") || "";
     if (location.pathname !== "/search") {
       return "";
     } else {
-      return KeyWord;
+      const params = useUrlSearchParams("history");
+      return params.s ? String(params.s).toLocaleLowerCase() : "";
     }
   })()
 );
