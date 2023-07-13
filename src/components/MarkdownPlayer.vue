@@ -1,5 +1,5 @@
 <template>
-  <n-card title="文字稿" hoverable>
+  <n-card title="文字稿" size="small" hoverable>
     <template #header-extra>
       <n-button quaternary type="primary" @click="showAbout = true"> 关于来源 </n-button>
     </template>

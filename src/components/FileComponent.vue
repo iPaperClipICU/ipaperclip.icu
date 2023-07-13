@@ -1,7 +1,7 @@
 <template>
-  <div v-if="props.data.fileType === 'video'">
+  <div v-if="props.data.type === 'video'">
     <media-player
-      :src="getSign(`${counter.CDNDomain}/${props.data.fileUrl}`)"
+      :src="getSign(`${publicStore.CDNDomain}/${props.data.fileUri}`)"
       aspect-ratio="16/9"
       crossorigin
     >
@@ -13,13 +13,12 @@
       <media-community-skin></media-community-skin>
     </media-player>
   </div>
-  <div v-else-if="props.data.fileType === 'image'">
+  <div v-else-if="props.data.type === 'image'">
     <n-grid :cols="36" item-responsive>
       <n-gi span="1 768:5" />
       <n-gi span="34 768:26">
         <img
-          :src="getSign(`${counter.CDNDomain}/${props.data.fileUrl}`)"
-          :alt="props.data.fileName"
+          :src="getSign(`${publicStore.CDNDomain}/${props.data.fileUri}`)"
           loading="lazy"
           style="width: 100%"
         />
@@ -27,10 +26,13 @@
       <n-gi span="1 768:5" />
     </n-grid>
   </div>
-  <div v-else-if="props.data.fileType === 'audio'" style="min-height: 76px">
+  <div v-else-if="props.data.type === 'audio'" style="min-height: 76px">
     <media-player viewType="audio" crossorigin>
       <media-outlet>
-        <source :src="getSign(`${counter.CDNDomain}/${props.data.fileUrl}`)" type="audio/flac" />
+        <source
+          :src="getSign(`${publicStore.CDNDomain}/${props.data.fileUri}`)"
+          type="audio/flac"
+        />
       </media-outlet>
       <media-community-skin default-appearance></media-community-skin>
     </media-player>
@@ -38,12 +40,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, type PropType } from "vue";
 import { NGi, NGrid } from "naive-ui";
+import { onMounted, type PropType } from "vue";
 
+import type { FileData } from "@/types";
 import { getSign } from "@/assets/utils";
-import type { FileCardDataType } from "@/types/";
-import { useCounterStore } from "@/stores/counter";
+import { usePublicStore } from "@/stores";
 
 // Vidstack
 import "vidstack/styles/defaults.css";
@@ -55,11 +57,11 @@ import type { CommunitySkinTranslations } from "vidstack";
 
 const props = defineProps({
   data: {
-    type: Object as PropType<FileCardDataType>,
+    type: Object as PropType<FileData>,
     required: true,
   },
 });
-const counter = useCounterStore();
+const publicStore = usePublicStore();
 
 onMounted(async () => {
   await defineCustomElements();

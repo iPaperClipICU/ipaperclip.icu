@@ -1,9 +1,9 @@
 <template>
-  <n-space align="center" style="margin-bottom: 15px; flex-wrap: nowrap">
-    <n-tag type="success">{{ filesName }}</n-tag>
-    <n-h2 style="margin-bottom: 0">{{ FileCardData?.fileName }}</n-h2>
+  <n-space align="center" style="flex-wrap: nowrap; margin-bottom: 15px">
+    <n-tag type="success">{{ fileData.tagName }}</n-tag>
+    <n-h2 style="margin-bottom: 0">{{ fileData.name }}</n-h2>
   </n-space>
-  <FileCard v-if="FileCardData !== undefined" :data="FileCardData" style="margin-bottom: 15px" />
+  <FileComponent :data="fileData" style="margin-bottom: 15px" />
   <n-card hoverable style="margin-bottom: 15px" size="small">
     <n-space justify="space-between" align="center">
       <div>
@@ -28,27 +28,46 @@
       </div>
     </n-space>
   </n-card>
-  <MarkdownPlayer v-if="MarkdownUrl !== ''" :url="MarkdownUrl" />
+  <MarkdownPlayer v-if="fileData.docUrl !== null" :url="fileData.docUrl" />
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { NH2, NTag, NCard, NRadio, NSpace, NButton, NRadioGroup } from "naive-ui";
+import { NTag, NH2, NSpace, NRadio, NRadioGroup, NCard, NButton } from "naive-ui";
 
-import FileCard from "@/components/FilePlayer.vue";
-import { useCounterStore } from "@/stores/counter";
-import type { FileCardDataType, FileTypes } from "@/types";
-import { getData, getFileInfo } from "@/assets/utils";
+import router from "@/router";
+import type { FileData } from "@/types";
+import { usePublicStore } from "@/stores";
+import { getFileInfo } from "@/assets/utils";
+
+import FileComponent from "@/components/FileComponent.vue";
 import MarkdownPlayer from "@/components/MarkdownPlayer.vue";
 
-const data = getData();
-const counter = useCounterStore();
+const publicStore = usePublicStore();
 
-const showNull = ref<boolean>(false);
-const FileCardData = ref<FileCardDataType>();
-const MarkdownUrl = ref<string>("");
-const filesName = ref<string>("");
-const radioValue = ref<string | null>(counter.CDNDomain);
+const getFileData = (): FileData => {
+  const pathList = decodeURI(location.pathname)
+    .split("/")
+    .filter((value) => value !== "");
+  const fileName = pathList.length === 2 ? pathList[1] : pathList[2];
+  const [filesName, tagName, docPath] = publicStore.data.searchData[fileName];
+  return {
+    ...getFileInfo(fileName),
+    fileUri: `video/${filesName}${tagName !== null ? `/${tagName}` : ""}/${fileName}`,
+    tagName: filesName,
+    docUrl:
+      docPath !== null
+        ? `https://cdn.jsdelivr.net/gh/iPaperClipICU/paperclip-doc/${docPath}`
+        : null,
+  };
+};
+const fileData = ref<FileData>(getFileData());
+router.afterEach((to) => {
+  if (String(to.name).startsWith("FILE:")) fileData.value = getFileData();
+});
+
+// Chang CDNDomain
+const radioValue = ref<string | null>(publicStore.CDNDomain);
 const radioOption: {
   label: string;
   value: string;
@@ -62,79 +81,11 @@ const radioOption: {
     value: "https://r2.ipaperclip.icu",
   },
 ];
-
 const radioChange = (value: string) => {
-  counter.CDNDomain = value;
+  publicStore.CDNDomain = value;
   localStorage.setItem("CDNDomain", value);
 };
-
 const download = () => {
-  // 跳转
-  // window.location.href = "";
-  // TODO: value 为 undefined 时会报错
-  window.open(`https://r2.ipaperclip.icu/${FileCardData.value?.fileUrl}`);
+  window.open(`https://r2.ipaperclip.icu/${fileData.value.fileUri}`);
 };
-
-const init = () => {
-  const fileData = (():
-    | {
-        name: string;
-        url: string;
-        type: FileTypes;
-        doc: string | null;
-        tag: string;
-      }
-    | undefined => {
-    const pathList = decodeURIComponent(location.pathname).split("/");
-    const filesName = pathList[1];
-
-    if (pathList.length === 4) {
-      // 有 Tag
-
-      const fileName = pathList[3];
-      const tagName = pathList[2];
-      const searchData = data.searchData[fileName];
-      if (searchData !== undefined) {
-        const fileInfo = getFileInfo(fileName);
-        return {
-          name: fileInfo.name,
-          url: `${filesName}/${tagName}/${fileName}`,
-          type: fileInfo.type,
-          doc: searchData[2],
-          tag: filesName,
-        };
-      } else return undefined;
-    } else if (pathList.length === 3) {
-      // 无 Tag
-
-      const fileName = pathList[2];
-      const searchData = data.searchData[fileName];
-      if (searchData !== undefined) {
-        const fileInfo = getFileInfo(fileName);
-        return {
-          name: fileInfo.name,
-          url: `${filesName}/${fileName}`,
-          type: fileInfo.type,
-          doc: searchData[2],
-          tag: filesName,
-        };
-      } else return undefined;
-    } else return undefined;
-  })();
-
-  if (fileData === undefined) {
-    showNull.value = true;
-    return;
-  }
-  if (fileData.doc !== null) {
-    MarkdownUrl.value = `https://cdn.jsdelivr.net/gh/iPaperClipICU/paperclip-doc/${fileData.doc}`;
-  } else MarkdownUrl.value = "";
-  FileCardData.value = {
-    fileType: fileData.type,
-    fileUrl: `video/${fileData.url}`,
-    fileName: fileData.name,
-  };
-  filesName.value = fileData.tag;
-};
-init();
 </script>

@@ -21,7 +21,7 @@
       </n-icon>
     </template>
     <template #suffix>
-      <div style="display: flex; align-items: center">
+      <div v-if="os !== 'Mobile'" style="display: flex; align-items: center">
         <div class="search-input-suffix-item">
           {{ os === "Mac" ? "⌘" : "Ctrl" }}
         </div>
@@ -53,13 +53,13 @@
           </n-icon>
         </template>
       </n-input>
-      <n-button ghost type="primary" size="large" @click="searchButtonClick"> 搜索 </n-button>
+      <n-button ghost type="primary" size="large" @click="searchButtonClick">搜索</n-button>
     </n-input-group>
   </n-modal>
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
+import { ref, nextTick, watchEffect } from "vue";
 import { NIcon, NInput, NModal, NButton, NInputGroup, type InputInst } from "naive-ui";
 // import tinykeys from "tinykeys";
 import tinykeys from "../../node_modules/tinykeys/";
@@ -101,9 +101,10 @@ const searchValue = ref<string>(
 router.beforeEach((to) => {
   if (to.name !== "Search") searchValue.value = "";
 });
-watchEffect(() => {
-  if (searchInputInstRef.value !== null && showModal.value === true) {
-    searchInputInstRef.value.focus();
+watchEffect(async () => {
+  if (searchInputInstRef.value === null) await nextTick();
+  if (showModal.value === true) {
+    searchInputInstRef.value?.focus();
   }
 });
 tinykeys(window, {

@@ -3,29 +3,22 @@
     <n-space align="center" justify="space-between">
       <n-space align="center" justify="start">
         <n-button strong secondary type="primary" @click="downloadButtonClick">下载</n-button>
-        <n-button-group v-if="counter.FilesMenuDate !== undefined">
-          <n-button strong secondary @click="() => selectAll({ at: true })">全选当前页面</n-button>
-          <n-button
-            strong
-            secondary
-            type="error"
-            @click="() => selectAll({ at: true, remove: true })"
-          >
+        <n-button-group v-if="allData.length > 0">
+          <n-button strong secondary @click="selectAll(true)">全选当前页面</n-button>
+          <n-button strong secondary type="error" @click="selectAll(true, true)">
             取消当前页面的选择
           </n-button>
         </n-button-group>
-        <n-button-group
-          v-if="counter.FilesMenuDate !== undefined && counter.FilesMenuDate.data.length > 1"
-        >
-          <n-button strong secondary @click="() => selectAll()">全选当前分支</n-button>
-          <n-button strong secondary type="error" @click="() => selectAll({ remove: true })">
+        <n-button-group v-if="allData.length / publicStore.pageSize > 1">
+          <n-button strong secondary @click="selectAll(false)">全选当前分支</n-button>
+          <n-button strong secondary type="error" @click="selectAll(false, true)">
             取消当前分支的选择
           </n-button>
         </n-button-group>
-        <n-button strong secondary type="error" @click="() => counter.deleteDownloadSelect()">
+        <n-button strong secondary type="error" @click="() => downloadStore.deleteDownloadSelect()">
           取消全部选择
         </n-button>
-        <div>您已选择 {{ Object.keys(counter.download.select).length }} 个文件</div>
+        <div>您已选择 {{ Object.keys(downloadStore.select).length }} 个文件</div>
       </n-space>
       <n-space align="center" justify="end">
         <n-tooltip trigger="hover">
@@ -42,13 +35,13 @@
   </n-card>
   <DownloadModal
     v-if="downloadModal"
-    :data="counter.download.select"
+    :data="downloadStore.select"
     @close="
       (value, needDelete) => {
         downloadModal = value;
         if (needDelete === undefined || needDelete === true) {
-          counter.deleteDownloadSelect();
-          counter.download.switch = false;
+          downloadStore.deleteDownloadSelect();
+          downloadStore.switch = false;
         }
       }
     "
@@ -56,45 +49,85 @@
 </template>
 
 <script setup lang="ts">
-/// <reference types="@types/wicg-file-system-access" />
 import { ref } from "vue";
+import { useRoute } from "vue-router";
+import { useUrlSearchParams } from "@vueuse/core";
 import { NCard, NSpace, NButton, NButtonGroup, NTooltip } from "naive-ui";
 
 import router from "@/router";
-import { useCounterStore } from "@/stores/counter";
-import DiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
-import DownloadModal from "./DownloadModal.vue";
+import { useDownloadStore, usePublicStore } from "@/stores";
+import NaiveUIDiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
 
-const counter = useCounterStore();
+import DownloadModal from "@/components/DownloadModal.vue";
+
+const route = useRoute();
+const publicStore = usePublicStore();
+const downloadStore = useDownloadStore();
 
 const downloadModal = ref<boolean>(false);
 
 const downloadButtonClick = () => {
-  if (Object.keys(counter.download.select).length === 0) {
-    DiscreteAPI.message.warning("您还没有选择任何文件");
+  if (Object.keys(downloadStore.select).length === 0) {
+    NaiveUIDiscreteAPI.message.warning("您还没有选择任何文件");
   } else downloadModal.value = true;
 };
+
+const getAllData = () => {
+  const routeName = String(route.name ?? "");
+
+  const t: string[] = [];
+  if (routeName.startsWith("FILES:")) {
+    const [filesName, tagName] = route.path
+      .replace("FILES:", "")
+      .split("/")
+      .filter((v) => v !== "");
+    const filesData = publicStore.data.data[filesName];
+    if (Array.isArray(filesData)) {
+      // 无tag
+      filesData.forEach((fileName) => {
+        t.push(`/${filesName}/${fileName}`);
+      });
+    } else {
+      // 有tag
+      filesData[tagName].forEach((fileName) => {
+        t.push(`/${filesName}/${tagName}/${fileName}`);
+      });
+    }
+  } else if (routeName === "Search") {
+    const searchParams = useUrlSearchParams("history");
+    const keyword = String(searchParams.s || "").toLocaleLowerCase();
+    if (!["undefined", "null"].includes(keyword) && keyword.replace(/\s+/g, "") !== "") {
+      for (const fileName in publicStore.data.searchData) {
+        if (fileName.toLocaleLowerCase().indexOf(keyword) != -1) {
+          const [filesName, tagName] = publicStore.data.searchData[fileName];
+          t.push(`/${filesName}${tagName !== null ? `/${tagName}` : ""}/${fileName}`);
+        }
+      }
+    }
+  }
+
+  return t;
+};
+const allData = ref<string[]>(getAllData());
+router.afterEach(() => (allData.value = getAllData()));
 
 /**
  * 全选
  * @param at 是否只选择当前页面
  */
-const selectAll = (opt?: { at?: boolean; remove?: boolean }) => {
-  const value = opt?.remove === true ? false : true;
-  if (opt?.at === true)
-    counter.FilesMenuDate?.data[counter.nowPage - 1].forEach((item) =>
-      counter.changeDownloadSelect(item, value)
-    );
-  else
-    counter.FilesMenuDate?.data.forEach((page) => {
-      page.forEach((item) => counter.changeDownloadSelect(item, value));
-    });
-  counter.changeListKey();
-};
+const selectAll = (at: boolean, remove: boolean = false) => {
+  if (allData.value.length <= 0) return;
+  const searchParams = useUrlSearchParams("history");
+  const p = Number(searchParams.p || 1);
+  const pageSize = publicStore.pageSize;
 
-router.afterEach((to) => {
-  if (String(to.name).startsWith("FILE:")) {
-    counter.FilesMenuDate = undefined;
-  }
-});
+  let selectData: string[] = [];
+  if (at) {
+    // 当前页
+    const startIndex = (p - 1) * pageSize;
+    selectData = allData.value.slice(startIndex, startIndex + pageSize);
+  } else selectData = allData.value;
+
+  selectData.forEach((value) => downloadStore.changeDownloadSelect(value, remove));
+};
 </script>

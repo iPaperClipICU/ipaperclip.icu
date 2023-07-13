@@ -8,13 +8,8 @@
     },
     "data": {
         "有Tag": {
-            "TagName": [
-                ["FileName"],
-                ["FileName"]
-            ]
+            "TagName": ["FileName", "FileName"]
         },
-        "无Tag": [
-            ["FileName"]
-        ]
+        "无Tag": ["FileName", "FileName"]
     }
 }

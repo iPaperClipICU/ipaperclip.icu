@@ -1,25 +1,32 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
 
-import { getData } from "@/assets/utils";
+import d from "@/assets/data.json";
+import type { Data } from "@/types";
 import NaiveUIDiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
-// import SearchView from "@/views/SearchView.vue";
-// import FilesView from "@/views/FilesView.vue";
-// import FileView from "@/views/FileView.vue";
-// import HomeView from "@/views/HomeView.vue";
 
-const HomeView = () => import("@/views/HomeView.vue");
+import HomeView from "@/views/HomeView.vue";
 const FileView = () => import("@/views/FileView.vue");
 const FilesView = () => import("@/views/FilesView.vue");
 const SearchView = () => import("@/views/SearchView.vue");
 const NotFoundView = () => import("@/views/NotFoundView.vue");
 
-const data = getData();
+const data: Data = d as any;
 
-const routes = [
+const routes: RouteRecordRaw[] = [
+  {
+    path: "/",
+    name: "Home",
+    component: HomeView,
+  },
   {
     path: "/search",
     name: "Search",
     component: SearchView,
+  },
+  {
+    path: "/404",
+    name: "NotFound",
+    component: NotFoundView,
   },
 ];
 
@@ -29,39 +36,24 @@ for (const i of data.menuData) {
     // 有 Tag
     routes.push({
       path: `/${filesName}`,
-      name: `/${filesName}`,
-      component: FilesView,
+      redirect: `/${filesName}/${i[1][0]}`,
     });
     for (const tagName of i[1]) {
       const path = `/${filesName}/${tagName}`;
-      routes.push(
-        {
-          path,
-          name: `FILES:${path}`,
-          component: FilesView,
-        }
-        // {
-        //   path: `${path}/:pathMatch(.*)*`,
-        //   name: `${path}/*`,
-        //   component: FileView,
-        // }
-      );
+      routes.push({
+        path: path,
+        name: `FILES:${path}`,
+        component: FilesView,
+      });
     }
   } else {
     // 无 Tag
     const path = `/${filesName}`;
-    routes.push(
-      {
-        path,
-        name: `FILES:${path}`,
-        component: FilesView,
-      }
-      // {
-      //   path: `${path}/:pathMatch(.*)*`,
-      //   name: `${path}/*`,
-      //   component: FileView,
-      // }
-    );
+    routes.push({
+      path: path,
+      name: `FILES:${path}`,
+      component: FilesView,
+    });
   }
 }
 
@@ -70,33 +62,22 @@ for (const fileName in data.searchData) {
 
   if (tagName === null) {
     // 无 Tag
+    const path = `/${filesName}/${fileName}`;
     routes.push({
-      path: `/${filesName}/${fileName}`,
-      name: `FILE:/${filesName}/${fileName}`,
+      path: path,
+      name: `FILE:${path}`,
       component: FileView,
     });
   } else {
     // 有 Tag
+    const path = `/${filesName}/${tagName}/${fileName}`;
     routes.push({
-      path: `/${filesName}/${tagName}/${fileName}`,
-      name: `FILE:/${filesName}/${tagName}/${fileName}`,
+      path: path,
+      name: `FILE:${path}`,
       component: FileView,
     });
   }
 }
-
-routes.push(
-  {
-    path: "/",
-    name: "Home",
-    component: HomeView,
-  },
-  {
-    path: "/:pathMatch(.*)*",
-    name: "NotFound",
-    component: NotFoundView,
-  }
-);
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -104,20 +85,20 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
-  // 中文路径
-  const decodedPath = decodeURIComponent(to.path);
-  if (decodedPath !== to.path) {
-    return { path: decodedPath };
-  }
+  // 中文路径 & 404
+  const decodedPath = decodeURIComponent(to.fullPath);
+  if (decodedPath !== to.fullPath) {
+    return decodedPath;
+  } else if (to.name === undefined) return "/404";
 });
 
 // 加载进度条
 router.beforeEach((to, from, next) => {
-  NaiveUIDiscreteAPI.loadingBar.start();
+  if (to.fullPath !== "/") NaiveUIDiscreteAPI.loadingBar.start();
   next();
 });
-router.afterEach(() => {
-  NaiveUIDiscreteAPI.loadingBar.finish();
+router.afterEach((to) => {
+  if (to.fullPath !== "/") NaiveUIDiscreteAPI.loadingBar.finish();
 });
 
 export default router;

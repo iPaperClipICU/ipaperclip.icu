@@ -100,7 +100,7 @@ def main():
                         SearchData[fileName] = [filesName, tagName, getDocPath(filesName, tagName, fileName, docData), size]
                     
                     # FilesData
-                    tmp[tagName] = paging(files)
+                    tmp[tagName] = files
                     break
         else:
             # 无Tag
@@ -112,7 +112,7 @@ def main():
                     size = os.path.getsize('..\\..\\ipaperclip-icu-files\\r2\\video\\'+filesName+'\\'+fileName) / 1024
                     size = round(size, 2)
                     SearchData[fileName] = [filesName, tagName, getDocPath(filesName, tagName, fileName, docData), size]
-                tmp = paging(files)
+                tmp = files
                 break
         
         FilesData[filesName] = tmp
