@@ -2,7 +2,6 @@
 
 import { openDB, dbCheckHref } from "@/assets/IndexedDB";
 import DiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
-import { BlobReader, BlobWriter, ZipWriter } from "@zip.js/zip.js";
 
 type SupportType = "native" | "storage" | "indexedDB" | null;
 
@@ -146,49 +145,57 @@ export default class FileControl {
   async finish() {
     if (this.supportType === "native") return "";
 
-    // 压缩
-    const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
-    if (this.supportType === "storage") {
-      for (const [fileHref, atHandle] of Object.entries(this.tasks)) {
-        const fileData = await (atHandle as FileSystemFileHandle).getFile();
-        zipWriter.add(`iPaperClipICU${fileHref}`, new BlobReader(fileData));
-      }
-    } else if (this.supportType === "indexedDB") {
-      for (const fileHref of Object.keys(this.tasks)) {
-        const db = this.DB as IDBDatabase;
-        const transaction = db.transaction(["FileStorage"], "readwrite");
-        const objectStore = transaction.objectStore("FileStorage");
+    const ZipJS = () => import("@zip.js/zip.js"); // TODO: 加载失败报错
+    return await ZipJS()
+      .then(async ({ BlobReader, BlobWriter, ZipWriter }) => {
+        // 压缩
+        const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
+        if (this.supportType === "storage") {
+          for (const [fileHref, atHandle] of Object.entries(this.tasks)) {
+            const fileData = await (atHandle as FileSystemFileHandle).getFile();
+            zipWriter.add(`iPaperClipICU${fileHref}`, new BlobReader(fileData));
+          }
+        } else if (this.supportType === "indexedDB") {
+          for (const fileHref of Object.keys(this.tasks)) {
+            const db = this.DB as IDBDatabase;
+            const transaction = db.transaction(["FileStorage"], "readwrite");
+            const objectStore = transaction.objectStore("FileStorage");
 
-        const request = objectStore.index("fileHref").get(fileHref);
-        const fileData: Blob | null = await (() => {
-          return new Promise((resolve) => {
-            request.onsuccess = function () {
-              resolve(this.result.data);
-            };
-            request.onerror = () => {
-              resolve(null);
-            };
-          });
-        })();
-        if (fileData !== null) {
-          zipWriter.add(`iPaperClipICU${fileHref}`, fileData.stream());
+            const request = objectStore.index("fileHref").get(fileHref);
+            const fileData: Blob | null = await (() => {
+              return new Promise((resolve) => {
+                request.onsuccess = function () {
+                  resolve(this.result.data);
+                };
+                request.onerror = () => {
+                  resolve(null);
+                };
+              });
+            })();
+            if (fileData !== null) {
+              zipWriter.add(`iPaperClipICU${fileHref}`, fileData.stream());
+            }
+          }
         }
-      }
-    }
-    const blob = await zipWriter.close();
+        const blob = await zipWriter.close();
 
-    // 下载
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "ipaperclip.icu 批量下载.zip";
-    a.click();
-    URL.revokeObjectURL(a.href);
+        // 下载
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "ipaperclip.icu 批量下载.zip";
+        a.click();
+        URL.revokeObjectURL(a.href);
 
-    // 清理
-    await this.dirHandle?.removeEntry("iPaperClipICU", { recursive: true });
-    window.indexedDB.deleteDatabase("Download");
+        // 清理
+        await this.dirHandle?.removeEntry("iPaperClipICU", { recursive: true });
+        window.indexedDB.deleteDatabase("Download");
 
-    return "";
+        return "";
+      })
+      .catch((e) => {
+        console.log("加载 @zip/zip.js 失败", e);
+        throw e;
+      });
   }
 
   /**

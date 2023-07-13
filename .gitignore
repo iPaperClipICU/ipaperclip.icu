@@ -37,3 +37,4 @@ coverage
 .pnp.*
 
 .vercel
+stats.html

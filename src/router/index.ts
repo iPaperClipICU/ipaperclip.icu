@@ -5,9 +5,9 @@ import type { Data } from "@/types";
 import NaiveUIDiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
 
 import HomeView from "@/views/HomeView.vue";
+import FilesView from "@/views/FilesView.vue";
+import SearchView from "@/views/SearchView.vue";
 const FileView = () => import("@/views/FileView.vue");
-const FilesView = () => import("@/views/FilesView.vue");
-const SearchView = () => import("@/views/SearchView.vue");
 const NotFoundView = () => import("@/views/NotFoundView.vue");
 
 const data: Data = d as any;

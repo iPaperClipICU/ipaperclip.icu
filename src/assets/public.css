@@ -1,0 +1,21 @@
+/* MarkdownPlayer.vue */
+.markdown-player .n-p {
+  font-size: 15px !important;
+}
+
+.markdown-player .footer {
+  margin: 5px 0;
+  font-size: 13px;
+}
+.markdown-player .footer:first-child {
+  margin-top: 0;
+}
+/* .markdown-player .footer:last-child {
+  margin-bottom: 0;
+} */
+
+/* FileComponent.vue */
+media-community-skin[data-audio] {
+  --audio-border: none; /* 解决左侧有一条竖线的问题 */
+  --audio-bg: rgb(24, 24, 28);
+}

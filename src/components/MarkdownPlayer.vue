@@ -1,5 +1,5 @@
 <template>
-  <n-card title="文字稿" size="small" hoverable>
+  <n-card title="文字稿" size="small" hoverable class="markdown-player">
     <template #header-extra>
       <n-button quaternary type="primary" @click="showAbout = true"> 关于来源 </n-button>
     </template>
@@ -271,20 +271,3 @@ onMounted(() => {
   main(props.url);
 });
 </script>
-
-<style>
-.n-p {
-  font-size: 15px !important;
-}
-
-.footer {
-  margin: 5px 0;
-  font-size: 13px;
-}
-.footer:first-child {
-  margin-top: 0;
-}
-/* .footer:last-child {
-  margin-bottom: 0;
-} */
-</style>

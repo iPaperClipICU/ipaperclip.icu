@@ -48,9 +48,6 @@ import { getSign } from "@/assets/utils";
 import { usePublicStore } from "@/stores";
 
 // Vidstack
-import "vidstack/styles/defaults.css";
-import "vidstack/styles/community-skin/audio.css";
-import "vidstack/styles/community-skin/video.css";
 import "vidstack/define/media-player.js";
 import { defineCustomElements } from "vidstack/elements";
 import type { CommunitySkinTranslations } from "vidstack";
@@ -98,10 +95,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-<style>
-media-community-skin[data-audio] {
-  --audio-border: none; /* 解决左侧有一条竖线的问题 */
-  --audio-bg: rgb(24, 24, 28);
-}
-</style>
