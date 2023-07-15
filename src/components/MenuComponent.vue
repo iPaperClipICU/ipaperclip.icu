@@ -47,7 +47,7 @@ const renderIcon = (icon: Component) => {
 };
 
 const menuValue = ref<string | null>("");
-router.afterEach(() => {
+const setMenuValue = () => {
   if (location.pathname === "/") {
     menuValue.value = "Home";
     return;
@@ -58,7 +58,9 @@ router.afterEach(() => {
 
   if (tagName === "undefined") menuValue.value = filesName;
   else menuValue.value = `${filesName}/${tagName}`;
-});
+};
+router.afterEach(() => setMenuValue());
+setMenuValue();
 const menuOptions = (() => {
   const tmp: MenuOption[] = [];
   tmp.push({
