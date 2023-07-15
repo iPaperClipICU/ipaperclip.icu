@@ -6,9 +6,7 @@
       crossorigin
     >
       <media-outlet>
-        <media-poster
-          alt="Girl walks into sprite gnomes around her friend on a campfire in danger!"
-        ></media-poster>
+        <media-poster></media-poster>
       </media-outlet>
       <media-community-skin></media-community-skin>
     </media-player>
