@@ -6,6 +6,7 @@ import type { Data } from "@/types";
 interface State {
   deviceType: "pc" | "phone";
   data: Data;
+  showSomething: boolean; // 是否展示某些东西
   pageSize: number; // FilesList每页显示数量
   CDNDomain: string;
 }
@@ -14,6 +15,7 @@ export const usePublicStore = defineStore("public", {
   state: (): State => ({
     deviceType: "pc",
     data: data as any,
+    showSomething: false,
     pageSize: (() => {
       const t = Number(localStorage.getItem("pageSize"));
       if ([10, 20, 30, 40].includes(t)) return t;

@@ -57,6 +57,13 @@ const resizeEvent = () => {
 };
 window.addEventListener("resize", () => resizeEvent());
 resizeEvent();
+
+// showSomething
+const initShowSomething = async () => {
+  const resp = await fetch("/test");
+  if (resp.headers.get("show-something") !== "false") publicStore.showSomething = true;
+};
+initShowSomething();
 </script>
 
 <style scoped>

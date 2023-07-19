@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
-import { h, ref, type Component } from "vue";
+import { h, ref, watch, type Component } from "vue";
 import { NMenu, NIcon, NButton, type MenuOption } from "naive-ui";
 
 import router from "@/router";
@@ -61,7 +61,7 @@ const setMenuValue = () => {
 };
 router.afterEach(() => setMenuValue());
 setMenuValue();
-const menuOptions = (() => {
+const setMenuOptions = (showSomething = false) => {
   const tmp: MenuOption[] = [];
   tmp.push({
     label: () => h(RouterLink, { to: `/` }, { default: () => "首页" }),
@@ -95,9 +95,9 @@ const menuOptions = (() => {
     }
   }
   // 联系方式
-  const contact: [string, string, any][] = [
-    ["Telegram 通知频道", "https://t.me/iPaperClipICU", TelegramICON],
-    ["Telegram Bot", "https://t.me/iPaperClipICUChatBot", TelegramICON],
+  const contact: [string, string, any, boolean?][] = [
+    ["Telegram 通知频道", "https://t.me/iPaperClipICU", TelegramICON, true],
+    ["Telegram Bot", "https://t.me/iPaperClipICUChatBot", TelegramICON, true],
     ["GitHub", "https://github.com/iPaperClipICU/ipaperclip.icu/", GithubICON],
     ["hi@ipaperclip.icu", "mailto:hi@ipaperclip.icu", MailICON],
   ];
@@ -105,7 +105,8 @@ const menuOptions = (() => {
     key: "divider-1",
     type: "divider",
   });
-  for (const [name, href, ICON] of contact) {
+  for (const [name, href, ICON, something] of contact) {
+    if (something === true && showSomething === false) continue;
     tmp.push({
       label: () =>
         h(
@@ -121,7 +122,12 @@ const menuOptions = (() => {
     });
   }
   return tmp;
-})();
+};
+const menuOptions = ref<MenuOption[]>(setMenuOptions());
+watch(publicStore, (value) => {
+  if (value.showSomething)
+    menuOptions.value = setMenuOptions(value.showSomething);
+});
 
 /**
  * 打开批量下载模式
