@@ -34,7 +34,6 @@ import NaiveUIDiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
 
 import MailICON from "@/ICON/Contact/Mail.vue";
 import GithubICON from "@/ICON/Contact/Github.vue";
-import TelegramICON from "@/ICON/Contact/Telegram.vue";
 
 const emit = defineEmits<{
   (e: "change", key: string): void;
@@ -96,8 +95,6 @@ const setMenuOptions = (showSomething = false) => {
   }
   // 联系方式
   const contact: [string, string, any, boolean?][] = [
-    ["Telegram 通知频道", "https://t.me/iPaperClipICU", TelegramICON, true],
-    ["Telegram Bot", "https://t.me/iPaperClipICUChatBot", TelegramICON, true],
     ["GitHub", "https://github.com/iPaperClipICU/ipaperclip.icu/", GithubICON],
     ["hi@ipaperclip.icu", "mailto:hi@ipaperclip.icu", MailICON],
   ];
