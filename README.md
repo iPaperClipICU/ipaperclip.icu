@@ -19,7 +19,7 @@
 
 ## 联系我
 
-[Telegram 通知频道](https://t.me/iPaperClipICU) | [Telegram Bot](https://t.me/https://t.me/iPaperClipICUChatBot) | [Github Discussions](https://github.com/iPaperClipICU/ipaperclip.icu/discussions) | Mail: <a href="mailto:hi@ipaperclip.icu">hi@ipaperclip.icu</a>
+[Github Discussions](https://github.com/iPaperClipICU/ipaperclip.icu/discussions) | Mail: <a href="mailto:hi@ipaperclip.icu">hi@ipaperclip.icu</a>
 
 ## 关于文字稿
 
