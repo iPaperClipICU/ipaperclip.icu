@@ -20,7 +20,7 @@
     "@zip.js/zip.js": "^2.7.20",
     "axios": "^1.4.0",
     "cheerio": "^1.0.0-rc.12",
-    "crypto-js": "^4.1.1",
+    "crypto-js": "^4.2.0",
     "html-minifier": "^4.0.0",
     "mime": "^3.0.0",
     "naive-ui": "^2.34.4",
