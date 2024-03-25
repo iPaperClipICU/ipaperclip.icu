@@ -1,10 +1,6 @@
 <template>
   <div v-if="props.data.type === 'video'">
-    <media-player
-      :src="getSign(`${publicStore.CDNDomain}/${props.data.fileUri}`)"
-      aspect-ratio="16/9"
-      crossorigin
-    >
+    <media-player :src="playUrl" aspect-ratio="16/9" crossorigin>
       <media-outlet>
         <media-poster></media-poster>
       </media-outlet>
@@ -15,11 +11,7 @@
     <n-grid :cols="36" item-responsive>
       <n-gi span="1 768:5" />
       <n-gi span="34 768:26">
-        <img
-          :src="getSign(`${publicStore.CDNDomain}/${props.data.fileUri}`)"
-          loading="lazy"
-          style="width: 100%"
-        />
+        <img :src="playUrl" loading="lazy" style="width: 100%" />
       </n-gi>
       <n-gi span="1 768:5" />
     </n-grid>
@@ -27,19 +19,29 @@
   <div v-else-if="props.data.type === 'audio'" style="min-height: 76px">
     <media-player viewType="audio" crossorigin>
       <media-outlet>
-        <source
-          :src="getSign(`${publicStore.CDNDomain}/${props.data.fileUri}`)"
-          type="audio/flac"
-        />
+        <source :src="playUrl" type="audio/flac" />
       </media-outlet>
       <media-community-skin default-appearance></media-community-skin>
     </media-player>
   </div>
+  <n-modal
+    v-model:show="showModal"
+    preset="card"
+    title="请完成人机验证"
+    :mask-closable="false"
+    style="width: 400px"
+  >
+    <n-button @click="test">test</n-button>
+    <div v-if="!isLoading" id="captcha-vaptcha" style="min-height: 36px">
+      <div>加载中~</div>
+    </div>
+    <div v-else>加载中~</div>
+  </n-modal>
 </template>
 
 <script setup lang="ts">
-import { NGi, NGrid } from "naive-ui";
-import { onMounted, type PropType } from "vue";
+import { NGi, NGrid, NModal, NButton } from "naive-ui";
+import { ref, watch, onMounted, type PropType } from "vue";
 
 import type { FileData } from "@/types";
 import { getSign } from "@/assets/utils";
@@ -49,7 +51,9 @@ import { usePublicStore } from "@/stores";
 import "vidstack/define/media-player.js";
 import { defineCustomElements } from "vidstack/elements";
 import type { CommunitySkinTranslations } from "vidstack";
+import NaiveUIDiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
 
+const w = window as any;
 const props = defineProps({
   data: {
     type: Object as PropType<FileData>,
@@ -57,6 +61,95 @@ const props = defineProps({
   },
 });
 const publicStore = usePublicStore();
+
+const loadScript = (url: string) => {
+  return new Promise<boolean>((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = url;
+    s.onload = () => {
+      resolve(true);
+    };
+    s.onerror = () => {
+      reject(false);
+    };
+    s.async = true;
+    document.body.appendChild(s);
+  });
+};
+const test = async () => {
+  let loadResult = true;
+  if (!w.vaptcha) {
+    console.log("Vaptcha 未加载JS");
+    loadResult = await loadScript("https://v-sea.vaptcha.com/v3.js");
+  }
+  // TODO: 加载失败处理显示提示
+  if (loadResult) {
+    const obj = await w.vaptcha({
+      vid: "6601a585d3784602950e811c",
+      mode: "click",
+      scene: 1,
+      container: "#captcha-vaptcha",
+      color: "#70c0e8",
+    });
+    obj.render();
+    obj.listen("pass", () => {
+      const { server, token } = obj.getServerToken();
+    });
+    // obj.reset(); // 重置
+  }
+};
+const showModal = ref<boolean>(true);
+const isLoading = ref<boolean>(false);
+const playUrl = ref<string>();
+const updatePlayUrl = async (data: FileData, CDNDomain: string) => {
+  const filePath = `${publicStore.CDNDomain}/${props.data.fileUri}`;
+  NaiveUIDiscreteAPI.loadingBar.start();
+  const result = await getSign(filePath);
+  if (result === "") {
+    playUrl.value = "";
+    NaiveUIDiscreteAPI.loadingBar.error();
+  } else if (result === "vaptcha") {
+    NaiveUIDiscreteAPI.message.warning("请完成人机验证以继续~");
+    let loadResult = true;
+    if (!w.vaptcha) {
+      console.log("Vaptcha 未加载JS");
+      loadResult = await loadScript("https://v-sea.vaptcha.com/v3.js");
+    }
+    // TODO: 加载失败处理显示提示
+    if (loadResult) {
+      const obj = await w.vaptcha({
+        vid: "6601a585d3784602950e811c",
+        mode: "click",
+        scene: 1,
+        container: "#captcha-vaptcha",
+        color: "#70c0e8",
+      });
+      obj.render();
+      obj.listen("pass", async () => {
+        isLoading.value = true;
+        const { url, token } = obj.getServerToken();
+        const vaptchaResult = await getSign(filePath, { url, token });
+        isLoading.value = false;
+        showModal.value = false;
+        if (vaptchaResult === "" || vaptchaResult === "vaptcha") {
+          playUrl.value = "";
+          NaiveUIDiscreteAPI.loadingBar.error();
+        } else {
+          playUrl.value = vaptchaResult;
+          NaiveUIDiscreteAPI.loadingBar.finish();
+        }
+      });
+      // obj.reset(); // 重置
+    }
+  } else {
+    playUrl.value = result;
+    NaiveUIDiscreteAPI.loadingBar.finish();
+  }
+};
+watch([props, publicStore], async ([props, publicStore]) => {
+  await updatePlayUrl(props.data, publicStore.CDNDomain);
+});
+updatePlayUrl(props.data, publicStore.CDNDomain);
 
 onMounted(async () => {
   await defineCustomElements();

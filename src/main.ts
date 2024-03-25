@@ -29,3 +29,33 @@ app.use(createPinia());
 app.use(router);
 
 app.mount("#app");
+
+// reCaptcha Load
+const w = window as any;
+const loadScript = (url: string) => {
+  return new Promise<boolean>((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = url;
+    s.onload = () => {
+      resolve(true);
+    };
+    s.onerror = () => {
+      reject(false);
+    };
+    s.async = true;
+    document.body.appendChild(s);
+  });
+};
+w.reCaptchaOnloadList = [];
+const loadReCaptchaScript = async () => {
+  try {
+    await loadScript(
+      "https://www.recaptcha.net/recaptcha/enterprise.js?render=6LewyaMpAAAAAGk7sPDTBVxK3mI-SYeykrIkeKM8",
+    );
+    for (const i of w.reCaptchaOnloadList) i(true);
+  } catch (error) {
+    console.error(error);
+    for (const i of w.reCaptchaOnloadList) i(false);
+  }
+};
+loadReCaptchaScript();
