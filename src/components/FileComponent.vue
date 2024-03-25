@@ -31,7 +31,6 @@
     :mask-closable="false"
     style="width: 400px"
   >
-    <n-button @click="test">test</n-button>
     <div v-if="!isLoading" id="captcha-vaptcha" style="min-height: 36px">
       <div>加载中~</div>
     </div>
@@ -76,28 +75,6 @@ const loadScript = (url: string) => {
     document.body.appendChild(s);
   });
 };
-const test = async () => {
-  let loadResult = true;
-  if (!w.vaptcha) {
-    console.log("Vaptcha 未加载JS");
-    loadResult = await loadScript("https://v-sea.vaptcha.com/v3.js");
-  }
-  // TODO: 加载失败处理显示提示
-  if (loadResult) {
-    const obj = await w.vaptcha({
-      vid: "6601a585d3784602950e811c",
-      mode: "click",
-      scene: 1,
-      container: "#captcha-vaptcha",
-      color: "#70c0e8",
-    });
-    obj.render();
-    obj.listen("pass", () => {
-      const { server, token } = obj.getServerToken();
-    });
-    // obj.reset(); // 重置
-  }
-};
 const showModal = ref<boolean>(false);
 const isLoading = ref<boolean>(false);
 const playUrl = ref<string>();
@@ -126,19 +103,21 @@ const updatePlayUrl = async (data: FileData, CDNDomain: string) => {
         color: "#70c0e8",
       });
       obj.render();
-      obj.listen("pass", async () => {
+      obj.listen("pass", () => {
         isLoading.value = true;
         const { url, token } = obj.getServerToken();
-        const vaptchaResult = await getSign(filePath, { url, token });
-        isLoading.value = false;
-        showModal.value = false;
-        if (vaptchaResult === "" || vaptchaResult === "vaptcha") {
-          playUrl.value = "";
-          NaiveUIDiscreteAPI.loadingBar.error();
-        } else {
-          playUrl.value = vaptchaResult;
-          NaiveUIDiscreteAPI.loadingBar.finish();
-        }
+        console.log({ url, token });
+        getSign(filePath, { url, token }).then((vaptchaResult) => {
+          isLoading.value = false;
+          showModal.value = false;
+          if (vaptchaResult === "" || vaptchaResult === "vaptcha") {
+            playUrl.value = "";
+            NaiveUIDiscreteAPI.loadingBar.error();
+          } else {
+            playUrl.value = vaptchaResult;
+            NaiveUIDiscreteAPI.loadingBar.finish();
+          }
+        });
       });
       // obj.reset(); // 重置
     }
