@@ -80,50 +80,54 @@ const isLoading = ref<boolean>(false);
 const playUrl = ref<string>();
 const updatePlayUrl = async (data: FileData, CDNDomain: string) => {
   const filePath = `${publicStore.CDNDomain}/${props.data.fileUri}`;
-  NaiveUIDiscreteAPI.loadingBar.start();
-  const result = await getSign(filePath);
-  if (result === "") {
-    playUrl.value = "";
-    NaiveUIDiscreteAPI.loadingBar.error();
-  } else if (result === "vaptcha") {
-    NaiveUIDiscreteAPI.message.warning("请完成人机验证以继续~");
-    showModal.value = true;
-    let loadResult = true;
-    if (!w.vaptcha) {
-      console.log("Vaptcha 未加载JS");
-      loadResult = await loadScript("https://v-sea.vaptcha.com/v3.js");
-    }
-    // TODO: 加载失败处理显示提示
-    if (loadResult) {
-      const obj = await w.vaptcha({
-        vid: "6601a585d3784602950e811c",
-        mode: "click",
-        scene: 1,
-        container: "#captcha-vaptcha",
-        color: "#70c0e8",
-      });
-      obj.render();
-      obj.listen("pass", () => {
-        isLoading.value = true;
-        const { server, token } = obj.getServerToken();
-        console.log({ server, token });
-        getSign(filePath, { url: server, token }).then((vaptchaResult) => {
-          isLoading.value = false;
-          showModal.value = false;
-          if (vaptchaResult === "" || vaptchaResult === "vaptcha") {
-            playUrl.value = "";
-            NaiveUIDiscreteAPI.loadingBar.error();
-          } else {
-            playUrl.value = vaptchaResult;
-            NaiveUIDiscreteAPI.loadingBar.finish();
-          }
+  const u = new URL(filePath);
+  if (u.host === "ipaperclip-file.xodvnm.cn") {
+    NaiveUIDiscreteAPI.loadingBar.start();
+    const result = await getSign(filePath);
+    if (result === "") {
+      playUrl.value = "";
+      NaiveUIDiscreteAPI.loadingBar.error();
+    } else if (result === "vaptcha") {
+      NaiveUIDiscreteAPI.message.warning("请完成人机验证以继续~");
+      showModal.value = true;
+      let loadResult = true;
+      if (!w.vaptcha) {
+        console.log("Vaptcha 未加载JS");
+        loadResult = await loadScript("https://v-sea.vaptcha.com/v3.js");
+      }
+      // TODO: 加载失败处理显示提示
+      if (loadResult) {
+        const obj = await w.vaptcha({
+          vid: "6601a585d3784602950e811c",
+          mode: "click",
+          scene: 1,
+          container: "#captcha-vaptcha",
+          color: "#70c0e8",
         });
-      });
-      // obj.reset(); // 重置
+        obj.render();
+        obj.listen("pass", () => {
+          isLoading.value = true;
+          const { server, token } = obj.getServerToken();
+          getSign(filePath, { url: server, token }).then((vaptchaResult) => {
+            isLoading.value = false;
+            showModal.value = false;
+            if (vaptchaResult === "" || vaptchaResult === "vaptcha") {
+              playUrl.value = "";
+              NaiveUIDiscreteAPI.loadingBar.error();
+            } else {
+              playUrl.value = vaptchaResult;
+              NaiveUIDiscreteAPI.loadingBar.finish();
+            }
+          });
+        });
+        // obj.reset(); // 重置
+      }
+    } else {
+      playUrl.value = result;
+      NaiveUIDiscreteAPI.loadingBar.finish();
     }
   } else {
-    playUrl.value = result;
-    NaiveUIDiscreteAPI.loadingBar.finish();
+    playUrl.value = filePath;
   }
 };
 watch([props, publicStore], async ([props, publicStore]) => {
