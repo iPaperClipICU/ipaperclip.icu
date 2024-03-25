@@ -98,7 +98,7 @@ const test = async () => {
     // obj.reset(); // 重置
   }
 };
-const showModal = ref<boolean>(true);
+const showModal = ref<boolean>(false);
 const isLoading = ref<boolean>(false);
 const playUrl = ref<string>();
 const updatePlayUrl = async (data: FileData, CDNDomain: string) => {
@@ -110,6 +110,7 @@ const updatePlayUrl = async (data: FileData, CDNDomain: string) => {
     NaiveUIDiscreteAPI.loadingBar.error();
   } else if (result === "vaptcha") {
     NaiveUIDiscreteAPI.message.warning("请完成人机验证以继续~");
+    showModal.value = true;
     let loadResult = true;
     if (!w.vaptcha) {
       console.log("Vaptcha 未加载JS");
