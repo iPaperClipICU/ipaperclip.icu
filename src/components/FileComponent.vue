@@ -105,9 +105,9 @@ const updatePlayUrl = async (data: FileData, CDNDomain: string) => {
       obj.render();
       obj.listen("pass", () => {
         isLoading.value = true;
-        const { url, token } = obj.getServerToken();
-        console.log({ url, token });
-        getSign(filePath, { url, token }).then((vaptchaResult) => {
+        const { server, token } = obj.getServerToken();
+        console.log({ server, token });
+        getSign(filePath, { url: server, token }).then((vaptchaResult) => {
           isLoading.value = false;
           showModal.value = false;
           if (vaptchaResult === "" || vaptchaResult === "vaptcha") {
