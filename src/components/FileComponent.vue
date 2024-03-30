@@ -24,6 +24,14 @@
       <media-community-skin default-appearance></media-community-skin>
     </media-player>
   </div>
+  <n-card v-if="showCaptchaRetryCard" size="small" style="margin-bottom: 3px">
+    无法正常播放视频？试试<n-button
+      size="tiny"
+      style="margin: 0 5px"
+      @click="updatePlayUrl(data, publicStore.CDNDomain)"
+      >重新进行人机校验</n-button
+    >或通过xxx联系管理员喵！
+  </n-card>
   <n-modal
     v-model:show="showModal"
     preset="card"
@@ -31,15 +39,14 @@
     :mask-closable="false"
     style="width: 400px"
   >
-    <div v-if="!isLoading" id="captcha-vaptcha" style="min-height: 36px">
+    <div id="captcha-vaptcha" style="min-height: 36px">
       <div>加载中~</div>
     </div>
-    <div v-else>加载中~</div>
   </n-modal>
 </template>
 
 <script setup lang="ts">
-import { NGi, NGrid, NModal, NButton } from "naive-ui";
+import { NGi, NCard, NGrid, NModal, NButton } from "naive-ui";
 import { ref, watch, onMounted, type PropType } from "vue";
 
 import type { FileData } from "@/types";
@@ -50,9 +57,7 @@ import { usePublicStore } from "@/stores";
 import "vidstack/define/media-player.js";
 import { defineCustomElements } from "vidstack/elements";
 import type { CommunitySkinTranslations } from "vidstack";
-import NaiveUIDiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
 
-const w = window as any;
 const props = defineProps({
   data: {
     type: Object as PropType<FileData>,
@@ -61,74 +66,15 @@ const props = defineProps({
 });
 const publicStore = usePublicStore();
 
-const loadScript = (url: string) => {
-  return new Promise<boolean>((resolve, reject) => {
-    const s = document.createElement("script");
-    s.src = url;
-    s.onload = () => {
-      resolve(true);
-    };
-    s.onerror = () => {
-      reject(false);
-    };
-    s.async = true;
-    document.body.appendChild(s);
-  });
-};
+const showCaptchaRetryCard = ref<boolean>(false);
 const showModal = ref<boolean>(false);
-const isLoading = ref<boolean>(false);
 const playUrl = ref<string>();
 const updatePlayUrl = async (data: FileData, CDNDomain: string) => {
-  const filePath = `${publicStore.CDNDomain}/${props.data.fileUri}`;
-  const u = new URL(filePath);
-  if (u.host === "ipaperclip-file.xodvnm.cn") {
-    NaiveUIDiscreteAPI.loadingBar.start();
-    const result = await getSign(filePath);
-    if (result === "") {
-      playUrl.value = "";
-      NaiveUIDiscreteAPI.loadingBar.error();
-    } else if (result === "vaptcha") {
-      NaiveUIDiscreteAPI.message.warning("请完成人机验证以继续~");
-      showModal.value = true;
-      let loadResult = true;
-      if (!w.vaptcha) {
-        console.log("Vaptcha 未加载JS");
-        loadResult = await loadScript("https://v-sea.vaptcha.com/v3.js");
-      }
-      // TODO: 加载失败处理显示提示
-      if (loadResult) {
-        const obj = await w.vaptcha({
-          vid: "6601a585d3784602950e811c",
-          mode: "click",
-          scene: 1,
-          container: "#captcha-vaptcha",
-          color: "#70c0e8",
-        });
-        obj.render();
-        obj.listen("pass", () => {
-          isLoading.value = true;
-          const { server, token } = obj.getServerToken();
-          getSign(filePath, { url: server, token }).then((vaptchaResult) => {
-            isLoading.value = false;
-            showModal.value = false;
-            if (vaptchaResult === "" || vaptchaResult === "vaptcha") {
-              playUrl.value = "";
-              NaiveUIDiscreteAPI.loadingBar.error();
-            } else {
-              playUrl.value = vaptchaResult;
-              NaiveUIDiscreteAPI.loadingBar.finish();
-            }
-          });
-        });
-        // obj.reset(); // 重置
-      }
-    } else {
-      playUrl.value = result;
-      NaiveUIDiscreteAPI.loadingBar.finish();
-    }
-  } else {
-    playUrl.value = filePath;
-  }
+  const fileUrl = `${CDNDomain}/${data.fileUri}`;
+  const u = new URL(fileUrl);
+  const result = await getSign(fileUrl, showModal);
+  if (result) playUrl.value = result;
+  showCaptchaRetryCard.value = u.host === "ipaperclip-file.xodvnm.cn";
 };
 watch([props, publicStore], async ([props, publicStore]) => {
   await updatePlayUrl(props.data, publicStore.CDNDomain);

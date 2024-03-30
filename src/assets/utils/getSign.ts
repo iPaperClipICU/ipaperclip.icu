@@ -1,34 +1,51 @@
-import { customAlphabet } from "nanoid/non-secure";
-import { MD5 } from "crypto-js";
+// import { customAlphabet } from "nanoid/non-secure";
+// import { MD5 } from "crypto-js";
+import type { Ref } from "vue";
 import NaiveUIDiscreteAPI from "../NaiveUIDiscreteAPI";
 
 const w = window as any;
-const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 10);
+// const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 10);
 
 const waiteReCaptchaLoad = () => {
   return new Promise<boolean>((resolve) => {
     if (w.grecaptcha) resolve(true);
     else {
-      w.reCaptchaOnloadList.push((success: boolean) => {
-        resolve(success);
-      });
+      w.reCaptchaOnloadList.push((success: boolean) => resolve(success));
     }
   });
 };
-const getReCaptchaToken = () => {
-  return new Promise<string | null>((resolve) => {
-    w.grecaptcha.enterprise.ready(async () => {
-      try {
-        const token: string = await w.grecaptcha.enterprise.execute(
-          "6LewyaMpAAAAAGk7sPDTBVxK3mI-SYeykrIkeKM8",
-          { action: "get_play_sign" },
-        );
-        resolve(token);
-      } catch (e) {
-        console.error("获取 reCaptchaToken 失败", e);
-        resolve(null);
-      }
+const getReCaptchaToken = async () => {
+  const success = await waiteReCaptchaLoad();
+  if (success) {
+    return new Promise<string | null>((resolve) => {
+      w.grecaptcha.enterprise.ready(async () => {
+        try {
+          const token: string = await w.grecaptcha.enterprise.execute(
+            "6LewyaMpAAAAAGk7sPDTBVxK3mI-SYeykrIkeKM8",
+            { action: "get_play_sign" },
+          );
+          resolve(token);
+        } catch (e) {
+          console.error("获取 reCaptchaToken 失败", e);
+          resolve(null);
+        }
+      });
     });
+  } else return null;
+};
+
+const loadScript = (url: string) => {
+  return new Promise<boolean>((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = url;
+    s.onload = () => {
+      resolve(true);
+    };
+    s.onerror = () => {
+      reject(false);
+    };
+    s.async = true;
+    document.body.appendChild(s);
   });
 };
 
@@ -82,70 +99,91 @@ const API = async (data: CaptchaData, uri: string): Promise<string | null | fals
 };
 
 export const getSign = async (
-  FileURL: string,
-  vaptchaData?: {
-    url: string;
-    token: string;
-  },
-): Promise<string> => {
-  const u = new URL(FileURL);
+  fileUrl: string,
+  vaptchaModalRef: Ref<boolean>,
+): Promise<string | null> => {
+  const u = new URL(fileUrl);
   if (u.host === "ipaperclip-file.xodvnm.cn") {
-    if (!vaptchaData) {
-      // Google reCaptcha
-      if (!w.grecaptcha) {
-        const success = await waiteReCaptchaLoad();
-        if (!success) {
-          NaiveUIDiscreteAPI.message.error("人机验证加载失败, 请 切换线路 或 刷新页面");
-          return "";
-        }
-      }
-      const reCaptchaToken = await getReCaptchaToken();
-      if (!reCaptchaToken) {
-        NaiveUIDiscreteAPI.message.error("人机验证加载失败, 请 切换线路 或 刷新页面");
-        return "";
-      }
-
-      const reCaptchaResult = await API(
-        {
-          type: "reCaptcha",
-          token: reCaptchaToken,
-        },
-        u.pathname,
-      );
-      if (reCaptchaResult === false) {
-        return "";
-      } else if (reCaptchaResult) {
-        u.searchParams.set("sign", reCaptchaResult);
-        return u.href;
-      }
-    } else {
-      const vaptchaResult = await API(
-        {
-          type: "vaptcha",
-          url: vaptchaData.url,
-          token: vaptchaData.token,
-        },
-        u.pathname,
-      );
-      if (vaptchaResult === false) {
-        return "";
-      } else if (vaptchaResult) {
-        u.searchParams.set("sign", vaptchaResult);
-        return u.href;
-      }
+    const loadingMessage = NaiveUIDiscreteAPI.message.loading("人机验证中~", { duration: 0 });
+    // Google reCaptcha
+    const reCaptchaToken = await getReCaptchaToken();
+    if (!reCaptchaToken) {
+      loadingMessage.destroy();
+      NaiveUIDiscreteAPI.message.error("人机验证加载失败, 请重新尝试~");
+      return null;
     }
-    return "vaptcha";
+    const reCaptchaResult = await API(
+      {
+        type: "reCaptcha",
+        token: reCaptchaToken,
+      },
+      u.pathname,
+    );
+    if (reCaptchaResult === false) {
+      loadingMessage.destroy();
+      NaiveUIDiscreteAPI.message.error("人机验证加载失败, 请重新尝试~");
+      return null;
+    } else if (reCaptchaResult) {
+      loadingMessage.destroy();
+      u.searchParams.set("sign", reCaptchaResult);
+      return u.href;
+    }
 
-    // const PKEY = String(import.meta.env.TencentCDN_PKEY);
-    // const uri = u.pathname; // url
-    // const ts = Math.floor(Date.now() / 1000); // ts
-    // const uid = 0;
-    // const rand = nanoid();
-    // const sign = `${ts}-${rand}-${uid}-${MD5(`${uri}-${ts}-${rand}-${uid}-${PKEY}`)}`;
-    // u.searchParams.set("sign", sign);
-
-    // return u.href;
-  } else {
-    return FileURL;
-  }
+    // vaptcha
+    vaptchaModalRef.value = true;
+    let loadResult = true;
+    if (!w.vaptcha) {
+      console.log("Vaptcha 未加载JS");
+      loadResult = await loadScript("https://v-sea.vaptcha.com/v3.js");
+    }
+    if (!loadResult) {
+      vaptchaModalRef.value = false;
+      loadingMessage.destroy();
+      NaiveUIDiscreteAPI.message.error("人机验证加载失败, 请重新尝试~");
+      return null;
+    }
+    const obj = await w.vaptcha({
+      vid: "6601a585d3784602950e811c",
+      mode: "click",
+      scene: 1,
+      container: "#captcha-vaptcha",
+      color: "#70c0e8",
+    });
+    return new Promise<string | null>((resolve) => {
+      obj.listen("pass", async () => {
+        vaptchaModalRef.value = false;
+        const { server, token } = obj.getServerToken();
+        const vaptchaResult = await API(
+          {
+            type: "vaptcha",
+            url: server,
+            token,
+          },
+          u.pathname,
+        );
+        loadingMessage.destroy();
+        if (vaptchaResult) {
+          u.searchParams.set("sign", vaptchaResult);
+          resolve(u.href);
+        } else {
+          NaiveUIDiscreteAPI.message.error(
+            `人机验证${vaptchaResult === false ? "加载" : ""}失败, 请重新尝试~`,
+          );
+          resolve(null);
+        }
+      });
+      obj.render();
+      // obj.reset(); // 重置
+    });
+  } else return fileUrl;
 };
+
+// const PKEY = String(import.meta.env.TencentCDN_PKEY);
+// const uri = u.pathname; // url
+// const ts = Math.floor(Date.now() / 1000); // ts
+// const uid = 0;
+// const rand = nanoid();
+// const sign = `${ts}-${rand}-${uid}-${MD5(`${uri}-${ts}-${rand}-${uid}-${PKEY}`)}`;
+// u.searchParams.set("sign", sign);
+
+// return u.href;
