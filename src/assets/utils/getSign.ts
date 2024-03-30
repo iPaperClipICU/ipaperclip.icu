@@ -150,27 +150,28 @@ export const getSign = async (
       color: "#70c0e8",
     });
     return new Promise<string | null>((resolve) => {
-      obj.listen("pass", async () => {
+      obj.listen("pass", () => {
         vaptchaModalRef.value = false;
         const { server, token } = obj.getServerToken();
-        const vaptchaResult = await API(
+        API(
           {
             type: "vaptcha",
             url: server,
             token,
           },
           u.pathname,
-        );
-        loadingMessage.destroy();
-        if (vaptchaResult) {
-          u.searchParams.set("sign", vaptchaResult);
-          resolve(u.href);
-        } else {
-          NaiveUIDiscreteAPI.message.error(
-            `人机验证${vaptchaResult === false ? "加载" : ""}失败, 请重新尝试~`,
-          );
-          resolve(null);
-        }
+        ).then((vaptchaResult) => {
+          loadingMessage.destroy();
+          if (vaptchaResult) {
+            u.searchParams.set("sign", vaptchaResult);
+            resolve(u.href);
+          } else {
+            NaiveUIDiscreteAPI.message.error(
+              `人机验证${vaptchaResult === false ? "加载" : ""}失败, 请重新尝试~`,
+            );
+            resolve(null);
+          }
+        });
       });
       obj.render();
       // obj.reset(); // 重置
