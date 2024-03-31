@@ -1,6 +1,6 @@
 // import { customAlphabet } from "nanoid/non-secure";
 // import { MD5 } from "crypto-js";
-import type { Ref } from "vue";
+import { nextTick, type Ref } from "vue";
 import NaiveUIDiscreteAPI from "../NaiveUIDiscreteAPI";
 
 const w = window as any;
@@ -131,6 +131,7 @@ export const getSign = async (
 
     // vaptcha
     vaptchaModalRef.value = true;
+    await nextTick();
     let loadResult = true;
     if (!w.vaptcha) {
       console.log("Vaptcha 未加载JS");
