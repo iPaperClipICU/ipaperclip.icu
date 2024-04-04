@@ -34,6 +34,7 @@
               <n-a href="https://policies.google.com/terms" target="_blank">Terms of Service</n-a>
               apply.
             </div>
+            <div style="text-align: center">Version: {{ version }}</div>
           </div>
         </n-layout-content>
       </n-layout>
@@ -44,7 +45,7 @@
 
 <script setup lang="ts">
 import { NBackTop, NCollapseTransition } from "naive-ui";
-import { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent } from "naive-ui";
+import { NA, NLayout, NLayoutHeader, NLayoutSider, NLayoutContent } from "naive-ui";
 import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from "naive-ui"; // NaiveUI Config
 
 import { usePublicStore, useDownloadStore } from "./stores";
@@ -53,6 +54,7 @@ import HeadComponent from "@/components/HeadComponent.vue";
 import MenuComponent from "@/components/MenuComponent.vue";
 import DownloadControlCard from "@/components/DownloadControlCard.vue";
 
+const version = import.meta.env.CF_PAGES_COMMIT_SHA.slice(0, 7);
 const publicStore = usePublicStore();
 const downloadStore = useDownloadStore();
 
