@@ -84,26 +84,19 @@ const updatePlayUrl = async (data: FileData, CDNDomain: string) => {
   if (result) playUrl.value = result;
   showCaptchaRetryCard.value = u.host === "ipaperclip-file.xodvnm.cn";
   if (result) {
-    const u = new URL(result);
-    const ts = u.searchParams.get("sign")?.split("-")?.[0];
-    if (ts) {
-      timeoutIds.push(
-        setTimeout(
-          async () => {
-            let player = document.querySelector("media-player") as any;
-            const nowCurrentTime = player.currentTime as number;
-            await updatePlayUrl(props.data, publicStore.CDNDomain);
-            await defineCustomElements();
-            await nextTick();
-            const newPlayer = document.querySelector("media-player") as any;
-            newPlayer.addEventListener("can-play", () => {
-              newPlayer.currentTime = nowCurrentTime;
-            });
-          },
-          Number(ts) + 600 * 1000,
-        ),
-      );
-    }
+    timeoutIds.push(
+      setTimeout(async () => {
+        let player = document.querySelector("media-player") as any;
+        const nowCurrentTime = player.currentTime as number;
+        await updatePlayUrl(props.data, publicStore.CDNDomain);
+        await defineCustomElements();
+        await nextTick();
+        const newPlayer = document.querySelector("media-player") as any;
+        newPlayer.addEventListener("can-play", () => {
+          newPlayer.currentTime = nowCurrentTime;
+        });
+      }, 600000),
+    );
   }
 };
 watch([props, publicStore], async ([props, publicStore]) => {
