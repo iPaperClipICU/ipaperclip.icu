@@ -24,7 +24,7 @@
       <media-community-skin default-appearance></media-community-skin>
     </media-player>
   </div>
-  <n-card v-if="showCaptchaRetryCard" size="small" style="margin-bottom: 3px">
+  <n-card v-if="showCaptchaRetryCard && remoteSign" size="small" style="margin-bottom: 3px">
     无法正常播放视频？试试<n-button
       size="tiny"
       style="margin: 0 5px"
@@ -65,6 +65,7 @@ const props = defineProps({
   },
 });
 const publicStore = usePublicStore();
+const remoteSign = import.meta.env.TencentCDN_RemoteSign === "true";
 
 const showCaptchaRetryCard = ref<boolean>(false);
 const showModal = ref<boolean>(false);
