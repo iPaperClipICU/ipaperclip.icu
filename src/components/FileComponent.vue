@@ -30,7 +30,7 @@
       style="margin: 0 5px"
       @click="updatePlayUrl(data, publicStore.CDNDomain)"
       >重新进行人机校验</n-button
-    >或通过xxx联系管理员喵！
+    >
   </n-card>
   <n-modal
     v-model:show="showModal"
