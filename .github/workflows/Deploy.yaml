@@ -17,6 +17,7 @@ jobs:
           node-version: 20.x
       - name: Build
         run: |
+          npm install -g yarn
           yarn build
       - name: 🔖 Create Sentry release # 发布版本
         uses: getsentry/action-release@v1
