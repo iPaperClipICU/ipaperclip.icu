@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
 import { NGi, NCard, NGrid, NModal, NButton } from "naive-ui";
-import { ref, watch, onMounted, type PropType } from "vue";
+import { ref, watch, onMounted, nextTick, onBeforeUnmount, type PropType } from "vue";
 
 import type { FileData } from "@/types";
 import { getSign } from "@/assets/utils";
@@ -70,12 +70,41 @@ const remoteSign = import.meta.env.TencentCDN_RemoteSign === "true";
 const showCaptchaRetryCard = ref<boolean>(false);
 const showModal = ref<boolean>(false);
 const playUrl = ref<string>();
+let timeoutIds: (string | number | NodeJS.Timeout | undefined)[] = [];
+onBeforeUnmount(() => {
+  for (const i of timeoutIds) clearTimeout(i);
+  timeoutIds = [];
+});
 const updatePlayUrl = async (data: FileData, CDNDomain: string) => {
+  for (const i of timeoutIds) clearTimeout(i);
+  timeoutIds = [];
   const fileUrl = `${CDNDomain}/${data.fileUri}`;
   const u = new URL(fileUrl);
   const result = await getSign(fileUrl, showModal);
   if (result) playUrl.value = result;
   showCaptchaRetryCard.value = u.host === "ipaperclip-file.xodvnm.cn";
+  if (result) {
+    const u = new URL(result);
+    const ts = u.searchParams.get("sign")?.split("-")?.[0];
+    if (ts) {
+      timeoutIds.push(
+        setTimeout(
+          async () => {
+            let player = document.querySelector("media-player") as any;
+            const nowCurrentTime = player.currentTime as number;
+            await updatePlayUrl(props.data, publicStore.CDNDomain);
+            await defineCustomElements();
+            await nextTick();
+            const newPlayer = document.querySelector("media-player") as any;
+            newPlayer.addEventListener("can-play", () => {
+              newPlayer.currentTime = nowCurrentTime;
+            });
+          },
+          Number(ts) + 600 * 1000,
+        ),
+      );
+    }
+  }
 };
 watch([props, publicStore], async ([props, publicStore]) => {
   await updatePlayUrl(props.data, publicStore.CDNDomain);
