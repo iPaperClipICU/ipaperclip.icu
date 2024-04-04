@@ -8,8 +8,10 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
+    "build-sourcemap": "run-p type-check build-only-sourcemap",
     "preview": "vite preview",
     "build-only": "vite build",
+    "build-only-sourcemap": "vite build --sourcemap true",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/"

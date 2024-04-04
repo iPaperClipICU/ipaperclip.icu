@@ -25,7 +25,7 @@ jobs:
       - name: Build
         run: |
           yarn --frozen-lockfile
-          yarn build
+          yarn build-sourcemap
       - name: 🔖 Create Sentry release # 发布版本
         uses: getsentry/action-release@v1
         env:
