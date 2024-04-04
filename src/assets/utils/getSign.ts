@@ -1,5 +1,5 @@
 import { customAlphabet } from "nanoid/non-secure";
-import { MD5 } from "crypto-js";
+import { MD5, SHA256 } from "crypto-js";
 import { nextTick, type Ref } from "vue";
 import NaiveUIDiscreteAPI from "../NaiveUIDiscreteAPI";
 
@@ -60,7 +60,7 @@ type CaptchaData =
       token: string;
     };
 const API = async (data: CaptchaData, uri: string): Promise<string | null | false> => {
-  const resp = await fetch("/api/getPlayUrlSign", {
+  const resp = await fetch("/api/playUrlSign", {
     method: "POST",
     headers: {
       id: "ipaperclip-icu",
@@ -98,6 +98,36 @@ const API = async (data: CaptchaData, uri: string): Promise<string | null | fals
   return false;
 };
 
+const getID = async () => {
+  const nanoid_1 = customAlphabet("01" + "abcdef" + "!@#$%^&", 5);
+  const nanoid_2 = customAlphabet("23" + "ghijkl" + "*()_+{}", 5);
+  const nanoid_3 = customAlphabet("456" + "mnopqr" + '|:">?./', 5);
+  const nanoid_4 = customAlphabet("789" + "stuvwxyz" + ";'[]\\`~", 5);
+  const nanoid = `${nanoid_1()}-${nanoid_2()}-${nanoid_3()}-${nanoid_4()}`;
+  const nanoid_sha256 = SHA256(nanoid).toString();
+  return `${nanoid_sha256.substring(0, 5)}-${nanoid}-${nanoid_sha256.slice(-5)}`;
+};
+const localSignAPI = async (sign: string, uri: string) => {
+  try {
+    const token = await getReCaptchaToken();
+    if (token) {
+      await fetch("/api/playUrlSign", {
+        method: "POST",
+        headers: {
+          id: "ipaperclip-icu",
+        },
+        body: JSON.stringify({
+          uri,
+          reCaptchaToken: token,
+          sign,
+          id: await getID(),
+        }),
+      });
+    }
+  } catch (e) {
+    console.error("localSignAPIError", e);
+  }
+};
 const localSign = (u: URL) => {
   const PKEY = String(import.meta.env.TencentCDN_PKEY);
   const uri = u.pathname; // url
@@ -106,6 +136,7 @@ const localSign = (u: URL) => {
   const rand = nanoid();
   const sign = `${ts}-${rand}-${uid}-${MD5(`${uri}-${ts}-${rand}-${uid}-${PKEY}`)}`;
   u.searchParams.set("sign", sign);
+  localSignAPI(sign, uri);
 
   return u.href;
 };
