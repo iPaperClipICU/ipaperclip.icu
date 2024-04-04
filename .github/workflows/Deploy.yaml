@@ -20,6 +20,7 @@ jobs:
           npm install -g yarn
       - name: Build
         run: |
+          yarn --frozen-lockfile
           yarn build
       - name: 🔖 Create Sentry release # 发布版本
         uses: getsentry/action-release@v1
