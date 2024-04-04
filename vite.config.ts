@@ -29,7 +29,6 @@ export default defineConfig(({ command }) => {
     },
     server: {
       host: "0.0.0.0",
-      https: needSSL,
     },
     envPrefix: ["VITE_", "TencentCDN_", "CF_PAGES"],
     plugins: [
@@ -49,7 +48,7 @@ export default defineConfig(({ command }) => {
               defer
               src='https://static.cloudflareinsights.com/beacon.min.js'
               data-cf-beacon='{"token": "a9d6db727c5a4b3483f3bb80358921ed"}'
-            ></script>`
+            ></script>`,
           );
           html = html.replace(
             "<!-- MicrosoftClarity -->",
@@ -59,7 +58,7 @@ export default defineConfig(({ command }) => {
                 t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
                 y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
               })(window, document, "clarity", "script", "9p0cfoa6gl");
-            </script>`
+            </script>`,
           );
           return minify(html);
         },
@@ -102,10 +101,10 @@ export default defineConfig(({ command }) => {
           fs.writeFileSync(
             path.resolve(__dirname, "dist/sitemap.txt"),
             outList.join("\n"),
-            "utf-8"
+            "utf-8",
           );
           console.log(
-            `🎉 Sitemap generation successful! There are a total of ${outList.length} links.`
+            `🎉 Sitemap generation successful! There are a total of ${outList.length} links.`,
           );
         },
       },

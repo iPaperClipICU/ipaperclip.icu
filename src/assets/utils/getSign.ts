@@ -1,10 +1,10 @@
-// import { customAlphabet } from "nanoid/non-secure";
-// import { MD5 } from "crypto-js";
+import { customAlphabet } from "nanoid/non-secure";
+import { MD5 } from "crypto-js";
 import { nextTick, type Ref } from "vue";
 import NaiveUIDiscreteAPI from "../NaiveUIDiscreteAPI";
 
 const w = window as any;
-// const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 10);
+const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 10);
 
 const waiteReCaptchaLoad = () => {
   return new Promise<boolean>((resolve) => {
@@ -98,12 +98,25 @@ const API = async (data: CaptchaData, uri: string): Promise<string | null | fals
   return false;
 };
 
+const localSign = (u: URL) => {
+  const PKEY = String(import.meta.env.TencentCDN_PKEY);
+  const uri = u.pathname; // url
+  const ts = Math.floor(Date.now() / 1000); // ts
+  const uid = 0;
+  const rand = nanoid();
+  const sign = `${ts}-${rand}-${uid}-${MD5(`${uri}-${ts}-${rand}-${uid}-${PKEY}`)}`;
+  u.searchParams.set("sign", sign);
+
+  return u.href;
+};
+
 export const getSign = async (
   fileUrl: string,
   vaptchaModalRef: Ref<boolean>,
 ): Promise<string | null> => {
   const u = new URL(fileUrl);
   if (u.host === "ipaperclip-file.xodvnm.cn") {
+    if (import.meta.env.TencentCDN_RemoteSign !== "true") return localSign(u);
     const loadingMessage = NaiveUIDiscreteAPI.message.loading("人机验证中~", { duration: 0 });
     // Google reCaptcha
     const reCaptchaToken = await getReCaptchaToken();
@@ -179,13 +192,3 @@ export const getSign = async (
     });
   } else return fileUrl;
 };
-
-// const PKEY = String(import.meta.env.TencentCDN_PKEY);
-// const uri = u.pathname; // url
-// const ts = Math.floor(Date.now() / 1000); // ts
-// const uid = 0;
-// const rand = nanoid();
-// const sign = `${ts}-${rand}-${uid}-${MD5(`${uri}-${ts}-${rand}-${uid}-${PKEY}`)}`;
-// u.searchParams.set("sign", sign);
-
-// return u.href;
