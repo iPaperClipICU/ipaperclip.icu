@@ -11,18 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install Yarn
+      - name: 📦️ Install Yarn
         run: |-
           curl -fsSL --create-dirs -o $HOME/bin/yarn \
           https://github.com/yarnpkg/yarn/releases/download/v1.22.22/yarn-1.22.22.js
           chmod +x $HOME/bin/yarn
           echo "$HOME/bin" >> $GITHUB_PATH
-      - name: Set Node.js 20.x
+      - name: 📦️ Set Node.js 20.x
         uses: actions/setup-node@v3
         with:
           node-version: 20.x
           cache: 'yarn'
-      - name: Build
+      - name: 👷 Build
         run: |
           yarn --frozen-lockfile
           yarn build-sourcemap
