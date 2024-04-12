@@ -20,6 +20,7 @@ if (import.meta.env.PROD) {
         app,
         dsn: "https://ae9c3808da514430acdf87f18b2a02e7@o4504849146118144.ingest.sentry.io/4504849148608512",
         tracesSampleRate: 1.0,
+        release: import.meta.env.CF_PAGES_COMMIT_SHA,
       });
     });
   })();
