@@ -7,20 +7,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build-cf": "run-s build sentry:inject sentry:upload",
     "build": "run-p type-check build-only",
-    "build-sourcemap": "run-p type-check build-only-sourcemap",
     "preview": "vite preview",
     "build-only": "vite build",
-    "build-only-sourcemap": "vite build --sourcemap true",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/",
-    "sentry:inject": "sentry-cli sourcemaps inject ./dist/assets",
-    "sentry:upload": "sentry-cli sourcemaps upload --release=$CF_PAGES_COMMIT_SHA --org $SENTRY_ORG --project $SENTRY_PROJECT ./dist/assets"
+    "format": "prettier --write src/"
   },
   "dependencies": {
-    "@sentry/cli": "^2.31.0",
     "@sentry/tracing": "^7.109.0",
     "@sentry/vue": "^7.109.0",
     "@vueuse/core": "^10.9.0",
@@ -41,6 +35,7 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.10.1",
+    "@sentry/vite-plugin": "^2.16.1",
     "@tsconfig/node20": "^20.1.4",
     "@types/crypto-js": "^4.2.2",
     "@types/html-minifier": "^4.0.5",
