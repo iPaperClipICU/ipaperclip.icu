@@ -33,4 +33,4 @@ jobs:
       - name: 🔖 Create Sentry release
         run: |
           sentry-cli sourcemaps inject ./dist/assets
-          sentry-cli sourcemaps upload --release=${{ github.sha }} --org ${{ secrets.SENTRY_ORG }} ./dist/assets
+          sentry-cli sourcemaps upload --release=${{ github.sha }} --org ${{ secrets.SENTRY_ORG }} --project ${{ secrets.SENTRY_PROJECT }} ./dist/assets
