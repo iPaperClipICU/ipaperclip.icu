@@ -1,8 +1,8 @@
 name: 🔖 Create Sentry release
 
 on:
-  # push:
-  #   branches: ["main"]
+  push:
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -26,12 +26,11 @@ jobs:
         run: |
           yarn --frozen-lockfile
           yarn build-sourcemap
-      - name: 🔖 Create Sentry release # 发布版本
-        uses: getsentry/action-release@v1
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-        with:
-          environment: production
-          sourcemaps: './dist/assets'
+      - name: Install Sentry CLI
+        run: | 
+          curl -sL https://sentry.io/get-cli/ | sh
+          export SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
+      - name: 🔖 Create Sentry release
+        run: |
+          sentry-cli sourcemaps inject ./dist/assets
+          sentry-cli sourcemaps upload --release=${{ github.sha }} ./dist/assets

@@ -3,7 +3,6 @@ import path from "node:path";
 import { fileURLToPath, URL } from "node:url";
 import { minify } from "html-minifier";
 import { visualizer } from "rollup-plugin-visualizer";
-import { sentryVitePlugin } from "@sentry/vite-plugin";
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
@@ -109,11 +108,6 @@ export default defineConfig(({ command }) => {
           );
         },
       },
-      sentryVitePlugin({
-        org: "q-team-wl",
-        project: "ipaperclip-icu",
-        authToken: process.env.SENTRY_AUTH_TOKEN,
-      }),
     ],
     resolve: {
       alias: {
