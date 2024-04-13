@@ -29,8 +29,9 @@ jobs:
       - name: Install Sentry CLI
         run: | 
           curl -sL https://sentry.io/get-cli/ | sh
-          export SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
       - name: 🔖 Create Sentry release
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
           sentry-cli sourcemaps inject ./dist/assets
           sentry-cli sourcemaps upload --release=${{ github.sha }} --org ${{ secrets.SENTRY_ORG }} --project ${{ secrets.SENTRY_PROJECT }} ./dist/assets
