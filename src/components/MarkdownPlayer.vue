@@ -1,7 +1,7 @@
 <template>
   <n-card title="文字稿" size="small" hoverable class="markdown-player">
     <template #header-extra>
-      <n-button quaternary type="primary" @click="showAbout = true"> 关于来源 </n-button>
+      <n-button quaternary type="primary" @click="showAbout = true">关于来源</n-button>
     </template>
     <n-result v-if="showError" status="error" title="加载失败">
       <template #footer>
@@ -68,20 +68,47 @@ const props = defineProps({
   },
 });
 
+const getNewMdText = async (url: string) => {
+  try {
+    const newUrl = url.replace(
+      "https://cdn.jsdelivr.net/gh/iPaperClipICU/paperclip-doc/",
+      "https://doc-file.ipaperclip.icu/",
+    );
+    const resp = await fetch(newUrl);
+    let mdText = await resp.text();
+    mdText = mdText.replace(
+      new RegExp("https://cdn.jsdelivr.net/gh/just-prog/static/image/", "g"),
+      "https://r2.ipaperclip.icu/doc-image/",
+    );
+    return mdText;
+  } catch (e) {
+    return null;
+  }
+};
+const getMdText = async (url: string) => {
+  let mdText: string | null = null;
+  try {
+    const resp = await fetch(url);
+    if (resp.status >= 300) {
+      mdText = await getNewMdText(url);
+    } else {
+      mdText = await resp.text();
+    }
+  } catch (e) {
+    mdText = await getNewMdText(url);
+  }
+  return mdText;
+};
+
 const main = async (url: string) => {
   showError.value = false;
   showLoad.value = true;
   // 所以下面是怎么跑起来的呢？💩
-  const resp = await fetch(url).catch(() => {
+  let mdText = await getMdText(url);
+  if (mdText === null) {
     showError.value = true;
-    return null;
-  });
-  if (resp === null) return;
-  let mdText = await resp.text().catch(() => {
-    showError.value = true;
-    return null;
-  });
-  if (mdText === null) return;
+    return;
+  }
   mdText = mdText.replace(/\r/g, "");
 
   // const footerReg = /\[\^\d\]:\n[^[]+/;
@@ -205,7 +232,7 @@ const main = async (url: string) => {
           let msgs: (VNode | string)[] = [];
           for (const i of match) {
             msgs = msgs.concat(
-              parseLink(i.replace("\t", "").replace("\n", "").replace("    ", ""))
+              parseLink(i.replace("\t", "").replace("\n", "").replace("    ", "")),
             );
             msgs.push(h("br"));
           }
@@ -214,7 +241,7 @@ const main = async (url: string) => {
             {
               "show-icon": false,
             },
-            { default: () => msgs }
+            { default: () => msgs },
           );
         }
       }
