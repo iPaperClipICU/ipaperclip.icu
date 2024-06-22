@@ -2,17 +2,8 @@
   <n-card size="small" hoverable>
     <n-p>👋 He, 这里是 ipaperclip.icu</n-p>
     <div class="item">
-      <n-h2>下载全部文件</n-h2>
-      <n-p
-        >您可通过点击 <n-a href="https://r2.ipaperclip.icu/zip/ALL_221205.7z">这里</n-a> 或通过
-        <n-text code>https://r2.ipaperclip.icu/zip/ALL_221205.7z</n-text> 下载全部文件</n-p
-      >
-      <n-p
-        >共 42.6 GB，请注意磁盘剩余空间及网络环境 | SHA-256:
-        <n-text code style="font-size: 6px"
-          >CEC8D73C9183A046E815B623900EFAF48F038F30A91F89C8BBE93AE804222F06</n-text
-        ></n-p
-      >
+      <n-h2>下载压缩文件</n-h2>
+      <download-zip-file />
     </div>
     <div class="item">
       <n-h2>关于文字稿</n-h2>
@@ -100,6 +91,8 @@
 
 <script setup lang="ts">
 import { NA, NP, NGi, NH2, NCard, NGrid, NText } from "naive-ui";
+
+import DownloadZipFile from "@/components/HomeView/DownloadZipFile.vue";
 </script>
 
 <style>
