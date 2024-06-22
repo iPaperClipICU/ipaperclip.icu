@@ -30,33 +30,33 @@
     "showdown": "^2.1.0",
     "tinykeys": "^1.4.0",
     "vidstack": "^0.6.14",
-    "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue": "^3.4.29",
+    "vue-router": "^4.3.3"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.10.1",
+    "@rushstack/eslint-patch": "^1.8.0",
     "@sentry/vite-plugin": "^2.16.1",
     "@tsconfig/node20": "^20.1.4",
     "@types/crypto-js": "^4.2.2",
     "@types/html-minifier": "^4.0.5",
     "@types/mime": "^3.0.4",
-    "@types/node": "20.x",
+    "@types/node": "^20.10.0",
     "@types/showdown": "^2.0.6",
     "@types/wicg-file-system-access": "^2023.10.5",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
-    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue": "^5.0.5",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/tsconfig": "^0.5.1",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.24.0",
     "npm-check-updates": "^16.14.18",
-    "npm-run-all2": "^6.1.2",
+    "npm-run-all2": "^6.2.0",
     "prettier": "^3.2.5",
     "rollup-plugin-visualizer": "^5.12.0",
     "typescript": "~5.4.3",
-    "vite": "^5.2.7",
+    "vite": "^5.3.1",
     "vite-plugin-html": "^3.2.2",
-    "vue-tsc": "^2.0.7"
+    "vue-tsc": "^2.0.21"
   }
 }
