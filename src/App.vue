@@ -70,7 +70,10 @@ resizeEvent();
 // showSomething
 const initShowSomething = async () => {
   const resp = await fetch("/test");
-  if (resp.headers.get("show-something") !== "false") publicStore.showSomething = true;
+  if (resp.headers.get("show-something") !== "false") {
+    publicStore.showSomething = true;
+    publicStore.CDNDomain = "https://r2.ipaperclip.icu";
+  }
 };
 initShowSomething();
 </script>
