@@ -1303,12 +1303,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.x":
+"@types/node@npm:*":
   version: 20.12.2
   resolution: "@types/node@npm:20.12.2"
   dependencies:
     undici-types: ~5.26.4
   checksum: 3242ab04fe69ae32a2da29a7a2fce41fccb370bc1189de43d2dfbb491bd3253d3ee2070cbb5613061148e4862fdaa9cf62722c43128ce5c7d33fe83750956613
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.10.0":
+  version: 20.14.7
+  resolution: "@types/node@npm:20.14.7"
+  dependencies:
+    undici-types: ~5.26.4
+  checksum: 967d100f3853fefa347847ece95226a73cba970ff896efa12cce68ecdd48a9b39b10c8eefd9f11016799a29bdfe19d144ea094f8db3d5987cebe8f06226fccc9
   languageName: node
   linkType: hard
 
@@ -3877,7 +3886,7 @@ __metadata:
     "@types/crypto-js": ^4.2.2
     "@types/html-minifier": ^4.0.5
     "@types/mime": ^3.0.4
-    "@types/node": 20.x
+    "@types/node": ^20.10.0
     "@types/showdown": ^2.0.6
     "@types/wicg-file-system-access": ^2023.10.5
     "@vitejs/plugin-basic-ssl": ^1.1.0
