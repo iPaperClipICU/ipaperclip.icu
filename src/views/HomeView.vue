@@ -90,9 +90,9 @@
 </template>
 
 <script setup lang="ts">
-import { NA, NP, NGi, NH2, NCard, NGrid, NText } from "naive-ui";
+import { NA, NP, NGi, NH2, NCard, NGrid, NText } from 'naive-ui'
 
-import DownloadZipFile from "@/components/HomeView/DownloadZipFile.vue";
+import DownloadZipFile from '@/components/HomeView/DownloadZipFile.vue'
 </script>
 
 <style>

@@ -45,11 +45,11 @@
         :status="
           ((status) => {
             if (status === 'download') {
-              return 'default';
+              return 'default'
             } else if (status === 'stop') {
-              return 'warning';
+              return 'warning'
             } else {
-              return 'error';
+              return 'error'
             }
           })(downloadModalData.progress.status)
         "
@@ -58,7 +58,7 @@
           Math.round(
             (downloadModalData.progress.finishedFilesNum /
               downloadModalData.progress.totalFilesNum) *
-              100
+              100,
           )
         "
       >
@@ -71,11 +71,11 @@
         :status="
           ((status) => {
             if (status === 'download') {
-              return 'default';
+              return 'default'
             } else if (status === 'stop') {
-              return 'warning';
+              return 'warning'
             } else {
-              return 'error';
+              return 'error'
             }
           })(downloadModalData.progress.status)
         "
@@ -105,13 +105,13 @@
           type="success"
           @click="() => retryButtonClick()"
         >
-          {{ downloadModalData.error.name === "PR:AuthError" ? "重新授权" : "重试" }}
+          {{ downloadModalData.error.name === 'PR:AuthError' ? '重新授权' : '重试' }}
         </n-button>
         <n-popconfirm
           @positive-click="
             () => {
-              controlDownload(false);
-              emit('close', false, false);
+              controlDownload(false)
+              emit('close', false, false)
             }
           "
         >
@@ -134,7 +134,7 @@
 
 <script setup lang="ts">
 /// <reference types="@types/wicg-file-system-access" />
-import { ref, type PropType } from "vue";
+import { ref, type PropType } from 'vue'
 import {
   NH3,
   NSpin,
@@ -146,165 +146,165 @@ import {
   NResult,
   NProgress,
   NPopconfirm,
-} from "naive-ui";
-import axios from "axios";
-import FileControl from "@/assets/FileControl.js";
+} from 'naive-ui'
+import axios from 'axios'
+import FileControl from '@/assets/FileControl.js'
 
 const props = defineProps({
   data: {
     type: Object as PropType<{
-      [key: string]: boolean;
+      [key: string]: boolean
     }>,
     required: true,
   },
-});
+})
 const emit = defineEmits<{
-  (e: "close", value: boolean, needDelete?: boolean): void;
-}>();
+  (e: 'close', value: boolean, needDelete?: boolean): void
+}>()
 
-const downloadModal = ref<boolean>(true);
+const downloadModal = ref<boolean>(true)
 const downloadModalData = ref<{
-  status: "loading" | "auth" | "download" | "zip" | "finish";
-  // eslint-disable-next-line no-undef
-  tasks: { [key: string]: FileSystemFileHandle | null };
+  status: 'loading' | 'auth' | 'download' | 'zip' | 'finish'
+
+  tasks: { [key: string]: FileSystemFileHandle | null }
   progress: {
-    status: "download" | "stop" | "error";
-    totalFilesNum: number; // 总文件数
-    finishedFilesNum: number; // 已完成文件数
-    nowFileName: string; // 当前正在下载的文件名
-    nowFileProgressNum: number; // 当前正在下载的文件的进度
-  };
+    status: 'download' | 'stop' | 'error'
+    totalFilesNum: number // 总文件数
+    finishedFilesNum: number // 已完成文件数
+    nowFileName: string // 当前正在下载的文件名
+    nowFileProgressNum: number // 当前正在下载的文件的进度
+  }
   error: {
-    title: string;
-    name: string;
-    message: string;
-  };
+    title: string
+    name: string
+    message: string
+  }
 }>({
-  status: "loading",
+  status: 'loading',
   tasks: {},
   progress: {
-    status: "download",
+    status: 'download',
     totalFilesNum: 0,
     finishedFilesNum: 0,
-    nowFileName: "",
+    nowFileName: '',
     nowFileProgressNum: 0,
   },
   error: {
-    title: "",
-    name: "",
-    message: "",
+    title: '',
+    name: '',
+    message: '',
   },
-});
-let controller: AbortController | null = new AbortController();
-const fc: FileControl = new FileControl();
+})
+let controller: AbortController | null = new AbortController()
+const fc: FileControl = new FileControl()
 
 const controlDownload = async (control: boolean) => {
   if (control) {
-    downloadModalData.value.progress.status = "download";
-    download();
+    downloadModalData.value.progress.status = 'download'
+    download()
   } else {
-    downloadModalData.value.progress.status = "stop";
-    controller?.abort();
+    downloadModalData.value.progress.status = 'stop'
+    controller?.abort()
   }
-};
+}
 
 const finish = async () => {
-  if (fc.supportType !== "native") {
-    downloadModalData.value.status = "zip";
+  if (fc.supportType !== 'native') {
+    downloadModalData.value.status = 'zip'
   }
-  await fc.finish();
+  await fc.finish()
 
-  downloadModalData.value.status = "finish";
-};
+  downloadModalData.value.status = 'finish'
+}
 
 const download = async () => {
-  downloadModalData.value.status = "download";
+  downloadModalData.value.status = 'download'
   const fileHrefList = Object.keys(downloadModalData.value.tasks).filter(
-    (key) => downloadModalData.value.tasks[key] === null
-  );
-  const totalFilesNum = Object.keys(downloadModalData.value.tasks).length;
+    (key) => downloadModalData.value.tasks[key] === null,
+  )
+  const totalFilesNum = Object.keys(downloadModalData.value.tasks).length
   downloadModalData.value.progress = {
-    status: "download",
+    status: 'download',
     totalFilesNum,
     finishedFilesNum: totalFilesNum - fileHrefList.length,
-    nowFileName: "",
+    nowFileName: '',
     nowFileProgressNum: 0,
-  };
+  }
 
   for (const fileHref of fileHrefList) {
-    downloadModalData.value.progress.nowFileName = FileControl.parseFileHref(fileHref).fileName;
-    downloadModalData.value.progress.nowFileProgressNum = 0;
-    if (downloadModalData.value.progress.status === "stop") return;
+    downloadModalData.value.progress.nowFileName = FileControl.parseFileHref(fileHref).fileName
+    downloadModalData.value.progress.nowFileProgressNum = 0
+    if (downloadModalData.value.progress.status === 'stop') return
 
-    controller = new AbortController();
+    controller = new AbortController()
     const resp = await axios({
       url: `https://r2.ipaperclip.icu/video${fileHref}`,
-      method: "GET",
-      responseType: "blob",
+      method: 'GET',
+      responseType: 'blob',
       signal: controller.signal,
       onDownloadProgress: (progressEvent) => {
         downloadModalData.value.progress.nowFileProgressNum = Math.round(
-          (progressEvent.progress ?? 0) * 100
-        );
+          (progressEvent.progress ?? 0) * 100,
+        )
       },
-    });
-    controller = null;
+    })
+    controller = null
 
-    await fc.addFile(resp.data, fileHref);
-    downloadModalData.value.progress.finishedFilesNum++;
+    await fc.addFile(resp.data, fileHref)
+    downloadModalData.value.progress.finishedFilesNum++
   }
 
-  await finish();
-};
+  await finish()
+}
 
 /**
  * 处理下载错误
  * @param e Error
  */
 const downloadError = (e: any) => {
-  console.error(e, e.name, e.code, e.message);
-  if (e.name === "CanceledError") return;
-  if (["AbortError", "NotAllowedError"].includes(e.name)) {
+  console.error(e, e.name, e.code, e.message)
+  if (e.name === 'CanceledError') return
+  if (['AbortError', 'NotAllowedError'].includes(e.name)) {
     // 授权失效
     downloadModalData.value.error = {
-      title: "授权失效",
-      name: "PR:AuthError",
-      message: "授权失效，请重新授权",
-    };
-    fc.supportType = null;
+      title: '授权失效',
+      name: 'PR:AuthError',
+      message: '授权失效，请重新授权',
+    }
+    fc.supportType = null
   } else {
     downloadModalData.value.error = {
-      title: "出现错误",
+      title: '出现错误',
       name: e.name ?? e.code ?? "Error don't have name or code",
       message: e.message,
-    };
+    }
   }
-  downloadModalData.value.progress.status = "error";
-};
+  downloadModalData.value.progress.status = 'error'
+}
 
 const retryButtonClick = async () => {
-  if (downloadModalData.value.error.name === "PR:AuthError") {
-    fc.dirHandle = null;
+  if (downloadModalData.value.error.name === 'PR:AuthError') {
+    fc.dirHandle = null
   }
-  if (fc.supportType === "native" && !(await fc.auth())) return;
-  download().catch(downloadError);
-};
+  if (fc.supportType === 'native' && !(await fc.auth())) return
+  download().catch(downloadError)
+}
 
 const authFilesButtonClick = async () => {
-  if (!(await fc.auth())) return;
-  download().catch(downloadError);
-};
+  if (!(await fc.auth())) return
+  download().catch(downloadError)
+}
 
 const main = async () => {
   Object.keys(props.data).forEach((key) => {
-    downloadModalData.value.tasks[key] = null;
-  });
-  if (fc.supportType === "native") {
-    downloadModalData.value.status = "auth";
+    downloadModalData.value.tasks[key] = null
+  })
+  if (fc.supportType === 'native') {
+    downloadModalData.value.status = 'auth'
   } else {
-    await fc.init();
-    download().catch(downloadError);
+    await fc.init()
+    download().catch(downloadError)
   }
-};
-main();
+}
+main()
 </script>

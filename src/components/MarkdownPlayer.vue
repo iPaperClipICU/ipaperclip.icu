@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { h, onMounted, ref, type VNode } from "vue";
+import { h, onMounted, ref, type VNode } from 'vue'
 import {
   NA,
   NP,
@@ -50,251 +50,247 @@ import {
   NResult,
   NDivider,
   NSkeleton,
-} from "naive-ui";
-import cheerio from "cheerio";
-import showdown from "showdown";
+} from 'naive-ui'
+import { load as cheerioLoad } from 'cheerio'
+import showdown from 'showdown'
 // import type { ChildNode } from "domhandler/lib/node";
-import type { ChildNode } from "../../node_modules/domhandler/lib/esm/node";
+import type { ChildNode } from '../../node_modules/domhandler/lib/esm/node'
 
-const showAbout = ref<boolean>(false);
-const showError = ref<boolean>(false);
-const showLoad = ref<boolean>(true);
-const MarkdownView = ref(() => h("div", null, ""));
+const showAbout = ref<boolean>(false)
+const showError = ref<boolean>(false)
+const showLoad = ref<boolean>(true)
+const MarkdownView = ref(() => h('div', null, ''))
 
 const props = defineProps({
   url: {
     type: String,
     required: true,
   },
-});
+})
 
 const getNewMdText = async (url: string) => {
   try {
     const newUrl = url.replace(
-      "https://cdn.jsdelivr.net/gh/iPaperClipICU/paperclip-doc/",
-      "https://doc-file.ipaperclip.icu/",
-    );
-    const resp = await fetch(newUrl);
-    let mdText = await resp.text();
+      'https://cdn.jsdelivr.net/gh/iPaperClipICU/paperclip-doc/',
+      'https://doc-file.ipaperclip.icu/',
+    )
+    const resp = await fetch(newUrl)
+    let mdText = await resp.text()
     mdText = mdText.replace(
-      new RegExp("https://cdn.jsdelivr.net/gh/just-prog/static/image/", "g"),
-      "https://r2.ipaperclip.icu/doc-image/",
-    );
-    return mdText;
+      new RegExp('https://cdn.jsdelivr.net/gh/just-prog/static/image/', 'g'),
+      'https://r2.ipaperclip.icu/doc-image/',
+    )
+    return mdText
   } catch (e) {
-    return null;
+    return null
   }
-};
+}
 const getMdText = async (url: string) => {
-  let mdText: string | null = null;
+  let mdText: string | null = null
   try {
-    const resp = await fetch(url);
+    const resp = await fetch(url)
     if (resp.status >= 300) {
-      mdText = await getNewMdText(url);
+      mdText = await getNewMdText(url)
     } else {
-      mdText = await resp.text();
+      mdText = await resp.text()
     }
   } catch (e) {
-    mdText = await getNewMdText(url);
+    mdText = await getNewMdText(url)
   }
-  return mdText;
-};
+  return mdText
+}
 
 const main = async (url: string) => {
-  showError.value = false;
-  showLoad.value = true;
+  showError.value = false
+  showLoad.value = true
   // 所以下面是怎么跑起来的呢？💩
-  let mdText = await getMdText(url);
+  let mdText = await getMdText(url)
   if (mdText === null) {
-    showError.value = true;
-    return;
+    showError.value = true
+    return
   }
-  mdText = mdText.replace(/\r/g, "");
+  mdText = mdText.replace(/\r/g, '')
 
   // const footerReg = /\[\^\d\]:\n[^[]+/;
-  const footerReg = /\^\d\]:\r?\n?[^^]+/g;
-  const footerList = mdText.match(footerReg);
-  mdText = mdText.replace(footerReg, "").replace(/\[$/g, "");
+  const footerReg = /\^\d\]:\r?\n?[^^]+/g
+  const footerList = mdText.match(footerReg)
+  mdText = mdText.replace(footerReg, '').replace(/\[$/g, '')
 
-  const abstractReg = /!!! abstract ""(\r?\n.*\r?\n(\t| {4}).+)+/gm;
+  const abstractReg = /!!! abstract ""(\r?\n.*\r?\n(\t| {4}).+)+/gm
   const abstract = (() => {
-    const match = mdText.match(abstractReg);
-    if (match !== null) return match[0] || null;
-    else return null;
-  })();
-  mdText = mdText.replace(abstractReg, "<abstract></abstract>");
+    const match = mdText.match(abstractReg)
+    if (match !== null) return match[0] || null
+    else return null
+  })()
+  mdText = mdText.replace(abstractReg, '<abstract></abstract>')
 
-  const md = new showdown.Converter();
-  let html = md.makeHtml(mdText);
+  const md = new showdown.Converter()
+  let html = md.makeHtml(mdText)
 
   if (abstract !== null)
-    html = html.replace("<p><abstract></abstract></p>", `<abstract>${abstract}</abstract>`);
+    html = html.replace('<p><abstract></abstract></p>', `<abstract>${abstract}</abstract>`)
 
   const parseBold = (strs: string | (VNode | string)[]): (VNode | string)[] => {
     // 由 Copilot 生成 🙃
     // **bold** __bold__
-    const REG = [/\*\*[^*]+\*\*/, /__[^_]+__/];
-    if (!Array.isArray(strs)) strs = [strs];
+    const REG = [/\*\*[^*]+\*\*/, /__[^_]+__/]
+    if (!Array.isArray(strs)) strs = [strs]
 
-    let childrenList: (VNode | string)[] = [];
-    for (let str of strs) {
-      if (typeof str === "string" && str.search(REG[0]) !== -1) {
+    let childrenList: (VNode | string)[] = []
+    for (const str of strs) {
+      if (typeof str === 'string' && str.search(REG[0]) !== -1) {
         // **bold**
-        const match = (str.match(REG[0]) as RegExpMatchArray)[0];
-        const name = match.replace(/^\*\*/, "").replace(/\*\*$/, "");
+        const match = (str.match(REG[0]) as RegExpMatchArray)[0]
+        const name = match.replace(/^\*\*/, '').replace(/\*\*$/, '')
         str.split(match).forEach((value, index) => {
-          if (index !== 0) childrenList.push(h("b", null, name));
-          childrenList = childrenList.concat(parseBold(value));
-        });
-      } else if (typeof str === "string" && str.search(REG[1]) !== -1) {
+          if (index !== 0) childrenList.push(h('b', null, name))
+          childrenList = childrenList.concat(parseBold(value))
+        })
+      } else if (typeof str === 'string' && str.search(REG[1]) !== -1) {
         // __bold__
-        const match = (str.match(REG[1]) as RegExpMatchArray)[0];
-        const name = match.replace(/^__/, "").replace(/__$/, "");
+        const match = (str.match(REG[1]) as RegExpMatchArray)[0]
+        const name = match.replace(/^__/, '').replace(/__$/, '')
         str.split(match).forEach((value, index) => {
-          if (index !== 0) childrenList.push(h("b", null, name));
-          childrenList = childrenList.concat(parseBold(value));
-        });
+          if (index !== 0) childrenList.push(h('b', null, name))
+          childrenList = childrenList.concat(parseBold(value))
+        })
       } else {
-        childrenList.push(str);
+        childrenList.push(str)
       }
     }
 
-    return childrenList;
-  };
+    return childrenList
+  }
   const parseLink = (strs: string | string[]): (VNode | string)[] => {
     // [name](url) <url>
 
-    const REG = [/\[[^[]+\]\(http(s)?:\/\/[^(]+\)/, /<http(s)?:\/\/[^<]+>/];
-    if (!Array.isArray(strs)) strs = [strs];
+    const REG = [/\[[^[]+\]\(http(s)?:\/\/[^(]+\)/, /<http(s)?:\/\/[^<]+>/]
+    if (!Array.isArray(strs)) strs = [strs]
 
-    let childrenList: (VNode | string)[] = [];
+    let childrenList: (VNode | string)[] = []
     for (const str of strs) {
       if (str.search(REG[0]) !== -1) {
         // [name](url)
-        const match = (str.match(REG[0]) as RegExpMatchArray)[0];
+        const match = (str.match(REG[0]) as RegExpMatchArray)[0]
         const name = (match.match(/\[.+\]/) as RegExpMatchArray)[0]
-          .replace(/^\[/, "")
-          .replace(/\]$/, "");
+          .replace(/^\[/, '')
+          .replace(/\]$/, '')
         const url = (match.match(/\(http(s)?:\/\/.+\)/) as RegExpMatchArray)[0]
-          .replace(/^\(/, "")
-          .replace(/\)$/, "");
+          .replace(/^\(/, '')
+          .replace(/\)$/, '')
         str.split(match).forEach((value, index) => {
           if (index !== 0)
-            childrenList.push(h(NA, { href: url, target: "_blank" }, { default: () => name }));
-          childrenList = childrenList.concat(parseLink(value));
-        });
+            childrenList.push(h(NA, { href: url, target: '_blank' }, { default: () => name }))
+          childrenList = childrenList.concat(parseLink(value))
+        })
       } else if (str.search(REG[1]) !== -1) {
         // <url>
-        const match = (str.match(REG[1]) as RegExpMatchArray)[0];
+        const match = (str.match(REG[1]) as RegExpMatchArray)[0]
         const url = (match.match(/<http(s)?:\/\/.+>/) as RegExpMatchArray)[0]
-          .replace(/^</, "")
-          .replace(/>$/, "");
+          .replace(/^</, '')
+          .replace(/>$/, '')
         str.split(match).forEach((value, index) => {
           if (index !== 0)
-            childrenList.push(h(NA, { href: url, target: "_blank" }, { default: () => url }));
-          childrenList = childrenList.concat(parseLink(value));
-        });
-      } else if (str !== "") childrenList.push(str);
+            childrenList.push(h(NA, { href: url, target: '_blank' }, { default: () => url }))
+          childrenList = childrenList.concat(parseLink(value))
+        })
+      } else if (str !== '') childrenList.push(str)
     }
 
-    return childrenList;
-  };
+    return childrenList
+  }
   const parseChildren = (ele: ChildNode): VNode | string | undefined => {
-    if (ele.type === "text") {
+    if (ele.type === 'text') {
       // Text
-      return ele.data;
-    } else if (ele.type === "tag") {
-      const childrenList: (VNode | string)[] = [];
+      return ele.data
+    } else if (ele.type === 'tag') {
+      const childrenList: (VNode | string)[] = []
       for (const children of ele.children) {
-        const parse = parseChildren(children);
-        if (parse !== undefined) childrenList.push(parse);
+        const parse = parseChildren(children)
+        if (parse !== undefined) childrenList.push(parse)
       }
-      if (ele.name === "h1") {
+      if (ele.name === 'h1') {
         // H1
         // return h(NH1, null, { default: () => childrenList });
-      } else if (ele.name === "p") {
+      } else if (ele.name === 'p') {
         // p
-        return h(NP, null, { default: () => childrenList });
-      } else if (ele.name === "img") {
+        return h(NP, null, { default: () => childrenList })
+      } else if (ele.name === 'img') {
         // img
-        const { src, alt } = ele.attribs;
-        return h("img", {
+        const { src, alt } = ele.attribs
+        return h('img', {
           src,
           alt,
-          style: "max-width: 100%; min-height: 40px",
-          loading: "lazy",
-        });
-      } else if (ele.name === "abstract") {
+          style: 'max-width: 100%; min-height: 40px',
+          loading: 'lazy',
+        })
+      } else if (ele.name === 'abstract') {
         // abstract
-        if (typeof childrenList[0] !== "string") throw new Error(); // TODO: Error
-        const match = childrenList[0].match(/(\t| {4}).+\n?/gm);
+        if (typeof childrenList[0] !== 'string') throw new Error() // TODO: Error
+        const match = childrenList[0].match(/(\t| {4}).+\n?/gm)
         if (match !== null) {
-          let msgs: (VNode | string)[] = [];
+          let msgs: (VNode | string)[] = []
           for (const i of match) {
-            msgs = msgs.concat(
-              parseLink(i.replace("\t", "").replace("\n", "").replace("    ", "")),
-            );
-            msgs.push(h("br"));
+            msgs = msgs.concat(parseLink(i.replace('\t', '').replace('\n', '').replace('    ', '')))
+            msgs.push(h('br'))
           }
           return h(
             NAlert,
             {
-              "show-icon": false,
+              'show-icon': false,
             },
             { default: () => msgs },
-          );
+          )
         }
       }
     }
-  };
+  }
 
-  const mdCD: (VNode | string)[] = [];
-  cheerio
-    .load(html)("h1, p, abstract")
-    .each((i, elem) => {
-      if (
-        elem.type === "tag" &&
-        elem.name === "p" &&
-        elem.children[0].type === "text" &&
-        elem.children[0].data.search(/!!! note ".*"/) !== -1
-      ) {
-        return;
-      }
-      const parse = parseChildren(elem);
-      if (parse !== undefined) mdCD.push(parse);
-    });
+  const mdCD: (VNode | string)[] = []
+  cheerioLoad(html)('h1, p, abstract').each((i, elem) => {
+    if (
+      elem.type === 'tag' &&
+      elem.name === 'p' &&
+      elem.children[0].type === 'text' &&
+      elem.children[0].data.search(/!!! note ".*"/) !== -1
+    ) {
+      return
+    }
+    const parse = parseChildren(elem)
+    if (parse !== undefined) mdCD.push(parse)
+  })
   if (footerList !== null) {
-    mdCD.push(h(NDivider));
-    const olList: VNode[] = [];
+    mdCD.push(h(NDivider))
+    const olList: VNode[] = []
     for (const ii of footerList) {
       const i = ii
-        .replace(/\[$/g, "")
-        .replace(/\r?\n?!!! note[^]+$/, "")
-        .replace(/^\^\d\]:( |(\r?\n( {4}|\t)))?/g, "");
+        .replace(/\[$/g, '')
+        .replace(/\r?\n?!!! note[^]+$/, '')
+        .replace(/^\^\d\]:( |(\r?\n( {4}|\t)))?/g, '')
 
       // const num = numMatch[0].replace("[^", "").replace("]:\n    ", "");
-      const msgList: (VNode | string)[] = [];
-      i.split("\n").forEach((v) => {
-        if (v === "") return;
+      const msgList: (VNode | string)[] = []
+      i.split('\n').forEach((v) => {
+        if (v === '') return
 
-        let msg: string | (VNode | string)[] = v;
-        if (msg.search(/( {4}|\t).+/) !== -1) msg = msg.replace(/( {4}|\t)/, "");
-        msg = parseLink(msg);
-        msg = parseBold(msg);
+        let msg: string | (VNode | string)[] = v
+        if (msg.search(/( {4}|\t).+/) !== -1) msg = msg.replace(/( {4}|\t)/, '')
+        msg = parseLink(msg)
+        msg = parseBold(msg)
 
-        msgList.push(h("p", { class: "footer" }, { default: () => msg }));
-      });
-      olList.push(h(NLi, null, { default: () => msgList }));
+        msgList.push(h('p', { class: 'footer' }, { default: () => msg }))
+      })
+      olList.push(h(NLi, null, { default: () => msgList }))
     }
-    mdCD.push(h(NOl, null, { default: () => olList }));
+    mdCD.push(h(NOl, null, { default: () => olList }))
   }
-  MarkdownView.value = () => h("div", null, { default: () => mdCD });
-  showLoad.value = false;
-};
+  MarkdownView.value = () => h('div', null, { default: () => mdCD })
+  showLoad.value = false
+}
 const refreshButtonClick = () => {
-  main(props.url);
-};
+  main(props.url)
+}
 onMounted(() => {
-  main(props.url);
-});
+  main(props.url)
+})
 </script>

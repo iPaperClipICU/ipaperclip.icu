@@ -9,8 +9,10 @@
     readonly
     placeholder="搜索..."
     @click="
-      showModal = true;
-      inputInstRef?.blur();
+      () => {
+        showModal = true
+        inputInstRef?.blur()
+      }
     "
     ref="inputInstRef"
     v-model:value="searchValue"
@@ -23,7 +25,7 @@
     <template #suffix>
       <div v-if="os !== 'Mobile'" style="display: flex; align-items: center">
         <div class="search-input-suffix-item">
-          {{ os === "Mac" ? "⌘" : "Ctrl" }}
+          {{ os === 'Mac' ? '⌘' : 'Ctrl' }}
         </div>
         <div class="search-input-suffix-item" style="margin-left: 4px">K</div>
       </div>
@@ -36,7 +38,11 @@
     style="width: 425px; margin-top: 48px"
     hoverable
     :closable="false"
-    @update:show="(value: boolean) => { if (!value) unbindKeyEnter() }"
+    @update:show="
+      (value: boolean) => {
+        if (!value) unbindKeyEnter()
+      }
+    "
   >
     <n-input-group>
       <n-input
@@ -59,81 +65,84 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, watchEffect } from "vue";
-import { NIcon, NInput, NModal, NButton, NInputGroup, type InputInst } from "naive-ui";
-// import tinykeys from "tinykeys";
-import tinykeys from "../../node_modules/tinykeys/";
+import { ref, nextTick, watchEffect } from 'vue'
+import { NIcon, NInput, NModal, NButton, NInputGroup, type InputInst } from 'naive-ui'
+// @ts-expect-error ...
+import { tinykeys } from 'tinykeys'
+// import tinykeys from '../../node_modules/tinykeys/'
 
-import router from "@/router";
-import SearchICON from "@/ICON/SearchICON.vue";
-import { useUrlSearchParams } from "@vueuse/core";
+import router from '@/router'
+import SearchICON from '@/ICON/SearchICON.vue'
+import { useUrlSearchParams } from '@vueuse/core'
 
 const props = defineProps({
   mode: {
     type: Boolean,
   },
-});
+})
 const emit = defineEmits<{
-  (e: "change"): void;
-}>();
+  (e: 'change'): void
+}>()
 
-const inputInstRef = ref<InputInst | null>(null);
-const searchInputInstRef = ref<InputInst | null>(null);
-const os: "Mobile" | "Mac" | "Other" = (() => {
-  const userAgent = window.navigator.userAgent;
+const inputInstRef = ref<InputInst | null>(null)
+const searchInputInstRef = ref<InputInst | null>(null)
+const os: 'Mobile' | 'Mac' | 'Other' = (() => {
+  const userAgent = window.navigator.userAgent
 
-  if (userAgent.indexOf("iPhone") > -1 || userAgent.indexOf("Mobile") > -1) return "Mobile";
-  else if (userAgent.indexOf("Mac OS") > -1) return "Mac";
-  else return "Other";
-})();
-const showModal = ref<boolean>(false);
+  if (userAgent.indexOf('iPhone') > -1 || userAgent.indexOf('Mobile') > -1) return 'Mobile'
+  else if (userAgent.indexOf('Mac OS') > -1) return 'Mac'
+  else return 'Other'
+})()
+const showModal = ref<boolean>(false)
 const searchValue = ref<string>(
   (() => {
-    if (location.pathname !== "/search") {
-      return "";
+    if (location.pathname !== '/search') {
+      return ''
     } else {
-      const params = useUrlSearchParams("history");
-      return params.s ? String(params.s).toLocaleLowerCase() : "";
+      const params = useUrlSearchParams('history')
+      return params.s ? String(params.s).toLocaleLowerCase() : ''
     }
-  })()
-);
+  })(),
+)
 
 router.beforeEach((to) => {
-  if (to.name !== "Search") searchValue.value = "";
-});
+  if (to.name !== 'Search') searchValue.value = ''
+})
 watchEffect(async () => {
-  if (searchInputInstRef.value === null) await nextTick();
+  if (searchInputInstRef.value === null) await nextTick()
   if (showModal.value === true) {
-    searchInputInstRef.value?.focus();
+    searchInputInstRef.value?.focus()
   }
-});
+})
 tinykeys(window, {
-  "$mod+KeyK": (e) => {
-    showModal.value = true;
-    e.preventDefault();
-    searchInputInstRef.value?.focus();
+  '$mod+KeyK': (e: any) => {
+    showModal.value = true
+    e.preventDefault()
+    searchInputInstRef.value?.focus()
   },
-});
+})
 
-let unEnterTinyKeys: null | Function = null;
+let unEnterTinyKeys: null | (() => void) = null
 const unbindKeyEnter = () => {
-  unEnterTinyKeys && unEnterTinyKeys();
-};
+  if (unEnterTinyKeys) {
+    unEnterTinyKeys()
+  }
+}
 const bindKeyEnter = () => {
   unEnterTinyKeys = tinykeys(window, {
     Enter: () => {
-      searchButtonClick();
+      searchButtonClick()
     },
-  });
-};
+  })
+}
 
 // 搜索
 const searchButtonClick = () => {
-  showModal.value = false;
-  unbindKeyEnter();
-  emit("change");
-  router.push(`/search?s=${searchValue.value}`);
-};
+  showModal.value = false
+  // unbindKeyEnter()
+  emit('change')
+  router.push(`/search?s=${searchValue.value}`)
+}
 </script>
 
 <style>

@@ -60,38 +60,38 @@
 </template>
 
 <script setup lang="ts">
-import { NBackTop, NCollapseTransition } from "naive-ui";
-import { NA, NP, NAlert, NLayout, NLayoutHeader, NLayoutSider, NLayoutContent } from "naive-ui";
-import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from "naive-ui"; // NaiveUI Config
+import { NBackTop, NCollapseTransition } from 'naive-ui'
+import { NA, NP, NAlert, NLayout, NLayoutHeader, NLayoutSider, NLayoutContent } from 'naive-ui'
+import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from 'naive-ui' // NaiveUI Config
 
-import { usePublicStore, useDownloadStore } from "./stores";
+import { usePublicStore, useDownloadStore } from './stores'
 
-import HeadComponent from "@/components/HeadComponent.vue";
-import MenuComponent from "@/components/MenuComponent.vue";
-import DownloadControlCard from "@/components/DownloadControlCard.vue";
+import HeadComponent from '@/components/HeadComponent.vue'
+import MenuComponent from '@/components/MenuComponent.vue'
+import DownloadControlCard from '@/components/DownloadControlCard.vue'
 
-const version = import.meta.env.CF_PAGES_COMMIT_SHA.slice(0, 7);
-const publicStore = usePublicStore();
-const downloadStore = useDownloadStore();
+const version = import.meta.env.CF_PAGES_COMMIT_SHA.slice(0, 7)
+const publicStore = usePublicStore()
+const downloadStore = useDownloadStore()
 
 // 平台
 const resizeEvent = () => {
-  const pageWidth = window.innerWidth;
-  if (pageWidth <= 825) publicStore.deviceType = "phone";
-  else publicStore.deviceType = "pc";
-};
-window.addEventListener("resize", () => resizeEvent());
-resizeEvent();
+  const pageWidth = window.innerWidth
+  if (pageWidth <= 825) publicStore.deviceType = 'phone'
+  else publicStore.deviceType = 'pc'
+}
+window.addEventListener('resize', () => resizeEvent())
+resizeEvent()
 
 // showSomething
 const initShowSomething = async () => {
-  const resp = await fetch("/test");
-  if (resp.headers.get("show-something") !== "false") {
-    publicStore.showSomething = true;
-    publicStore.CDNDomain = "https://r2.ipaperclip.icu";
+  const resp = await fetch('/test')
+  if (resp.headers.get('show-something') !== 'false') {
+    publicStore.showSomething = true
+    publicStore.CDNDomain = 'https://r2.ipaperclip.icu'
   }
-};
-initShowSomething();
+}
+initShowSomething()
 </script>
 
 <style scoped>

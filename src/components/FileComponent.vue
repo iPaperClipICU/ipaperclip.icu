@@ -46,96 +46,98 @@
 </template>
 
 <script setup lang="ts">
-import { NGi, NCard, NGrid, NModal, NButton } from "naive-ui";
-import { ref, watch, onMounted, nextTick, onBeforeUnmount, type PropType } from "vue";
+import { NGi, NCard, NGrid, NModal, NButton } from 'naive-ui'
+import { ref, watch, onMounted, nextTick, onBeforeUnmount, type PropType } from 'vue'
 
-import type { FileData } from "@/types";
-import { getSign } from "@/assets/utils";
-import { usePublicStore } from "@/stores";
+import type { FileData } from '@/types'
+import { getSign } from '@/assets/utils'
+import { usePublicStore } from '@/stores'
 
 // Vidstack
-import "vidstack/define/media-player.js";
-import { defineCustomElements } from "vidstack/elements";
-import type { CommunitySkinTranslations } from "vidstack";
+import 'vidstack/define/media-player.js'
+import { defineCustomElements } from 'vidstack/elements'
+import type { CommunitySkinTranslations } from 'vidstack'
 
 const props = defineProps({
   data: {
     type: Object as PropType<FileData>,
     required: true,
   },
-});
-const publicStore = usePublicStore();
-const remoteSign = import.meta.env.TencentCDN_RemoteSign === "true";
+})
+const publicStore = usePublicStore()
+const remoteSign = import.meta.env.TencentCDN_RemoteSign === 'true'
 
-const showCaptchaRetryCard = ref<boolean>(false);
-const showModal = ref<boolean>(false);
-const playUrl = ref<string>();
-let timeoutIds: (string | number | NodeJS.Timeout | undefined)[] = [];
+const showCaptchaRetryCard = ref<boolean>(false)
+const showModal = ref<boolean>(false)
+const playUrl = ref<string>()
+let timeoutIds: (string | number | NodeJS.Timeout | undefined)[] = []
 onBeforeUnmount(() => {
-  for (const i of timeoutIds) clearTimeout(i);
-  timeoutIds = [];
-});
+  for (const i of timeoutIds) clearTimeout(i)
+  timeoutIds = []
+})
 const updatePlayUrl = async (data: FileData, CDNDomain: string) => {
-  for (const i of timeoutIds) clearTimeout(i);
-  timeoutIds = [];
-  const fileUrl = `${CDNDomain}/${data.fileUri}`;
-  const u = new URL(fileUrl);
-  const result = await getSign(fileUrl, showModal);
-  if (result) playUrl.value = result;
-  showCaptchaRetryCard.value = u.host === "ipaperclip-file.xodvnm.cn";
+  for (const i of timeoutIds) clearTimeout(i)
+  timeoutIds = []
+  const fileUrl = `${CDNDomain}/${data.fileUri}`
+  const u = new URL(fileUrl)
+  const result = await getSign(fileUrl, showModal)
+  if (result) playUrl.value = result
+  showCaptchaRetryCard.value = u.host === 'ipaperclip-file.xodvnm.cn'
   if (result) {
     timeoutIds.push(
       setTimeout(async () => {
-        let player = document.querySelector("media-player") as any;
-        const nowCurrentTime = player.currentTime as number;
-        await updatePlayUrl(props.data, publicStore.CDNDomain);
-        await defineCustomElements();
-        await nextTick();
-        const newPlayer = document.querySelector("media-player") as any;
-        newPlayer.addEventListener("can-play", () => {
-          newPlayer.currentTime = nowCurrentTime;
-        });
+        const player = document.querySelector('media-player') as any
+        const nowCurrentTime = player.currentTime as number
+        await updatePlayUrl(props.data, publicStore.CDNDomain)
+        await defineCustomElements()
+        await nextTick()
+        const newPlayer = document.querySelector('media-player') as any
+        newPlayer.addEventListener('can-play', () => {
+          newPlayer.currentTime = nowCurrentTime
+        })
       }, 600000),
-    );
+    )
   }
-};
+}
 watch([props, publicStore], async ([props, publicStore]) => {
-  await updatePlayUrl(props.data, publicStore.CDNDomain);
-});
-updatePlayUrl(props.data, publicStore.CDNDomain);
+  await updatePlayUrl(props.data, publicStore.CDNDomain)
+})
+updatePlayUrl(props.data, publicStore.CDNDomain)
 
 onMounted(async () => {
-  await defineCustomElements();
+  if (props.data.type === 'audio' || props.data.type === 'video') {
+    await defineCustomElements()
 
-  const SPANISH: CommunitySkinTranslations = {
-    Audio: "音频",
-    Auto: "自动",
-    Captions: "字幕",
-    Chapters: "章节",
-    Default: "默认",
-    Mute: "静音",
-    Normal: "正常",
-    Off: "关闭",
-    Pause: "暂停",
-    Play: "播放",
-    Speed: "速度",
-    Quality: "质量",
-    Settings: "设置",
-    Unmute: "取消静音",
-    "Seek Forward": "快进",
-    "Seek Backward": "快退",
-    "Closed-Captions On": "开启字幕",
-    "Closed-Captions Off": "关闭字幕",
-    "Enter Fullscreen": "进入全屏",
-    "Exit Fullscreen": "退出全屏",
-    "Enter PiP": "进入画中画",
-    "Exit PiP": "退出画中画",
-  };
-  try {
-    const skin = document.querySelector("media-community-skin") as any;
-    skin.translations = SPANISH;
-  } catch (e) {
-    console.error(e);
+    const SPANISH: CommunitySkinTranslations = {
+      Audio: '音频',
+      Auto: '自动',
+      Captions: '字幕',
+      Chapters: '章节',
+      Default: '默认',
+      Mute: '静音',
+      Normal: '正常',
+      Off: '关闭',
+      Pause: '暂停',
+      Play: '播放',
+      Speed: '速度',
+      Quality: '质量',
+      Settings: '设置',
+      Unmute: '取消静音',
+      'Seek Forward': '快进',
+      'Seek Backward': '快退',
+      'Closed-Captions On': '开启字幕',
+      'Closed-Captions Off': '关闭字幕',
+      'Enter Fullscreen': '进入全屏',
+      'Exit Fullscreen': '退出全屏',
+      'Enter PiP': '进入画中画',
+      'Exit PiP': '退出画中画',
+    }
+    try {
+      const skin = document.querySelector('media-community-skin') as any
+      skin.translations = SPANISH
+    } catch (e) {
+      console.error(e)
+    }
   }
-});
+})
 </script>

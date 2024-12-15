@@ -18,8 +18,6 @@ coverage
 /cypress/screenshots/
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
 .idea
 *.suo
 *.ntvs*
@@ -27,14 +25,7 @@ coverage
 *.sln
 *.sw?
 
-# Yarn Berry
-.yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-.pnp.*
+*.tsbuildinfo
 
 .vercel
 stats.html

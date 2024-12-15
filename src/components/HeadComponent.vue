@@ -33,20 +33,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { NIcon, NDrawer, NDrawerContent } from "naive-ui";
+import { ref } from 'vue'
+import { NIcon, NDrawer, NDrawerContent } from 'naive-ui'
 
-import router from "@/router";
-import { usePublicStore } from "@/stores";
+import router from '@/router'
+import { usePublicStore } from '@/stores'
 
-import MenuICON from "@/ICON/MenuICON.vue";
+import MenuICON from '@/ICON/MenuICON.vue'
 
-import SearchCard from "./SearchCard.vue";
-import MenuComponent from "@/components/MenuComponent.vue";
+import SearchCard from './SearchCard.vue'
+import MenuComponent from '@/components/MenuComponent.vue'
 
-const publicStore = usePublicStore();
+const publicStore = usePublicStore()
 
-const showDrawer = ref<boolean>(false);
+const showDrawer = ref<boolean>(false)
 </script>
 
 <style>

@@ -32,60 +32,60 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { NTag, NH2, NSpace, NRadio, NRadioGroup, NCard, NButton } from "naive-ui";
+import { ref } from 'vue'
+import { NTag, NH2, NSpace, NRadio, NRadioGroup, NCard, NButton } from 'naive-ui'
 
-import router from "@/router";
-import type { FileData } from "@/types";
-import { usePublicStore } from "@/stores";
-import { getFileInfo } from "@/assets/utils";
+import router from '@/router'
+import type { FileData } from '@/types'
+import { usePublicStore } from '@/stores'
+import { getFileInfo } from '@/assets/utils'
 
-import FileComponent from "@/components/FileComponent.vue";
-import MarkdownPlayer from "@/components/MarkdownPlayer.vue";
+import FileComponent from '@/components/FileComponent.vue'
+import MarkdownPlayer from '@/components/MarkdownPlayer.vue'
 
-const publicStore = usePublicStore();
+const publicStore = usePublicStore()
 
 const getFileData = (): FileData => {
   const pathList = decodeURI(location.pathname)
-    .split("/")
-    .filter((value) => value !== "");
-  const fileName = pathList.length === 2 ? pathList[1] : pathList[2];
-  const [filesName, tagName, docPath] = publicStore.data.searchData[fileName];
+    .split('/')
+    .filter((value) => value !== '')
+  const fileName = pathList.length === 2 ? pathList[1] : pathList[2]
+  const [filesName, tagName, docPath] = publicStore.data.searchData[fileName]
   return {
     ...getFileInfo(fileName),
-    fileUri: `video/${filesName}${tagName !== null ? `/${tagName}` : ""}/${fileName}`,
+    fileUri: `video/${filesName}${tagName !== null ? `/${tagName}` : ''}/${fileName}`,
     tagName: filesName,
     docUrl:
       docPath !== null
         ? `https://cdn.jsdelivr.net/gh/iPaperClipICU/paperclip-doc/${docPath}`
         : null,
-  };
-};
-const fileData = ref<FileData>(getFileData());
+  }
+}
+const fileData = ref<FileData>(getFileData())
 router.afterEach((to) => {
-  if (String(to.name).startsWith("FILE:")) fileData.value = getFileData();
-});
+  if (String(to.name).startsWith('FILE:')) fileData.value = getFileData()
+})
 
 // Chang CDNDomain
-const radioValue = ref<string | null>(publicStore.CDNDomain);
+const radioValue = ref<string | null>(publicStore.CDNDomain)
 const radioOption: {
-  label: string;
-  value: string;
+  label: string
+  value: string
 }[] = [
   {
-    label: "Auto",
-    value: "https://ipaperclip-file.xodvnm.cn",
+    label: 'Auto',
+    value: 'https://ipaperclip-file.xodvnm.cn',
   },
   {
-    label: "Cloudflare",
-    value: "https://r2.ipaperclip.icu",
+    label: 'Cloudflare',
+    value: 'https://r2.ipaperclip.icu',
   },
-];
+]
 const radioChange = (value: string) => {
-  publicStore.CDNDomain = value;
-  localStorage.setItem("CDNDomain", value);
-};
+  publicStore.CDNDomain = value
+  localStorage.setItem('CDNDomain', value)
+}
 const download = () => {
-  window.open(`https://r2.ipaperclip.icu/${fileData.value.fileUri}`);
-};
+  window.open(`https://r2.ipaperclip.icu/${fileData.value.fileUri}`)
+}
 </script>

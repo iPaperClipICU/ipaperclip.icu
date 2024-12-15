@@ -50,9 +50,9 @@
 </template>
 
 <script setup lang="ts">
-import { NButton, NSelect, NPagination } from "naive-ui";
+import { NButton, NSelect, NPagination } from 'naive-ui'
 
-import { usePublicStore } from "@/stores";
+import { usePublicStore } from '@/stores'
 
 const props = defineProps({
   page: {
@@ -67,26 +67,26 @@ const props = defineProps({
     type: Number,
     required: true,
   },
-});
-const emit = defineEmits(["update:page", "update:pageSize"]);
-const publicStore = usePublicStore();
+})
+const emit = defineEmits(['update:page', 'update:pageSize'])
+const publicStore = usePublicStore()
 
 const selectOptions = [
   {
-    label: "10/页",
+    label: '10/页',
     value: 10,
   },
   {
-    label: "20/页",
+    label: '20/页',
     value: 20,
   },
   {
-    label: "30/页",
+    label: '30/页',
     value: 30,
   },
   {
-    label: "40/页",
+    label: '40/页',
     value: 40,
   },
-];
+]
 </script>

@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { NIcon } from "naive-ui";
+import { NIcon } from 'naive-ui'
 
-defineProps(["type"]);
+defineProps(['type'])
 </script>

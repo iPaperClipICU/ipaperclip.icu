@@ -38,10 +38,10 @@
     :data="downloadStore.select"
     @close="
       (value, needDelete) => {
-        downloadModal = value;
+        downloadModal = value
         if (needDelete === undefined || needDelete === true) {
-          downloadStore.deleteDownloadSelect();
-          downloadStore.switch = false;
+          downloadStore.deleteDownloadSelect()
+          downloadStore.switch = false
         }
       }
     "
@@ -49,85 +49,85 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRoute } from "vue-router";
-import { useUrlSearchParams } from "@vueuse/core";
-import { NCard, NSpace, NButton, NButtonGroup, NTooltip } from "naive-ui";
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { useUrlSearchParams } from '@vueuse/core'
+import { NCard, NSpace, NButton, NButtonGroup, NTooltip } from 'naive-ui'
 
-import router from "@/router";
-import { useDownloadStore, usePublicStore } from "@/stores";
-import NaiveUIDiscreteAPI from "@/assets/NaiveUIDiscreteAPI";
+import router from '@/router'
+import { useDownloadStore, usePublicStore } from '@/stores'
+import NaiveUIDiscreteAPI from '@/assets/NaiveUIDiscreteAPI'
 
-import DownloadModal from "@/components/DownloadModal.vue";
+import DownloadModal from '@/components/DownloadModal.vue'
 
-const route = useRoute();
-const publicStore = usePublicStore();
-const downloadStore = useDownloadStore();
+const route = useRoute()
+const publicStore = usePublicStore()
+const downloadStore = useDownloadStore()
 
-const downloadModal = ref<boolean>(false);
+const downloadModal = ref<boolean>(false)
 
 const downloadButtonClick = () => {
   if (Object.keys(downloadStore.select).length === 0) {
-    NaiveUIDiscreteAPI.message.warning("您还没有选择任何文件");
-  } else downloadModal.value = true;
-};
+    NaiveUIDiscreteAPI.message.warning('您还没有选择任何文件')
+  } else downloadModal.value = true
+}
 
 const getAllData = () => {
-  const routeName = String(route.name ?? "");
+  const routeName = String(route.name ?? '')
 
-  const t: string[] = [];
-  if (routeName.startsWith("FILES:")) {
+  const t: string[] = []
+  if (routeName.startsWith('FILES:')) {
     const [filesName, tagName] = route.path
-      .replace("FILES:", "")
-      .split("/")
-      .filter((v) => v !== "");
-    const filesData = publicStore.data.data[filesName];
+      .replace('FILES:', '')
+      .split('/')
+      .filter((v) => v !== '')
+    const filesData = publicStore.data.data[filesName]
     if (Array.isArray(filesData)) {
       // 无tag
       filesData.forEach((fileName) => {
-        t.push(`/${filesName}/${fileName}`);
-      });
+        t.push(`/${filesName}/${fileName}`)
+      })
     } else {
       // 有tag
       filesData[tagName].forEach((fileName) => {
-        t.push(`/${filesName}/${tagName}/${fileName}`);
-      });
+        t.push(`/${filesName}/${tagName}/${fileName}`)
+      })
     }
-  } else if (routeName === "Search") {
-    const searchParams = useUrlSearchParams("history");
-    const keyword = String(searchParams.s || "").toLocaleLowerCase();
-    if (!["undefined", "null"].includes(keyword) && keyword.replace(/\s+/g, "") !== "") {
+  } else if (routeName === 'Search') {
+    const searchParams = useUrlSearchParams('history')
+    const keyword = String(searchParams.s || '').toLocaleLowerCase()
+    if (!['undefined', 'null'].includes(keyword) && keyword.replace(/\s+/g, '') !== '') {
       for (const fileName in publicStore.data.searchData) {
         if (fileName.toLocaleLowerCase().indexOf(keyword) != -1) {
-          const [filesName, tagName] = publicStore.data.searchData[fileName];
-          t.push(`/${filesName}${tagName !== null ? `/${tagName}` : ""}/${fileName}`);
+          const [filesName, tagName] = publicStore.data.searchData[fileName]
+          t.push(`/${filesName}${tagName !== null ? `/${tagName}` : ''}/${fileName}`)
         }
       }
     }
   }
 
-  return t;
-};
-const allData = ref<string[]>(getAllData());
-router.afterEach(() => (allData.value = getAllData()));
+  return t
+}
+const allData = ref<string[]>(getAllData())
+router.afterEach(() => (allData.value = getAllData()))
 
 /**
  * 全选
  * @param at 是否只选择当前页面
  */
 const selectAll = (at: boolean, remove: boolean = false) => {
-  if (allData.value.length <= 0) return;
-  const searchParams = useUrlSearchParams("history");
-  const p = Number(searchParams.p || 1);
-  const pageSize = publicStore.pageSize;
+  if (allData.value.length <= 0) return
+  const searchParams = useUrlSearchParams('history')
+  const p = Number(searchParams.p || 1)
+  const pageSize = publicStore.pageSize
 
-  let selectData: string[] = [];
+  let selectData: string[] = []
   if (at) {
     // 当前页
-    const startIndex = (p - 1) * pageSize;
-    selectData = allData.value.slice(startIndex, startIndex + pageSize);
-  } else selectData = allData.value;
+    const startIndex = (p - 1) * pageSize
+    selectData = allData.value.slice(startIndex, startIndex + pageSize)
+  } else selectData = allData.value
 
-  selectData.forEach((value) => downloadStore.changeDownloadSelect(value, remove));
-};
+  selectData.forEach((value) => downloadStore.changeDownloadSelect(value, remove))
+}
 </script>

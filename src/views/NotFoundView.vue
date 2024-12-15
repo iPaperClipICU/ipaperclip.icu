@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { NCard, NResult, NButton } from "naive-ui";
+import { NCard, NResult, NButton } from 'naive-ui'
 
-import router from "@/router";
+import router from '@/router'
 </script>
