@@ -9,9 +9,8 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
-// @ts-expect-error ...
 import d from './src/assets/data.json'
-const data = d as {
+const data = d as unknown as {
   menuData: [string, string[]?][]
   searchData: Record<string, [string, string, string | null, number]>
   data: Record<string, Record<string, string[]> | string[]>
