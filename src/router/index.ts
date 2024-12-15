@@ -7,6 +7,7 @@ import NaiveUIDiscreteAPI from '@/assets/NaiveUIDiscreteAPI'
 import HomeView from '@/views/HomeView.vue'
 import FilesView from '@/views/FilesView.vue'
 import SearchView from '@/views/SearchView.vue'
+import JbczView from '@/views/JbczView.vue'
 const FileView = () => import('@/views/FileView.vue')
 const NotFoundView = () => import('@/views/NotFoundView.vue')
 
@@ -22,6 +23,11 @@ const routes: RouteRecordRaw[] = [
     path: '/search',
     name: 'Search',
     component: SearchView,
+  },
+  {
+    path: '/jbcz',
+    name: 'Jibencaozuo',
+    component: JbczView,
   },
   {
     path: '/404',

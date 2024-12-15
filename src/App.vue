@@ -25,18 +25,23 @@
           >
             <n-alert title="温馨提示" type="info" style="margin-bottom: 5px">
               <n-p>本网站并不是由 回形针PaperClip/基本操作PlayClass 的官方运营。</n-p>
-              <div>关于在访问 基本操作 时出现问题，请访问以下域名并信任证书以解决</div>
               <div>
-                -
-                <n-a href="https://api.jibencaozuo.com/" target="_blank"
-                  >https://api.jibencaozuo.com/</n-a
+                关于在访问 基本操作 时出现问题，请前往
+                <n-button
+                  @click="
+                    (e) => {
+                      e.preventDefault()
+                      $router.push('/jbcz')
+                    }
+                  "
+                  text
+                  type="primary"
+                  tag="a"
+                  href="/jbcz"
                 >
-              </div>
-              <div>
-                -
-                <n-a href="https://media.paperclipclub.net/" target="_blank"
-                  >https://media.paperclipclub.net/</n-a
-                >
+                  测试页面
+                </n-button>
+                获取解决方案
               </div>
             </n-alert>
             <n-collapse-transition :show="downloadStore.switch">
@@ -61,7 +66,16 @@
 
 <script setup lang="ts">
 import { NBackTop, NCollapseTransition } from 'naive-ui'
-import { NA, NP, NAlert, NLayout, NLayoutHeader, NLayoutSider, NLayoutContent } from 'naive-ui'
+import {
+  NA,
+  NP,
+  NAlert,
+  NButton,
+  NLayout,
+  NLayoutHeader,
+  NLayoutSider,
+  NLayoutContent,
+} from 'naive-ui'
 import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from 'naive-ui' // NaiveUI Config
 
 import { usePublicStore, useDownloadStore } from './stores'
