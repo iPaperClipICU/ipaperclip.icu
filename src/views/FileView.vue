@@ -74,7 +74,7 @@ const radioOption: {
 }[] = [
   {
     label: 'Auto',
-    value: 'https://ipaperclip-file.xodvnm.cn',
+    value: 'https://ipaperclip-file.cfm.fan',
   },
   {
     label: 'Cloudflare',

@@ -82,7 +82,7 @@ const updatePlayUrl = async (data: FileData, CDNDomain: string) => {
   const u = new URL(fileUrl)
   const result = await getSign(fileUrl, showModal)
   if (result) playUrl.value = result
-  showCaptchaRetryCard.value = u.host === 'ipaperclip-file.xodvnm.cn'
+  showCaptchaRetryCard.value = u.host === 'ipaperclip-file.cfm.fan'
   if (result) {
     timeoutIds.push(
       setTimeout(async () => {

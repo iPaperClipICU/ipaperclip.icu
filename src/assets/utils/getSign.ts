@@ -146,7 +146,7 @@ export const getSign = async (
   vaptchaModalRef: Ref<boolean>,
 ): Promise<string | null> => {
   const u = new URL(fileUrl)
-  if (u.host === 'ipaperclip-file.xodvnm.cn') {
+  if (u.host === 'ipaperclip-file.cfm.fan') {
     if (import.meta.env.TencentCDN_RemoteSign !== 'true') return localSign(u)
     const loadingMessage = NaiveUIDiscreteAPI.message.loading('人机验证中~', { duration: 0 })
     // Google reCaptcha

@@ -25,7 +25,7 @@ export const usePublicStore = defineStore('public', {
       }
     })(),
     CDNDomain: (() => {
-      const CDNDomainList = ['https://ipaperclip-file.xodvnm.cn', 'https://r2.ipaperclip.icu']
+      const CDNDomainList = ['https://ipaperclip-file.cfm.fan', 'https://r2.ipaperclip.icu']
       const local = localStorage.getItem('CDNDomain')
       if (local === null || !CDNDomainList.includes(local)) {
         localStorage.setItem('CDNDomain', CDNDomainList[0])
