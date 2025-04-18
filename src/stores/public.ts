@@ -24,17 +24,18 @@ export const usePublicStore = defineStore('public', {
         return 20
       }
     })(),
-    CDNDomain: (() => {
-      const CDNDomainList = ['https://ipaperclip-file.cfm.fan', 'https://r2.ipaperclip.icu']
-      const local = localStorage.getItem('CDNDomain')
-      if (local === null || !CDNDomainList.includes(local)) {
-        localStorage.setItem('CDNDomain', CDNDomainList[0])
-        return CDNDomainList[0]
-      } else if (local === 'https://cf.ipaperclip-icu.cyou') {
-        localStorage.setItem('CDNDomain', CDNDomainList[1])
-        return CDNDomainList[1]
-      } else return local
-    })(),
+    // CDNDomain: (() => {
+    //   const CDNDomainList = ['https://ipaperclip-file.cfm.fan', 'https://r2.ipaperclip.icu']
+    //   const local = localStorage.getItem('CDNDomain')
+    //   if (local === null || !CDNDomainList.includes(local)) {
+    //     localStorage.setItem('CDNDomain', CDNDomainList[0])
+    //     return CDNDomainList[0]
+    //   } else if (local === 'https://cf.ipaperclip-icu.cyou') {
+    //     localStorage.setItem('CDNDomain', CDNDomainList[1])
+    //     return CDNDomainList[1]
+    //   } else return local
+    // })(),
+    CDNDomain: 'https://r2.ipaperclip.icu',
   }),
   actions: {
     changePageSize(value: number) {

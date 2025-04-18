@@ -4,7 +4,7 @@
     <n-h2 style="margin-bottom: 0">{{ fileData.name }}</n-h2>
   </n-space>
   <FileComponent :data="fileData" style="margin-bottom: 15px" />
-  <n-card hoverable style="margin-bottom: 15px" size="small">
+  <!-- <n-card hoverable style="margin-bottom: 15px" size="small">
     <n-space justify="space-between" align="center">
       <div>
         <n-space align="baseline">
@@ -27,7 +27,7 @@
         <n-button strong secondary type="primary" size="small" @click="download">下载</n-button>
       </div>
     </n-space>
-  </n-card>
+  </n-card> -->
   <MarkdownPlayer v-if="fileData.docUrl !== null" :url="fileData.docUrl" />
 </template>
 
