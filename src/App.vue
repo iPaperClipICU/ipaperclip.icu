@@ -43,6 +43,7 @@
                 </n-button>
                 获取解决方案
               </div>
+              <n-p>关于交互视频无法正常播放：官方没向视频服务商续费</n-p>
             </n-alert>
             <n-collapse-transition :show="downloadStore.switch">
               <DownloadControlCard />
