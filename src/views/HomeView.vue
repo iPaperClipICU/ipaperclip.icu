@@ -57,6 +57,10 @@
         <n-a href="https://paperclip.wiki/">paperclip.wiki</n-a>
       </n-p>
     </div>
+    <div>
+      <n-h2>站点数据</n-h2>
+      <RequestsInfoShowcase />
+    </div>
     <div class="item">
       <n-h2>R.I.P</n-h2>
       <n-grid cols="1 345:2" :x-gap="5" :y-gap="5" style="min-height: 90px">
@@ -93,6 +97,7 @@
 import { NA, NP, NGi, NH2, NCard, NGrid, NText } from 'naive-ui'
 
 import DownloadZipFile from '@/components/HomeView/DownloadZipFile.vue'
+import RequestsInfoShowcase from '@/components/HomeView/RequestsInfoShowcase.vue'
 </script>
 
 <style>

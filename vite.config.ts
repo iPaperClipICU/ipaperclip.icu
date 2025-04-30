@@ -30,6 +30,12 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
+    proxy: {
+      '/api/v2': {
+        target: 'http://127.0.0.1:8787',
+        changeOrigin: true,
+      },
+    },
   },
   envPrefix: ['VITE_', 'TencentCDN_', 'CF_PAGES'],
   plugins: [
