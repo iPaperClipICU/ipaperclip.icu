@@ -46,7 +46,7 @@ const main = async () => {
   try {
     const resp = await fetch('/api/v2/analytics/httpRequests', {
       headers: {
-        version: ' ',
+        version: '""',
       },
     })
     if (resp.ok) {
