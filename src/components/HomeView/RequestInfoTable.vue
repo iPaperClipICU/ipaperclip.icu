@@ -3,7 +3,7 @@
   <td>{{ data ?? '错误' }}</td>
   <td @mouseenter="numberAnimationInstRef?.play()">
     <n-number-animation
-      v-if="requests"
+      v-if="requests !== undefined"
       ref="numberAnimationInstRef"
       :from="0"
       :to="requests"
