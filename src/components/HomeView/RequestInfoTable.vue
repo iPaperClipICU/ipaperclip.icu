@@ -2,14 +2,15 @@
   <td>{{ getName(name) }}</td>
   <td>{{ data ?? '错误' }}</td>
   <td @mouseenter="numberAnimationInstRef?.play()">
+    <span v-if="requests === undefined">错误</span>
+    <span v-else-if="requests === 0">小于 1000</span>
     <n-number-animation
-      v-if="requests !== undefined"
+      v-else
       ref="numberAnimationInstRef"
       :from="0"
       :to="requests"
       show-separator
     />
-    <span v-else>错误</span>
   </td>
 </template>
 
