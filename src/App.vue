@@ -49,13 +49,13 @@
               <DownloadControlCard />
             </n-collapse-transition>
             <router-view />
-            <div style="text-align: center">
+            <!-- <div style="text-align: center">
               This site is protected by reCAPTCHA Enterprise and the Google
               <n-a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</n-a>
               and
               <n-a href="https://policies.google.com/terms" target="_blank">Terms of Service</n-a>
               apply.
-            </div>
+            </div> -->
             <div style="text-align: center">Version: {{ version }}</div>
           </div>
         </n-layout-content>
