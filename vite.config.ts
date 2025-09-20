@@ -46,14 +46,14 @@ export default defineConfig({
       name: 'html',
       apply: 'build',
       transformIndexHtml(html) {
-        html = html.replace(
-          '<!-- CloudFlareWebAnalytics -->',
-          `<script
-            defer
-            src='https://static.cloudflareinsights.com/beacon.min.js'
-            data-cf-beacon='{"token": "a9d6db727c5a4b3483f3bb80358921ed"}'
-          ></script>`,
-        )
+        // html = html.replace(
+        //   '<!-- CloudFlareWebAnalytics -->',
+        //   `<script
+        //     defer
+        //     src='https://static.cloudflareinsights.com/beacon.min.js'
+        //     data-cf-beacon='{"token": "a9d6db727c5a4b3483f3bb80358921ed"}'
+        //   ></script>`,
+        // )
         // html = html.replace(
         //   "<!-- MicrosoftClarity -->",
         //   `<script type="text/javascript">
