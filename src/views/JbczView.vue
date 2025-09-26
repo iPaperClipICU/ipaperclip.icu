@@ -50,10 +50,12 @@ const state = ref<
 })
 
 const domainList = [
-  'https://media.paperclipclub.net/',
+  // 'https://media.paperclipclub.net/',
   'https://api.jibencaozuo.com/',
   'https://jibencaozuo.com/',
   'https://media-links.jibencaozuo.com/',
+  'https://act-server.jibencaozuo.com/',
+  'https://rs.jibencaozuo.com/',
 ]
 
 const check = async (domain: string) => {
