@@ -16,15 +16,13 @@ const data = d as unknown as {
   data: Record<string, Record<string, string[]> | string[]>
 }
 
-const getSitemapXML = (data: string[]) => {
-  return [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-    ...data.map((v) =>
-      ['  <url>', `    <loc>${v}</loc>`, '    <priority>1.0</priority>', '  </url>'].join('\n'),
-    ),
-    '</urlset>',
-  ].join('\n')
+const escapeXml = (str: string) => {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;')
 }
 
 // https://vite.dev/config/
@@ -117,9 +115,7 @@ export default defineConfig({
           '<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
           ...outList.map((v) =>
-            ['  <url>', `    <loc>${v}</loc>`, '    <priority>1.0</priority>', '  </url>'].join(
-              '\n',
-            ),
+            ['  <url>', `    <loc>${escapeXml(v)}</loc>`, '  </url>'].join('\n'),
           ),
           '</urlset>',
         ].join('\n')
