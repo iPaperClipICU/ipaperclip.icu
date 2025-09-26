@@ -16,6 +16,17 @@ const data = d as unknown as {
   data: Record<string, Record<string, string[]> | string[]>
 }
 
+const getSitemapXML = (data: string[]) => {
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...data.map((v) =>
+      ['  <url>', `    <loc>${v}</loc>`, '    <priority>1.0</priority>', '  </url>'].join('\n'),
+    ),
+    '</urlset>',
+  ].join('\n')
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   build: {
@@ -102,6 +113,18 @@ export default defineConfig({
           }
         }
 
+        const xml = [
+          '<?xml version="1.0" encoding="UTF-8"?>',
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+          ...outList.map((v) =>
+            ['  <url>', `    <loc>${v}</loc>`, '    <priority>1.0</priority>', '  </url>'].join(
+              '\n',
+            ),
+          ),
+          '</urlset>',
+        ].join('\n')
+
+        fs.writeFileSync(path.resolve(__dirname, 'dist/sitemap.xml'), xml, 'utf-8')
         fs.writeFileSync(path.resolve(__dirname, 'dist/sitemap.txt'), outList.join('\n'), 'utf-8')
         console.log(
           `🎉 Sitemap generation successful! There are a total of ${outList.length} links.`,
