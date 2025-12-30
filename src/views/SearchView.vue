@@ -49,7 +49,7 @@ const search = (keyword: string) => {
   const result: FilesListData = []
   for (const fileName in publicStore.data.searchData) {
     if (fileName.toLocaleLowerCase().indexOf(keyword) != -1) {
-      const [filesName, tagName] = publicStore.data.searchData[fileName]
+      const [filesName, tagName] = publicStore.data.searchData[fileName]!
       result.push({
         ...getFileInfo(fileName),
         uri: `/${filesName}${tagName !== null ? `/${tagName}` : ''}/${fileName}`,

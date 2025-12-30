@@ -50,9 +50,9 @@ const getFileData = (): FileData => {
     .split('/')
     .filter((value) => value !== '')
   const fileName = pathList.length === 2 ? pathList[1] : pathList[2]
-  const [filesName, tagName, docPath] = publicStore.data.searchData[fileName]
+  const [filesName, tagName, docPath] = publicStore.data.searchData[fileName!]!
   return {
-    ...getFileInfo(fileName),
+    ...getFileInfo(fileName!),
     fileUri: `video/${filesName}${tagName !== null ? `/${tagName}` : ''}/${fileName}`,
     tagName: filesName,
     docUrl:

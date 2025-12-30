@@ -138,17 +138,17 @@ const main = async (url: string) => {
 
     let childrenList: (VNode | string)[] = []
     for (const str of strs) {
-      if (typeof str === 'string' && str.search(REG[0]) !== -1) {
+      if (typeof str === 'string' && str.search(REG[0]!) !== -1) {
         // **bold**
-        const match = (str.match(REG[0]) as RegExpMatchArray)[0]
+        const match = (str.match(REG[0]!) as RegExpMatchArray)[0]
         const name = match.replace(/^\*\*/, '').replace(/\*\*$/, '')
         str.split(match).forEach((value, index) => {
           if (index !== 0) childrenList.push(h('b', null, name))
           childrenList = childrenList.concat(parseBold(value))
         })
-      } else if (typeof str === 'string' && str.search(REG[1]) !== -1) {
+      } else if (typeof str === 'string' && str.search(REG[1]!) !== -1) {
         // __bold__
-        const match = (str.match(REG[1]) as RegExpMatchArray)[0]
+        const match = (str.match(REG[1]!) as RegExpMatchArray)[0]
         const name = match.replace(/^__/, '').replace(/__$/, '')
         str.split(match).forEach((value, index) => {
           if (index !== 0) childrenList.push(h('b', null, name))
@@ -169,9 +169,9 @@ const main = async (url: string) => {
 
     let childrenList: (VNode | string)[] = []
     for (const str of strs) {
-      if (str.search(REG[0]) !== -1) {
+      if (str.search(REG[0]!) !== -1) {
         // [name](url)
-        const match = (str.match(REG[0]) as RegExpMatchArray)[0]
+        const match = (str.match(REG[0]!) as RegExpMatchArray)[0]
         const name = (match.match(/\[.+\]/) as RegExpMatchArray)[0]
           .replace(/^\[/, '')
           .replace(/\]$/, '')
@@ -183,9 +183,9 @@ const main = async (url: string) => {
             childrenList.push(h(NA, { href: url, target: '_blank' }, { default: () => name }))
           childrenList = childrenList.concat(parseLink(value))
         })
-      } else if (str.search(REG[1]) !== -1) {
+      } else if (str.search(REG[1]!) !== -1) {
         // <url>
-        const match = (str.match(REG[1]) as RegExpMatchArray)[0]
+        const match = (str.match(REG[1]!) as RegExpMatchArray)[0]
         const url = (match.match(/<http(s)?:\/\/.+>/) as RegExpMatchArray)[0]
           .replace(/^</, '')
           .replace(/>$/, '')
@@ -251,8 +251,8 @@ const main = async (url: string) => {
     if (
       elem.type === 'tag' &&
       elem.name === 'p' &&
-      elem.children[0].type === 'text' &&
-      elem.children[0].data.search(/!!! note ".*"/) !== -1
+      elem.children[0]!.type === 'text' &&
+      elem.children[0]!.data.search(/!!! note ".*"/) !== -1
     ) {
       return
     }

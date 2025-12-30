@@ -15,7 +15,7 @@ const createDir = async (
   files: string[],
 ): Promise<FileSystemDirectoryHandle> => {
   if (files.length === 0) return dirHandle
-  const newDirHandle = await dirHandle.getDirectoryHandle(files[0], {
+  const newDirHandle = await dirHandle.getDirectoryHandle(files[0]!, {
     create: true,
   })
   if (files.length > 1) {

@@ -64,7 +64,7 @@ for (const i of data.menuData) {
 }
 
 for (const fileName in data.searchData) {
-  const [filesName, tagName] = data.searchData[fileName]
+  const [filesName, tagName] = data.searchData[fileName]!
 
   if (tagName === null) {
     // 无 Tag

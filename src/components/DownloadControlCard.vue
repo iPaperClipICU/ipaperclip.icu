@@ -81,7 +81,7 @@ const getAllData = () => {
       .replace('FILES:', '')
       .split('/')
       .filter((v) => v !== '')
-    const filesData = publicStore.data.data[filesName]
+    const filesData = publicStore.data.data[filesName!]!
     if (Array.isArray(filesData)) {
       // 无tag
       filesData.forEach((fileName) => {
@@ -89,7 +89,7 @@ const getAllData = () => {
       })
     } else {
       // 有tag
-      filesData[tagName].forEach((fileName) => {
+      filesData[tagName!]!.forEach((fileName) => {
         t.push(`/${filesName}/${tagName}/${fileName}`)
       })
     }
@@ -99,7 +99,7 @@ const getAllData = () => {
     if (!['undefined', 'null'].includes(keyword) && keyword.replace(/\s+/g, '') !== '') {
       for (const fileName in publicStore.data.searchData) {
         if (fileName.toLocaleLowerCase().indexOf(keyword) != -1) {
-          const [filesName, tagName] = publicStore.data.searchData[fileName]
+          const [filesName, tagName] = publicStore.data.searchData[fileName]!
           t.push(`/${filesName}${tagName !== null ? `/${tagName}` : ''}/${fileName}`)
         }
       }

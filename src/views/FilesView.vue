@@ -31,7 +31,7 @@ const getFilesData = () => {
     .filter((value) => value !== '')
 
   const filesName = pathList[0]
-  const filesData = publicStore.data.data[filesName]
+  const filesData = publicStore.data.data[filesName!]!
   if (Array.isArray(filesData)) {
     // 无Tag
     filesListData.value = filesData.map((value) => ({
@@ -42,7 +42,7 @@ const getFilesData = () => {
   } else {
     // 有Tag
     const tagName = pathList[1]
-    const tagData = filesData[tagName]
+    const tagData = filesData[tagName!]!
     filesListData.value = tagData.map((value) => ({
       uri: `/${filesName}/${tagName}/${value}`,
       ...getFileInfo(value),

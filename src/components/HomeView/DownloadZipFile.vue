@@ -26,11 +26,11 @@
   >
     <div>请注意磁盘剩余空间及网络环境</div>
     <div>
-      下载链接: <n-text code>{{ list[selectNum].url }}</n-text>
+      下载链接: <n-text code>{{ list[selectNum]!.url }}</n-text>
     </div>
-    <div>文件大小: {{ list[selectNum].size }}</div>
+    <div>文件大小: {{ list[selectNum]!.size }}</div>
     <div>
-      SHA-256: <n-text code>{{ list[selectNum].sha256 }}</n-text>
+      SHA-256: <n-text code>{{ list[selectNum]!.sha256 }}</n-text>
     </div>
     <div style="display: flex; justify-content: end; margin-top: 8px">
       <n-button secondary strong size="small" type="info" @click="downloadVideoButtonClick('')">
