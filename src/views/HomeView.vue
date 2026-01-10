@@ -6,6 +6,24 @@
       <download-zip-file />
     </div>
     <div class="item">
+      <n-h2>基本操作备份站</n-h2>
+      <div>
+        <n-button
+          size="small"
+          strong
+          secondary
+          type="primary"
+          tag="a"
+          href="https://jbcz.ipaperclip.icu"
+          target="_blank"
+        >
+          点击前往
+        </n-button>
+      </div>
+      <n-p>如遇问题可以尝试刷新</n-p>
+      <n-p>大部分功能可用, 部分功能可能因为各种原因无法使用</n-p>
+    </div>
+    <div class="item">
       <n-h2>关于文字稿</n-h2>
       <n-p
         >来源:
@@ -94,7 +112,7 @@
 </template>
 
 <script setup lang="ts">
-import { NA, NP, NGi, NH2, NCard, NGrid, NText } from 'naive-ui'
+import { NA, NP, NGi, NH2, NCard, NGrid, NText, NButton } from 'naive-ui'
 
 import DownloadZipFile from '@/components/HomeView/DownloadZipFile.vue'
 import RequestsInfoShowcase from '@/components/HomeView/RequestsInfoShowcase.vue'
