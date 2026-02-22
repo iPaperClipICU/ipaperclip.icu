@@ -25,13 +25,14 @@ const publicStore = usePublicStore()
 const tag = ref<string | undefined>(undefined)
 
 const filesListData = ref<FilesListData | undefined>(undefined)
-const getFilesData = () => {
-  const pathList = decodeURI(location.pathname)
+const getFilesData = (pathname: string) => {
+  const pathList = decodeURI(pathname)
     .split('/')
     .filter((value) => value !== '')
 
   const filesName = pathList[0]
-  const filesData = publicStore.data.data[filesName!]!
+  const filesData = publicStore.data.data[filesName!]
+  if (!filesData) return
   if (Array.isArray(filesData)) {
     // 无Tag
     filesListData.value = filesData.map((value) => ({
@@ -42,7 +43,8 @@ const getFilesData = () => {
   } else {
     // 有Tag
     const tagName = pathList[1]
-    const tagData = filesData[tagName!]!
+    const tagData = filesData[tagName!]
+    if (!tagData) return
     filesListData.value = tagData.map((value) => ({
       uri: `/${filesName}/${tagName}/${value}`,
       ...getFileInfo(value),
@@ -50,8 +52,8 @@ const getFilesData = () => {
     tag.value = tagName
   }
 }
-getFilesData()
+getFilesData(location.pathname)
 router.afterEach((to) => {
-  if (String(to.name).startsWith('FILES:')) getFilesData()
+  if (String(to.name).startsWith('FILES:')) getFilesData(to.path)
 })
 </script>
