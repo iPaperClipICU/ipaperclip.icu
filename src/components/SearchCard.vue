@@ -72,6 +72,7 @@ import { tinykeys } from 'tinykeys'
 // import tinykeys from '../../node_modules/tinykeys/'
 
 import router from '@/router'
+import { to } from '@/assets/utils'
 import SearchICON from '@/ICON/SearchICON.vue'
 import { useUrlSearchParams } from '@vueuse/core'
 
@@ -141,7 +142,7 @@ const searchButtonClick = () => {
   showModal.value = false
   // unbindKeyEnter()
   emit('change')
-  router.push(`/search?s=${searchValue.value}`)
+  to(`/search?s=${searchValue.value}`)
 }
 </script>
 

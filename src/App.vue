@@ -31,7 +31,7 @@
                   @click="
                     (e) => {
                       e.preventDefault()
-                      $router.push('/jbcz')
+                      to('/jbcz')
                     }
                   "
                   text
@@ -80,6 +80,7 @@ import {
 import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from 'naive-ui' // NaiveUI Config
 
 import { usePublicStore, useDownloadStore } from './stores'
+import { to } from '@/assets/utils'
 
 import HeadComponent from '@/components/HeadComponent.vue'
 import MenuComponent from '@/components/MenuComponent.vue'

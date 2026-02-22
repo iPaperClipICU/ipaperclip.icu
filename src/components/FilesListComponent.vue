@@ -19,7 +19,7 @@
       </template>
       <div
         style="height: 30px; display: flex; align-items: center; gap: 5px"
-        @click="router.push(value.uri)"
+        @click="to(value.uri)"
       >
         <FilesTypeICON v-if="value.type !== undefined" :type="value.type" />
         <span class="files-name">{{ value.name }}</span>
@@ -39,9 +39,9 @@ import { useUrlSearchParams } from '@vueuse/core'
 import { NList, NListItem, NCheckbox } from 'naive-ui'
 import { ref, watch, computed, type PropType } from 'vue'
 
-import router from '@/router'
 import { useDownloadStore, usePublicStore } from '@/stores'
 import type { FilesListData } from '@/types'
+import { to } from '@/assets/utils'
 
 import FilesTypeICON from '@/ICON/FilesTypeICON.vue'
 

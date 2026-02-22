@@ -13,7 +13,7 @@
     >
       <MenuICON />
     </n-icon>
-    <span class="siteName" @click="() => router.push('/')">iPaperClipICU</span>
+    <span class="siteName" @click="() => to('/')">iPaperClipICU</span>
     <div v-if="publicStore.deviceType === 'pc'">
       <SearchCard :mode="true" />
     </div>
@@ -36,11 +36,11 @@
 import { ref } from 'vue'
 import { NIcon, NDrawer, NDrawerContent } from 'naive-ui'
 
-import router from '@/router'
 import { usePublicStore } from '@/stores'
 
 import MenuICON from '@/ICON/MenuICON.vue'
 
+import { to } from '@/assets/utils'
 import SearchCard from './SearchCard.vue'
 import MenuComponent from '@/components/MenuComponent.vue'
 

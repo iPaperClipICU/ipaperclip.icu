@@ -106,5 +106,9 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to) => {
   if (to.fullPath !== '/') NaiveUIDiscreteAPI.loadingBar.finish()
 })
+router.onError((e) => {
+  console.error(e)
+  NaiveUIDiscreteAPI.loadingBar.error()
+})
 
 export default router
