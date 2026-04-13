@@ -99,9 +99,8 @@ router.beforeEach((to) => {
 })
 
 // 加载进度条
-router.beforeEach((to, from, next) => {
+router.beforeEach((to) => {
   if (to.fullPath !== '/') NaiveUIDiscreteAPI.loadingBar.start()
-  next()
 })
 router.afterEach((to) => {
   if (to.fullPath !== '/') NaiveUIDiscreteAPI.loadingBar.finish()
