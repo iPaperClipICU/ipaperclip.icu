@@ -42,6 +42,7 @@ import { getFileInfo } from '@/assets/utils'
 
 import FileComponent from '@/components/FileComponent.vue'
 import MarkdownPlayer from '@/components/MarkdownPlayer.vue'
+import { r2Domain } from '@/assets/utils/getR2Domain'
 
 const publicStore = usePublicStore()
 
@@ -78,7 +79,7 @@ const radioOption: {
   },
   {
     label: 'Cloudflare',
-    value: 'https://r2.ipaperclip.icu',
+    value: 'https://' + r2Domain,
   },
 ]
 const radioChange = (value: string) => {
@@ -86,6 +87,6 @@ const radioChange = (value: string) => {
   localStorage.setItem('CDNDomain', value)
 }
 const download = () => {
-  window.open(`https://r2.ipaperclip.icu/${fileData.value.fileUri}`)
+  window.open(`https://${r2Domain}/${fileData.value.fileUri}`)
 }
 </script>

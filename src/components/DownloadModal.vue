@@ -149,6 +149,7 @@ import {
 } from 'naive-ui'
 import axios from 'axios'
 import FileControl from '@/assets/FileControl.js'
+import { r2Domain } from '@/assets/utils/getR2Domain'
 
 const props = defineProps({
   data: {
@@ -238,7 +239,7 @@ const download = async () => {
 
     controller = new AbortController()
     const resp = await axios({
-      url: `https://r2.ipaperclip.icu/video${fileHref}`,
+      url: `https://${r2Domain}/video${fileHref}`,
       method: 'GET',
       responseType: 'blob',
       signal: controller.signal,

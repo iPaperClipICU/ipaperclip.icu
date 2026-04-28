@@ -15,7 +15,7 @@
 
 ## 网站
 
-视频、文字稿归档: [ipaperclip.icu](https://ipaperclip.icu/)  
+视频、文字稿归档: [ipaperclip.icu](https://ipaperclip.icu/) | [ipaperclip.cfm.moe](https://ipaperclip.cfm.moe)
 
 ## 联系我
 

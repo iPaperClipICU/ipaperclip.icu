@@ -1,6 +1,12 @@
 <template>
   <n-card size="small" hoverable>
-    <n-p>👋 He, 这里是 ipaperclip.icu</n-p>
+    <n-p>👋 He, 这里是 {{ hostname }}</n-p>
+    <div class="item">
+      <n-p
+        >你可以通过 <n-a href="https://ipaperclip.icu">ipaperclip.icu</n-a> 或
+        <n-a href="https://ipaperclip.cfm.moe">ipaperclip.cfm.moe</n-a> 访问</n-p
+      >
+    </div>
     <div class="item">
       <n-h2>下载压缩文件</n-h2>
       <download-zip-file />
@@ -84,7 +90,7 @@
       <n-grid cols="1 345:2" :x-gap="5" :y-gap="5" style="min-height: 90px">
         <n-gi span="1">
           <img
-            src="https://r2.ipaperclip.icu/rip1.webp"
+            :src="`https://${r2Domain}/rip1.webp`"
             alt="rip1"
             loading="lazy"
             style="width: 100%"
@@ -92,7 +98,7 @@
         </n-gi>
         <n-gi span="1">
           <img
-            src="https://r2.ipaperclip.icu/rip2.webp"
+            :src="`https://${r2Domain}/rip2.webp`"
             alt="rip2"
             loading="lazy"
             style="width: 100%"
@@ -114,8 +120,12 @@
 <script setup lang="ts">
 import { NA, NP, NGi, NH2, NCard, NGrid, NText, NButton } from 'naive-ui'
 
+import { r2Domain } from '@/assets/utils/getR2Domain'
+
 import DownloadZipFile from '@/components/HomeView/DownloadZipFile.vue'
 import RequestsInfoShowcase from '@/components/HomeView/RequestsInfoShowcase.vue'
+
+const hostname = location.hostname
 </script>
 
 <style>

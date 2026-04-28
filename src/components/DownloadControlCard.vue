@@ -23,7 +23,7 @@
       <n-space align="center" justify="end">
         <n-tooltip trigger="hover">
           <template #trigger>
-            <n-button strong secondary tag="a" href="https://r2.ipaperclip.icu/zip/ALL_221205.7z">
+            <n-button strong secondary tag="a" :href="`https://${r2Domain}/zip/ALL_221205.7z`">
               下载全部文件
             </n-button>
           </template>
@@ -57,6 +57,7 @@ import { NCard, NSpace, NButton, NButtonGroup, NTooltip } from 'naive-ui'
 import router from '@/router'
 import { useDownloadStore, usePublicStore } from '@/stores'
 import NaiveUIDiscreteAPI from '@/assets/NaiveUIDiscreteAPI'
+import { r2Domain } from '@/assets/utils/getR2Domain'
 
 import DownloadModal from '@/components/DownloadModal.vue'
 

@@ -85,6 +85,7 @@ import { to } from '@/assets/utils'
 import HeadComponent from '@/components/HeadComponent.vue'
 import MenuComponent from '@/components/MenuComponent.vue'
 import DownloadControlCard from '@/components/DownloadControlCard.vue'
+import { r2Domain } from './assets/utils/getR2Domain'
 
 const version = import.meta.env.CF_PAGES_COMMIT_SHA.slice(0, 7)
 const publicStore = usePublicStore()
@@ -104,7 +105,7 @@ const initShowSomething = async () => {
   const resp = await fetch('/test')
   if (resp.headers.get('show-something') !== 'false') {
     publicStore.showSomething = true
-    publicStore.CDNDomain = 'https://r2.ipaperclip.icu'
+    publicStore.CDNDomain = `https://${r2Domain}`
   }
 }
 initShowSomething()

@@ -55,6 +55,7 @@ import { load as cheerioLoad } from 'cheerio'
 import showdown from 'showdown'
 // import type { ChildNode } from "domhandler/lib/node";
 import type { ChildNode } from '../../node_modules/domhandler/lib/esm/node'
+import { r2Domain } from '@/assets/utils/getR2Domain'
 
 const showAbout = ref<boolean>(false)
 const showError = ref<boolean>(false)
@@ -78,7 +79,7 @@ const getNewMdText = async (url: string) => {
     let mdText = await resp.text()
     mdText = mdText.replace(
       new RegExp('https://cdn.jsdelivr.net/gh/just-prog/static/image/', 'g'),
-      'https://r2.ipaperclip.icu/doc-image/',
+      `https://${r2Domain}/doc-image/`,
     )
     return mdText
   } catch (e) {

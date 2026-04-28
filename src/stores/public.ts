@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 
 import data from '@/assets/data.json'
 import type { Data } from '@/types'
+import { r2Domain } from '@/assets/utils/getR2Domain'
 
 interface State {
   deviceType: 'pc' | 'phone'
@@ -35,7 +36,7 @@ export const usePublicStore = defineStore('public', {
     //     return CDNDomainList[1]
     //   } else return local
     // })(),
-    CDNDomain: 'https://r2.ipaperclip.icu',
+    CDNDomain: 'https://' + r2Domain,
   }),
   actions: {
     changePageSize(value: number) {
