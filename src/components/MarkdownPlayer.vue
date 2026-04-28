@@ -71,9 +71,13 @@ const props = defineProps({
 
 const getNewMdText = async (url: string) => {
   try {
+    const hostname = (() => {
+      if (location.hostname === 'ipaperclip.cfm.moe') return 'ipaperclip-doc-file.cfm.moe'
+      else return 'doc-file.ipaperclip.icu'
+    })()
     const newUrl = url.replace(
       'https://cdn.jsdelivr.net/gh/iPaperClipICU/paperclip-doc/',
-      'https://doc-file.ipaperclip.icu/',
+      `https://${hostname}/`,
     )
     const resp = await fetch(newUrl)
     let mdText = await resp.text()
@@ -110,7 +114,9 @@ const main = async (url: string) => {
     showError.value = true
     return
   }
-  mdText = mdText.replace(/\r/g, '')
+  mdText = mdText
+    .replace(/\r/g, '')
+    .replaceAll('https://r2.ipaperclip.icu/', `https://${r2Domain}/`)
 
   // const footerReg = /\[\^\d\]:\n[^[]+/;
   const footerReg = /\^\d\]:\r?\n?[^^]+/g
