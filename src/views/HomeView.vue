@@ -12,7 +12,7 @@
       <download-zip-file />
     </div>
     <div class="item">
-      <n-h2>基本操作备份站</n-h2>
+      <n-h2>基本操作 Playground</n-h2>
       <div>
         <n-button
           size="small"
@@ -23,11 +23,36 @@
           href="https://jbcz.ipaperclip.icu"
           target="_blank"
         >
-          点击前往
+          点击前往备份站
         </n-button>
       </div>
       <n-p>如遇问题可以尝试刷新</n-p>
       <n-p>大部分功能可用, 部分功能可能因为各种原因无法使用</n-p>
+      <n-h3>密码朋克随身手册</n-h3>
+      <div style="display: flex; gap: 5px">
+        <n-button
+          size="small"
+          strong
+          secondary
+          type="primary"
+          tag="a"
+          :href="`https://${r2Domain}/CypherpunkHandbook.pdf`"
+          target="_blank"
+        >
+          点击下载
+        </n-button>
+        <n-button
+          size="small"
+          strong
+          secondary
+          type="primary"
+          tag="a"
+          href="https://archive.org/details/cypherpunk-handbook"
+          target="_blank"
+        >
+          前往互联网档案馆查看
+        </n-button>
+      </div>
     </div>
     <div class="item">
       <n-h2>关于文字稿</n-h2>
@@ -118,7 +143,7 @@
 </template>
 
 <script setup lang="ts">
-import { NA, NP, NGi, NH2, NCard, NGrid, NText, NButton } from 'naive-ui'
+import { NA, NP, NGi, NH2, NCard, NGrid, NText, NButton, NH3 } from 'naive-ui'
 
 import { r2Domain } from '@/assets/utils/getR2Domain'
 
@@ -150,5 +175,8 @@ div.item:last-child {
 }
 div.item {
   margin: 0 0 15px 0;
+}
+.n-h3 {
+  margin: 0 0 8px 0 !important;
 }
 </style>
