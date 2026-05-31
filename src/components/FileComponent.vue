@@ -24,33 +24,13 @@
       <media-community-skin default-appearance></media-community-skin>
     </media-player>
   </div>
-  <n-card v-if="showCaptchaRetryCard && remoteSign" size="small" style="margin-bottom: 3px">
-    无法正常播放视频？试试<n-button
-      size="tiny"
-      style="margin: 0 5px"
-      @click="updatePlayUrl(data, publicStore.CDNDomain)"
-      >重新进行人机校验</n-button
-    >
-  </n-card>
-  <n-modal
-    v-model:show="showModal"
-    preset="card"
-    title="请完成人机验证"
-    :mask-closable="false"
-    style="width: 400px"
-  >
-    <div id="captcha-vaptcha" style="min-height: 36px">
-      <div>加载中~</div>
-    </div>
-  </n-modal>
 </template>
 
 <script setup lang="ts">
-import { NGi, NCard, NGrid, NModal, NButton } from 'naive-ui'
-import { ref, watch, onMounted, nextTick, onBeforeUnmount, type PropType } from 'vue'
+import { NGi, NGrid } from 'naive-ui'
+import { computed, onMounted, type PropType } from 'vue'
 
 import type { FileData } from '@/types'
-import { getSign } from '@/assets/utils'
 import { usePublicStore } from '@/stores'
 
 // Vidstack
@@ -65,44 +45,8 @@ const props = defineProps({
   },
 })
 const publicStore = usePublicStore()
-const remoteSign = import.meta.env.TencentCDN_RemoteSign === 'true'
 
-const showCaptchaRetryCard = ref<boolean>(false)
-const showModal = ref<boolean>(false)
-const playUrl = ref<string>()
-let timeoutIds: (string | number | NodeJS.Timeout | undefined)[] = []
-onBeforeUnmount(() => {
-  for (const i of timeoutIds) clearTimeout(i)
-  timeoutIds = []
-})
-const updatePlayUrl = async (data: FileData, CDNDomain: string) => {
-  for (const i of timeoutIds) clearTimeout(i)
-  timeoutIds = []
-  const fileUrl = `${CDNDomain}/${data.fileUri}`
-  const u = new URL(fileUrl)
-  const result = await getSign(fileUrl, showModal)
-  if (result) playUrl.value = result
-  showCaptchaRetryCard.value = u.host === 'ipaperclip-file.cfm.fan'
-  if (result) {
-    timeoutIds.push(
-      setTimeout(async () => {
-        const player = document.querySelector('media-player') as any
-        const nowCurrentTime = player.currentTime as number
-        await updatePlayUrl(props.data, publicStore.CDNDomain)
-        await defineCustomElements()
-        await nextTick()
-        const newPlayer = document.querySelector('media-player') as any
-        newPlayer.addEventListener('can-play', () => {
-          newPlayer.currentTime = nowCurrentTime
-        })
-      }, 600000),
-    )
-  }
-}
-watch([props, publicStore], async ([props, publicStore]) => {
-  await updatePlayUrl(props.data, publicStore.CDNDomain)
-})
-updatePlayUrl(props.data, publicStore.CDNDomain)
+const playUrl = computed(() => `${publicStore.CDNDomain}/${props.data.fileUri}`)
 
 onMounted(async () => {
   if (props.data.type === 'audio' || props.data.type === 'video') {
@@ -134,7 +78,9 @@ onMounted(async () => {
     }
     try {
       const skin = document.querySelector('media-community-skin') as any
-      skin.translations = SPANISH
+      if (skin) {
+        skin.translations = SPANISH
+      }
     } catch (e) {
       console.error(e)
     }
