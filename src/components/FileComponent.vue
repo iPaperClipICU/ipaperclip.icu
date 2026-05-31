@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import { NGi, NGrid } from 'naive-ui'
-import { computed, onMounted, type PropType } from 'vue'
+import { computed, onBeforeUnmount, onMounted, type PropType } from 'vue'
 
 import type { FileData } from '@/types'
 import { usePublicStore } from '@/stores'
@@ -47,6 +47,11 @@ const props = defineProps({
 const publicStore = usePublicStore()
 
 const playUrl = computed(() => `${publicStore.CDNDomain}/${props.data.fileUri}`)
+
+onBeforeUnmount(() => {
+  const player = document.querySelector('media-player')
+  if (player) player.remove()
+})
 
 onMounted(async () => {
   if (props.data.type === 'audio' || props.data.type === 'video') {
