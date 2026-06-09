@@ -95,13 +95,16 @@ const os: 'Mobile' | 'Mac' | 'Other' = (() => {
   else return 'Other'
 })()
 const showModal = ref<boolean>(false)
+
+// 单一 useUrlSearchParams 实例
+const searchParams = useUrlSearchParams('history')
+
 const searchValue = ref<string>(
   (() => {
     if (location.pathname !== '/search') {
       return ''
     } else {
-      const params = useUrlSearchParams('history')
-      return params.s ? String(params.s).toLocaleLowerCase() : ''
+      return searchParams.s ? String(searchParams.s).toLocaleLowerCase() : ''
     }
   })(),
 )

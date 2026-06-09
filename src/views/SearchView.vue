@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { NEmpty, NCard } from 'naive-ui'
 import { useUrlSearchParams } from '@vueuse/core'
 
@@ -30,15 +30,9 @@ const publicStore = usePublicStore()
 
 const searchResult = ref<FilesListData | undefined>(undefined)
 
-const init = () => {
-  const params = useUrlSearchParams('history')
-  const KeyWord = String(params.s).toLocaleLowerCase()
+// 单一 useUrlSearchParams 实例
+const searchParams = useUrlSearchParams('history')
 
-  search(KeyWord)
-}
-router.afterEach((to, from) => {
-  if (from.name === 'Search' && to.name === 'Search') init()
-})
 const search = (keyword: string) => {
   if (keyword === 'undefined' || keyword === 'null' || keyword.replace(/\s+/g, '') === '') {
     // 没有搜索关键字
@@ -58,5 +52,18 @@ const search = (keyword: string) => {
   }
   searchResult.value = result
 }
-init()
+
+// 初始搜索 & URL 参数变化时重新搜索
+watch(
+  () => searchParams.s,
+  (newVal) => {
+    search(String(newVal).toLocaleLowerCase())
+  },
+  { immediate: true },
+)
+router.afterEach((to, from) => {
+  if (from.name === 'Search' && to.name === 'Search') {
+    search(String(searchParams.s).toLocaleLowerCase())
+  }
+})
 </script>

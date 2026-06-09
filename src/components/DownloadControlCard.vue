@@ -65,6 +65,9 @@ const route = useRoute()
 const publicStore = usePublicStore()
 const downloadStore = useDownloadStore()
 
+// 单一 useUrlSearchParams 实例，读取分页参数
+const searchParams = useUrlSearchParams('history')
+
 const downloadModal = ref<boolean>(false)
 
 const downloadButtonClick = () => {
@@ -95,7 +98,6 @@ const getAllData = () => {
       })
     }
   } else if (routeName === 'Search') {
-    const searchParams = useUrlSearchParams('history')
     const keyword = String(searchParams.s || '').toLocaleLowerCase()
     if (!['undefined', 'null'].includes(keyword) && keyword.replace(/\s+/g, '') !== '') {
       for (const fileName in publicStore.data.searchData) {
@@ -118,7 +120,6 @@ router.afterEach(() => (allData.value = getAllData()))
  */
 const selectAll = (at: boolean, remove: boolean = false) => {
   if (allData.value.length <= 0) return
-  const searchParams = useUrlSearchParams('history')
   const p = Number(searchParams.p || 1)
   const pageSize = publicStore.pageSize
 

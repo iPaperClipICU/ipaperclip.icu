@@ -69,30 +69,40 @@ const nowPagesData = computed((): FilesListData[] =>
   groupArray(props.filesListData, publicStore.pageSize),
 )
 
+// 单一 useUrlSearchParams 实例，避免创建多个实例导致 reactive loop
+const searchParams = useUrlSearchParams('history')
+
 const nowPage = ref<number>(
   (() => {
-    const searchParams = useUrlSearchParams('history')
     let p = Number(searchParams.p)
     if (Number.isNaN(p) || p < 1 || p > nowPagesData.value.length) {
-      searchParams.p = '1'
       p = 1
     }
     return p
   })(),
 ) // 当前页
 const pageCount = computed(() => nowPagesData.value.length) // 总页数
+
+// 同步 nowPage → URL（仅在值实际变化时写入，避免无效的 replaceState 调用）
 watch(nowPage, (value) => {
-  const searchParams = useUrlSearchParams('history')
-  searchParams.p = String(value)
-}) // 同步更新uri
+  if (String(searchParams.p) !== String(value)) {
+    searchParams.p = String(value)
+  }
+})
+
+// 更新 pageSize 或 filesListData 变化时，修正 nowPage 越界
 watch(nowPagesData, (value) => {
   if (nowPage.value > value.length) nowPage.value = value.length
-}) // 更新pageSize时触发
-watch(props, () => {
-  nowPage.value = 1
-  const searchParams = useUrlSearchParams()
-  searchParams.p = '1'
-}) // props.filesData 更新时触发
+})
+
+// filesListData 变化时（切换到不同文件夹），重置到第 1 页
+// 仅 watch 引用变化（非 deep），避免与 router.afterEach 形成无限循环
+watch(
+  () => props.filesListData,
+  () => {
+    nowPage.value = 1
+  },
+)
 </script>
 
 <style scoped>
