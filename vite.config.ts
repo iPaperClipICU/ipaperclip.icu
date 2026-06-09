@@ -4,6 +4,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { minify } from 'html-minifier'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
+import { vite as vidstack } from 'vidstack/plugins'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -48,7 +49,14 @@ export default defineConfig({
   },
   envPrefix: ['VITE_', 'TencentCDN_', 'CF_PAGES'],
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith('media-'),
+        },
+      },
+    }),
+    vidstack(),
     vueDevTools(),
     visualizer(),
     {

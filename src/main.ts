@@ -5,10 +5,6 @@ import App from './App.vue'
 import router from './router'
 
 import '@/assets/public.css'
-// Vidstack
-import 'vidstack/styles/defaults.css'
-import 'vidstack/styles/community-skin/audio.css'
-import 'vidstack/styles/community-skin/video.css'
 
 const app = createApp(App)
 
