@@ -36,26 +36,26 @@
 </template>
 
 <script setup lang="ts">
-import { h, onMounted, ref, type VNode } from 'vue'
+import { load as cheerioLoad } from 'cheerio'
 import {
   NA,
-  NP,
+  NAlert,
+  NButton,
+  NCard,
+  NDivider,
   // NH1,
   NLi,
-  NOl,
-  NCard,
-  NAlert,
   NModal,
-  NButton,
+  NOl,
+  NP,
   NResult,
-  NDivider,
   NSkeleton,
 } from 'naive-ui'
-import { load as cheerioLoad } from 'cheerio'
 import showdown from 'showdown'
+import { h, onMounted, ref, type VNode } from 'vue'
 // import type { ChildNode } from "domhandler/lib/node";
-import type { ChildNode } from '../../node_modules/domhandler/lib/esm/node'
 import { r2Domain } from '@/assets/utils/getR2Domain'
+import type { ChildNode } from '../../node_modules/domhandler/lib/esm/node'
 
 const showAbout = ref<boolean>(false)
 const showError = ref<boolean>(false)
@@ -86,7 +86,7 @@ const getNewMdText = async (url: string) => {
       `https://${r2Domain}/doc-image/`,
     )
     return mdText
-  } catch (e) {
+  } catch {
     return null
   }
 }
@@ -99,7 +99,7 @@ const getMdText = async (url: string) => {
     } else {
       mdText = await resp.text()
     }
-  } catch (e) {
+  } catch {
     mdText = await getNewMdText(url)
   }
   return mdText

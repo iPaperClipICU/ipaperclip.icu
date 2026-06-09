@@ -32,17 +32,16 @@
 </template>
 
 <script setup lang="ts">
+import { NH2, NSpace, NTag } from 'naive-ui'
 import { ref } from 'vue'
-import { NTag, NH2, NSpace, NRadio, NRadioGroup, NCard, NButton } from 'naive-ui'
 
-import router from '@/router'
-import type { FileData } from '@/types'
-import { usePublicStore } from '@/stores'
 import { getFileInfo } from '@/assets/utils'
+import router from '@/router'
+import { usePublicStore } from '@/stores'
+import type { FileData } from '@/types'
 
 import FileComponent from '@/components/FileComponent.vue'
 import MarkdownPlayer from '@/components/MarkdownPlayer.vue'
-import { r2Domain } from '@/assets/utils/getR2Domain'
 
 const publicStore = usePublicStore()
 
@@ -68,25 +67,25 @@ router.afterEach((to) => {
 })
 
 // Chang CDNDomain
-const radioValue = ref<string | null>(publicStore.CDNDomain)
-const radioOption: {
-  label: string
-  value: string
-}[] = [
-  {
-    label: 'Auto',
-    value: 'https://ipaperclip-file.cfm.fan',
-  },
-  {
-    label: 'Cloudflare',
-    value: 'https://' + r2Domain,
-  },
-]
-const radioChange = (value: string) => {
-  publicStore.CDNDomain = value
-  localStorage.setItem('CDNDomain', value)
-}
-const download = () => {
-  window.open(`https://${r2Domain}/${fileData.value.fileUri}`)
-}
+// const radioValue = ref<string | null>(publicStore.CDNDomain)
+// const radioOption: {
+//   label: string
+//   value: string
+// }[] = [
+//   {
+//     label: 'Auto',
+//     value: 'https://ipaperclip-file.cfm.fan',
+//   },
+//   {
+//     label: 'Cloudflare',
+//     value: 'https://' + r2Domain,
+//   },
+// ]
+// const radioChange = (value: string) => {
+//   publicStore.CDNDomain = value
+//   localStorage.setItem('CDNDomain', value)
+// }
+// const download = () => {
+//   window.open(`https://${r2Domain}/${fileData.value.fileUri}`)
+// }
 </script>

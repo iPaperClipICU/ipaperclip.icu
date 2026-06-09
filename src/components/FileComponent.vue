@@ -24,13 +24,13 @@
 
 <script setup lang="ts">
 import { NGi, NGrid } from 'naive-ui'
-import { computed, onBeforeUnmount, onMounted, ref, type PropType } from 'vue'
+import { computed, onBeforeUnmount, ref, type PropType } from 'vue'
 
-import type { FileData } from '@/types'
 import { usePublicStore } from '@/stores'
+import type { FileData } from '@/types'
 
-import 'vidstack/bundle'
 import type { DefaultLayoutTranslations } from 'vidstack'
+import 'vidstack/bundle'
 import type { MediaPlayerElement } from 'vidstack/elements'
 
 const props = defineProps({

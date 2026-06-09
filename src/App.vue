@@ -66,25 +66,28 @@
 </template>
 
 <script setup lang="ts">
-import { NBackTop, NCollapseTransition } from 'naive-ui'
 import {
-  NA,
-  NP,
+  darkTheme,
   NAlert,
+  NBackTop,
   NButton,
+  NCollapseTransition,
+  NConfigProvider,
+  NGlobalStyle,
   NLayout,
+  NLayoutContent,
   NLayoutHeader,
   NLayoutSider,
-  NLayoutContent,
+  NP,
+  zhCN,
 } from 'naive-ui'
-import { zhCN, darkTheme, NGlobalStyle, NConfigProvider } from 'naive-ui' // NaiveUI Config
 
-import { usePublicStore, useDownloadStore } from './stores'
 import { to } from '@/assets/utils'
+import { useDownloadStore, usePublicStore } from './stores'
 
+import DownloadControlCard from '@/components/DownloadControlCard.vue'
 import HeadComponent from '@/components/HeadComponent.vue'
 import MenuComponent from '@/components/MenuComponent.vue'
-import DownloadControlCard from '@/components/DownloadControlCard.vue'
 import { r2Domain } from './assets/utils/getR2Domain'
 
 const version = import.meta.env.CF_PAGES_COMMIT_SHA.slice(0, 7)
