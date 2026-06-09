@@ -1,13 +1,13 @@
+import { sentryVitePlugin } from '@sentry/vite-plugin'
+import { minify } from 'html-minifier'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
-import { minify } from 'html-minifier'
 import { visualizer } from 'rollup-plugin-visualizer'
-import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { vite as vidstack } from 'vidstack/plugins'
 
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
 import d from './src/assets/data.json'
