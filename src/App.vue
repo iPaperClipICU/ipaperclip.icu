@@ -105,11 +105,13 @@ resizeEvent()
 
 // showSomething
 const initShowSomething = async () => {
-  const resp = await fetch('/test')
-  if (resp.headers.get('show-something') !== 'false') {
-    publicStore.showSomething = true
-    publicStore.CDNDomain = `https://${r2Domain}`
-  }
+  try {
+    const resp = await fetch('/test')
+    if (resp.headers.get('show-something') !== 'false') {
+      publicStore.showSomething = true
+      publicStore.CDNDomain = `https://${r2Domain}`
+    }
+  } catch {}
 }
 initShowSomething()
 </script>
