@@ -6,6 +6,13 @@ import router from './router'
 
 import '@/assets/public.css'
 
+window.addEventListener('unhandledrejection', (event) => {
+  if (event.reason?.name === 'AbortError') {
+    event.preventDefault()
+    console.debug('AbortError prevented (benign):', event.reason.message)
+  }
+})
+
 const app = createApp(App)
 
 if (import.meta.env.PROD) {
