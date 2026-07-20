@@ -21,7 +21,7 @@
     "@sentry/vue": "^10.56.0",
     "@vueuse/core": "^14.3.0",
     "@zip.js/zip.js": "^2.8.26",
-    "axios": "^1.17.0",
+    "axios": "^1.18.0",
     "cheerio": "^1.2.0",
     "crypto-js": "^4.2.0",
     "html-minifier": "^4.0.0",
